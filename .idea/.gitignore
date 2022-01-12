@@ -1,0 +1,5 @@
+*.iml
+/modules.xml
+/php.xml
+/workspace.xml
+/vcs.xml
