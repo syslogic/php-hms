@@ -8,7 +8,7 @@ jobs:
       name: CI
     steps:
       - uses: actions/checkout@v2
-      - uses: php-actions/composer@v5
+      # - uses: php-actions/composer@v5
 
       - name: 🔢 Run Unit Tests
         uses: php-actions/phpunit@v2
