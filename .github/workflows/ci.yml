@@ -11,9 +11,9 @@ jobs:
         uses: php-actions/phpunit@v2
         env:
           TEST_NAME: main
-          HUAWEI_CLIENT_ID: ${{ secrets.HUAWEI_CLIENT_ID }}
-          HUAWEI_CLIENT_SECRET: ${{ secrets.HUAWEI_CLIENT_SECRET }}
-          HUAWEI_UPLINK_HMAC: ${{ secrets.HUAWEI_UPLINK_HMAC }}
+          HUAWEI_CLIENT_ID: '${{ secrets.HUAWEI_CLIENT_ID }}'
+          HUAWEI_CLIENT_SECRET: '${{ secrets.HUAWEI_CLIENT_SECRET }}'
+          HUAWEI_UPLINK_HMAC: '${{ secrets.HUAWEI_UPLINK_HMAC }}'
         with:
           php_extensions: xdebug
           bootstrap: vendor/autoload.php
