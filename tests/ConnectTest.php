@@ -23,7 +23,7 @@ class ConnectTest extends TestCase {
             'client_id'     => (int)    getenv('HUAWEI_CLIENT_ID'),
             'client_secret' => (string) getenv('HUAWEI_CLIENT_SECRET')
         ] );
-        self::assertTrue( self::$client->is_ready(), 'Client is ready.');
+        self::assertTrue( self::$client->is_ready(), 'The client is not ready.');
     }
 
     /** Test: oAuth2 Token Refresh. */

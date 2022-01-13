@@ -25,6 +25,6 @@ class WrapperTest extends TestCase {
 
     /** Test: oAuth2 Token Refresh. */
     public function test_ready() {
-        self::assertTrue( self::$client->is_ready(), 'Client is ready.');
+        self::assertTrue( self::$client->is_ready(), 'The client is not ready.');
     }
 }
