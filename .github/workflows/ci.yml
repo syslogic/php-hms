@@ -16,5 +16,5 @@ jobs:
           HUAWEI_UPLINK_HMAC: ${{ secrets.HUAWEI_UPLINK_HMAC }}
         with:
           bootstrap: vendor/autoload.php
-          configuration: tests/phpunit.xml
+          configuration: ./phpunit.xml
           args: --coverage-text
