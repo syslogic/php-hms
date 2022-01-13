@@ -15,6 +15,7 @@ jobs:
           HUAWEI_CLIENT_SECRET: ${{ secrets.HUAWEI_CLIENT_SECRET }}
           HUAWEI_UPLINK_HMAC: ${{ secrets.HUAWEI_UPLINK_HMAC }}
         with:
+          php_extensions: xdebug
           bootstrap: vendor/autoload.php
           configuration: ./phpunit.xml
           args: --coverage-text
