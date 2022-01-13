@@ -15,10 +15,10 @@ jobs:
           php_extensions: xdebug
           bootstrap: vendor/autoload.php
           configuration: ./phpunit.xml
-          args: --coverage-text
+          args: --teamcity
         env:
-          XDEBUG_MODE: coverage
           TEST_NAME: main
+          XDEBUG_MODE: coverage
           HUAWEI_CLIENT_ID: ${{ secrets.HUAWEI_CLIENT_ID }}
           HUAWEI_CLIENT_SECRET: ${{ secrets.HUAWEI_CLIENT_SECRET }}
           HUAWEI_UPLINK_HMAC: ${{ secrets.HUAWEI_UPLINK_HMAC }}
