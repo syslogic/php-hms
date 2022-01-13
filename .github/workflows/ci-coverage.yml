@@ -7,11 +7,9 @@ jobs:
     environment:
       name: CI
     steps:
-      - name: 🔢 Disable TCP/UDP offload
-        run: |
-          sudo ethtool -K eth0 tx off rx off
       - uses: actions/checkout@v2
       - uses: php-actions/composer@v5
+
       - name: 🔢 Run Unit Tests
         uses: php-actions/phpunit@v2
         with:
@@ -25,3 +23,7 @@ jobs:
           HUAWEI_CLIENT_ID: ${{ secrets.HUAWEI_CLIENT_ID }}
           HUAWEI_CLIENT_SECRET: ${{ secrets.HUAWEI_CLIENT_SECRET }}
           HUAWEI_UPLINK_HMAC: ${{ secrets.HUAWEI_UPLINK_HMAC }}
+
+      - name: 🔢 List Directory
+        run: |
+          ls -la
