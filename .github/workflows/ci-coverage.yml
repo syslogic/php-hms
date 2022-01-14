@@ -14,7 +14,7 @@ jobs:
         with:
           php_extensions: xdebug
           bootstrap: vendor/autoload.php
-          configuration: ./phpunit.xml
+          configuration: ./coverage.xml
           args: --coverage-text
         env:
           TEST_NAME: main
