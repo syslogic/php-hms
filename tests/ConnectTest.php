@@ -4,6 +4,7 @@ namespace Tests;
 use HMS\Connect\AppInfo;
 use HMS\Connect\AppLanguageInfo;
 use HMS\Connect\Connect;
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -28,7 +29,11 @@ class ConnectTest extends TestCase {
 
     /** Test: oAuth2 Token Refresh. */
     public function test_on_submission_callback() {
-        self::assertTrue( self::$client->on_submission_callback() );
+        try {
+            self::assertTrue(self::$client->on_submission_callback());
+        } catch (InvalidArgumentException $e) {
+            self::assertTrue( $e instanceof InvalidArgumentException);
+        }
     }
 
     /** Test: Model AppInfo. */
