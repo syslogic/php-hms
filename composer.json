@@ -21,7 +21,8 @@
   "require": {
     "php": ">=8.0",
     "ext-json": "*",
-    "ext-curl": "*"
+    "ext-curl": "*",
+    "phpseclib/phpseclib": "^3.0.12"
   },
   "require-dev": {
     "phpunit/phpunit": "^9.5.11"
