@@ -123,7 +123,8 @@ class PushKit extends Wrapper {
     }
 
     #[ArrayShape(['validate_only' => "bool", 'message' => "object"])]
-    #[Pure]  private function get_payload_by_mode( string $mode, string|array $argument, string $title, string $body, string|null $image=null ): array {
+    #[Pure]
+    private function get_payload_by_mode( string $mode, string|array $argument, string $title, string $body, string|null $image=null ): array {
         if (! in_array( $mode , ['token', 'topic', 'condition'] ) ) {return [];}
         $notification = new Notification( $title, $body, $image );
         $android      = new ApnsNotification( $title, $body, $image );
@@ -142,7 +143,7 @@ class PushKit extends Wrapper {
         ];
     }
 
-        /**
+    /**
      * Querying Data as a Data Controller.
      *
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/query-data-api-0000001051066126">Querying Data as a Data Controller</a>
