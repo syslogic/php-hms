@@ -4,7 +4,7 @@
 
 This project is still in an early pre-alpha stage...
 
-so far [`PuskKit`](https://github.com/syslogic/php-hms/blob/master/src/PushKit) and [`Connect`](https://github.com/syslogic/php-hms/tree/master/src/Connect) API are being partially supported.
+so far [`PushKit`](https://github.com/syslogic/php-hms/blob/master/src/PushKit) and [`Connect`](https://github.com/syslogic/php-hms/tree/master/src/Connect) API are being partially supported.
 
 #### Installation:
 
