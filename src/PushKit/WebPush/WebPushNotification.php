@@ -2,6 +2,7 @@
 namespace HMS\PushKit\WebPush;
 
 use HMS\PushKit\Notification;
+use JetBrains\PhpStorm\Pure;
 
 /**
  * Class HMS PushKit WebPushNotification
@@ -13,7 +14,7 @@ class WebPushNotification extends Notification {
     protected array $mandatory_fields = ['title', 'body'];
     protected array $optional_fields  = ['image'];
 
-    public function __construct( string $title, string $body, string|null $image=null ) {
+    #[Pure] public function __construct(string $title, string $body, string|null $image=null ) {
         parent::__construct( $title, $body, $image );
     }
 

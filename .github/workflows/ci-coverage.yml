@@ -9,13 +9,13 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: php-actions/composer@v5
-      - name: 🔢 Run Unit Tests
+      - name: 🔢 Code Coverage
         uses: php-actions/phpunit@v2
         with:
           php_extensions: xdebug
           bootstrap: vendor/autoload.php
           configuration: ./phpunit.xml
-          args: --teamcity
+          # args: --teamcity
         env:
           TEST_NAME: main
           XDEBUG_MODE: coverage

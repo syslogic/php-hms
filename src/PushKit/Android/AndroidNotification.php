@@ -3,6 +3,7 @@
 namespace HMS\PushKit\Android;
 
 use HMS\PushKit\Notification;
+use JetBrains\PhpStorm\Pure;
 
 /**
  * Class HMS PushKit AndroidNotification
@@ -162,7 +163,7 @@ class AndroidNotification extends Notification {
      */
     private $foreground_show;
 
-    public function __construct( string $title, string $body, string|null $image=null ) {
+    #[Pure] public function __construct(string $title, string $body, string|null $image=null ) {
         parent::__construct( $title, $body, $image );
     }
 

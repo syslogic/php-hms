@@ -68,6 +68,7 @@ class PushKitTest extends TestCase {
         $result = self::$client->send_message_to_token( $this->test_token, 'Test Message', 'Test Body' );
         self::assertTrue($result instanceof stdClass );
         self::assertObjectHasAttribute('code', $result);
+        // self::assertTrue( $result->code === 80100003); // Illegal payload, No valid android notification payload when sending notification message to android users.
         self::assertTrue( $result->code === 80300007); // All the tokens are invalid
     }
 
@@ -88,6 +89,22 @@ class PushKitTest extends TestCase {
         self::assertObjectHasAttribute('code', $result);
         self::assertTrue( $result->code === 80100003); // Illegal payload, No valid android notification payload when sending notification message to android users.
         // self::assertTrue( $result->code === 80300007); // All the tokens are invalid
+    }
+
+    /** Test: Querying Data as a Data Controller. */
+    public function test_token_data_query() {
+        $result = self::$client->token_data_query( $this->test_token );
+        self::assertTrue($result instanceof stdClass );
+        self::assertObjectHasAttribute('code', $result);
+        self::assertTrue( $result->code === 82000012); // token is invalid
+    }
+
+    /** Test: Querying Data as a Data Controller. */
+    public function test_token_data_delete() {
+        $result = self::$client->token_data_delete( $this->test_token );
+        self::assertTrue($result instanceof stdClass );
+        self::assertObjectHasAttribute('code', $result);
+        self::assertTrue( $result->code === 82000012); // token is invalid
     }
 
     /** Test: Model ReceiptStatus. */
