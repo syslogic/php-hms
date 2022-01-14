@@ -6,9 +6,22 @@ This project is still in an early pre-alpha stage...
 
 so far [`PuskKit`](https://github.com/syslogic/php-hms/blob/master/src/PushKit) and [`Connect`](https://github.com/syslogic/php-hms/tree/master/src/Connect) API are being partially supported.
 
-#### Dependencies
-
 #### Installation
+
+The package is **not** yet available on Packagist. Once it is, that would be:
+
+    composer require syslogic/php-hms
+
+In the meanwhile, one can map name-space `HMS` eg. from directory `lib`:
+
+````
+"autoload": {
+  "psr-4": {
+    "App\\": "src/",
+    "HMS\\": "lib/php-hms/src/"
+  }
+}
+````
 
 #### Support
 
