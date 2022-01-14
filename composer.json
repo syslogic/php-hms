@@ -18,14 +18,15 @@
     "url": "https://github.com/sponsors/syslogic"
   }],
   "scripts": {
-    "test": "vendor/bin/phpunit",
+    "test": "export XDEBUG_MODE=debug && vendor/bin/phpunit --verbose",
     "coverage": "export XDEBUG_MODE=coverage && vendor/bin/phpunit --verbose --bootstrap vendor/autoload.php --testsuite main --coverage-text",
-    "post-update-cmd": "ls -la",
-    "post-package-install": [],
-    "post-install-cmd": [],
-    "post-autoload-dump": [],
-    "post-create-project-cmd": []
+    "post-update-cmd": "ls -la"
   },
+  "scripts-descriptions": {
+    "test": "Run phpunit tests",
+    "coverage": "Run phpunit tests with coverage",
+    "post-update-cmd": "Occurs after the update command has been executed, or after the install command has been executed without a lock file present."
+},
   "require": {
     "php": ">=8.0",
     "ext-json": "*",
