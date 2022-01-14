@@ -18,8 +18,7 @@ class ConnectTest extends TestCase {
 
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {
-        self::assertTrue( getenv('HUAWEI_CLIENT_ID')     != false, 'Variable HUAWEI_CLIENT_ID is not set.' );
-        self::assertTrue( getenv('HUAWEI_CLIENT_SECRET') != false, 'Variable HUAWEI_CLIENT_SECRET is not set.' );
+        parent::setUpBeforeClass();
         self::$client = new Connect( [
             'client_id'     => (int)    getenv('HUAWEI_CLIENT_ID'),
             'client_secret' => (string) getenv('HUAWEI_CLIENT_SECRET')

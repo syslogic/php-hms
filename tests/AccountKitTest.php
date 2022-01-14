@@ -9,18 +9,17 @@ use PHPUnit\Framework\TestCase;
  *
  * @author Martin Zeitler
  */
-class AccountKitTest extends TestCase {
+class AccountKitTest extends BaseTestCase {
 
     private static AccountKit|null $client;
 
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {
-        self::assertTrue( getenv('HUAWEI_CLIENT_ID')     != false, 'Variable HUAWEI_CLIENT_ID is not set.' );
-        self::assertTrue( getenv('HUAWEI_CLIENT_SECRET') != false, 'Variable HUAWEI_CLIENT_SECRET is not set.' );
+        parent::setUpBeforeClass();
         self::$client = new AccountKit( [
             'client_id'     => (int)    getenv('HUAWEI_CLIENT_ID'),
             'client_secret' => (string) getenv('HUAWEI_CLIENT_SECRET')
-        ] );
+        ] /* the default version is 3 */ );
     }
 
     /** Test: oAuth2 Token Refresh. */

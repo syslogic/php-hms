@@ -2,7 +2,7 @@
 namespace HMS\PushKit;
 
 /**
- * Class HMS PushKit Constants
+ * Class HMS PushKit Result Codes
  *
  * @see https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/https-send-api-0000001050986197
  * @author Martin Zeitler

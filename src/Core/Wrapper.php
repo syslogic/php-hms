@@ -13,7 +13,9 @@ class Wrapper {
 
     private string|null $url_token_refresh = Constants::URL_OAUTH2_TOKEN_REFRESH; // AccountKit uses the v3 endpoint.
     private string|null $access_token = null;
+    private string|null $id_token = null;
     private string|null $client_secret;
+    private string|null $token_scope;
     private int $token_expiry = 0;
     private int $client_id = 0;
 
@@ -21,8 +23,8 @@ class Wrapper {
 
     /** Constructor. */
     public function __construct( array $config, int $token_endpoint_version ) {
-        if (! in_array( $token_endpoint_version, [2, 3] ) ) {
-            $message = 'The token endpoint version must be either 2 or 3; provided value: ' . $token_endpoint_version;
+        if (! in_array( $token_endpoint_version, [1, 2, 3] ) ) {
+            $message = 'The token endpoint version must be either 1, 2, 3; provided: ' . $token_endpoint_version;
             throw new InvalidArgumentException( $message );
         }
         if ($token_endpoint_version == 2) { // PushKit uses the v2 endpoint.
@@ -73,13 +75,26 @@ class Wrapper {
 
     /** oAuth2 token refresh; $this->url_token_refresh either uses v2 or v3 endpoint. */
     private function token_refresh(): void {
-        $result = $this->curl_request('POST', $this->url_token_refresh,
-            [ 'grant_type' => 'client_credentials', 'client_id' => $this->client_id, 'client_secret' => $this->client_secret ],
-            [ 'Content-Type: application/x-www-form-urlencoded;charset=utf-8' ]
-        );
-        if ( is_object( $result ) && property_exists( $result, 'access_token' ) ) {
-            $this->token_expiry = time() + $result->expires_in;
-            $this->access_token = $result->access_token;
+        $result = $this->curl_request('POST', $this->url_token_refresh, [
+            'grant_type' => 'client_credentials',
+            'client_id' => $this->client_id,
+            'client_secret' => $this->client_secret
+        ], [
+            'Content-Type: application/x-www-form-urlencoded;charset=utf-8'
+        ]);
+        if ( is_object( $result ) ) {
+            if ( property_exists( $result, 'expires_in' ) ) {
+                $this->token_expiry = time() + $result->expires_in;
+            }
+            if ( property_exists( $result, 'access_token' ) ) {
+                $this->access_token = $result->access_token;
+            }
+            if ( property_exists( $result, 'scope' ) ) {
+                $this->token_scope = $result->scope;
+            }
+            if ( property_exists( $result, 'id_token' ) ) {
+                $this->id_token = $result->id_token;
+            }
         }
     }
 
