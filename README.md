@@ -1,4 +1,4 @@
-### Unofficial PHP SDK for Huawei REST API
+### Unofficial SDK for Huawei REST API
 
 #### Project Status:
 
