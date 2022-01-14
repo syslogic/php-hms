@@ -8,6 +8,7 @@
         <server name="X-HW-TIMESTAMP" value="1563105451261"/>
         -->
     </php>
+
     <coverage>
         <include>
             <directory suffix=".php">./src</directory>
@@ -17,10 +18,13 @@
             <text outputFile="php://stdout" showUncoveredFiles="true"/>
         </report>
     </coverage>
+
     <testsuites>
         <testsuite name="main">
             <directory suffix="Test.php">./tests</directory>
         </testsuite>
     </testsuites>
+
     <logging/>
+
 </phpunit>

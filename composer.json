@@ -19,6 +19,7 @@
   }],
   "scripts": {
     "test": "vendor/bin/phpunit",
+    "coverage": "export XDEBUG_MODE=coverage && vendor/bin/phpunit --verbose --bootstrap vendor/autoload.php --testsuite main --coverage-text",
     "post-update-cmd": "ls -la",
     "post-package-install": [],
     "post-install-cmd": [],

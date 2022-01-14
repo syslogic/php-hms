@@ -14,10 +14,10 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Validate composer.json and composer.lock
+    - name: 🔢 Validate composer.json and composer.lock
       run: composer validate --strict
 
-    - name: Cache Composer packages
+    - name: 🔢 Cache Composer packages
       id: composer-cache
       uses: actions/cache@v2
       with:
@@ -26,11 +26,13 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-php-
 
-    - name: Install dependencies
+    - name: 🔢 Install dependencies
       run: composer install --prefer-dist --no-progress
-      
-    - name: Run test suite
-      run: composer run-script test
+
+    - name: 🔢 Run test suite
+      run: composer run-script coverage
+      with:
+        php_extensions: xdebug
       env:
           TEST_NAME: main
           XDEBUG_MODE: coverage
