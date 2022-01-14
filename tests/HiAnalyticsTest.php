@@ -2,24 +2,20 @@
 namespace Tests;
 
 use HMS\HiAnalytics\HiAnalytics;
-use PHPUnit\Framework\TestCase;
 
 /**
  * HMS HiAnalytics Test
  *
  * @author Martin Zeitler
  */
-class HiAnalyticsTest extends TestCase {
+class HiAnalyticsTest extends BaseTestCase {
 
     private static HiAnalytics|null $client;
 
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {
         parent::setUpBeforeClass();
-        self::$client = new HiAnalytics( [
-            'client_id'     => (int)    getenv('HUAWEI_CLIENT_ID'),
-            'client_secret' => (string) getenv('HUAWEI_CLIENT_SECRET')
-        ] );
+        self::$client = new HiAnalytics( self::get_secret() );
     }
 
     /** Test: oAuth2 Token Refresh. */

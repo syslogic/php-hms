@@ -1,21 +1,21 @@
 <?php
 namespace Tests;
 
-use HMS\AccountKit\AccountKit;
+use HMS\DriveKit\DriveKit;
 
 /**
- * HMS AccountKit Test
+ * HMS DriveKit Test
  *
  * @author Martin Zeitler
  */
-class AccountKitTest extends BaseTestCase {
+class DriveKitTest extends BaseTestCase {
 
-    private static AccountKit|null $client;
+    private static DriveKit|null $client;
 
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {
         parent::setUpBeforeClass();
-        self::$client = new AccountKit( self::get_secret() );
+        self::$client = new DriveKit( self::get_secret() );
     }
 
     /** Test: oAuth2 Token Refresh. */

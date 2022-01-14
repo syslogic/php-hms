@@ -15,10 +15,7 @@ class WrapperTest extends BaseTestCase {
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {
         parent::setUpBeforeClass();
-        self::$client = new Wrapper( [
-            'client_id'     => (int)    getenv('HUAWEI_CLIENT_ID'),
-            'client_secret' => (string) getenv('HUAWEI_CLIENT_SECRET')
-        ], 2 );
+        self::$client = new Wrapper( self::get_secret(), 2 );
     }
 
     /** Test: oAuth2 Token Refresh. */

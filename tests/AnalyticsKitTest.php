@@ -1,21 +1,21 @@
 <?php
 namespace Tests;
 
-use HMS\AccountKit\AccountKit;
+use HMS\AnalyticsKit\AnalyticsKit;
 
 /**
- * HMS AccountKit Test
+ * HMS AnalyticsKit Test
  *
  * @author Martin Zeitler
  */
-class AccountKitTest extends BaseTestCase {
+class AnalyticsKitTest extends BaseTestCase {
 
-    private static AccountKit|null $client;
+    private static AnalyticsKit|null $client;
 
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {
         parent::setUpBeforeClass();
-        self::$client = new AccountKit( self::get_secret() );
+        self::$client = new AnalyticsKit( self::get_secret() );
     }
 
     /** Test: oAuth2 Token Refresh. */

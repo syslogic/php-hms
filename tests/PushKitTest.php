@@ -10,7 +10,6 @@ use HMS\PushKit\ReceiptStatus;
 use HMS\PushKit\ResultCodes;
 use HMS\PushKit\UpstreamMessage;
 use HMS\PushKit\WebPush\WebPushNotification;
-use PHPUnit\Framework\TestCase;
 use stdClass;
 
 /**
@@ -18,22 +17,19 @@ use stdClass;
  *
  * @author Martin Zeitler
  */
-class PushKitTest extends TestCase {
+class PushKitTest extends BaseTestCase {
 
     private static PushKit|null $client;
 
     private string $test_package = 'io.syslogic.mobile';
-    private string $test_token = 'invalidtoken';
+    private string $test_token = 'aninvalidtoken';
     private string $test_topic = 'test';
     private string $test_condition = "'TopicA' in topics && ('TopicB' in topics || 'TopicC' in topics)";
 
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {
         parent::setUpBeforeClass();
-        self::$client = new PushKit( [
-            'client_id'     => (int)    getenv('HUAWEI_CLIENT_ID'),
-            'client_secret' => (string) getenv('HUAWEI_CLIENT_SECRET')
-        ] );
+        self::$client = new PushKit( self::get_secret() );
         self::assertTrue( self::$client->is_ready(), 'The client is not ready.');
     }
 

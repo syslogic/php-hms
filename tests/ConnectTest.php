@@ -5,24 +5,20 @@ use HMS\Connect\AppInfo;
 use HMS\Connect\AppLanguageInfo;
 use HMS\Connect\Connect;
 use InvalidArgumentException;
-use PHPUnit\Framework\TestCase;
 
 /**
- * HMS AppGallery Connect Test
+ * HMS Connect Test
  *
  * @author Martin Zeitler
  */
-class ConnectTest extends TestCase {
+class ConnectTest extends BaseTestCase {
 
     private static Connect|null $client;
 
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {
         parent::setUpBeforeClass();
-        self::$client = new Connect( [
-            'client_id'     => (int)    getenv('HUAWEI_CLIENT_ID'),
-            'client_secret' => (string) getenv('HUAWEI_CLIENT_SECRET')
-        ] );
+        self::$client = new Connect( self::get_secret() );
         self::assertTrue( self::$client->is_ready(), 'The client is not ready.');
     }
 

@@ -1,21 +1,21 @@
 <?php
 namespace Tests;
 
-use HMS\AccountKit\AccountKit;
+use HMS\WalletKit\WalletKit;
 
 /**
- * HMS AccountKit Test
+ * HMS WalletKit Test
  *
  * @author Martin Zeitler
  */
-class AccountKitTest extends BaseTestCase {
+class WalletKitTest extends BaseTestCase {
 
-    private static AccountKit|null $client;
+    private static WalletKit|null $client;
 
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {
         parent::setUpBeforeClass();
-        self::$client = new AccountKit( self::get_secret() );
+        self::$client = new WalletKit( self::get_secret() );
     }
 
     /** Test: oAuth2 Token Refresh. */

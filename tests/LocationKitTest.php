@@ -1,21 +1,21 @@
 <?php
 namespace Tests;
 
-use HMS\AccountKit\AccountKit;
+use HMS\LocationKit\LocationKit;
 
 /**
- * HMS AccountKit Test
+ * HMS LocationKit Test
  *
  * @author Martin Zeitler
  */
-class AccountKitTest extends BaseTestCase {
+class LocationKitTest extends BaseTestCase {
 
-    private static AccountKit|null $client;
+    private static LocationKit|null $client;
 
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {
         parent::setUpBeforeClass();
-        self::$client = new AccountKit( self::get_secret() );
+        self::$client = new LocationKit( self::get_secret() );
     }
 
     /** Test: oAuth2 Token Refresh. */
