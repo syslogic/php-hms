@@ -29,10 +29,8 @@ jobs:
     - name: 🔢 Install dependencies
       run: composer install --prefer-dist --no-progress
 
-    - name: 🔢 Run test suite
+    - name: 🔢 Run test suite with coverage
       run: composer run-script coverage
-      with:
-        php_extensions: xdebug
       env:
           TEST_NAME: main
           XDEBUG_MODE: coverage
