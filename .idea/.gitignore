@@ -3,3 +3,6 @@
 /php.xml
 /workspace.xml
 /vcs.xml
+/dataSources/
+/dataSources.xml
+/dataSources.local.xml

@@ -21,10 +21,10 @@ class PushKitTest extends BaseTestCase {
 
     private static PushKit|null $client;
 
-    private string $test_package = 'io.syslogic.mobile';
-    private string $test_token = 'aninvalidtoken';
-    private string $test_topic = 'test';
+    private string $test_package_name = 'io.syslogic.mobile';
+    private string $test_token = 'IQAAAACy0pLcAAHXwe2KMhT8iio6kpkUzlZKY1tGEk3yYzIRwz1LHfSkT1c7erH4FxhgSd45qnKPwh8xJfsvZHfRd4J';
     private string $test_condition = "'TopicA' in topics && ('TopicB' in topics || 'TopicC' in topics)";
+    private string $test_topic = 'test';
 
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {
@@ -68,7 +68,6 @@ class PushKitTest extends BaseTestCase {
 
     /** Test: Send message to topic. */
     public function test_send_message_to_topic() {
-        $topic = 'test';
         $result = self::$client->send_message_to_topic( $this->test_topic, 'Test Message', 'Test Body');
         self::assertTrue($result instanceof stdClass );
         self::assertObjectHasAttribute('code', $result);
@@ -151,10 +150,10 @@ class PushKitTest extends BaseTestCase {
 
         $hmac_verification_key = getenv('HUAWEI_UPLINK_HMAC');
         $item = new UpstreamMessage( $hmac_verification_key );
-        self::assertTrue( is_null($item->getRawBody()) );
+        self::assertTrue( is_null( $item->getRawBody() ) );
 
         $data_str = '{"key": "value"}';
-        $raw_body = '{"message_id": "1", "from": "'.$this->test_token.'", "category": "'.$this->test_package.'", "data": "'.base64_encode($data_str).'"}';
+        $raw_body = '{"message_id": "1", "from": "'.$this->test_token.'", "category": "'.$this->test_package_name.'", "data": "'.base64_encode($data_str).'"}';
         $signature = 'timestamp=1563105451261; nonce=:; value=E4YeOsnMtHZ6592U8B9S37238E+Hwtjfrmpf8AQXF+c=';
 
         // TODO: instead test this with an actual upstream message $_POST.

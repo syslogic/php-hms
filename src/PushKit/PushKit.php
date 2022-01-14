@@ -2,6 +2,11 @@
 namespace HMS\PushKit;
 
 use HMS\Core\Wrapper;
+use HMS\PushKit\Android\AndroidNotification;
+use HMS\PushKit\Apns\ApnsNotification;
+use HMS\PushKit\WebPush\WebPushNotification;
+use JetBrains\PhpStorm\ArrayShape;
+use JetBrains\PhpStorm\Pure;
 use stdClass;
 
 /**
@@ -75,25 +80,15 @@ class PushKit extends Wrapper {
      * Sending Downstream Messages to Token.
      *
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/https-send-api-0000001050986197">Sending Downstream Messages</a>
-     * @param string|array $tokens
-     * @param string $title
-     * @param string $body
-     * @param string|null $image
+     * @param string|array $token
+     * @param string       $title
+     * @param string       $body
+     * @param string|null  $image
      * @return stdClass
      */
-    public function send_message_to_token( string|array $tokens, string $title, string $body, string|null $image=null ): stdClass {
-        if (is_string($tokens)) {$tokens = [ $tokens ];}
-        $notification = new Notification( $title, $body, $image );
-        $payload = [
-            'message' => (object) [
-                'notification' => $notification->asObject(),
-                'token'   => $tokens, // one of: token, topic, condition.
-                'data'    => '',
-                'android' => (object) [],
-                'webpush' => (object) [],
-                'apns'    => (object) []
-            ],
-        ];
+    public function send_message_to_token( string|array $token, string $title, string $body, string|null $image=null ): stdClass {
+        if (is_string($token)) {$token = [ $token ];}
+        $payload = $this->get_payload_by_mode( 'token', $token, $title, $body, $image );
         return $this->curl_request('POST', $this->url_message_send, $payload, $this->auth_header());
     }
 
@@ -101,24 +96,14 @@ class PushKit extends Wrapper {
      * Sending Downstream Messages to Topic.
      *
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/https-send-api-0000001050986197">Sending Downstream Messages</a>
-     * @param string $topic
-     * @param string $title
-     * @param string $body
-     * @param string|null $image
+     * @param string       $topic
+     * @param string       $title
+     * @param string       $body
+     * @param string|null  $image
      * @return stdClass
      */
     public function send_message_to_topic( string $topic, string $title, string $body, string|null $image=null ): stdClass {
-        $notification = new Notification( $title, $body, $image );
-        $payload = [
-            'message' => (object) [
-                'notification' => $notification->asObject(),
-                'topic' => $topic, // one of: token, topic, condition.
-                'data'    => '',
-                'android' => (object) [],
-                'webpush' => (object) [],
-                'apns'    => (object) []
-            ]
-        ];
+        $payload = $this->get_payload_by_mode( 'topic', $topic, $title, $body, $image );
         return $this->curl_request('POST', $this->url_message_send, $payload, $this->auth_header());
     }
 
@@ -126,28 +111,38 @@ class PushKit extends Wrapper {
      * Sending Downstream Messages to Condition.
      *
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/https-send-api-0000001050986197">Sending Downstream Messages</a>
-     * @param string $condition
-     * @param string $title
-     * @param string $body
-     * @param string|null $image
+     * @param string       $condition
+     * @param string       $title
+     * @param string       $body
+     * @param string|null  $image
      * @return stdClass
      */
     public function send_message_to_condition( string $condition, string $title, string $body, string|null $image=null ): stdClass {
-        $notification = new Notification( $title, $body, $image );
-        $payload = [
-            'message' => (object) [
-                'notification' => $notification->asObject(),
-                'condition' => $condition, // one of: token, topic, condition.
-                'data'    => '',
-                'android' => (object) [],
-                'webpush' => (object) [],
-                'apns'    => (object) []
-            ]
-        ];
+        $payload = $this->get_payload_by_mode( 'condition', $condition, $title, $body, $image );
         return $this->curl_request('POST', $this->url_message_send, $payload, $this->auth_header());
     }
 
-    /**
+    #[ArrayShape(['validate_only' => "bool", 'message' => "object"])]
+    #[Pure]  private function get_payload_by_mode( string $mode, string|array $argument, string $title, string $body, string|null $image=null ): array {
+        if (! in_array( $mode , ['token', 'topic', 'condition'] ) ) {return [];}
+        $notification = new Notification( $title, $body, $image );
+        $android      = new ApnsNotification( $title, $body, $image );
+        $web_push     = new WebPushNotification( $title, $body, $image );
+        $apns         = new AndroidNotification( $title, $body, $image );
+        return [
+            'validate_only' => false,
+            'message' => (object) [
+                $mode          => $argument, // one of: token, topic, condition.
+                'notification' => $notification->asObject(),
+                'data'         => '',
+                'android'      => $android->asObject(),
+                'webpush'      => $web_push->asObject(),
+                'apns'         => $apns->asObject()
+            ]
+        ];
+    }
+
+        /**
      * Querying Data as a Data Controller.
      *
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/query-data-api-0000001051066126">Querying Data as a Data Controller</a>
