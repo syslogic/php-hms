@@ -2,14 +2,15 @@
 
 namespace HMS\Connect;
 
+use InvalidArgumentException;
 use phpseclib3\Crypt\Common\AsymmetricKey;
 use phpseclib3\Crypt\PublicKeyLoader;
 use phpseclib3\Crypt\RSA\PublicKey;
+use phpseclib3\Exception\NoKeyLoadedException;
 
 /**
  * Class HMS AppGallery Connect Submission Callback
  *
- * TODO: emulate & process post-back.
  * @see https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-notify-release-0000001158245063
  * @author Martin Zeitler
  */
@@ -24,16 +25,16 @@ class SubmissionCallback {
     private AsymmetricKey|null $public_key;
 
     /**
-     * @var string|null $callBackData JSON string of the app release result, in the format:
+     * @var string|null $rawData JSON string of the app release result, in the format:
      * {"requestId":"xxx", "retCode":xxxxx, "desc":"xxx", "pkgVersion":"xxx", "downloadFileName":"xxx"}".
      */
-    private string|null $callBackData;
+    private string|null $rawData = null;
 
     /**
-     * @var string|null $signatureRSAWithPSS When sending a notification, Huawei server signs parameters in callBackData
-     * using the SHA256WithRSA/PSS algorithm and returns the signed character string in the signatureRSAWithPSS parameter.
+     * @var string|null $signature When sending a notification, Huawei server signs parameters in callBackData using
+     * the SHA256WithRSA/PSS algorithm and returns the signed character string in the signatureRSAWithPSS parameter.
      */
-    private string|null $signatureRSAWithPSS;
+    private string|null $signature = null;
 
     /** @var string|null $requestId Your request ID, which is the same as the value of requestId passed when an app is submitted for release in download mode. */
     private string|null $requestId;
@@ -51,52 +52,75 @@ class SubmissionCallback {
     private string|null $desc;
 
     /** Constructor */
-    public function __construct() {
-        $this->load_rsa_public_key_file();
-        if ($this->verify($this->callBackData, $this->signatureRSAWithPSS)) {
-            $data = json_decode($this->callBackData);
-            $this->requestId  = $data->requestId;
-            $this->pkgVersion = $data->pkgVersion;
-            $this->fileName   = $data->downloadFileName;
-            $this->retCode    = $data->retCode;
-            $this->desc       = $data->desc;
-        }
-    }
-
-    /**
-     * @param string $message String for which the signature is to be verified. The JSON string carried in callBackData is passed.
-     * @param string $signature Signed string.
-     */
-    private function verify(string $message, string $signature): bool {
-        // base64_decode($this->public_key);
-        // String pubKey = "Public key for signature verification";
-        // X509EncodedKeySpec x509EncodedKeySpec = newX509EncodedKeySpec(Base64.decodeBase64(pubKey));
-        // KeyFactory keyFactory = KeyFactory.getInstance("RSA");
-        // PublicKey publicKey = keyFactory.generatePublic(x509EncodedKeySpec);
-        // Signature signature = Signature.getInstance("SHA256WithRSA/PSS");
-        // signature.initVerify(publicKey);
-        // signature.update(content.getBytes(Charset.forName("UTF-8")));
-        if ($this->public_key instanceof PublicKey) {
-            return $this->public_key->verify($message, $signature);
+    public function __construct( string|null $key_file = null ) {
+        if ($key_file != null) {
+            $this->process_post_request();
+            $this->load_rsa_public_key_file( $key_file );
+            if ($this->verify($this->rawData, $this->signature)) {
+                $data = json_decode($this->rawData);
+                $this->requestId  = $data->requestId;
+                $this->pkgVersion = $data->pkgVersion;
+                $this->fileName   = $data->downloadFileName;
+                $this->retCode    = $data->retCode;
+                $this->desc       = $data->desc;
+            }
         } else {
-            return false;
+            throw new NoKeyLoadedException();
+        }
+    }
+
+    /** Process the fields of the posted HTTPS request. */
+    private function process_post_request(): void {
+        if (isset($_REQUEST['callBackData']) && !empty($_REQUEST['callBackData'])) {
+            $this->rawData = $_REQUEST['callBackData'];
+        }
+        if (isset($_REQUEST['signatureRSAWithPSS']) && !empty($_REQUEST['signatureRSAWithPSS'])) {
+            $this->signature = $_REQUEST['signatureRSAWithPSS'];
         }
     }
 
     /**
-     * @noinspection PhpSameParameterValueInspection
-     */
-    private function load_rsa_public_key(string $public_key = '', string|false $password=false ) {
-        $this->public_key = PublicKeyLoader::load( $public_key, $password );
-    }
-
-    /**
+     * Load an RSA Public Key from PEM key file.
      * @noinspection PhpSameParameterValueInspection
      */
     private function load_rsa_public_key_file( string $path = '', string|false $password=false ) {
         if ($path == '') {$path = '/path/to/key.pem';}
-        if (file_exists( $path ) && is_readable( $path )) {
+        if ( file_exists( $path ) && is_readable( $path ) ) {
             $this->public_key = PublicKeyLoader::load( file_get_contents( $path ), $password );
         }
+    }
+
+    /**
+     * Load an RSA Public Key from string.
+     * @noinspection PhpSameParameterValueInspection
+     */
+    private function load_rsa_public_key( string $public_key = '', string|false $password=false ) {
+        $this->public_key = PublicKeyLoader::load( $public_key, $password );
+    }
+
+    /**
+     * Verify a SHA256 with RSA/PSS message signature.
+     *
+     * @param string|null $message   The JSON string being passed as `callBackData`.
+     * @param string|null $signature The string signed with SHA256WithRSA/PSS.
+     */
+    private function verify( string|null $message, string|null $signature ): bool {
+        if ($message == null) {throw new InvalidArgumentException("message to verify is null");}
+        if ($signature == null) {throw new InvalidArgumentException("signature for verification is null");}
+        if ($this->public_key instanceof PublicKey) {
+            return $this->public_key->verify( $message, $signature );
+        } else {
+            throw new NoKeyLoadedException();
+        }
+    }
+
+    public function asObject(): object {
+        return (object) [
+            'requestId'  => $this->requestId,
+            'pkgVersion' => $this->pkgVersion,
+            'fileName'   => $this->fileName,
+            'retCode'    => $this->retCode,
+            'desc'       => $this->desc
+        ];
     }
 }

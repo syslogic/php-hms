@@ -23,7 +23,7 @@ class UpstreamMessage {
     public function __construct( string $key ) {
         $this->hmac_verification_key = $key;
         if ( $this->parse_request_body()) {
-            $this->default_response();
+            // $this->default_response();
         }
     }
 
@@ -77,7 +77,7 @@ class UpstreamMessage {
     }
 
     /** Convert the received signature string to object. */
-    private function to_object( string $signature ): stdClass {
+    private function parse_signature( string $signature ): stdClass {
         $input = str_getcsv( $signature, '; ' );
         $data = new stdClass();
         $data->timestamp = (int) str_replace('timestamp=', '', $input[0]);
@@ -93,13 +93,22 @@ class UpstreamMessage {
         $data_str = base64_decode( $payload->data );
 
         /* Convert the received signature string to object. */
-        $signature = $this->to_object( $signature );
+        $signature = $this->parse_signature( $signature );
 
         /* Generate a signature which to compare to. */
         $generated = $this->generate_signature( $signature->timestamp, $signature->nonce, $data_str );
 
         /* Compare the generated with the received signature. */
         return $generated === $signature->value;
+    }
+
+    public function asObject(): object {
+        return (object) [
+            'sender_token' => $this->sender_token,
+            'package_name' => $this->package_name,
+            'message_id'   => $this->message_id,
+            'message_data' => $this->message_data
+        ];
     }
 
     private function default_response() {

@@ -27,8 +27,8 @@ class ConnectTest extends TestCase {
     }
 
     /** Test: oAuth2 Token Refresh. */
-    public function test_notify_release() {
-        self::assertTrue( self::$client->notify_release() );
+    public function test_on_submission_callback() {
+        self::assertTrue( self::$client->on_submission_callback() );
     }
 
     /** Test: Model AppInfo. */
