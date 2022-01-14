@@ -20,7 +20,7 @@ class WrapperTest extends TestCase {
         self::$client = new Wrapper( [
             'client_id'     => (int)    getenv('HUAWEI_CLIENT_ID'),
             'client_secret' => (string) getenv('HUAWEI_CLIENT_SECRET')
-        ] );
+        ], 2 );
     }
 
     /** Test: oAuth2 Token Refresh. */

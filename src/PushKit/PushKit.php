@@ -19,9 +19,9 @@ class PushKit extends Wrapper {
     private string $url_token_data_delete;
 
     public function __construct( array $config ) {
-        parent::__construct( $config );
+        parent::__construct( $config, 2 ); // TODO: try with endpoint version 3 once.
         if ($this->is_ready()) {
-            $url = str_replace('{appId}', $this->client_id, Constants::PUSHKIT_BASE_URL);
+            $url = str_replace('{appId}', $this->get_client_id(), Constants::PUSHKIT_BASE_URL);
             $this->url_message_send      = $url . Constants::PUSHKIT_MESSAGE_SEND;
             $this->url_topics_list       = $url . Constants::PUSHKIT_TOPICS_LIST;
             $this->url_topic_subscribe   = $url . Constants::PUSHKIT_TOPIC_SUBSCRIBE;

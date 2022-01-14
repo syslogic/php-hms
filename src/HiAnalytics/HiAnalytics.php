@@ -11,6 +11,6 @@ use HMS\Core\Wrapper;
 class HiAnalytics extends Wrapper {
 
     public function __construct( array $config ) {
-        parent::__construct( $config );
+        parent::__construct( $config, 3 ); // unsure if 2 or 3 applies.
     }
 }

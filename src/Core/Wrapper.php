@@ -1,6 +1,7 @@
 <?php
 namespace HMS\Core;
 
+use InvalidArgumentException;
 use stdClass;
 
 /**
@@ -10,15 +11,23 @@ use stdClass;
  */
 class Wrapper {
 
-    protected int $client_id = 0;
-    private string|null $client_secret;
+    private string|null $url_token_refresh = Constants::URL_OAUTH2_TOKEN_REFRESH; // AccountKit uses the v3 endpoint.
     private string|null $access_token = null;
+    private string|null $client_secret;
     private int $token_expiry = 0;
+    private int $client_id = 0;
 
     protected stdClass $result;
 
     /** Constructor. */
-    public function __construct( array $config ) {
+    public function __construct( array $config, int $token_endpoint_version ) {
+        if (! in_array( $token_endpoint_version, [2, 3] ) ) {
+            $message = 'The token endpoint version must be either 2 or 3; provided value: ' . $token_endpoint_version;
+            throw new InvalidArgumentException( $message );
+        }
+        if ($token_endpoint_version == 2) { // PushKit uses the v2 endpoint.
+            $this->url_token_refresh = Constants::URL_OAUTH2_TOKEN_REFRESH_V2;
+        }
         $this->init( $config );
     }
 
@@ -62,9 +71,9 @@ class Wrapper {
         return !$this->token_has_expired();
     }
 
-    /** Refresh token. */
+    /** oAuth2 token refresh; $this->url_token_refresh either uses v2 or v3 endpoint. */
     private function token_refresh(): void {
-        $result = $this->curl_request('POST', Constants::URL_OAUTH2_TOKEN,
+        $result = $this->curl_request('POST', $this->url_token_refresh,
             [ 'grant_type' => 'client_credentials', 'client_id' => $this->client_id, 'client_secret' => $this->client_secret ],
             [ 'Content-Type: application/x-www-form-urlencoded;charset=utf-8' ]
         );
@@ -81,8 +90,14 @@ class Wrapper {
         return false;
     }
 
+    /** Provide HTTP request headers as array. */
     protected function auth_header(): array {
         return [ "Content-Type: application/json", "Authorization: Bearer $this->access_token" ];
+    }
+
+    /** Expose $this->client_id. */
+    protected function get_client_id(): int {
+        return $this->client_id;
     }
 
     /** Perform cURL request. */
