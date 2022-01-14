@@ -105,7 +105,7 @@ class SubmissionCallback {
      * @param string|null $signature The string signed with SHA256WithRSA/PSS.
      */
     private function verify( string|null $message, string|null $signature ): bool {
-        if ($message == null) {throw new InvalidArgumentException("message to verify is null");}
+        if ($message   == null) {throw new InvalidArgumentException("message to verify is null");}
         if ($signature == null) {throw new InvalidArgumentException("signature for verification is null");}
         if ($this->public_key instanceof PublicKey) {
             return $this->public_key->verify( $message, $signature );
