@@ -5,7 +5,7 @@
         <env name="XDEBUG_MODE" value="debug" />
       </envs>
     </CommandLine>
-    <TestRunner class="Tests\ConnectTest" configuration_file="$PROJECT_DIR$/phpunit.xml" file="$PROJECT_DIR$/tests/ConnectTest.php" scope="Class" use_alternative_configuration_file="true" />
+    <TestRunner class="Tests\ConnectTest" configuration_file="$PROJECT_DIR$/phpunit.xml" file="$PROJECT_DIR$/tests/ConnectTest.php" scope="Class" />
     <method v="2" />
   </configuration>
 </component>

@@ -16,10 +16,11 @@ class GameServiceTest extends BaseTestCase {
     public static function setUpBeforeClass(): void {
         parent::setUpBeforeClass();
         self::$client = new GameService( self::get_secret() );
+        self::assertTrue( self::$client->is_ready(), 'The client is not ready.' );
     }
 
-    /** Test: oAuth2 Token Refresh. */
-    public function test_ready() {
-        self::assertTrue( self::$client->is_ready(), 'The client is not ready.');
+    /** Test: Dummy. */
+    public function test_dummy() {
+        self::assertTrue( true );
     }
 }
