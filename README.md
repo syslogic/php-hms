@@ -5,7 +5,7 @@
 This project is still in an early pre-alpha stage:
 
 | API | Current Status |
-| --- | --- |
+| ---: | --- |
 | [`AccountKit`](https://github.com/syslogic/php-hms/blob/master/src/AccountKit) | N/A |
 | [`AdsKit`](https://github.com/syslogic/php-hms/blob/master/src/AdsKit) | N/A |
 | [`AnalyticsKit`](https://github.com/syslogic/php-hms/blob/master/src/AnalyticsKit) | N/A |
@@ -22,11 +22,18 @@ This project is still in an early pre-alpha stage:
 
 #### Installation:
 
-The package is **not** yet available on Packagist. Once it is, that would be:
+The package is **not** yet published, else that would be:
 
     composer require syslogic/php-hms
 
-One still can map `namespace HMS` locally, eg. when checking out into project directory `lib`:
+In the meanwhile one still can manually check out into project directory `lib`:
+
+````
+mkdir lib
+git clone git@github.com:syslogic/php-hms ./lib/php-hms
+````
+
+Then one can map namespace `HMS` in the `composer.json` PSR-4 `autoload` block:
 
 ````
 "autoload": {
@@ -35,6 +42,13 @@ One still can map `namespace HMS` locally, eg. when checking out into project di
     "HMS\\": "lib/php-hms/src/"
   }
 }
+````
+
+Running code coverage:
+````
+cd ./lib/php-hms
+composer install
+composer run-script test
 ````
 
 #### Support:
