@@ -19,7 +19,7 @@ class Wrapper {
     private string|null $access_token = null;
     private int $token_expiry = 0;
 
-    /** Further token related fileds. */
+    /** Further token related fields. */
     private string|null $id_token = null;
     private string|null $package_name;
     private string|null $token_scope;
