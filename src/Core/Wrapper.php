@@ -1,4 +1,5 @@
-<?php
+<?php /** @noinspection PhpPropertyOnlyWrittenInspection */
+
 namespace HMS\Core;
 
 use InvalidArgumentException;
@@ -23,12 +24,13 @@ class Wrapper {
 
     /** Constructor. */
     public function __construct( array $config, int $token_endpoint_version = 3 ) {
-        if (! in_array( $token_endpoint_version, [1, 2, 3] ) ) {
+        if (! in_array( $token_endpoint_version, [2, 3] ) ) {
             $message = 'The token endpoint version must be either 1, 2, 3; provided: ' . $token_endpoint_version;
             throw new InvalidArgumentException( $message );
         }
-        if ($token_endpoint_version == 2) {$this->url_token_refresh = Constants::URL_OAUTH2_TOKEN_REFRESH_V2;}
-        if ($token_endpoint_version == 1) {$this->url_token_refresh = Constants::URL_OAUTH2_TOKEN_REFRESH_V1;}
+        if ($token_endpoint_version == 2) {
+            $this->url_token_refresh = Constants::URL_OAUTH2_TOKEN_REFRESH_V2;
+        }
         $this->init( $config );
     }
 
