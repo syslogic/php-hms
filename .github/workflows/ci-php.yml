@@ -15,6 +15,7 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: 🔢 Validate composer.json and composer.lock
+      id: composer-validation
       run: composer validate --strict
 
     - name: 🔢 Cache Composer packages
@@ -27,9 +28,15 @@ jobs:
           ${{ runner.os }}-php-
 
     - name: 🔢 Install dependencies
+      id: composer-dependencies
       run: composer install --prefer-dist --no-progress
 
+    - name: 🗄️ Provide ./agconnect-services.json
+      id: agconnect-services
+      run: echo '${{ secrets.AGCONNECT_SERVICES_JSON }}' > ./agconnect-services.json
+
     - name: 🔢 Run test suite with coverage
+      id: phpunit-coverage
       run: composer run-script coverage
       env:
           TEST_NAME: main
