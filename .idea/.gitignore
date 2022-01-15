@@ -6,3 +6,6 @@
 /dataSources/
 /dataSources.xml
 /dataSources.local.xml
+/symfony2.xml
+/phpunit.xml
+/php-test-framework.xml
