@@ -1,6 +1,6 @@
 ### PHP SDK for Huawei REST API
 
-Legal Disclaimer: This product is **not** officially endorsed or certified by Huawei Technologies.<br/>
+Legal Disclaimer: This product is **not** officially endorsed or certified by Huawei Technologies Co., Ltd.<br/>
 Trademarks are being referenced for identification purposes only, in terms of a nominative fair use.<br/>
 The usage of the abstracted REST API still depends on the [HUAWEI Developers Service Agreement](https://developer.huawei.com/consumer/en/doc/start/agreement-0000001052728169).
 
