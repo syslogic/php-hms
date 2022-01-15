@@ -92,7 +92,7 @@ class PushKitTest extends BaseTestCase {
         self::assertTrue( $result->code === 82000012); // token is invalid
     }
 
-    /** Test: Querying Data as a Data Controller. */
+    /** Test: Deleting Data as a Data Controller. */
     public function test_token_data_delete() {
         $result = self::$client->token_data_delete( $this->test_token );
         self::assertTrue($result instanceof stdClass );
