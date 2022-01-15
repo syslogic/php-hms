@@ -4,7 +4,7 @@
 
 This project is still in an early pre-alpha stage:
 
-| API | Description |
+| API | Current Status |
 | --- | --- |
 | [`PushKit`](https://github.com/syslogic/php-hms/blob/master/src/PushKit) | partially supported. |
 | [`Connect`](https://github.com/syslogic/php-hms/tree/master/src/Connect) | partially supported. |
