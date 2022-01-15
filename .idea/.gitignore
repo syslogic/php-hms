@@ -1,11 +1,3 @@
+/dataSources/*
 *.iml
-/modules.xml
-/php.xml
-/workspace.xml
-/vcs.xml
-/dataSources/
-/dataSources.xml
-/dataSources.local.xml
-/symfony2.xml
-/phpunit.xml
-/php-test-framework.xml
+*.xml
