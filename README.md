@@ -13,13 +13,12 @@ The usage of the abstracted REST API still depends on the [HUAWEI Developers Ser
 | [`AccountKit`](https://github.com/syslogic/php-hms/blob/master/src/AccountKit) | N/A |
 | [`AdsKit`](https://github.com/syslogic/php-hms/blob/master/src/AdsKit) | N/A |
 | [`AnalyticsKit`](https://github.com/syslogic/php-hms/blob/master/src/AnalyticsKit) | N/A |
-| [`Connect`](https://github.com/syslogic/php-hms/tree/master/src/Connect) | Partial Support |
+| [`Connect`](https://github.com/syslogic/php-hms/tree/master/src/Connect) | in progress |
 | [`DriveKit`](https://github.com/syslogic/php-hms/tree/master/src/DriveKit) | N/A |
 | [`GameService`](https://github.com/syslogic/php-hms/tree/master/src/GameService) | N/A |
-| [`HiAnalytics`](https://github.com/syslogic/php-hms/blob/master/src/HiAnalytics) | N/A * |
 | [`LocationKit`](https://github.com/syslogic/php-hms/blob/master/src/LocationKit) | N/A |
 | [`MapKit`](https://github.com/syslogic/php-hms/blob/master/src/MapKit) | N/A |
-| [`PushKit`](https://github.com/syslogic/php-hms/blob/master/src/PushKit) | Partial Support |
+| [`PushKit`](https://github.com/syslogic/php-hms/blob/master/src/PushKit) | in progress |
 | [`SearchKit`](https://github.com/syslogic/php-hms/blob/master/src/SearchKit) | N/A |
 | [`WalletKit`](https://github.com/syslogic/php-hms/blob/master/src/WalletKit) | N/A |
 | [`Wrapper`](https://github.com/syslogic/php-hms/blob/master/src/Core) | OK |
