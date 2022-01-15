@@ -60,20 +60,10 @@ composer run-script test
 </p>
 </details>
 
-<details>
-<summary>Support</summary>
-<p>
+### License
+The PHP SDK for Huawei REST API is licensed under the [MIT License](LICENSE).
 
+### Support
+- [Documentation](https://developer.huawei.com/consumer/en/doc/landing/development)
 - [Stack Overflow](https://stackoverflow.com/questions/tagged/huawei-mobile-services)
 - [Issue Tracker](https://github.com/syslogic/php-hms/issues)
-</p>
-</details>
-
-<details>
-<summary>License</summary>
-<p>
-
-The SDK for Huawei REST API is licensed under the [MIT License](LICENSE).
-</p>
-</details>
-
