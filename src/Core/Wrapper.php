@@ -3,6 +3,7 @@
 namespace HMS\Core;
 
 use InvalidArgumentException;
+use JetBrains\PhpStorm\NoReturn;
 use stdClass;
 
 /**
@@ -13,19 +14,28 @@ use stdClass;
 class Wrapper {
 
     private string|null $url_token_refresh = Constants::URL_OAUTH2_TOKEN_REFRESH_V3;
-
-    private int $client_id = 0;
     private string|null $client_secret;
-    private string|null $access_token = null;
+    private string|null $app_secret;
     private int $token_expiry = 0;
 
-    /** Further token related fields. */
+    /** Further ID token related fields. */
     private string|null $id_token = null;
     private string|null $package_name;
     private string|null $token_scope;
     private string|null $union_id;
     private string|null $open_id;
 
+    protected int $app_id = 0;
+    protected int $client_id = 0;
+    protected string|null $access_token = null;
+
+    /** AnalyticsKit needs a product_id (= project_id) & an app_id (= client_id). */
+    protected int $project_id = 0;
+
+    /** Possibly for MapKit / LocationKit. */
+    protected string|null $api_key;
+
+    /** Default Result. */
     protected stdClass $result;
 
     /** Constructor. */
@@ -48,6 +58,8 @@ class Wrapper {
      * - from environmental variables.
      */
     private function init( array|string|null $config ): void {
+
+        $config = getenv('HUAWEI_APPLICATION_CREDENTIALS');
 
         /** Try to get file-name from $HUAWEI_APPLICATION_CREDENTIALS. */
         if ( $config == null) {
@@ -73,9 +85,14 @@ class Wrapper {
         $config = json_decode(file_get_contents( $config ));
         if ( is_object( $config )) {
             if ( property_exists( $config, 'client' )) {
-                $this->client_id     = (int)    $config->client->client_id;
-                $this->client_secret = (string) $config->client->client_secret;
+                $this->app_id        =    (int) $config->client->app_id;
+                $this->app_secret    = (string) getenv('HUAWEI_APP_SECRET'); // not contained in the JSON.
                 $this->package_name  = (string) $config->client->package_name;
+                $this->project_id    =    (int) $config->client->project_id;
+                $this->client_id     =    (int) $config->client->client_id;
+                $this->client_secret = (string) $config->client->client_secret;
+                $this->api_key       = (string) $config->client->api_key;
+
             }
         }
     }
@@ -103,27 +120,38 @@ class Wrapper {
 
     /** oAuth2 token refresh; $this->url_token_refresh either uses v2 or v3 endpoint. */
     private function token_refresh(): void {
+
         $result = $this->curl_request('POST', $this->url_token_refresh, [
             'grant_type' => 'client_credentials',
-            'client_id' => $this->client_id,
-            'client_secret' => $this->client_secret
+            'client_id' => $this->app_id,
+            'client_secret' => $this->app_secret
         ], [
             'Content-Type: application/x-www-form-urlencoded;charset=utf-8'
         ]);
+
         if ( is_object( $result ) ) {
-            if ( property_exists( $result, 'expires_in' ) ) {
-                $this->token_expiry = time() + $result->expires_in;
-            }
-            if ( property_exists( $result, 'access_token' ) ) {
-                $this->access_token = $result->access_token;
-            }
-            if ( property_exists( $result, 'scope' ) ) {
-                $this->token_scope = $result->scope;
-            }
-            if ( property_exists( $result, 'id_token' ) ) {
-                $this->id_token = $result->id_token;
+            if ( property_exists( $result, 'error' ) && property_exists( $result, 'sub_error' )) {
+                $this->handle_error( $result );
+            } else {
+                if ( property_exists( $result, 'expires_in' ) ) {
+                    $this->token_expiry = time() + $result->expires_in;
+                }
+                if ( property_exists( $result, 'access_token' ) ) {
+                    $this->access_token = $result->access_token;
+                }
+                if ( property_exists( $result, 'scope' ) ) {
+                    $this->token_scope = $result->scope;
+                }
+                if ( property_exists( $result, 'id_token' ) ) {
+                    $this->id_token = $result->id_token;
+                }
             }
         }
+    }
+
+    #[NoReturn]
+    private function handle_error(stdClass $error ): void {
+        die( 'Error '.$error->error.' / '.$error->sub_error.' -> '.$error->error_description );
     }
 
     /** Determine if the token has expired. */
@@ -186,9 +214,10 @@ class Wrapper {
         curl_close($curl);
         $result = json_decode($result);
 
-        if (property_exists( $result, 'code')) {
-            $result->code = (int) $result->code;
-        }
+        /* Casting error codes to integer. */
+        if (property_exists( $result, 'code')) {$result->code = (int) $result->code;}
+        if (property_exists( $result, 'sub_error')) {$result->sub_error = (int) $result->sub_error;}
+
         return $result;
     }
 }

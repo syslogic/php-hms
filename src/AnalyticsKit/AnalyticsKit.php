@@ -42,6 +42,15 @@ class AnalyticsKit extends Wrapper {
         }
     }
 
+    /** Provide HTTP request headers as array. */
+    protected function auth_header(): array {
+        return [
+            "Content-Type: application/json", "Authorization: Bearer $this->access_token",
+            "x-product-id: $this->project_id", // equal product_id.
+            "x-app-id: $this->client_id"       // equal app_id.
+        ];
+    }
+
     /**
      * Exporting Personal Data.
      *
@@ -51,6 +60,6 @@ class AnalyticsKit extends Wrapper {
      */
     public function request_user_data_export( string $aaid ): stdClass {
         $payload = ['aaid' => $aaid];
-        return $this->curl_request('POST', $this->url_topics_list, $payload, $this->auth_header());
+        return $this->curl_request('POST', $this->url_user_data_export, $payload, $this->auth_header());
     }
 }
