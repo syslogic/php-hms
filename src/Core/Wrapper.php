@@ -14,26 +14,25 @@ use stdClass;
 class Wrapper {
 
     private string|null $url_token_refresh = Constants::URL_OAUTH2_TOKEN_REFRESH_V3;
-    private string|null $client_secret;
-    private string|null $app_secret;
+    private string|null $client_secret = null;
+    private string|null $app_secret = null;
     private int $token_expiry = 0;
 
     /** Further ID token related fields. */
     private string|null $id_token = null;
-    private string|null $package_name;
-    private string|null $token_scope;
-    private string|null $union_id;
-    private string|null $open_id;
+    private string|null $package_name = null;
+    private string|null $token_scope = null;
+    private string|null $union_id = null;
+    private string|null $open_id = null;
 
+    /** AnalyticsKit needs a product_id (= project_id) & an app_id (= client_id). */
+    protected int $project_id = 0;
     protected int $app_id = 0;
     protected int $client_id = 0;
     protected string|null $access_token = null;
 
-    /** AnalyticsKit needs a product_id (= project_id) & an app_id (= client_id). */
-    protected int $project_id = 0;
-
     /** Possibly for MapKit / LocationKit. */
-    protected string|null $api_key;
+    protected string|null $api_key = null;
 
     /** Default Result. */
     protected stdClass $result;
