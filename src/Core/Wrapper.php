@@ -11,7 +11,7 @@ use stdClass;
  */
 class Wrapper {
 
-    private string|null $url_token_refresh = Constants::URL_OAUTH2_TOKEN_REFRESH; // AccountKit uses the v3 endpoint.
+    private string|null $url_token_refresh = Constants::URL_OAUTH2_TOKEN_REFRESH_V3;
     private string|null $access_token = null;
     private string|null $id_token = null;
     private string|null $client_secret;
@@ -22,14 +22,13 @@ class Wrapper {
     protected stdClass $result;
 
     /** Constructor. */
-    public function __construct( array $config, int $token_endpoint_version ) {
+    public function __construct( array $config, int $token_endpoint_version = 3 ) {
         if (! in_array( $token_endpoint_version, [1, 2, 3] ) ) {
             $message = 'The token endpoint version must be either 1, 2, 3; provided: ' . $token_endpoint_version;
             throw new InvalidArgumentException( $message );
         }
-        if ($token_endpoint_version == 2) { // PushKit uses the v2 endpoint.
-            $this->url_token_refresh = Constants::URL_OAUTH2_TOKEN_REFRESH_V2;
-        }
+        if ($token_endpoint_version == 2) {$this->url_token_refresh = Constants::URL_OAUTH2_TOKEN_REFRESH_V2;}
+        if ($token_endpoint_version == 1) {$this->url_token_refresh = Constants::URL_OAUTH2_TOKEN_REFRESH_V1;}
         $this->init( $config );
     }
 
