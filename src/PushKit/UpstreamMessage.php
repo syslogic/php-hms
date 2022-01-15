@@ -4,7 +4,7 @@ namespace HMS\PushKit;
 use stdClass;
 
 /**
- * Class HMS PushKit Uplink Message
+ * Class HMS PushKit Upstream Message
  *
  * @see https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/https-uplink-api-0000001050170915
  * @author Martin Zeitler
