@@ -31,7 +31,7 @@ This library depends on the following environmental variables:
 
  - `HUAWEI_APPLICATION_CREDENTIALS` - the path to file `agconnect-services.json`.
  - `HUAWEI_APP_SECRET` - the "App Secret", which is not contained in `agconnect-services.json`.
- - `HUAWEI_UPSTREAM_HMAC_VERIFICATION_KEY` - HMAC verification key, obtained from an upstream message webhook.
+ - `HUAWEI_UPSTREAM_HMAC_VERIFICATION_KEY` - HMAC key, obtained from an upstream message webhook.
 
 <details>
 <summary>Installation</summary>
