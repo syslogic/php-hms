@@ -30,7 +30,7 @@ class PushKitTest extends BaseTestCase {
     public static function setUpBeforeClass(): void {
         parent::setUpBeforeClass();
         self::$client = new PushKit( self::get_secret() );
-        self::assertTrue( self::$client->is_ready(), 'The client is not ready.' );
+        self::assertTrue( self::$client->is_ready(), self::CLIENT_NOT_READY );
     }
 
     /** Test: Topic subscriptions list. */

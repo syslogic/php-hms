@@ -19,7 +19,7 @@ class ConnectTest extends BaseTestCase {
     public static function setUpBeforeClass(): void {
         parent::setUpBeforeClass();
         self::$client = new Connect( self::get_secret() );
-        self::assertTrue( self::$client->is_ready(), 'The client is not ready.' );
+        self::assertTrue( self::$client->is_ready(), self::CLIENT_NOT_READY );
     }
 
     /** Test: oAuth2 Token Refresh. */

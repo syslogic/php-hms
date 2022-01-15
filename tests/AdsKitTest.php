@@ -16,7 +16,7 @@ class AdsKitTest extends BaseTestCase {
     public static function setUpBeforeClass(): void {
         parent::setUpBeforeClass();
         self::$client = new AdsKit( self::get_secret() );
-        self::assertTrue( self::$client->is_ready(), 'The client is not ready.' );
+        self::assertTrue( self::$client->is_ready(), self::CLIENT_NOT_READY );
     }
 
     /** Test: Dummy. */

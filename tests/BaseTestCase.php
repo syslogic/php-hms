@@ -9,6 +9,7 @@ abstract class BaseTestCase extends TestCase {
 
     protected static int $client_id = 0;
     protected static string|null $client_secret = null;
+    protected const CLIENT_NOT_READY = 'The client is not ready.';
     #[ArrayShape(['client_id' => "int", 'client_secret' => "null|string"])]
     protected static function get_secret(): array {
         return [

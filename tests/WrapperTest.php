@@ -21,12 +21,12 @@ class WrapperTest extends BaseTestCase {
     /** Test: oAuth2 Token Refresh. */
     public function test_token_refresh_v2() {
         self::$client = new Wrapper( self::get_secret(), 2 );
-        self::assertTrue( self::$client->is_ready(), "The client is not ready; endpoint v2." );
+        self::assertTrue( self::$client->is_ready(), self::CLIENT_NOT_READY );
     }
 
     /** Test: oAuth2 Token Refresh. */
     public function test_token_refresh_v3() {
         self::$client = new Wrapper( self::get_secret(), 3 );
-        self::assertTrue( self::$client->is_ready(), "The client is not ready; endpoint v3." );
+        self::assertTrue( self::$client->is_ready(), self::CLIENT_NOT_READY );
     }
 }
