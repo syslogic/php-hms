@@ -1,10 +1,8 @@
 ### Unofficial SDK for Huawei REST API
 
-Using the following [PHP dependencies](https://github.com/syslogic/php-hms/network/dependencies).
-
-#### Project Status:
-
-This project is still in an early pre-alpha stage:
+<details>
+<summary>Project Status</summary>
+<p>
 
 | API | Current Status |
 | ---: | --- |
@@ -21,8 +19,12 @@ This project is still in an early pre-alpha stage:
 | [`SearchKit`](https://github.com/syslogic/php-hms/blob/master/src/SearchKit) | N/A |
 | [`WalletKit`](https://github.com/syslogic/php-hms/blob/master/src/WalletKit) | N/A |
 | [`Wrapper`](https://github.com/syslogic/php-hms/blob/master/src/Core) | OK |
+</p>
+</details>
 
-#### Installation:
+<details>
+<summary>Installation</summary>
+<p>
 
 The package is **not** yet published, else that would be:
 
@@ -52,12 +54,23 @@ cd ./lib/php-hms
 composer install
 composer run-script test
 ````
+</p>
+</details>
 
-#### Support:
+<details>
+<summary>Support</summary>
+<p>
 
 - [Stack Overflow](https://stackoverflow.com/questions/tagged/huawei-mobile-services)
 - [Issue Tracker](https://github.com/syslogic/php-hms/issues)
+</p>
+</details>
 
-#### License:
+<details>
+<summary>License</summary>
+<p>
 
-The PHP SDK for Huawei REST API is licensed under the [MIT License](LICENSE).
+The SDK for Huawei REST API is licensed under the [MIT License](LICENSE).
+</p>
+</details>
+
