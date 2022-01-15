@@ -2,6 +2,7 @@
 namespace HMS\Connect;
 
 use HMS\Core\Model;
+use JetBrains\PhpStorm\Pure;
 use stdClass;
 
 /**
@@ -184,7 +185,7 @@ class AppInfo extends Model {
 
     public function __construct() {}
 
-    public function asArray() {
+    public function asArray(): array {
         return [
             'defaultLang'         => $this->defaultLang,
             'childType'           => $this->childType,
@@ -212,12 +213,13 @@ class AppInfo extends Model {
         ];
     }
 
+    #[Pure]
     function asObject(): object {
         return (object) $this->asArray();
     }
 
     /** TODO: Implement validate() method. */
-    function validate(): void {
-
+    function validate(): bool {
+        return true;
     }
 }

@@ -2,6 +2,8 @@
 namespace HMS\Connect;
 
 use HMS\Core\Model;
+use JetBrains\PhpStorm\ArrayShape;
+use JetBrains\PhpStorm\Pure;
 
 /**
  * Class HMS Connect AppLanguageInfo
@@ -41,6 +43,7 @@ class AppLanguageInfo extends Model {
 
     public function __construct() {}
 
+    #[ArrayShape(['lang' => "string", 'appName' => "string", 'appDesc' => "string", 'briefInfo' => "string", 'newFeatures' => "string"])]
     public function asArray(): array {
         return [
                    'lang' => $this->lang,
@@ -51,12 +54,12 @@ class AppLanguageInfo extends Model {
         ];
     }
 
+    #[Pure]
     function asObject(): object {
         return (object) $this->asArray();
     }
 
-    /** TODO: Implement validate() method. */
-    function validate(): void {
-
+    function validate(): bool {
+        return true;
     }
 }

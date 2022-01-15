@@ -119,6 +119,7 @@ class PushKitTest extends BaseTestCase {
     public function test_notification() {
         $item = new Notification('Test Title', 'Test Body');
         self::assertTrue( is_object($item->asObject()) );
+        self::assertTrue( $item->validate() );
     }
 
     /** Test: Model AndroidNotification. */

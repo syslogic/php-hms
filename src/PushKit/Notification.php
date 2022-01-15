@@ -37,7 +37,7 @@ class Notification extends Model {
     }
 
     /** TODO: Implement validate() method. */
-    function validate(): void {
-
+    function validate(): bool {
+        return true;
     }
 }

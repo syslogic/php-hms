@@ -22,7 +22,7 @@ class ConnectTest extends BaseTestCase {
         self::assertTrue( self::$client->is_ready(), self::CLIENT_NOT_READY );
     }
 
-    /** Test: oAuth2 Token Refresh. */
+    /** Test: On Release Submission Callback. */
     public function test_on_submission_callback() {
         try {
             self::assertTrue(self::$client->on_submission_callback());
@@ -34,12 +34,14 @@ class ConnectTest extends BaseTestCase {
     /** Test: Model AppInfo. */
     public function test_app_info() {
         $item = new AppInfo();
-        self::assertTrue( is_array($item->asArray()) );
+        self::assertTrue( is_array( $item->asArray() ) );
+        self::assertTrue( $item->validate() );
     }
 
     /** Test: Model AppInfo. */
     public function test_app_language_info() {
         $item = new AppLanguageInfo();
-        self::assertTrue( is_array($item->asArray()) );
+        self::assertTrue( is_array( $item->asArray() ) );
+        self::assertTrue( $item->validate() );
     }
 }
