@@ -30,13 +30,6 @@ class Wrapper {
 
     /** Constructor. */
     public function __construct( array|string|null $config = null, int $token_endpoint_version = 3 ) {
-
-        /** Try to get file-name from $HUAWEI_APPLICATION_CREDENTIALS. */
-        if ( $config == null) {
-            $config = getenv('HUAWEI_APPLICATION_CREDENTIALS');
-            if (! $config) {$config = '../agconnect-services.json';}
-        }
-
         if (! in_array( $token_endpoint_version, [2, 3] ) ) {
             $message = 'The token endpoint version must be either 1, 2, 3; provided: ' . $token_endpoint_version;
             throw new InvalidArgumentException( $message );
@@ -54,7 +47,15 @@ class Wrapper {
      * - from array, on array input.
      * - from environmental variables.
      */
-    private function init( array|string $config ): void {
+    private function init( array|string|null $config ): void {
+
+        /** Try to get file-name from $HUAWEI_APPLICATION_CREDENTIALS. */
+        if ( $config == null) {
+            $config = getenv('HUAWEI_APPLICATION_CREDENTIALS');
+            if (! $config) {$config = '../agconnect-services.json';}
+        }
+
+        /** Then either initialize by filename, array or environmental variables. */
         if (is_string( $config ) && file_exists( $config ) && is_readable( $config )) {
             $this->init_by_file( $config );
         } else if (is_array( $config )) {
