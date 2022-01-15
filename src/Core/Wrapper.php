@@ -13,13 +13,18 @@ use stdClass;
 class Wrapper {
 
     private string|null $url_token_refresh = Constants::URL_OAUTH2_TOKEN_REFRESH_V3;
-    private string|null $access_token = null;
-    private string|null $id_token = null;
+
+    private int $client_id = 0;
     private string|null $client_secret;
+    private string|null $access_token = null;
+    private int $token_expiry = 0;
+
+    /** Further token related fileds. */
+    private string|null $id_token = null;
     private string|null $package_name;
     private string|null $token_scope;
-    private int $token_expiry = 0;
-    private int $client_id = 0;
+    private string|null $union_id;
+    private string|null $open_id;
 
     protected stdClass $result;
 
