@@ -16,6 +16,7 @@ class Wrapper {
     private string|null $access_token = null;
     private string|null $id_token = null;
     private string|null $client_secret;
+    private string|null $package_name;
     private string|null $token_scope;
     private int $token_expiry = 0;
     private int $client_id = 0;
@@ -23,7 +24,7 @@ class Wrapper {
     protected stdClass $result;
 
     /** Constructor. */
-    public function __construct( array $config, int $token_endpoint_version = 3 ) {
+    public function __construct( array|string $config, int $token_endpoint_version = 3 ) {
         if (! in_array( $token_endpoint_version, [2, 3] ) ) {
             $message = 'The token endpoint version must be either 1, 2, 3; provided: ' . $token_endpoint_version;
             throw new InvalidArgumentException( $message );
@@ -43,31 +44,44 @@ class Wrapper {
      */
     private function init( array|string $config ): void {
         if (is_string( $config ) && file_exists( $config ) && is_readable( $config )) {
-
-            // Try to initialize from agconnect-services.json on string input.
-            $config = json_decode(file_get_contents( $config ));
-            $this->client_id     = (int)    $config['client_id'];
-            $this->client_secret = (string) $config['client_secret'];
-
+            $this->init_by_file( $config );
         } else if (is_array( $config )) {
-
-            // Try to initialize from array, on array input.
-            if (
-                isset($config['client_id']) && !empty($config['client_id']) &&
-                isset($config['client_secret']) && !empty($config['client_secret'])
-            ) {
-                $this->client_id     = (int)    $config['client_id'];
-                $this->client_secret = (string) $config['client_secret'];
-            }
+            $this->init_by_array( $config );
         } else {
-
-            // Try to initialize from environmental variables.
-            $this->client_id     = (int)    getenv('HUAWEI_CLIENT_ID');
-            $this->client_secret = (string) getenv('HUAWEI_CLIENT_SECRET');
+            $this->init_by_environment();
         }
 
         /* Refresh the access-token once. */
         $this->token_refresh();
+    }
+
+    /** Try to initialize from agconnect-services.json on string input. */
+    private function init_by_file( string $config ) {
+        $config = json_decode(file_get_contents( $config ));
+        if ( is_object( $config )) {
+            if ( property_exists( $config, 'client' )) {
+                $this->client_id     = (int)    $config->client->client_id;
+                $this->client_secret = (string) $config->client->client_secret;
+                $this->package_name  = (string) $config->client->package_name;
+            }
+        }
+    }
+
+    /** Try to initialize from array, on array input. */
+    private function init_by_array( array $config ) {
+        if (
+            isset($config['client_id']) && !empty($config['client_id']) &&
+            isset($config['client_secret']) && !empty($config['client_secret'])
+        ) {
+            $this->client_id     =    (int) $config['client_id'];
+            $this->client_secret = (string) $config['client_secret'];
+        }
+    }
+
+    /** Try to initialize from environmental variables. */
+    private function init_by_environment() {
+        $this->client_id     = (int)    getenv('HUAWEI_CLIENT_ID');
+        $this->client_secret = (string) getenv('HUAWEI_CLIENT_SECRET');
     }
 
     public function is_ready(): bool {

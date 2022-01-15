@@ -11,7 +11,7 @@ use HMS\Core\Wrapper;
  */
 class AnalyticsKit extends Wrapper {
 
-    public function __construct( array $config ) {
-        parent::__construct( $config, 3 ); // unsure if 2 or 3 applies.
+    public function __construct( array|string $config ) {
+        parent::__construct( $config, 3 );
     }
 }

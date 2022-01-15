@@ -11,7 +11,7 @@ use HMS\Core\Wrapper;
  */
 class AccountKit extends Wrapper {
 
-    public function __construct( array $config ) {
+    public function __construct( array|string $config ) {
         parent::__construct( $config, 3 );
     }
 }
