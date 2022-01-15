@@ -1,5 +1,7 @@
 ### Unofficial SDK for Huawei REST API
 
+Using the following [PHP dependencies](https://github.com/syslogic/php-hms/network/dependencies).
+
 #### Project Status:
 
 This project is still in an early pre-alpha stage:
