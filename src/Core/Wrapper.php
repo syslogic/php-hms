@@ -24,7 +24,14 @@ class Wrapper {
     protected stdClass $result;
 
     /** Constructor. */
-    public function __construct( array|string $config, int $token_endpoint_version = 3 ) {
+    public function __construct( array|string|null $config = null, int $token_endpoint_version = 3 ) {
+
+        /** Try to get file-name from $HUAWEI_APPLICATION_CREDENTIALS. */
+        if ( $config == null) {
+            $config = getenv('HUAWEI_APPLICATION_CREDENTIALS');
+            if (! $config) {$config = '../agconnect-services.json';}
+        }
+
         if (! in_array( $token_endpoint_version, [2, 3] ) ) {
             $message = 'The token endpoint version must be either 1, 2, 3; provided: ' . $token_endpoint_version;
             throw new InvalidArgumentException( $message );
