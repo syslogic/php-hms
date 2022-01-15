@@ -1,4 +1,7 @@
-### Unofficial SDK for Huawei REST API
+### PHP SDK for Huawei REST API
+
+Disclaimer: This product is **not** officially endorsed or certified by Huawei Technologies.
+All the trademarks are referenced for identification purposes only, in terms of a nominative fair use.
 
 <details>
 <summary>Project Status</summary>
