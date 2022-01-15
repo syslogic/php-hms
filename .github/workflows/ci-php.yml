@@ -34,6 +34,6 @@ jobs:
       env:
           TEST_NAME: main
           XDEBUG_MODE: coverage
-          HUAWEI_CLIENT_ID: ${{ secrets.HUAWEI_CLIENT_ID }}
-          HUAWEI_CLIENT_SECRET: ${{ secrets.HUAWEI_CLIENT_SECRET }}
-          HUAWEI_UPLINK_HMAC: ${{ secrets.HUAWEI_UPLINK_HMAC }}
+          HUAWEI_APPLICATION_CREDENTIALS: ${{ secrets.HUAWEI_APPLICATION_CREDENTIALS }}
+          HUAWEI_UPSTREAM_HMAC_VERIFICATION_KEY: ${{ secrets.HUAWEI_UPSTREAM_HMAC_VERIFICATION_KEY }}
+          HUAWEI_APP_SECRET: ${{ secrets.HUAWEI_APP_SECRET }}

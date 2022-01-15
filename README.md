@@ -1,4 +1,4 @@
-### PHP SDK for Huawei REST API
+## PHP SDK for Huawei REST API
 
 Legal Disclaimer: This product is **not** officially endorsed or certified by Huawei Technologies Co., Ltd.<br/>
 The trademarks are being referenced for identification purposes only, in terms of a nominative fair use.<br/>
@@ -25,28 +25,37 @@ The usage of the abstracted REST API still depends on the [HUAWEI Developers Ser
 </p>
 </details>
 
+### Prerequisites
+
+This library depends on the following environmental variables:
+
+ - `HUAWEI_APPLICATION_CREDENTIALS` - the path to file `agconnect-services.json`.
+ - `HUAWEI_APP_SECRET` - the "App Secret", which is not contained in `agconnect-services.json`.
+ - `HUAWEI_UPSTREAM_HMAC_VERIFICATION_KEY` - HMAC SHA256 verification key, obtained from an upstream message webhook.
+
 <details>
 <summary>Installation</summary>
 <p>
 
 The package is **not** yet published, else that would be:
-
-    composer require syslogic/php-hms
+````shell
+composer require syslogic/php-hms
+````
 
 In the meanwhile one still can manually check out into project directory `lib`:
-
-````
+````shell
 mkdir lib
 git clone git@github.com:syslogic/php-hms ./lib/php-hms
 ````
 
 Then one can map namespace `HMS` in the `composer.json` PSR-4 `autoload` block:
-
-````
-"autoload": {
-  "psr-4": {
-    "App\\": "src/",
-    "HMS\\": "lib/php-hms/src/"
+````json
+{
+  "autoload": {
+    "psr-4": {
+      "App\\": "src/",
+      "HMS\\": "lib/php-hms/src/"
+    }
   }
 }
 ````
@@ -57,6 +66,13 @@ cd ./lib/php-hms
 composer install
 composer run-script test
 ````
+</p>
+</details>
+
+<details>
+<summary>Usage</summary>
+<p>
+...
 </p>
 </details>
 
