@@ -20,7 +20,7 @@ class Wrapper {
 
     /** Further ID token related fields. */
     private string|null $id_token = null;
-    private string|null $package_name = null;
+    protected string|null $package_name = null;
     private string|null $token_scope = null;
     private string|null $union_id = null;
     private string|null $open_id = null;

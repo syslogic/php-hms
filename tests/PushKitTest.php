@@ -150,7 +150,7 @@ class PushKitTest extends BaseTestCase {
         self::assertTrue( is_null( $item->getRawBody() ) );
 
         $data_str = '{"key": "value"}';
-        $raw_body = '{"message_id": "1", "from": "'.$this->test_token.'", "category": "'.$this->test_package_name.'", "data": "'.base64_encode($data_str).'"}';
+        $raw_body = '{"message_id": "1", "from": "'.$this->test_token.'", "category": "'.self::$package_name.'", "data": "'.base64_encode($data_str).'"}';
         $signature = 'timestamp=1563105451261; nonce=:; value=E4YeOsnMtHZ6592U8B9S37238E+Hwtjfrmpf8AQXF+c=';
 
         // TODO: instead test this with an actual upstream message $_POST.
