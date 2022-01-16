@@ -47,6 +47,9 @@ class PushKitTest extends BaseTestCase {
         self::assertTrue($result instanceof stdClass );
         self::assertObjectHasAttribute('code', $result);
         self::assertTrue( $result->code === ResultCodes::SUBMISSION_SUCCESS, "Error $result->code: $result->message" );
+        self::assertTrue(is_array( $result->errors ) && sizeof( $result->errors ) == 0 );
+        self::assertTrue($result->failureCount == 0 );
+        self::assertTrue($result->successCount == 1 );
     }
 
     /** Test: Topic unsubscribe. */
@@ -55,6 +58,9 @@ class PushKitTest extends BaseTestCase {
         self::assertTrue($result instanceof stdClass );
         self::assertObjectHasAttribute('code', $result);
         self::assertTrue( $result->code === ResultCodes::SUBMISSION_SUCCESS, "Error $result->code: $result->message" );
+        self::assertTrue(is_array( $result->errors ) && sizeof( $result->errors ) == 0 );
+        self::assertTrue($result->failureCount == 0 );
+        self::assertTrue($result->successCount == 1 );
     }
 
     /** Test: Send message to token. */
@@ -87,6 +93,7 @@ class PushKitTest extends BaseTestCase {
         self::assertTrue($result instanceof stdClass );
         self::assertObjectHasAttribute('code', $result);
         self::assertTrue( $result->code === ResultCodes::SUBMISSION_SUCCESS, "Error $result->code: $result->message" );
+        self::assertTrue( is_array( $result->topics ) );
     }
 
     /** Test: Deleting Data as a Data Controller. */

@@ -2,6 +2,8 @@
 namespace HMS\PushKit;
 
 use HMS\Core\Model;
+use HMS\PushKit\WebPush\WebPushNotification;
+use JetBrains\PhpStorm\Pure;
 
 /**
  * Class HMS PushKit Notification
@@ -14,18 +16,30 @@ class Notification extends Model {
     protected array $optional_fields  = ['image'];
 
     /** @var string $title (mandatory) */
-    protected string $title;
+    protected string|null $title = null;
 
     /** @var string $body (mandatory) */
-    protected string $body;
+    protected string|null $body = null;
 
     /** @var string|null $image (optional) */
-    protected string|null $image;
+    protected string|null $image = null;
 
-    public function __construct( string $title, string $body, string|null $image=null ) {
-        $this->title = $title;
-        $this->body  = $body;
-        $this->image = $image;
+    private function parse_array( array $data ): void {
+        foreach ($data as $key => $value) {
+            if ( in_array($key, $this->mandatory_fields) || in_array($key, $this->optional_fields)) {
+                $this->$key = $value;
+            }
+        }
+    }
+
+    public function __construct( string|array $arg0, string|null $arg1=null, string|null $arg2=null ) {
+        if ( is_array( $arg0 )) {
+            $this->parse_array( $arg0 );
+        } else {
+            if ( is_string($arg0) ) {$this->title = $arg0;}
+            if ( is_string($arg1) ) {$this->body  = $arg1;}
+            if ( is_string($arg2) ) {$this->image = $arg2;}
+        }
     }
 
     public function asObject(): object {

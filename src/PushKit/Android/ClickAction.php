@@ -1,8 +1,8 @@
 <?php
-
 namespace HMS\PushKit\Android;
 
 use HMS\Core\Model;
+use InvalidArgumentException;
 use JetBrains\PhpStorm\Pure;
 
 class ClickAction extends Model {
@@ -10,13 +10,14 @@ class ClickAction extends Model {
     protected array $mandatory_fields = ['type'];
     protected array $optional_fields  = ['intent', 'action', 'url'];
 
-    #[Pure]
-    public function __construct( array $data ) {
-        $this->parse_array( $data );
-    }
+    protected const INVALID_TYPE = 'click action.';
 
     /**
+     * The type of click action
      * @var int $type
+     * 1: tap to open a custom app page
+     * 2: tap to open a specified URL
+     * 3: tap to start the app
      */
     private int $type = 2; // 1, 2, 3
 
@@ -34,6 +35,19 @@ class ClickAction extends Model {
      * @var int $action
      */
     private string|null $action = null;
+
+    #[Pure]
+    public function __construct( array $data ) {
+        $this->parse_array( $data );
+    }
+
+    private function parse_array( array $data ): void {
+        foreach ($data as $key => $value) {
+            if ( in_array($key, $this->mandatory_fields) || in_array($key, $this->optional_fields)) {
+                $this->$key = $value;
+            }
+        }
+    }
 
     // TODO: Implement fromArray() method.
     #[Pure]
@@ -58,6 +72,10 @@ class ClickAction extends Model {
 
     // TODO: Implement validate() method.
     function validate(): bool {
+        if (! in_array($this->type, [1, 2, 3])) {
+            throw new InvalidArgumentException(self::INVALID_TYPE);
+        }
 
+        return true;
     }
 }

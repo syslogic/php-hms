@@ -1,5 +1,4 @@
 <?php
-
 namespace HMS\PushKit\Android;
 
 use HMS\Core\Model;
@@ -234,7 +233,7 @@ class AndroidNotification extends Model {
         return $data;
     }
 
-    protected function parse_array( array $data ): void {
+    private function parse_array( array $data ): void {
         foreach ($data as $key => $value) {
             if ( in_array($key, $this->mandatory_fields) || in_array($key, $this->optional_fields)) {
                 $this->$key = $value;

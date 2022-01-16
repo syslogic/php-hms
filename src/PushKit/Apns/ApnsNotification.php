@@ -31,7 +31,15 @@ class ApnsNotification extends Model {
 
     #[Pure]
     public function __construct( array $data ) {
+        $this->parse_array( $data );
+    }
 
+    private function parse_array( array $data ): void {
+        foreach ($data as $key => $value) {
+            if ( in_array($key, $this->mandatory_fields) || in_array($key, $this->optional_fields)) {
+                $this->$key = $value;
+            }
+        }
     }
 
     public function asObject(): object {

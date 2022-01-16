@@ -5,29 +5,29 @@ use HMS\Core\Model;
 use JetBrains\PhpStorm\Pure;
 
 /**
- * Class HMS PushKit QuickAppNotification
+ * Class HMS PushKit QuickAppConfig
  *
  * @author Martin Zeitler
  */
-class QuickAppNotification extends Model {
+class QuickAppConfig extends Model {
 
-    protected array $mandatory_fields = ['title', 'body'];
-    protected array $optional_fields  = ['image'];
-
-    /**
-     * @var string $title
-     */
-    protected string|null $title = null;
+    protected array $mandatory_fields = ['payload', 'hms_options'];
+    protected array $optional_fields  = ['headers'];
 
     /**
-     * @var string $body
+     * @var string $payload
      */
-    protected string|null $body = null;
+    private $payload;
 
     /**
-     * @var string|null $image
+     * @var string $hms_options
      */
-    protected string|null $image = null;
+    private $hms_options;
+
+    /**
+     * @var string $headers
+     */
+    private $headers;
 
     #[Pure]
     public function __construct( array $data ) {
@@ -44,15 +44,15 @@ class QuickAppNotification extends Model {
 
     public function asObject(): object {
         return (object) [
-            'title' => $this->title,
-            'body'  => $this->body,
-            'image' => $this->image
+            'payload'     => $this->payload,
+            'hms_options' => $this->hms_options,
+            'headers'     => $this->headers
         ];
     }
 
     /** TODO: Implement fromArray() method. */
-    static function fromArray( array $model ): QuickAppNotification {
-        return new QuickAppNotification( $model );
+    static function fromArray( array $model ): ApnsConfig {
+
     }
 
     /** TODO: Implement validate() method. */

@@ -1,5 +1,4 @@
 <?php
-
 namespace HMS\PushKit\Android;
 
 use HMS\Core\Model;
