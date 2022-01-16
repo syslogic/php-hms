@@ -9,7 +9,7 @@ use HMS\PushKit\QuickApp\QuickAppNotification;
 use HMS\PushKit\ReceiptStatus;
 use HMS\PushKit\ResultCodes;
 use HMS\PushKit\UpstreamMessage;
-use HMS\PushKit\WebPush\WebPushNotification;
+use HMS\PushKit\WebPush\WebNotification;
 use stdClass;
 
 /**
@@ -152,7 +152,7 @@ class PushKitTest extends BaseTestCase {
 
     /** Test: Model WebPushNotification. */
     public function test_web_push_notification() {
-        $item = new WebPushNotification( [
+        $item = new WebNotification( [
 
         ] );
         self::assertTrue( is_object($item->asObject()) );

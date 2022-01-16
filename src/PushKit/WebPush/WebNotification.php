@@ -5,11 +5,11 @@ use HMS\Core\Model;
 use JetBrains\PhpStorm\Pure;
 
 /**
- * Class HMS PushKit WebPushNotification
+ * Class HMS PushKit WebNotification
  *
  * @author Martin Zeitler
  */
-class WebPushNotification extends Model {
+class WebNotification extends Model {
 
     protected array $mandatory_fields = ['title', 'body'];
     protected array $optional_fields  = ['image'];
@@ -51,8 +51,8 @@ class WebPushNotification extends Model {
     }
 
     /** TODO: Implement fromArray() method. */
-    static function fromArray( array $model ): WebPushNotification {
-        return new WebPushNotification( $model );
+    static function fromArray( array $model ): WebNotification {
+        return new WebNotification( $model );
     }
 
     /** TODO: Implement validate() method. */

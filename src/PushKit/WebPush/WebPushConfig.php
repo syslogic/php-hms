@@ -30,14 +30,14 @@ class WebPushConfig extends Model {
     private $headers;
 
     /**
-     * @var WebPushNotification|null $notification
+     * @var WebNotification|null $notification
      */
     private $notification;
 
     #[Pure]
     public function __construct( array $data ) {
         $this->parse_array( $data );
-        $this->notification = new WebPushNotification( $data );
+        $this->notification = new WebNotification( $data );
     }
 
     private function parse_array( array $data ): void {
