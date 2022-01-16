@@ -24,7 +24,7 @@ class Notification extends Model {
 
     public function __construct( string $title, string $body, string|null $image=null ) {
         $this->title = $title;
-        $this->body = $body;
+        $this->body  = $body;
         $this->image = $image;
     }
 
@@ -34,6 +34,11 @@ class Notification extends Model {
             'body'  => $this->body,
             'image' => $this->image
         ];
+    }
+
+    /** TODO: Implement fromArray() method. */
+    static function fromArray( array $model ): Notification {
+        return new Notification( $model['title'], $model['body'], $model['image'] );
     }
 
     /** TODO: Implement validate() method. */

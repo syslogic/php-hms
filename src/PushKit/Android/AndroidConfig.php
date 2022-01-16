@@ -1,0 +1,79 @@
+<?php
+
+namespace HMS\PushKit\Android;
+
+use HMS\Core\Model;
+use JetBrains\PhpStorm\Pure;
+
+/**
+ * Class HMS PushKit AndroidConfig
+ *
+ * @author Martin Zeitler
+ */
+class AndroidConfig extends Model {
+
+    protected array $mandatory_fields = [];
+    protected array $optional_fields  = ['collapse_key', 'ttl', 'bi_tag', 'receipt_id', 'fast_app_target', 'data', 'notification'];
+
+    /**
+     * @var int $collapse_key
+     */
+    private int $collapse_key = -1;
+
+    /**
+     * @var string|null $ttl
+     */
+    private string|null $ttl = '86400s';
+
+    /**
+     * @var string|null $bi_tag
+     */
+    private string|null $bi_tag = null;
+
+    /**
+     * @var string|null $receipt_id
+     */
+    private string|null $receipt_id = null;
+
+    /**
+     * @var int $fast_app_target
+     */
+    private int $fast_app_target = 2;
+
+    /**
+     * @var string|null $data
+     */
+    private string|null $data = '';
+
+    /**
+     * @var AndroidNotification|null $notification
+     */
+    private AndroidNotification|null $notification;
+
+    #[Pure]
+    public function __construct( array $data ) {
+        $this->notification = $data['notification'];
+    }
+
+    public function asObject(): object {
+        return (object) [
+            'collapse_key'    => $this->collapse_key,
+            'ttl'             => $this->ttl,
+            'bi_tag'          => $this->bi_tag,
+            'receipt_id'      => $this->receipt_id,
+            'fast_app_target' => $this->fast_app_target,
+            'data'            => $this->data,
+            'notification'    => $this->notification->asObject()
+        ];
+    }
+
+    /** TODO: Implement fromArray() method. */
+    static function fromArray( array $model ): AndroidConfig {
+        return new AndroidConfig( $model );
+    }
+
+    /** TODO: Implement validate() method. */
+    function validate(): bool {
+        return true;
+    }
+}

@@ -21,7 +21,7 @@ class PushKitTest extends BaseTestCase {
 
     private static PushKit|null $client;
 
-    private string $test_token = 'IQAAAACy0pLcAAHXwe2KMhT8iio6kpkUzlZKY1tGEk3yYzIRwz1LHfSkT1c7erH4FxhgSd45qnKPwh8xJfsvZHfRd4J';
+    private string $test_token = 'IQAAAACy0pLcAAHqLqNHyp_Z8K3GiRKn10I4Hn7G31ueBBwpSD4ieytFy2vmn09hrA9xOTOYPVKqGyJKejLs6IQiooN-Q70XNrZ6jMwWOFnXXZte_g';
     private string $test_condition = "'TopicA' in topics && ('TopicB' in topics || 'TopicC' in topics)";
     private string $test_topic = 'test';
 
@@ -145,7 +145,7 @@ class PushKitTest extends BaseTestCase {
     /** Test: Model UpstreamMessage. */
     public function test_upstream_message() {
 
-        $hmac_verification_key = getenv('HUAWEI_UPLINK_HMAC');
+        $hmac_verification_key = getenv('HUAWEI_UPSTREAM_HMAC_VERIFICATION_KEY');
         $item = new UpstreamMessage( $hmac_verification_key );
         self::assertTrue( is_null( $item->getRawBody() ) );
 

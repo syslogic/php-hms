@@ -2,8 +2,11 @@
 namespace HMS\PushKit;
 
 use HMS\Core\Wrapper;
+use HMS\PushKit\Android\AndroidConfig;
 use HMS\PushKit\Android\AndroidNotification;
+use HMS\PushKit\Apns\ApnsConfig;
 use HMS\PushKit\Apns\ApnsNotification;
+use HMS\PushKit\WebPush\WebPushConfig;
 use HMS\PushKit\WebPush\WebPushNotification;
 use JetBrains\PhpStorm\ArrayShape;
 use JetBrains\PhpStorm\Pure;
@@ -123,13 +126,19 @@ class PushKit extends Wrapper {
     }
 
     #[ArrayShape(['validate_only' => "bool", 'message' => "object"])]
-    #[Pure]
     private function get_payload_by_mode( string $mode, string|array $argument, string $title, string $body, string|null $image=null ): array {
         if (! in_array( $mode , ['token', 'topic', 'condition'] ) ) {return [];}
         $notification = new Notification( $title, $body, $image );
-        $android      = new ApnsNotification( $title, $body, $image );
-        $web_push     = new WebPushNotification( $title, $body, $image );
-        $apns         = new AndroidNotification( $title, $body, $image );
+        $android = new AndroidConfig([
+            'notification' => AndroidNotification::fromArray([
+                'click_action' => [
+                    'type' => 2,
+                    'url' => 'https://syslogic.io'
+                ]
+            ])
+        ]);
+        $web_push     = new WebPushConfig([]);
+        $apns         = new ApnsConfig([]);
         return [
             'validate_only' => false,
             'message' => (object) [
@@ -137,8 +146,8 @@ class PushKit extends Wrapper {
                 'notification' => $notification->asObject(),
                 'data'         => '',
                 'android'      => $android->asObject(),
-                'webpush'      => $web_push->asObject(),
-                'apns'         => $apns->asObject()
+                // 'webpush'      => $web_push->asObject(),
+                // 'apns'         => $apns->asObject()
             ]
         ];
     }
