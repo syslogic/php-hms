@@ -120,25 +120,33 @@ class PushKitTest extends BaseTestCase {
 
     /** Test: Model AndroidNotification. */
     public function test_android_notification() {
-        $item = new AndroidNotification('Test Title', 'Test Body');
+        $item = new AndroidNotification( [
+
+        ] );
         self::assertTrue( is_object($item->asObject()) );
     }
 
     /** Test: Model ApnsNotification. */
     public function test_apns_notification() {
-        $item = new ApnsNotification('Test Title', 'Test Body');
+        $item = new ApnsNotification( [
+
+        ] );
         self::assertTrue( is_object($item->asObject()) );
     }
 
     /** Test: Model QuickAppNotification. */
     public function test_quick_app_notification() {
-        $item = new QuickAppNotification('Test Title', 'Test Body');
+        $item = new QuickAppNotification( [
+
+        ] );
         self::assertTrue( is_object($item->asObject()) );
     }
 
     /** Test: Model WebPushNotification. */
     public function test_web_push_notification() {
-        $item = new WebPushNotification('Test Title', 'Test Body');
+        $item = new WebPushNotification( [
+
+        ] );
         self::assertTrue( is_object($item->asObject()) );
     }
 
