@@ -58,8 +58,6 @@ class Wrapper {
      */
     private function init( array|string|null $config ): void {
 
-        $config = getenv('HUAWEI_APPLICATION_CREDENTIALS');
-
         /** Try to get file-name from $HUAWEI_APPLICATION_CREDENTIALS. */
         if ( $config == null) {
             $config = getenv('HUAWEI_APPLICATION_CREDENTIALS');
@@ -102,15 +100,15 @@ class Wrapper {
             isset($config['client_id']) && !empty($config['client_id']) &&
             isset($config['client_secret']) && !empty($config['client_secret'])
         ) {
-            $this->client_id     =    (int) $config['client_id'];
+            $this->client_id  =    (int) $config['client_id'];
             $this->client_secret = (string) $config['client_secret'];
         }
     }
 
     /** Try to initialize from environmental variables. */
     private function init_by_environment() {
-        $this->client_id     = (int)    getenv('HUAWEI_CLIENT_ID');
-        $this->client_secret = (string) getenv('HUAWEI_CLIENT_SECRET');
+        $this->client_id     =    (int) getenv('HUAWEI_APP_ID');
+        $this->client_secret = (string) getenv('HUAWEI_APP_SECRET');
     }
 
     public function is_ready(): bool {
@@ -122,8 +120,8 @@ class Wrapper {
 
         $result = $this->curl_request('POST', $this->url_token_refresh, [
             'grant_type' => 'client_credentials',
-            'client_id' => $this->app_id,
-            'client_secret' => $this->app_secret
+            'client_id' => $this->client_id,
+            'client_secret' => $this->client_secret
         ], [
             'Content-Type: application/x-www-form-urlencoded;charset=utf-8'
         ]);
@@ -132,11 +130,11 @@ class Wrapper {
             if ( property_exists( $result, 'error' ) && property_exists( $result, 'sub_error' )) {
                 $this->handle_error( $result );
             } else {
-                if ( property_exists( $result, 'expires_in' ) ) {
-                    $this->token_expiry = time() + $result->expires_in;
-                }
                 if ( property_exists( $result, 'access_token' ) ) {
                     $this->access_token = $result->access_token;
+                }
+                if ( property_exists( $result, 'expires_in' ) ) {
+                    $this->token_expiry = time() + $result->expires_in;
                 }
                 if ( property_exists( $result, 'scope' ) ) {
                     $this->token_scope = $result->scope;
@@ -165,9 +163,9 @@ class Wrapper {
         return [ "Content-Type: application/json", "Authorization: Bearer $this->access_token" ];
     }
 
-    /** Expose $this->client_id. */
-    protected function get_client_id(): int {
-        return $this->client_id;
+    /** Expose $this->app_id. */
+    protected function get_app_id(): int {
+        return $this->app_id;
     }
 
     /** Perform cURL request. */
@@ -182,15 +180,14 @@ class Wrapper {
 
         /* Apply JSON request-body. */
         if ( in_array($method, ['POST', 'PUT'])) {
-            if ( is_array($post_fields) ) {
+            if ( is_array( $post_fields ) ) {
                 if (isset($post_fields['grant_type']) && $post_fields['grant_type'] == 'client_credentials') {
                     /* Token refresh */
                     $post_fields = http_build_query($post_fields);
                 } else {
-                    /* JSON as request-body */
+                    /* Post request incl. token as JSON request-body. */
                     $post_fields = json_encode((object) $post_fields);
                 }
-
             } else if ( is_object($post_fields) ) {
                 $post_fields = json_encode($post_fields);
             }

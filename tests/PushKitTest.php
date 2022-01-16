@@ -21,7 +21,6 @@ class PushKitTest extends BaseTestCase {
 
     private static PushKit|null $client;
 
-    private string $test_package_name = 'io.syslogic.mobile';
     private string $test_token = 'IQAAAACy0pLcAAHXwe2KMhT8iio6kpkUzlZKY1tGEk3yYzIRwz1LHfSkT1c7erH4FxhgSd45qnKPwh8xJfsvZHfRd4J';
     private string $test_condition = "'TopicA' in topics && ('TopicB' in topics || 'TopicC' in topics)";
     private string $test_topic = 'test';
@@ -38,7 +37,7 @@ class PushKitTest extends BaseTestCase {
         $result =  self::$client->topics_list( $this->test_token );
         self::assertTrue($result instanceof stdClass );
         self::assertObjectHasAttribute('code', $result);
-        self::assertTrue( $result->code === 82000012); // token is invalid
+        self::assertTrue( $result->code === ResultCodes::SUBMISSION_SUCCESS, "Error $result->code: $result->msg" );
     }
 
     /** Test: Topic subscribe. */
@@ -46,7 +45,7 @@ class PushKitTest extends BaseTestCase {
         $result = self::$client->topic_subscribe( $this->test_topic, $this->test_token );
         self::assertTrue($result instanceof stdClass );
         self::assertObjectHasAttribute('code', $result);
-        self::assertTrue( $result->code === 82000010); // partial token processed fail
+        self::assertTrue( $result->code === ResultCodes::SUBMISSION_SUCCESS, "Error $result->code: $result->msg" );
     }
 
     /** Test: Topic unsubscribe. */
@@ -54,7 +53,7 @@ class PushKitTest extends BaseTestCase {
         $result = self::$client->topic_unsubscribe( $this->test_topic, $this->test_token );
         self::assertTrue($result instanceof stdClass );
         self::assertObjectHasAttribute('code', $result);
-        self::assertTrue( $result->code === 82000010); // partial token processed fail
+        self::assertTrue( $result->code === ResultCodes::SUBMISSION_SUCCESS, "Error $result->code: $result->msg" );
     }
 
     /** Test: Send message to token. */
@@ -62,8 +61,7 @@ class PushKitTest extends BaseTestCase {
         $result = self::$client->send_message_to_token( $this->test_token, 'Test Message', 'Test Body' );
         self::assertTrue($result instanceof stdClass );
         self::assertObjectHasAttribute('code', $result);
-        // self::assertTrue( $result->code === 80100003); // Illegal payload, No valid android notification payload when sending notification message to android users.
-        self::assertTrue( $result->code === 80300007); // All the tokens are invalid
+        self::assertTrue( $result->code === ResultCodes::SUBMISSION_SUCCESS, "Error $result->code: $result->msg" );
     }
 
     /** Test: Send message to topic. */
@@ -71,8 +69,7 @@ class PushKitTest extends BaseTestCase {
         $result = self::$client->send_message_to_topic( $this->test_topic, 'Test Message', 'Test Body');
         self::assertTrue($result instanceof stdClass );
         self::assertObjectHasAttribute('code', $result);
-        self::assertTrue( $result->code === 80100003); // Illegal payload, No valid android notification payload when sending notification message to android users.
-        // self::assertTrue( $result->code === 80300007); // All the tokens are invalid
+        self::assertTrue( $result->code !== ResultCodes::PUSHKIT_NO_PERMISSION, "Error $result->code: $result->msg");
     }
 
     /** Test: Send message to condition. */
@@ -80,8 +77,7 @@ class PushKitTest extends BaseTestCase {
         $result = self::$client->send_message_to_condition( $this->test_condition, 'Test Message', 'Test Body');
         self::assertTrue($result instanceof stdClass );
         self::assertObjectHasAttribute('code', $result);
-        self::assertTrue( $result->code === 80100003); // Illegal payload, No valid android notification payload when sending notification message to android users.
-        // self::assertTrue( $result->code === 80300007); // All the tokens are invalid
+        self::assertTrue( $result->code === ResultCodes::SUBMISSION_SUCCESS, "Error $result->code: $result->msg" );
     }
 
     /** Test: Querying Data as a Data Controller. */
@@ -89,7 +85,7 @@ class PushKitTest extends BaseTestCase {
         $result = self::$client->token_data_query( $this->test_token );
         self::assertTrue($result instanceof stdClass );
         self::assertObjectHasAttribute('code', $result);
-        self::assertTrue( $result->code === 82000012); // token is invalid
+        self::assertTrue( $result->code === ResultCodes::SUBMISSION_SUCCESS, "Error $result->code: $result->msg" );
     }
 
     /** Test: Deleting Data as a Data Controller. */
@@ -97,7 +93,7 @@ class PushKitTest extends BaseTestCase {
         $result = self::$client->token_data_delete( $this->test_token );
         self::assertTrue($result instanceof stdClass );
         self::assertObjectHasAttribute('code', $result);
-        self::assertTrue( $result->code === 82000012); // token is invalid
+        self::assertTrue( $result->code === ResultCodes::SUBMISSION_SUCCESS, "Error $result->code: $result->msg" );
     }
 
     /** Test: Model ReceiptStatus. */

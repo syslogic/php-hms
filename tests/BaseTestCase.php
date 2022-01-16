@@ -13,10 +13,14 @@ use PHPUnit\Framework\TestCase;
 abstract class BaseTestCase extends TestCase {
 
     protected static int $project_id = 0;
-    protected static int $client_id = 0;
-    protected static string|null $client_secret = null;
     protected static string|null $package_name = null;
     protected static string|null $api_key = null;
+
+    protected static int $client_id = 0;
+    protected static int $app_id = 0;
+
+    protected static string|null $client_secret = null;
+    protected static string|null $app_secret = null;
 
     protected const CLIENT_NOT_READY = 'The client is not ready.';
     protected const ENV_VAR_APPLICATION_CREDENTIALS = 'Variable HUAWEI_APPLICATION_CREDENTIALS is not set.';
@@ -25,8 +29,8 @@ abstract class BaseTestCase extends TestCase {
     #[ArrayShape(['client_id' => "int", 'client_secret' => "null|string"])]
     protected static function get_secret(): array {
         return [
-            'client_id'     => self::$client_id,
-            'client_secret' => self::$client_secret
+            'client_id'     => self::$app_id,
+            'client_secret' => self::$app_secret
         ];
     }
 
@@ -39,11 +43,13 @@ abstract class BaseTestCase extends TestCase {
             $config = json_decode(file_get_contents( $config_file ));
             if ( is_object( $config )) {
                 if ( property_exists( $config, 'client' ) && is_object( $config->client )) {
-                    self::$project_id    = (string) $config->client->project_id;
+                    self::$project_id   = (string) $config->client->project_id;
+                    self::$app_id        =    (int) $config->client->app_id;
+                    self::$client_id     =    (int) $config->client->client_id;
+                    self::$client_secret = (string) $config->client->client_secret;
                     self::$package_name  = (string) $config->client->package_name;
-                    self::$client_id     =    (int) $config->client->app_id;
-                    self::$client_secret = (string) getenv('HUAWEI_APP_SECRET');
-                    self::$api_key = (string) $config->client->api_key;
+                    self::$app_secret    = (string) getenv('HUAWEI_APP_SECRET');
+                    self::$api_key       = (string) $config->client->api_key;
                 }
             }
         }
