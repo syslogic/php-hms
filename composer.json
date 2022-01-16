@@ -18,8 +18,8 @@
     "url": "https://github.com/sponsors/syslogic"
   }],
   "scripts": {
-    "test": "export XDEBUG_MODE=debug && vendor/bin/phpunit --verbose",
-    "coverage": "export XDEBUG_MODE=coverage && vendor/bin/phpunit --verbose --bootstrap vendor/autoload.php --configuration coverage.xml --testsuite main",
+    "test": "export XDEBUG_MODE=debug && vendor/bin/phpunit --bootstrap vendor/autoload.php --configuration phpunit.xml --testsuite main",
+    "coverage": "export XDEBUG_MODE=coverage && vendor/bin/phpunit --bootstrap vendor/autoload.php --configuration coverage.xml --testsuite main",
     "post-update-cmd": "ls -la"
   },
   "scripts-descriptions": {
