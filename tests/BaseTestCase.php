@@ -43,12 +43,12 @@ abstract class BaseTestCase extends TestCase {
             $config = json_decode(file_get_contents( $config_file ));
             if ( is_object( $config )) {
                 if ( property_exists( $config, 'client' ) && is_object( $config->client )) {
-                    self::$project_id   = (string) $config->client->project_id;
                     self::$app_id        =    (int) $config->client->app_id;
+                    self::$app_secret    = (string) getenv('HUAWEI_APP_SECRET'); // not contained in the JSON.
+                    self::$package_name  = (string) $config->client->package_name;
+                    self::$project_id    =    (int) $config->client->project_id;
                     self::$client_id     =    (int) $config->client->client_id;
                     self::$client_secret = (string) $config->client->client_secret;
-                    self::$package_name  = (string) $config->client->package_name;
-                    self::$app_secret    = (string) getenv('HUAWEI_APP_SECRET');
                     self::$api_key       = (string) $config->client->api_key;
                 }
             }

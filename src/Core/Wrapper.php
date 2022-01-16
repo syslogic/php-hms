@@ -117,15 +117,13 @@ class Wrapper {
 
     /** oAuth2 token refresh; $this->url_token_refresh either uses v2 or v3 endpoint. */
     private function token_refresh(): void {
-
         $result = $this->curl_request('POST', $this->url_token_refresh, [
-            'grant_type' => 'client_credentials',
-            'client_id' => $this->client_id,
+            'grant_type'    => 'client_credentials',
+            'client_id'     => $this->client_id,
             'client_secret' => $this->client_secret
         ], [
             'Content-Type: application/x-www-form-urlencoded;charset=utf-8'
         ]);
-
         if ( is_object( $result ) ) {
             if ( property_exists( $result, 'error' ) && property_exists( $result, 'sub_error' )) {
                 $this->handle_error( $result );
@@ -161,11 +159,6 @@ class Wrapper {
     /** Provide HTTP request headers as array. */
     protected function auth_header(): array {
         return [ "Content-Type: application/json", "Authorization: Bearer $this->access_token" ];
-    }
-
-    /** Expose $this->app_id. */
-    protected function get_app_id(): int {
-        return $this->app_id;
     }
 
     /** Perform cURL request. */

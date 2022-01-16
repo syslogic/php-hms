@@ -218,6 +218,11 @@ class AppInfo extends Model {
         return (object) $this->asArray();
     }
 
+    /** TODO: Implement fromArray() method. */
+    static function fromArray( array $model ): AppInfo {
+        return new AppInfo( $model );
+    }
+
     /** TODO: Implement validate() method. */
     function validate(): bool {
         return true;

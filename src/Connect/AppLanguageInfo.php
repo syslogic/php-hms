@@ -59,6 +59,12 @@ class AppLanguageInfo extends Model {
         return (object) $this->asArray();
     }
 
+    /** TODO: Implement fromArray() method. */
+    static function fromArray( array $model ): AppLanguageInfo {
+        return new AppLanguageInfo( $model );
+    }
+
+    /** TODO: Implement validate() method. */
     function validate(): bool {
         return true;
     }
