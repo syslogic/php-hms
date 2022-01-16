@@ -14,6 +14,7 @@ use stdClass;
 class Wrapper {
 
     private string|null $url_token_refresh = Constants::URL_OAUTH2_TOKEN_REFRESH_V3;
+    protected string|null $access_token = null;
     private string|null $client_secret = null;
     private string|null $app_secret = null;
     private int $token_expiry = 0;
@@ -25,14 +26,14 @@ class Wrapper {
     private string|null $union_id = null;
     private string|null $open_id = null;
 
-    /** AnalyticsKit needs a product_id (= project_id) & an app_id (= client_id). */
-    protected int $project_id = 0;
-    protected int $app_id = 0;
-    protected int $client_id = 0;
-    protected string|null $access_token = null;
-
-    /** Possibly for MapKit / LocationKit. */
+    /** Possibly for MapKit / LocationKit related. */
     protected string|null $api_key = null;
+
+    /** AnalyticsKit related. */
+    protected int $project_id = 0;
+    protected int $product_id = 0;
+    protected int $client_id = 0;
+    protected int $app_id = 0;
 
     /** Default Result. */
     protected stdClass $result;
@@ -59,14 +60,14 @@ class Wrapper {
     private function init( array|string|null $config ): void {
 
         /** Try to get file-name from $HUAWEI_APPLICATION_CREDENTIALS. */
-        if ( $config == null) {
-            $config = getenv('HUAWEI_APPLICATION_CREDENTIALS');
-            if (! $config) {$config = '../agconnect-services.json';}
+        $config_file = null;
+        if ( is_string( getenv('HUAWEI_APPLICATION_CREDENTIALS') )) {
+            $config_file = getenv('HUAWEI_APPLICATION_CREDENTIALS');
         }
 
         /** Then either initialize by filename, array or environmental variables. */
-        if (is_string( $config ) && file_exists( $config ) && is_readable( $config )) {
-            $this->init_by_file( $config );
+        if (is_string( $config_file ) && file_exists( $config_file ) && is_readable( $config_file )) {
+            $this->init_by_file( $config_file );
         } else if (is_array( $config )) {
             $this->init_by_array( $config );
         } else {
@@ -78,18 +79,18 @@ class Wrapper {
     }
 
     /** Try to initialize from agconnect-services.json on string input. */
-    private function init_by_file( string $config ) {
-        $config = json_decode(file_get_contents( $config ));
+    private function init_by_file( string $config_file ) {
+        $config = json_decode(file_get_contents( $config_file ));
         if ( is_object( $config )) {
             if ( property_exists( $config, 'client' )) {
                 $this->app_id        =    (int) $config->client->app_id;
                 $this->app_secret    = (string) getenv('HUAWEI_APP_SECRET'); // not contained in the JSON.
                 $this->package_name  = (string) $config->client->package_name;
                 $this->project_id    =    (int) $config->client->project_id;
+                $this->product_id    =    (int) $config->client->product_id;
                 $this->client_id     =    (int) $config->client->client_id;
                 $this->client_secret = (string) $config->client->client_secret;
                 $this->api_key       = (string) $config->client->api_key;
-
             }
         }
     }
@@ -100,15 +101,20 @@ class Wrapper {
             isset($config['client_id']) && !empty($config['client_id']) &&
             isset($config['client_secret']) && !empty($config['client_secret'])
         ) {
-            $this->client_id  =    (int) $config['client_id'];
+            $this->client_id  =       (int) $config['client_id'];
             $this->client_secret = (string) $config['client_secret'];
         }
     }
 
     /** Try to initialize from environmental variables. */
     private function init_by_environment() {
-        $this->client_id     =    (int) getenv('HUAWEI_APP_ID');
-        $this->client_secret = (string) getenv('HUAWEI_APP_SECRET');
+        if (
+            is_string( getenv('HUAWEI_APP_ID' ) ) &&
+            is_string( getenv('HUAWEI_APP_SECRET' ) )
+        ) {
+            $this->client_id     =    (int) getenv( 'HUAWEI_APP_ID' );
+            $this->client_secret = (string) getenv( 'HUAWEI_APP_SECRET' );
+        }
     }
 
     public function is_ready(): bool {
@@ -119,8 +125,8 @@ class Wrapper {
     private function token_refresh(): void {
         $result = $this->curl_request('POST', $this->url_token_refresh, [
             'grant_type'    => 'client_credentials',
-            'client_id'     => $this->client_id,
-            'client_secret' => $this->client_secret
+            'client_id'     => $this->app_id,
+            'client_secret' => $this->app_secret
         ], [
             'Content-Type: application/x-www-form-urlencoded;charset=utf-8'
         ]);
@@ -134,11 +140,11 @@ class Wrapper {
                 if ( property_exists( $result, 'expires_in' ) ) {
                     $this->token_expiry = time() + $result->expires_in;
                 }
-                if ( property_exists( $result, 'scope' ) ) {
-                    $this->token_scope = $result->scope;
-                }
                 if ( property_exists( $result, 'id_token' ) ) {
                     $this->id_token = $result->id_token;
+                }
+                if ( property_exists( $result, 'scope' ) ) {
+                    $this->token_scope = $result->scope;
                 }
             }
         }
@@ -172,14 +178,12 @@ class Wrapper {
         }
 
         /* Apply JSON request-body. */
-        if ( in_array($method, ['POST', 'PUT'])) {
-            if ( is_array( $post_fields ) ) {
+        if ( in_array($method, ['POST', 'PUT']) ) {
+            if ( is_array( $post_fields ) && sizeof($post_fields) > 0) {
                 if (isset($post_fields['grant_type']) && $post_fields['grant_type'] == 'client_credentials') {
-                    /* Token refresh */
-                    $post_fields = http_build_query($post_fields);
+                    $post_fields = http_build_query($post_fields);     /* It's a token refresh. */
                 } else {
-                    /* Post request incl. token as JSON request-body. */
-                    $post_fields = json_encode((object) $post_fields);
+                    $post_fields = json_encode((object) $post_fields); /* Post request incl. token as JSON request-body. */
                 }
             } else if ( is_object($post_fields) ) {
                 $post_fields = json_encode($post_fields);
@@ -195,17 +199,18 @@ class Wrapper {
         curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 5);
         curl_setopt($curl, CURLOPT_TIMEOUT,        5);
 
-        $result = curl_exec($curl);
+        $result = curl_exec( $curl );
+        $info = curl_getinfo( $curl );
         if ($result === false) {
             return false;
         }
-        $info = curl_getinfo($curl);
         curl_close($curl);
         $result = json_decode($result);
 
-        /* Casting error codes to integer. */
-        if (property_exists( $result, 'code')) {$result->code = (int) $result->code;}
-        if (property_exists( $result, 'sub_error')) {$result->sub_error = (int) $result->sub_error;}
+        /* Casting error & result codes to integer. */
+        if ( property_exists( $result, 'code') ) {$result->code = (int) $result->code;}
+        if ( property_exists( $result, 'sub_error') ) {$result->sub_error = (int) $result->sub_error;}
+        if ( property_exists( $result, 'result_code') ) {$result->result_code = (int) $result->result_code;}
 
         return $result;
     }
