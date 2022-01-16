@@ -10,6 +10,12 @@ namespace HMS\AnalyticsKit;
 class ResultCodes {
 
     /**
+     * 0 - Request successful.
+     * Check and correct the parameter value.
+     */
+    public const REQUEST_SUCCESSFUL = 0;
+
+    /**
      * 10020 - Invalid parameter.
      * Check and correct the parameter value.
      */

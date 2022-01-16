@@ -17,7 +17,7 @@ class Constants {
      *
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/android-api-common-interface-description-0000001050707180#section777183816123">API Access Address</a>
      */
-    public const ANALYTICS_KIT_BASE_URL                       = "https://datacollector-drcn-dt-hicloud.com/";
+    public const ANALYTICS_KIT_BASE_URL                       = "https://datacollector-dre.dt.hicloud.com/";
 
     public const ANALYTICS_KIT_GDPR_USER_DATA_EXPORT          = "analytics/gdpr/user_data_export_requests/v2";
     public const ANALYTICS_KIT_GDPR_USER_DATA_EXPORT_STATUS   = "analytics/gdpr/user_data_export_tasks/v2";

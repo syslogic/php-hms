@@ -7,5 +7,5 @@ namespace HMS\DriveKit;
  * @author Martin Zeitler
  */
 class Constants {
-    public const ANALYTICS_KIT_BASE_URL  = "";
+    public const DRIVE_KIT_BASE_URL  = "";
 }

@@ -12,11 +12,6 @@ class Constants {
     /**
      * @see https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-obtain_token-0000001158365043
      */
-    public const CONNECT_API_TOKEN_URL = "https://connect-api.cloud.huawei.com/api/oauth2/v1/token";
-
-    /**
-     * @see https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-obtain_token-0000001158365043
-     */
     public const PUBLISH_API_BASE_URL = "https://connect-api.cloud.huawei.com/api/publish/v2/";
 
     /**
@@ -108,5 +103,5 @@ class Constants {
      * GET: Querying the Compilation Status of an App Package
      * @see https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-query-aabfile-0000001111685206
      */
-    public const PUBLISH_API_QUERY_COMPILATION_STATUS = "aab/complile/status";
+    public const PUBLISH_API_QUERY_COMPILATION_STATUS = "aab/compile/status";
 }

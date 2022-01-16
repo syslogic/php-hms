@@ -9,8 +9,8 @@ namespace HMS\LocationKit;
 class Constants {
 
     /** GeoLocation API (Global). */
-    public const GEO_LOCATION_BASE_URL  = "https://locationapi.cloud.huawei.com";
+    public const GEO_LOCATION_BASE_URL = "https://locationapi.cloud.huawei.com";
 
     /** IPLocation API (for China). */
-    public const IP_LOCATION_BASE_URL  = "https://openlocation-drcn.platform.dbankcloud.com";
+    public const IP_LOCATION_BASE_URL = "https://openlocation-drcn.platform.dbankcloud.com";
 }
