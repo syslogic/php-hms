@@ -2,6 +2,7 @@
 namespace HMS\PushKit\Android;
 
 use HMS\Core\Model;
+use InvalidArgumentException;
 use JetBrains\PhpStorm\Pure;
 
 /**
@@ -11,15 +12,17 @@ use JetBrains\PhpStorm\Pure;
  */
 class AndroidNotification extends Model {
 
-    protected array $mandatory_fields = [
-        'title', 'body', 'click_action'
-    ];
+    protected array $mandatory_fields = ['title', 'body', 'click_action'];
     protected array $optional_fields  = [
         'icon', 'color', 'sound', 'default_sound', 'tag', 'body_loc_key', 'body_loc_args', 'title_loc_key', 'title_loc_args',
         'multi_lang_key', 'channel_id', 'notify_summary', 'image', 'style', 'big_title', 'big_body', 'auto_clear', 'notify_id',
         'group', 'badge', 'ticker', 'when', 'importance', 'use_default_vibrate', 'use_default_light', 'vibrate_config',
         'visibility', 'light_settings', 'foreground_show', 'profile_id', 'inbox_content', 'buttons'
     ];
+
+    protected const INVALID_NOTIFICATION_TITLE = 'title is mandatory';
+    protected const INVALID_NOTIFICATION_BODY  = 'body is mandatory';
+    protected const INVALID_CLICK_ACTION       = 'click_action is mandatory';
 
     /**
      * @var string $title
@@ -190,7 +193,6 @@ class AndroidNotification extends Model {
      */
     private $foreground_show = null;
 
-    #[Pure]
     public function __construct( array $data ) {
         $this->parse_array( $data );
     }
@@ -252,6 +254,9 @@ class AndroidNotification extends Model {
 
     /** TODO: Implement validate() method. */
     function validate(): bool {
+        if ( $this->title        == null ) {throw new InvalidArgumentException(self::INVALID_NOTIFICATION_TITLE);}
+        if ( $this->body         == null ) {throw new InvalidArgumentException(self::INVALID_NOTIFICATION_BODY);}
+        if ( $this->click_action == null ) {throw new InvalidArgumentException(self::INVALID_CLICK_ACTION);}
         return true;
     }
 }

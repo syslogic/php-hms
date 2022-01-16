@@ -10,29 +10,39 @@ class ClickAction extends Model {
     protected array $mandatory_fields = ['type'];
     protected array $optional_fields  = ['intent', 'action', 'url'];
 
-    protected const INVALID_TYPE = 'click action.';
+    protected const INVALID_CLICK_ACTION_TYPE = 'type must be either 1, 2, 3';
+    protected const MISSING_INTENT_OR_ACTION = 'url is mandatory, when type is 1';
+    protected const MISSING_URL = 'url is mandatory, when type is 2';
+    protected const NON_HTTPS_URL = 'url must use https:// protocol';
 
     /**
-     * The type of click action
-     * @var int $type
+     * The type of click action.
      * 1: tap to open a custom app page
      * 2: tap to open a specified URL
      * 3: tap to start the app
+     * @var int $type
      */
-    private int $type = 2; // 1, 2, 3
+    private int $type = 2;
 
     /**
+     * URL to be opened. The URL must be an HTTPS URL. Example: https://example.com/image.png
+     * This parameter is mandatory when type is set to 2.
+     *
      * @var int $url
      */
     private string|null $url = null;
 
     /**
+     * For details about intent implementation, please refer to Setting the intent Parameter.
+     * When type is set to 1, you must set at least one of intent and action.
      * @var int $intent
      */
     private string|null $intent = null;
 
     /**
-     * @var int $action
+     * Action corresponding to the activity of the page to be opened when the custom app page is opened through the action.
+     * When type is set to 1 (open a custom page), you must set at least one of intent and action.
+     * @var string|null $action
      */
     private string|null $action = null;
 
@@ -49,7 +59,6 @@ class ClickAction extends Model {
         }
     }
 
-    // TODO: Implement fromArray() method.
     #[Pure]
     static function fromArray( array $model ): ClickAction {
         return new ClickAction( $model );
@@ -58,10 +67,10 @@ class ClickAction extends Model {
     /** Conditionally adding array items. */
     public function asArray(): array {
         $data = [];
-        if ($this->type > 0) {$data['type'] = $this->type;}
+        if (in_array($this->type, [1,2,3])) {$data['type'] = $this->type;}
         if ($this->intent != null) {$data['intent'] = $this->intent;}
         if ($this->action != null) {$data['action'] = $this->action;}
-        if ($this->url != null) {$data['url'] = $this->url;}
+        if ($this->url    != null) {$data['url']    = $this->url;}
         return $data;
     }
 
@@ -73,9 +82,18 @@ class ClickAction extends Model {
     // TODO: Implement validate() method.
     function validate(): bool {
         if (! in_array($this->type, [1, 2, 3])) {
-            throw new InvalidArgumentException(self::INVALID_TYPE);
+            throw new InvalidArgumentException(self::INVALID_CLICK_ACTION_TYPE);
         }
-
+        if ($this->type == 1 && $this->action == null && $this->intent == null) {
+            throw new InvalidArgumentException(self::MISSING_INTENT_OR_ACTION);
+        }
+        if ($this->type == 2) {
+            if ($this->url == null) {
+                throw new InvalidArgumentException(self::MISSING_URL);
+            } else if (str_split($this->url, 8) != 'https://'){
+                throw new InvalidArgumentException(self::NON_HTTPS_URL);
+            }
+        }
         return true;
     }
 }
