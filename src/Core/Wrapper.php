@@ -1,5 +1,4 @@
 <?php /** @noinspection PhpPropertyOnlyWrittenInspection */
-
 namespace HMS\Core;
 
 use InvalidArgumentException;
@@ -13,30 +12,30 @@ use stdClass;
  */
 class Wrapper {
 
+    /** oAuth2 Token related. */
     private string|null $url_token_refresh = Constants::URL_OAUTH2_TOKEN_REFRESH_V3;
     protected string|null $access_token = null;
-    private string|null $client_secret = null;
-    private string|null $app_secret = null;
+    protected string|null $refresh_token = null;
     private int $token_expiry = 0;
 
-    /** Further ID token related fields. */
+    /** ID Token related. */
     private string|null $id_token = null;
-    protected string|null $package_name = null;
     private string|null $token_scope = null;
     private string|null $union_id = null;
     private string|null $open_id = null;
 
-    /** Possibly for MapKit / LocationKit related. */
-    protected string|null $api_key = null;
+    /** Default Result. */
+    protected stdClass $result;
 
-    /** AnalyticsKit related. */
+    /** These are now available through Core\Config. */
+    private string|null $client_secret = null;
+    private string|null $app_secret = null;
+    protected string|null $package_name = null;
+    protected string|null $api_key = null;
     protected int $project_id = 0;
     protected int $product_id = 0;
     protected int $client_id = 0;
     protected int $app_id = 0;
-
-    /** Default Result. */
-    protected stdClass $result;
 
     /** Constructor. */
     public function __construct( array|string|null $config = null, int $token_endpoint_version = 3 ) {
@@ -205,13 +204,45 @@ class Wrapper {
             return false;
         }
         curl_close($curl);
-        $result = json_decode($result);
+        $data = json_decode( $result );
+        return $this->sanitize( $data );
+    }
 
-        /* Casting error & result codes to integer. */
-        if ( property_exists( $result, 'code') ) {$result->code = (int) $result->code;}
-        if ( property_exists( $result, 'sub_error') ) {$result->sub_error = (int) $result->sub_error;}
-        if ( property_exists( $result, 'result_code') ) {$result->result_code = (int) $result->result_code;}
+    /** Different kinds of field descriptors may be returned ... */
+    private function sanitize( object $data ): object {
 
-        return $result;
+        /** $data->code */
+        if ( property_exists( $data, 'code') ) {
+            $data->code = (int) $data->code;
+        }
+        if (property_exists($data, 'result_code')) {
+            $data->code = (int) $data->result_code;
+            unset( $data->result_code );
+        }
+        if (property_exists($data, 'resultCode')) {
+            $data->code = (int) $data->resultCode;
+            unset( $data->resultCode );
+        }
+
+        /** $data->message */
+        if (property_exists($data, 'msg')) {
+            $data->message = (string) $data->msg;
+            unset( $data->msg );
+        }
+        if (property_exists($data, 'result_msg')) {
+            $data->message = (string) $data->result_msg;
+            unset( $data->result_msg );
+        }
+        if (property_exists($data, 'resultMsg')) {
+            $data->message = (string) $data->resultMsg;
+            unset( $data->resultMsg );
+        }
+
+        /** $data->sub_error */
+        if (property_exists($data, 'sub_error')) {
+            $data->sub_error = (int) $data->sub_error;
+        }
+
+        return $data;
     }
 }

@@ -37,7 +37,8 @@ class PushKitTest extends BaseTestCase {
         $result =  self::$client->topics_list( $this->test_token );
         self::assertTrue($result instanceof stdClass );
         self::assertObjectHasAttribute('code', $result);
-        self::assertTrue( $result->code === ResultCodes::SUBMISSION_SUCCESS, "Error $result->code: $result->msg" );
+        self::assertTrue( $result->code === ResultCodes::SUBMISSION_SUCCESS, "Error $result->code: $result->message" );
+        self::assertTrue( is_array( $result->topics ) );
     }
 
     /** Test: Topic subscribe. */
@@ -45,7 +46,7 @@ class PushKitTest extends BaseTestCase {
         $result = self::$client->topic_subscribe( $this->test_topic, $this->test_token );
         self::assertTrue($result instanceof stdClass );
         self::assertObjectHasAttribute('code', $result);
-        self::assertTrue( $result->code === ResultCodes::SUBMISSION_SUCCESS, "Error $result->code: $result->msg" );
+        self::assertTrue( $result->code === ResultCodes::SUBMISSION_SUCCESS, "Error $result->code: $result->message" );
     }
 
     /** Test: Topic unsubscribe. */
@@ -53,7 +54,7 @@ class PushKitTest extends BaseTestCase {
         $result = self::$client->topic_unsubscribe( $this->test_topic, $this->test_token );
         self::assertTrue($result instanceof stdClass );
         self::assertObjectHasAttribute('code', $result);
-        self::assertTrue( $result->code === ResultCodes::SUBMISSION_SUCCESS, "Error $result->code: $result->msg" );
+        self::assertTrue( $result->code === ResultCodes::SUBMISSION_SUCCESS, "Error $result->code: $result->message" );
     }
 
     /** Test: Send message to token. */
@@ -61,7 +62,7 @@ class PushKitTest extends BaseTestCase {
         $result = self::$client->send_message_to_token( $this->test_token, 'Test Message', 'Test Body' );
         self::assertTrue($result instanceof stdClass );
         self::assertObjectHasAttribute('code', $result);
-        self::assertTrue( $result->code === ResultCodes::SUBMISSION_SUCCESS, "Error $result->code: $result->msg" );
+        self::assertTrue( $result->code === ResultCodes::SUBMISSION_SUCCESS, "Error $result->code: $result->message" );
     }
 
     /** Test: Send message to topic. */
@@ -69,7 +70,7 @@ class PushKitTest extends BaseTestCase {
         $result = self::$client->send_message_to_topic( $this->test_topic, 'Test Message', 'Test Body');
         self::assertTrue($result instanceof stdClass );
         self::assertObjectHasAttribute('code', $result);
-        self::assertTrue( $result->code !== ResultCodes::PUSHKIT_NO_PERMISSION, "Error $result->code: $result->msg");
+        self::assertTrue( $result->code !== ResultCodes::PUSHKIT_NO_PERMISSION, "Error $result->code: $result->message" );
     }
 
     /** Test: Send message to condition. */
@@ -77,7 +78,7 @@ class PushKitTest extends BaseTestCase {
         $result = self::$client->send_message_to_condition( $this->test_condition, 'Test Message', 'Test Body');
         self::assertTrue($result instanceof stdClass );
         self::assertObjectHasAttribute('code', $result);
-        self::assertTrue( $result->code === ResultCodes::SUBMISSION_SUCCESS, "Error $result->code: $result->msg" );
+        self::assertTrue( $result->code === ResultCodes::SUBMISSION_SUCCESS, "Error $result->code: $result->message" );
     }
 
     /** Test: Querying Data as a Data Controller. */
@@ -85,7 +86,7 @@ class PushKitTest extends BaseTestCase {
         $result = self::$client->token_data_query( $this->test_token );
         self::assertTrue($result instanceof stdClass );
         self::assertObjectHasAttribute('code', $result);
-        self::assertTrue( $result->code === ResultCodes::SUBMISSION_SUCCESS, "Error $result->code: $result->msg" );
+        self::assertTrue( $result->code === ResultCodes::SUBMISSION_SUCCESS, "Error $result->code: $result->message" );
     }
 
     /** Test: Deleting Data as a Data Controller. */
@@ -93,7 +94,7 @@ class PushKitTest extends BaseTestCase {
         $result = self::$client->token_data_delete( $this->test_token );
         self::assertTrue($result instanceof stdClass );
         self::assertObjectHasAttribute('code', $result);
-        self::assertTrue( $result->code === ResultCodes::SUBMISSION_SUCCESS, "Error $result->code: $result->msg" );
+        self::assertTrue( $result->code === ResultCodes::SUBMISSION_SUCCESS, "Error $result->code: $result->message" );
     }
 
     /** Test: Model ReceiptStatus. */

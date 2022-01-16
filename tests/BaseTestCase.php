@@ -25,6 +25,7 @@ abstract class BaseTestCase extends TestCase {
     private const ENV_VAR_APP_SECRET = 'Variable HUAWEI_APP_SECRET is not set.';
     private const ENV_VAR_APPLICATION_CREDENTIALS = 'Variable HUAWEI_APPLICATION_CREDENTIALS is not set.';
     private const ENV_VAR_UPSTREAM_HMAC_VERIFICATION_KEY = 'Variable HUAWEI_UPSTREAM_HMAC_VERIFICATION_KEY is not set.';
+    protected const CONFIG_NOT_LOADED = 'The configuration JSON was not loaded.';
     protected const CLIENT_NOT_READY = 'The client is not ready.';
 
     #[ArrayShape(['client_id' => "int", 'client_secret' => "null|string"])]

@@ -38,7 +38,7 @@ class ResultCodes {
      * 110031 - The data cannot be exported because the interval between this data export request and the previous one is less than two months.
      * Display a message notifying the user that the interval between two consecutive data export requests must be two months at least.
      */
-    public const DATA_EXPORT_REQUEST_INTERVAL = 10020;
+    public const DATA_EXPORT_REQUEST_INTERVAL = 110031;
 
     /**
      * 10032 - The data cannot be deleted because it is being exported.
