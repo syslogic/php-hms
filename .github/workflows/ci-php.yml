@@ -33,7 +33,7 @@ jobs:
 
     - name: 🗄️ Provide ./agconnect-services.json
       id: agconnect-services
-      run: echo '${{ secrets.AGCONNECT_SERVICES_JSON }}' > agconnect-services.json
+      run: echo '${{ secrets.AGCONNECT_SERVICES_JSON }}' > ./agconnect-services.json && ls -la
 
     - name: 🗄️ Run test suite with coverage
       id: phpunit-coverage
