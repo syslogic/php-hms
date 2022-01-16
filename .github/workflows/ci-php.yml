@@ -31,11 +31,13 @@ jobs:
       id: composer-dependencies
       run: composer install --prefer-dist --no-progress
 
+    - name: 🗄️ Provide ./agconnect-services.json
+      id: agconnect-services
+      run: echo '${{ secrets.AGCONNECT_SERVICES_JSON }}' > agconnect-services.json
+
     - name: 🗄️ Run test suite with coverage
       id: phpunit-coverage
-      run: |
-        echo '${{ secrets.AGCONNECT_SERVICES_JSON }}' > agconnect-services.json
-        composer run-script coverage
+      run: composer run-script coverage
       env:
           TEST_NAME: main
           XDEBUG_MODE: coverage
