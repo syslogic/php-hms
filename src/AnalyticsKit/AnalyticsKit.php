@@ -2,7 +2,7 @@
 namespace HMS\AnalyticsKit;
 
 use HMS\Core\Wrapper;
-use http\Exception\InvalidArgumentException;
+use InvalidArgumentException;
 use stdClass;
 
 /**

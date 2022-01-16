@@ -5,29 +5,32 @@ use HMS\Core\Model;
 use JetBrains\PhpStorm\Pure;
 
 /**
- * Class HMS PushKit Headers
+ * Class HMS PushKit WebAction
  *
  * @author Martin Zeitler
  */
-class Headers extends Model {
+class WebAction extends Model {
 
     protected array $mandatory_fields = [];
-    protected array $optional_fields  = ['ttl', 'topic'];
+    protected array $optional_fields  = ['action', 'icon', 'title'];
 
     /**
-     * Message cache time, in seconds, for example, 20, 20s, or 20S.
-     *
-     * @var int|string|null $ttl
+     * Action name.
+     * @var string|null $action
      */
-    private int|string|null $ttl = null;
-
+    private string|null $action = null;
 
     /**
-     * Message ID, which can be used to overwrite undelivered messages.
-     *
-     * @var string|null $topic
+     * URL for the button icon of an action.
+     * @var string|null $icon
      */
-    private string|null $topic = null;
+    private string|null $icon = null;
+
+    /**
+     * Title of an action.
+     * @var string|null $icon
+     */
+    private string|null $title = null;
 
     public function __construct( array $data ) {
         $this->parse_array( $data );
@@ -44,8 +47,9 @@ class Headers extends Model {
     /** Conditionally adding array items. */
     public function asArray(): array {
         $data = [];
-        if ( $this->ttl   != null ) {$data['ttl']   = $this->ttl;}
-        if ( $this->topic != null ) {$data['topic'] = $this->topic;}
+        if ( $this->action != null ) {$data['action'] = $this->action;}
+        if ( $this->icon   != null ) {$data['icon']   = $this->icon;}
+        if ( $this->title  != null ) {$data['title']  = $this->title;}
         return $data;
     }
 
@@ -53,8 +57,8 @@ class Headers extends Model {
         return (object) $this->asArray();
     }
 
-    static function fromArray( array $model ): Headers {
-        return new Headers( $model );
+    static function fromArray( array $model ): WebAction {
+        return new WebAction( $model );
     }
 
     function validate(): bool {

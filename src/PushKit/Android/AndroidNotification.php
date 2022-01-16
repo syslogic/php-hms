@@ -3,7 +3,6 @@ namespace HMS\PushKit\Android;
 
 use HMS\Core\Model;
 use InvalidArgumentException;
-use JetBrains\PhpStorm\Pure;
 
 /**
  * Class HMS PushKit AndroidNotification
@@ -247,7 +246,6 @@ class AndroidNotification extends Model {
         return (object) $this->asArray();
     }
 
-    #[Pure]
     static function fromArray( array $model ): AndroidNotification {
         return new AndroidNotification( $model );
     }

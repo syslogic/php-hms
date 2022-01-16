@@ -29,7 +29,6 @@ class QuickAppNotification extends Model {
      */
     protected string|null $image = null;
 
-    #[Pure]
     public function __construct( array $data ) {
         $this->parse_array( $data );
     }
@@ -50,7 +49,6 @@ class QuickAppNotification extends Model {
         ];
     }
 
-    /** TODO: Implement fromArray() method. */
     static function fromArray( array $model ): QuickAppNotification {
         return new QuickAppNotification( $model );
     }

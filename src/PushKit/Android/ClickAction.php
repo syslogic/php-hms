@@ -3,8 +3,12 @@ namespace HMS\PushKit\Android;
 
 use HMS\Core\Model;
 use InvalidArgumentException;
-use JetBrains\PhpStorm\Pure;
 
+/**
+ * Class HMS PushKit ClickAction
+ *
+ * @author Martin Zeitler
+ */
 class ClickAction extends Model {
 
     protected array $mandatory_fields = ['type'];
@@ -46,7 +50,6 @@ class ClickAction extends Model {
      */
     private string|null $action = null;
 
-    #[Pure]
     public function __construct( array $data ) {
         $this->parse_array( $data );
     }
@@ -59,7 +62,6 @@ class ClickAction extends Model {
         }
     }
 
-    #[Pure]
     static function fromArray( array $model ): ClickAction {
         return new ClickAction( $model );
     }

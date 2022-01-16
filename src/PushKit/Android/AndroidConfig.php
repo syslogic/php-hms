@@ -2,7 +2,6 @@
 namespace HMS\PushKit\Android;
 
 use HMS\Core\Model;
-use JetBrains\PhpStorm\Pure;
 
 /**
  * Class HMS PushKit AndroidConfig
@@ -49,7 +48,6 @@ class AndroidConfig extends Model {
      */
     private AndroidNotification|null $notification;
 
-    #[Pure]
     public function __construct( array $data ) {
         $this->notification = $data['notification'];
     }

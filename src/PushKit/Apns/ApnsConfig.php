@@ -2,7 +2,6 @@
 namespace HMS\PushKit\Apns;
 
 use HMS\Core\Model;
-use JetBrains\PhpStorm\Pure;
 
 /**
  * Class HMS PushKit ApnsConfig
@@ -29,7 +28,6 @@ class ApnsConfig extends Model {
      */
     private $headers;
 
-    #[Pure]
     public function __construct( array $data ) {
         $this->parse_array( $data );
     }

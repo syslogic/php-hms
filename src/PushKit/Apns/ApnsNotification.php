@@ -2,7 +2,6 @@
 namespace HMS\PushKit\Apns;
 
 use HMS\Core\Model;
-use JetBrains\PhpStorm\Pure;
 
 /**
  * Class HMS PushKit ApnsNotification
@@ -29,7 +28,6 @@ class ApnsNotification extends Model {
      */
     protected string|null $image = null;
 
-    #[Pure]
     public function __construct( array $data ) {
         $this->parse_array( $data );
     }

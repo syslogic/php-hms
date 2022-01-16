@@ -1,29 +1,25 @@
 <?php
-namespace HMS\PushKit\Apns;
+namespace HMS\PushKit\WebPush;
 
 use HMS\Core\Model;
-use InvalidArgumentException;
+use JetBrains\PhpStorm\Pure;
 
 /**
- * Class HMS PushKit HmsOptions
+ * Class HMS PushKit WebPushConfig.HmsOptions
  *
  * @author Martin Zeitler
  */
 class HmsOptions extends Model {
 
-    protected array $mandatory_fields = ['target_user_type'];
-    protected array $optional_fields  = [];
-
-    protected const INVALID_TARGET_USER_TYPE = 'target_user_type must be either 1, 2, 3';
+    protected array $mandatory_fields = [];
+    protected array $optional_fields  = ['link'];
 
     /**
-     * Target user type. The options are as follows:
-     * 1: test user
-     * 2: formal user
-     * 3: VoIP user
-     * @var int $target_user_type
+     * Default URI for redirection when no action is performed.
+     *
+     * @var string|null $link
      */
-    private int $target_user_type = 2;
+    private string|null $link = null;
 
     public function __construct( array $data ) {
         $this->parse_array( $data );
@@ -40,8 +36,8 @@ class HmsOptions extends Model {
     /** Conditionally adding array items. */
     public function asArray(): array {
         $data = [];
-        if (in_array($this->target_user_type, [1,2,3])) {
-            $data['target_user_type'] = $this->target_user_type;
+        if ( $this->link != null ) {
+            $data['link'] = $this->link;
         }
         return $data;
     }
@@ -55,9 +51,6 @@ class HmsOptions extends Model {
     }
 
     function validate(): bool {
-        if (! in_array($this->target_user_type, [1, 2, 3])) {
-            throw new InvalidArgumentException(self::INVALID_TARGET_USER_TYPE);
-        }
         return true;
     }
 }

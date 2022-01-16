@@ -29,7 +29,6 @@ class QuickAppConfig extends Model {
      */
     private $headers;
 
-    #[Pure]
     public function __construct( array $data ) {
         $this->parse_array( $data );
     }
@@ -50,9 +49,8 @@ class QuickAppConfig extends Model {
         ];
     }
 
-    /** TODO: Implement fromArray() method. */
-    static function fromArray( array $model ): ApnsConfig {
-
+    static function fromArray( array $model ): QuickAppConfig {
+        return new QuickAppConfig( $model );
     }
 
     /** TODO: Implement validate() method. */

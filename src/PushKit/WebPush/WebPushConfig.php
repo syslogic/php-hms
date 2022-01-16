@@ -34,7 +34,6 @@ class WebPushConfig extends Model {
      */
     private $notification;
 
-    #[Pure]
     public function __construct( array $data ) {
         $this->parse_array( $data );
         $this->notification = new WebNotification( $data );
