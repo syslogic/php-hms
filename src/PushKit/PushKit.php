@@ -21,10 +21,10 @@ class PushKit extends Wrapper {
     private string $url_token_data_query;
     private string $url_token_data_delete;
 
-    /** Constructor; the oAuth2 `client_id` actually is the `app_id`. */
+    /** Constructor. */
     public function __construct( array|string $config ) {
         parent::__construct( $config );
-        $app_id = $config['client_id'];
+        $app_id = $config['client_id']; /* The oAuth2 `client_id` actually is the `app_id`. */
         $this->url_message_send      = str_replace('{appId}', $app_id, Constants::PUSHKIT_MESSAGE_SEND);
         $this->url_topics_list       = str_replace('{appId}', $app_id, Constants::PUSHKIT_TOPICS_LIST);
         $this->url_topic_subscribe   = str_replace('{appId}', $app_id,  Constants::PUSHKIT_TOPIC_SUBSCRIBE);

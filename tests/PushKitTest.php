@@ -1,15 +1,20 @@
 <?php
 namespace Tests;
 
+use HMS\PushKit\Android\AndroidConfig;
 use HMS\PushKit\Android\AndroidNotification;
+use HMS\PushKit\Apns\ApnsConfig;
 use HMS\PushKit\Apns\ApnsNotification;
+use HMS\PushKit\Message;
 use HMS\PushKit\Notification;
 use HMS\PushKit\PushKit;
+use HMS\PushKit\QuickApp\QuickAppConfig;
 use HMS\PushKit\QuickApp\QuickAppNotification;
 use HMS\PushKit\ReceiptStatus;
 use HMS\PushKit\ResultCodes;
 use HMS\PushKit\UpstreamMessage;
 use HMS\PushKit\WebPush\WebNotification;
+use HMS\PushKit\WebPush\WebPushConfig;
 use stdClass;
 
 /**
@@ -25,11 +30,16 @@ class PushKitTest extends BaseTestCase {
     private string $test_condition = "'TopicA' in topics && ('TopicB' in topics || 'TopicC' in topics)";
     private string $test_topic = 'test';
 
+    private static string $test_message_title;
+    private static string $test_message_body;
+
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {
         parent::setUpBeforeClass();
         self::$client = new PushKit( self::get_secret() );
         self::assertTrue( self::$client->is_ready(), self::CLIENT_NOT_READY );
+        self::$test_message_title = 'Test Message from PHP ' . phpversion();
+        self::$test_message_body = 'Test Body';
     }
 
     /** Test: Topic subscriptions list. */
@@ -65,7 +75,7 @@ class PushKitTest extends BaseTestCase {
 
     /** Test: Send message to token. */
     public function test_send_message_to_token() {
-        $result = self::$client->send_message_to_token( $this->test_token, 'Test Message', 'Test Body' );
+        $result = self::$client->send_message_to_token( $this->test_token, self::$test_message_title, self::$test_message_body );
         self::assertTrue($result instanceof stdClass );
         self::assertObjectHasAttribute('code', $result);
         self::assertTrue( $result->code === ResultCodes::SUBMISSION_SUCCESS, "Error $result->code: $result->message" );
@@ -73,15 +83,15 @@ class PushKitTest extends BaseTestCase {
 
     /** Test: Send message to topic. */
     public function test_send_message_to_topic() {
-        $result = self::$client->send_message_to_topic( $this->test_topic, 'Test Message', 'Test Body');
+        $result = self::$client->send_message_to_topic( $this->test_topic, self::$test_message_title, self::$test_message_body );
         self::assertTrue($result instanceof stdClass );
         self::assertObjectHasAttribute('code', $result);
-        self::assertTrue( $result->code !== ResultCodes::PUSHKIT_NO_PERMISSION, "Error $result->code: $result->message" );
+        self::assertTrue( $result->code === ResultCodes::SUBMISSION_SUCCESS, "Error $result->code: $result->message" );
     }
 
     /** Test: Send message to condition. */
     public function test_send_message_to_condition() {
-        $result = self::$client->send_message_to_condition( $this->test_condition, 'Test Message', 'Test Body');
+        $result = self::$client->send_message_to_condition( $this->test_condition, self::$test_message_title, self::$test_message_body );
         self::assertTrue($result instanceof stdClass );
         self::assertObjectHasAttribute('code', $result);
         self::assertTrue( $result->code === ResultCodes::SUBMISSION_SUCCESS, "Error $result->code: $result->message" );
@@ -116,16 +126,34 @@ class PushKitTest extends BaseTestCase {
     /** Test: Model ResultCodes. */
     public function test_result_codes() {
         $item = new ResultCodes();
-        self::assertTrue( is_object($item) );
+        self::assertTrue( is_object( $item ) );
     }
 
-    /** Test: Model Base Notification. */
-    public function test_notification() {
-        $item = new Notification('Test Title', 'Test Body');
+    /** Test: Model Message. */
+    public function test_message() {
+        $item = new Message([
+
+        ]);
         self::assertTrue( is_object($item->asObject()) );
         self::assertTrue( $item->validate() );
     }
 
+    /** Test: Model Notification. */
+    public function test_notification() {
+        $item = new Notification(self::$test_message_title, self::$test_message_body );
+        self::assertTrue( is_object($item->asObject()) );
+        self::assertTrue( $item->validate() );
+    }
+
+    /** Test: Model AndroidConfig. */
+    public function test_android_config() {
+        $item = new AndroidConfig( [
+            'notification' => new AndroidNotification( [
+
+            ] )
+        ] );
+        self::assertTrue( is_object($item->asObject()) );
+    }
     /** Test: Model AndroidNotification. */
     public function test_android_notification() {
         $item = new AndroidNotification( [
@@ -134,6 +162,13 @@ class PushKitTest extends BaseTestCase {
         self::assertTrue( is_object($item->asObject()) );
     }
 
+    /** Test: Model ApnsConfig. */
+    public function test_apns_config() {
+        $item = new ApnsConfig( [
+
+        ] );
+        self::assertTrue( is_object($item->asObject()) );
+    }
     /** Test: Model ApnsNotification. */
     public function test_apns_notification() {
         $item = new ApnsNotification( [
@@ -142,9 +177,24 @@ class PushKitTest extends BaseTestCase {
         self::assertTrue( is_object($item->asObject()) );
     }
 
+    /** Test: Model QuickAppConfig. */
+    public function test_quick_app_config() {
+        $item = new QuickAppConfig( [
+
+        ] );
+        self::assertTrue( is_object($item->asObject()) );
+    }
     /** Test: Model QuickAppNotification. */
     public function test_quick_app_notification() {
         $item = new QuickAppNotification( [
+
+        ] );
+        self::assertTrue( is_object($item->asObject()) );
+    }
+
+    /** Test: Model QuickAppConfig. */
+    public function test_web_push_config() {
+        $item = new WebPushConfig( [
 
         ] );
         self::assertTrue( is_object($item->asObject()) );

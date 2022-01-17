@@ -17,12 +17,12 @@ class WebPushConfig extends Model {
     /**
      * @var string $payload
      */
-    private $payload;
+    private $payload = null;
 
     /**
      * @var string $hms_options
      */
-    private $hms_options;
+    private object|null $hms_options = null;
 
     /**
      * @var string $headers
