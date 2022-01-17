@@ -103,7 +103,7 @@ Enabling the desired API on [AppGallery Connect](https://developer.huawei.com/co
 
 ### License
 The PHP SDK for Huawei REST API (the library) is licensed under the [MIT License](LICENSE).<br/>
-While the usage of the API depends on the [HUAWEI Developers Service Agreement](https://developer.huawei.com/consumer/en/doc/start/agreement-0000001052728169).
+The usage of these APIs depends on the [HUAWEI Developers Service Agreement](https://developer.huawei.com/consumer/en/doc/start/agreement-0000001052728169).
 
 ### Support
 - [Documentation](https://developer.huawei.com/consumer/en/doc/landing/development)
