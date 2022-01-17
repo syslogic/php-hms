@@ -2,7 +2,6 @@
 namespace HMS\Core;
 
 use InvalidArgumentException;
-use JetBrains\PhpStorm\NoReturn;
 use stdClass;
 
 /**
@@ -50,24 +49,19 @@ class Wrapper {
     }
 
     /**
-     * Initialize the oAuth2 client.
-     *
-     * - from agconnect-services.json on string input.
-     * - from array, on array input.
-     * - from environmental variables.
+     * Initialize the oAuth2 client; either by filename, array or environmental variables.
      */
     private function init( array|string|null $config ): void {
 
         /** Try to get file-name from $HUAWEI_APPLICATION_CREDENTIALS. */
-        $config_file = null;
         if ( is_string( getenv('HUAWEI_APPLICATION_CREDENTIALS') )) {
             $config_file = getenv('HUAWEI_APPLICATION_CREDENTIALS');
+            if (is_string( $config_file ) && file_exists( $config_file ) && is_readable( $config_file )) {
+                $this->init_by_file( $config_file );
+            }
         }
 
-        /** Then either initialize by filename, array or environmental variables. */
-        if (is_string( $config_file ) && file_exists( $config_file ) && is_readable( $config_file )) {
-            $this->init_by_file( $config_file );
-        } else if (is_array( $config )) {
+        if (is_array( $config )) {
             $this->init_by_array( $config );
         } else {
             $this->init_by_environment();
