@@ -1,5 +1,4 @@
 <?php /** @noinspection PhpUnused */
-
 namespace HMS\Connect;
 
 use InvalidArgumentException;
