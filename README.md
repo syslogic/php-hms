@@ -70,12 +70,11 @@ Then one can map namespace `HMS` in the `composer.json` PSR-4 `autoload` block:
 
 The test suite depends on further environmental variables:
 
- - ### `PushKitTest`
+| Test Case | Environmental Variable | Description |
+| ---: | --- | --- |
+| `PushKitTest` | `PHPUNIT_HCM_TEST_DEVICE_TOKEN` | The HCM device registration ID, to which the test will push notifications to.  |
+| `PushKitTest` | `PHPUNIT_HCM_TEST_HMAC_VERIFICATION_KEY` | The HMAC verification key is unique to each upstream message webhook. The value can also be obtained from there. |
 
-- `PHPUNIT_HCM_TEST_DEVICE_TOKEN`<br/>
-   HCM device registration ID, which will receive push notifications.<br/>
-- `PHPUNIT_HCM_TEST_HMAC_VERIFICATION_KEY`<br/>
-   HMAC SHA256 verification key, which can be obtained from an upstream message webhook.
 
 Running tests:
 ````shell
