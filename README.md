@@ -9,20 +9,20 @@ The trademarks are being referenced for identification purposes only, in terms o
 
 [![PHP Composer](https://github.com/syslogic/php-hms/actions/workflows/ci-php.yml/badge.svg)](https://github.com/syslogic/php-hms/actions/workflows/ci-php.yml)
 
-| API | Current Status |
+| Class | Status |
 | ---: | --- |
 | [`AccountKit`](https://github.com/syslogic/php-hms/blob/master/src/AccountKit)     | in progress |
-| [`AdsKit`](https://github.com/syslogic/php-hms/blob/master/src/AdsKit)             | N/A |
+| [`AdsKit`](https://github.com/syslogic/php-hms/blob/master/src/AdsKit)             | N/A         |
 | [`AnalyticsKit`](https://github.com/syslogic/php-hms/blob/master/src/AnalyticsKit) | in progress |
 | [`Connect`](https://github.com/syslogic/php-hms/tree/master/src/Connect)           | in progress |
-| [`DriveKit`](https://github.com/syslogic/php-hms/tree/master/src/DriveKit)         | N/A |
-| [`GameService`](https://github.com/syslogic/php-hms/tree/master/src/GameService)   | N/A |
-| [`LocationKit`](https://github.com/syslogic/php-hms/blob/master/src/LocationKit)   | N/A |
-| [`MapKit`](https://github.com/syslogic/php-hms/blob/master/src/MapKit)             | N/A |
-| [`PushKit`](https://github.com/syslogic/php-hms/blob/master/src/PushKit)           | OK  |
-| [`SearchKit`](https://github.com/syslogic/php-hms/blob/master/src/SearchKit)       | N/A |
-| [`WalletKit`](https://github.com/syslogic/php-hms/blob/master/src/WalletKit)       | N/A |
-| [`Core\Wrapper`](https://github.com/syslogic/php-hms/blob/master/src/Core)         | OK  |
+| [`DriveKit`](https://github.com/syslogic/php-hms/tree/master/src/DriveKit)         | N/A         |
+| [`GameService`](https://github.com/syslogic/php-hms/tree/master/src/GameService)   | N/A         |
+| [`LocationKit`](https://github.com/syslogic/php-hms/blob/master/src/LocationKit)   | N/A         |
+| [`MapKit`](https://github.com/syslogic/php-hms/blob/master/src/MapKit)             | N/A         |
+| [`PushKit`](https://github.com/syslogic/php-hms/blob/master/src/PushKit)           | working     |
+| [`SearchKit`](https://github.com/syslogic/php-hms/blob/master/src/SearchKit)       | N/A         |
+| [`WalletKit`](https://github.com/syslogic/php-hms/blob/master/src/WalletKit)       | N/A         |
+| [`Core\Wrapper`](https://github.com/syslogic/php-hms/blob/master/src/Core)         | working     |
 </p>
 </details>
 
