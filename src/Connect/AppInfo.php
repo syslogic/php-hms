@@ -183,7 +183,17 @@ class AppInfo extends Model {
      */
     private string $privacyRightsUrl = "https://";
 
-    public function __construct() {}
+    public function __construct( array $data ) {
+        $this->parse_array( $data );
+    }
+
+    private function parse_array( array $data ): void {
+        foreach ($data as $key => $value) {
+            if ( in_array($key, $this->optional_fields)) {
+                $this->$key = $value;
+            }
+        }
+    }
 
     public function asArray(): array {
         return [
@@ -218,7 +228,6 @@ class AppInfo extends Model {
         return (object) $this->asArray();
     }
 
-    /** TODO: Implement fromArray() method. */
     static function fromArray( array $model ): AppInfo {
         return new AppInfo( $model );
     }
