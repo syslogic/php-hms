@@ -6,6 +6,7 @@ use HMS\Core\Model;
 /**
  * Class HMS PushKit Message
  *
+ * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-Guides/rest-sample-code-0000001050040242">Sample Code for Sending Downlink Messages Through HTTPS</a>
  * @author Martin Zeitler
  */
 class Message extends Model {
