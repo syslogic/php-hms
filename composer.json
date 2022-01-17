@@ -22,9 +22,8 @@
     "coverage": "export XDEBUG_MODE=coverage && vendor/bin/phpunit --bootstrap vendor/autoload.php --configuration coverage.xml --testsuite main"
   },
   "scripts-descriptions": {
-    "test": "Run phpunit tests",
-    "coverage": "Run phpunit tests with coverage",
-    "post-update-cmd": "Occurs after the update command has been executed, or after the install command has been executed without a lock file present."
+    "test": "Run PHPunit tests",
+    "coverage": "Run PHPunit tests with coverage"
 },
   "require": {
     "php": ">=8.0",
