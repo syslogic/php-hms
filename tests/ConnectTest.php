@@ -33,14 +33,18 @@ class ConnectTest extends BaseTestCase {
 
     /** Test: Model AppInfo. */
     public function test_app_info() {
-        $item = new AppInfo();
+        $item = new AppInfo( [
+
+        ] );
         self::assertTrue( is_array( $item->asArray() ) );
         self::assertTrue( $item->validate() );
     }
 
     /** Test: Model AppInfo. */
     public function test_app_language_info() {
-        $item = new AppLanguageInfo();
+        $item = new AppLanguageInfo( [
+
+        ] );
         self::assertTrue( is_array( $item->asArray() ) );
         self::assertTrue( $item->validate() );
     }

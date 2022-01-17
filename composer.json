@@ -1,6 +1,6 @@
 {
   "name": "syslogic/php-hms",
-  "description": "Unofficial PHP SDK for Huawei REST API",
+  "description": "PHP SDK for Huawei REST API",
   "minimum-stability": "stable",
   "type": "library",
   "license": "MIT",
@@ -18,7 +18,7 @@
     "url": "https://github.com/sponsors/syslogic"
   }],
   "scripts": {
-    "test": "export XDEBUG_MODE=debug && vendor/bin/phpunit --bootstrap vendor/autoload.php --configuration phpunit.xml --testsuite main",
+    "test": "vendor/bin/phpunit --bootstrap vendor/autoload.php --configuration phpunit.xml --testsuite main",
     "coverage": "export XDEBUG_MODE=coverage && vendor/bin/phpunit --bootstrap vendor/autoload.php --configuration coverage.xml --testsuite main",
     "post-update-cmd": "ls -la"
   },
