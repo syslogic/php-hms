@@ -51,7 +51,7 @@ mkdir lib
 git clone git@github.com:syslogic/php-hms ./lib/php-hms
 ````
 
-Then one can map namespace `HMS` in the `composer.json` PSR-4 `autoload` block:
+And then map namespace `HMS` in `composer.json` PSR-4 `autoload` block:
 ````json
 {
   "autoload": {
