@@ -177,8 +177,8 @@ class Wrapper {
         /* Apply JSON request-body. */
         if ( in_array($method, ['POST', 'PUT']) ) {
             if ( is_array( $post_fields ) && sizeof($post_fields) > 0) {
-                if (isset($post_fields['grant_type']) && $post_fields['grant_type'] == 'client_credentials') {
-                    $post_fields = http_build_query($post_fields);     /* It's a token refresh. */
+                if ( isset($post_fields['grant_type']) ) {
+                    $post_fields = http_build_query($post_fields);  /* It's a token request. */
                 } else {
                     $post_fields = json_encode((object) $post_fields); /* Post request incl. token as JSON request-body. */
                 }

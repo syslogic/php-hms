@@ -23,6 +23,9 @@ class AccountKit extends Wrapper {
     private string|null $union_id = null;
     private string|null $open_id = null;
 
+    /** value `client_credentials` isn't documented, but it's working. */
+    private array $grant_types = ['authorization_code', 'client_credentials', 'refresh_token'];
+
     public function __construct( array|string $config ) {
         parent::__construct( $config );
     }
