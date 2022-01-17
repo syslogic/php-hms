@@ -8,6 +8,8 @@ The usage of the abstracted REST API still depends on the [HUAWEI Developers Ser
 <summary>Project Status</summary>
 <p>
 
+[![PHP Composer](https://github.com/syslogic/php-hms/actions/workflows/ci-php.yml/badge.svg)](https://github.com/syslogic/php-hms/actions/workflows/ci-php.yml)
+
 | API | Current Status |
 | ---: | --- |
 | [`AccountKit`](https://github.com/syslogic/php-hms/blob/master/src/AccountKit)     | in progress |
