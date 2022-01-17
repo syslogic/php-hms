@@ -10,7 +10,7 @@ The usage of the abstracted REST API still depends on the [HUAWEI Developers Ser
 
 | API | Current Status |
 | ---: | --- |
-| [`AccountKit`](https://github.com/syslogic/php-hms/blob/master/src/AccountKit)     | N/A |
+| [`AccountKit`](https://github.com/syslogic/php-hms/blob/master/src/AccountKit)     | in progress |
 | [`AdsKit`](https://github.com/syslogic/php-hms/blob/master/src/AdsKit)             | N/A |
 | [`AnalyticsKit`](https://github.com/syslogic/php-hms/blob/master/src/AnalyticsKit) | in progress |
 | [`Connect`](https://github.com/syslogic/php-hms/tree/master/src/Connect)           | in progress |
@@ -29,9 +29,11 @@ The usage of the abstracted REST API still depends on the [HUAWEI Developers Ser
 
 This library depends on the following environmental variables:
 
- - `HUAWEI_APPLICATION_CREDENTIALS` - the path to file `agconnect-services.json`.
- - `HUAWEI_APP_SECRET` - the "App Secret", which is not contained in `agconnect-services.json`.
- - `HUAWEI_UPSTREAM_HMAC_VERIFICATION_KEY` - HMAC key, obtained from an upstream message webhook.
+ - `HUAWEI_APPLICATION_CREDENTIALS`<br/>
+   The path to JSON configuration file `agconnect-services.json`.<br/>This file can be obtained from the AppGallery Connect console.<br/><br/>
+ - `HUAWEI_APP_SECRET`<br/>
+   The "App Secret" is not contained in `agconnect-services.json` and therefore must be provided.<br/>
+   Please refer to the documentation, which explains how to obtain it: [Viewing App Basic Information](https://developer.huawei.com/consumer/en/doc/distribution/app/agc-help-appinfo-0000001100014694).
 
 <details>
 <summary>Installation</summary>
@@ -59,14 +61,32 @@ Then one can map namespace `HMS` in the `composer.json` PSR-4 `autoload` block:
   }
 }
 ````
+</p>
+</details>
 
-Running code coverage:
-````
-cd ./lib/php-hms
-composer install
+<details>
+<summary>PHPUnit Test Suite</summary>
+<p>
+
+### `PushKitTest`
+
+The `PushKitTest` test depends on these environmental variables:
+
+- `PHPUNIT_HCM_TOKEN` - the HCM device registration ID, which will receive the notifications.
+- `PHPUNIT_HCM_TOPIC` - the HCM device registration ID, which will receive the notifications.
+- `PHPUNIT_HCM_CONDITION` - the HCM device registration ID, which will receive the notifications.
+- `PHPUNIT_HCM_HMAC_VERIFICATION_KEY` - an HMAC verification key, which can be obtained from an upstream message webhook.
+
+Running tests:
+````shell
 composer run-script test
 ````
-</p>
+
+Running tests with code coverage:
+````shell
+composer run-script coverage
+````
+
 </details>
 
 <details>
@@ -75,6 +95,7 @@ composer run-script test
 ...
 </p>
 </details>
+
 
 ### Known Issues
 When receiving an `Error 10021: Invalid clientId` this suggests, that the API is not enabled for the project.<br/>

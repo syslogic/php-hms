@@ -12,6 +12,7 @@ jobs:
     environment:
       name: CI
     steps:
+    - name: 🗄️ Check out
     - uses: actions/checkout@v2
 
     - name: 🗄️ Provide agconnect-services.json
@@ -34,6 +35,16 @@ jobs:
     - name: 🔢 Install dependencies
       id: composer-dependencies
       run: composer install --prefer-dist --no-progress
+
+    - name: 🗄️ Run test suite
+      id: phpunit-test
+      run: composer run-script test
+      env:
+        TEST_NAME: main
+        XDEBUG_MODE: debug
+        HUAWEI_APPLICATION_CREDENTIALS: ${{ secrets.HUAWEI_APPLICATION_CREDENTIALS }}
+        HUAWEI_UPSTREAM_HMAC_VERIFICATION_KEY: ${{ secrets.HUAWEI_UPSTREAM_HMAC_VERIFICATION_KEY }}
+        HUAWEI_APP_SECRET: ${{ secrets.HUAWEI_APP_SECRET }}
 
     - name: 🗄️ Run test suite with coverage
       id: phpunit-coverage
