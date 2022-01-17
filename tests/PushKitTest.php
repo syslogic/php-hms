@@ -13,6 +13,7 @@ use HMS\PushKit\QuickApp\QuickAppNotification;
 use HMS\PushKit\ReceiptStatus;
 use HMS\PushKit\ResultCodes;
 use HMS\PushKit\UpstreamMessage;
+use HMS\PushKit\WebPush\WebAction;
 use HMS\PushKit\WebPush\WebNotification;
 use HMS\PushKit\WebPush\WebPushConfig;
 use stdClass;
@@ -26,17 +27,15 @@ class PushKitTest extends BaseTestCase {
 
     private static PushKit|null $client;
 
-    private const ENV_VAR_HCM_TEST_HMAC_VERIFICATION_KEY = 'Variable PHPUNIT_HCM_TEST_HMAC_VERIFICATION_KEY is not set.';
-    private const ENV_VAR_HCM_TEST_DEVICE_TOKEN = 'Variable PHPUNIT_HCM_TEST_DEVICE_TOKEN is not set.';
-
+    private static string|null $test_token            = null;
+    private static string|null $test_topic            = null;
+    private static string|null $test_condition        = null;
     private static string|null $hmac_verification_key = null;
+    private static string|null $test_message_title    = null;
+    private static string|null $test_message_body     = null;
 
-    private static string|null $test_topic = null;
-    private static string|null $test_condition = null;
-    private static string|null $test_token = null;
-
-    private static string $test_message_title;
-    private static string $test_message_body;
+    private const ENV_VAR_HCM_TEST_HMAC_VERIFICATION_KEY = 'Variable PHPUNIT_HCM_TEST_HMAC_VERIFICATION_KEY is not set.';
+    private const ENV_VAR_HCM_TEST_DEVICE_TOKEN          = 'Variable PHPUNIT_HCM_TEST_DEVICE_TOKEN is not set.';
 
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {
@@ -169,6 +168,7 @@ class PushKitTest extends BaseTestCase {
         ] );
         self::assertTrue( is_object($item->asObject()) );
     }
+
     /** Test: Model AndroidNotification. */
     public function test_android_notification() {
         $item = new AndroidNotification( [
@@ -184,6 +184,7 @@ class PushKitTest extends BaseTestCase {
         ] );
         self::assertTrue( is_object($item->asObject()) );
     }
+
     /** Test: Model ApnsNotification. */
     public function test_apns_notification() {
         $item = new ApnsNotification( [
@@ -199,6 +200,7 @@ class PushKitTest extends BaseTestCase {
         ] );
         self::assertTrue( is_object($item->asObject()) );
     }
+
     /** Test: Model QuickAppNotification. */
     public function test_quick_app_notification() {
         $item = new QuickAppNotification( [
@@ -207,7 +209,7 @@ class PushKitTest extends BaseTestCase {
         self::assertTrue( is_object($item->asObject()) );
     }
 
-    /** Test: Model QuickAppConfig. */
+    /** Test: Model WebPushConfig. */
     public function test_web_push_config() {
         $item = new WebPushConfig( [
 
@@ -215,9 +217,17 @@ class PushKitTest extends BaseTestCase {
         self::assertTrue( is_object($item->asObject()) );
     }
 
-    /** Test: Model WebPushNotification. */
-    public function test_web_push_notification() {
+    /** Test: Model WebNotification. */
+    public function test_web_notification() {
         $item = new WebNotification( [
+
+        ] );
+        self::assertTrue( is_object($item->asObject()) );
+    }
+
+    /** Test: Model WebAction. */
+    public function test_web_action() {
+        $item = new WebAction( [
 
         ] );
         self::assertTrue( is_object($item->asObject()) );
@@ -225,7 +235,6 @@ class PushKitTest extends BaseTestCase {
 
     /** Test: Model UpstreamMessage. */
     public function test_upstream_message() {
-
 
         $item = new UpstreamMessage( self::$hmac_verification_key );
         self::assertTrue( is_null( $item->getRawBody() ) );
