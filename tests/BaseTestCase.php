@@ -24,7 +24,6 @@ abstract class BaseTestCase extends TestCase {
 
     private const ENV_VAR_APP_SECRET = 'Variable HUAWEI_APP_SECRET is not set.';
     private const ENV_VAR_APPLICATION_CREDENTIALS = 'Variable HUAWEI_APPLICATION_CREDENTIALS is not set.';
-    private const ENV_VAR_UPSTREAM_HMAC_VERIFICATION_KEY = 'Variable HUAWEI_UPSTREAM_HMAC_VERIFICATION_KEY is not set.';
     protected const CONFIG_NOT_LOADED = 'The configuration JSON was not loaded.';
     protected const CLIENT_NOT_READY = 'The client is not ready.';
 
@@ -37,7 +36,6 @@ abstract class BaseTestCase extends TestCase {
     public static function setUpBeforeClass(): void {
         self::assertTrue(getenv('HUAWEI_APP_SECRET') != false, self::ENV_VAR_APP_SECRET);
         self::assertTrue(getenv('HUAWEI_APPLICATION_CREDENTIALS') != false, self::ENV_VAR_APPLICATION_CREDENTIALS);
-        self::assertTrue( getenv('HUAWEI_UPSTREAM_HMAC_VERIFICATION_KEY')  != false, self::ENV_VAR_UPSTREAM_HMAC_VERIFICATION_KEY);
         $app_secret = getenv('HUAWEI_APP_SECRET'); // not contained in the JSON.
         $config_file = getenv('HUAWEI_APPLICATION_CREDENTIALS');
         if ( file_exists( $config_file ) ) {

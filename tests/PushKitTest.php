@@ -26,9 +26,12 @@ class PushKitTest extends BaseTestCase {
 
     private static PushKit|null $client;
 
-    private string $test_token = 'IQAAAACy0pLcAAHqLqNHyp_Z8K3GiRKn10I4Hn7G31ueBBwpSD4ieytFy2vmn09hrA9xOTOYPVKqGyJKejLs6IQiooN-Q70XNrZ6jMwWOFnXXZte_g';
-    private string $test_condition = "'TopicA' in topics && ('TopicB' in topics || 'TopicC' in topics)";
-    private string $test_topic = 'test';
+    private const ENV_VAR_HCM_TEST_HMAC_VERIFICATION_KEY = 'Variable PHPUNIT_HCM_TEST_HMAC_VERIFICATION_KEY is not set.';
+    private const ENV_VAR_HCM_TEST_DEVICE_TOKEN = 'Variable PHPUNIT_HCM_TEST_DEVICE_TOKEN is not set.';
+
+    private static string|null $test_topic = null;
+    private static string|null $test_condition = null;
+    private static string|null $test_token = null;
 
     private static string $test_message_title;
     private static string $test_message_body;
@@ -36,15 +39,22 @@ class PushKitTest extends BaseTestCase {
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {
         parent::setUpBeforeClass();
-        self::$client = new PushKit( self::get_secret() );
-        self::assertTrue( self::$client->is_ready(), self::CLIENT_NOT_READY );
+        self::assertTrue( getenv('PHPUNIT_HCM_TEST_HMAC_VERIFICATION_KEY')  != false, self::ENV_VAR_HCM_TEST_HMAC_VERIFICATION_KEY);
+        self::assertTrue( getenv('PHPUNIT_HCM_TEST_DEVICE_TOKEN')  != false, self::ENV_VAR_HCM_TEST_DEVICE_TOKEN);
+
+        self::$test_topic = 'test';
+        self::$test_condition = "'TopicA' in topics && ('TopicB' in topics || 'TopicC' in topics)";
+        self::$test_token = getenv('PHPUNIT_HCM_TEST_DEVICE_TOKEN');
         self::$test_message_title = 'Test Message from PHP ' . phpversion();
         self::$test_message_body = 'Test Body';
+
+        self::$client = new PushKit( self::get_secret() );
+        self::assertTrue( self::$client->is_ready(), self::CLIENT_NOT_READY );
     }
 
     /** Test: Topic subscriptions list. */
     public function test_topics_list() {
-        $result =  self::$client->topics_list( $this->test_token );
+        $result =  self::$client->topics_list( self::$test_token );
         self::assertTrue($result instanceof stdClass );
         self::assertObjectHasAttribute('code', $result);
         self::assertTrue( $result->code === ResultCodes::SUBMISSION_SUCCESS, "Error $result->code: $result->message" );
@@ -53,7 +63,7 @@ class PushKitTest extends BaseTestCase {
 
     /** Test: Topic subscribe. */
     public function test_topic_subscribe() {
-        $result = self::$client->topic_subscribe( $this->test_topic, $this->test_token );
+        $result = self::$client->topic_subscribe( self::$test_topic, self::$test_token );
         self::assertTrue($result instanceof stdClass );
         self::assertObjectHasAttribute('code', $result);
         self::assertTrue( $result->code === ResultCodes::SUBMISSION_SUCCESS, "Error $result->code: $result->message" );
@@ -64,7 +74,7 @@ class PushKitTest extends BaseTestCase {
 
     /** Test: Topic unsubscribe. */
     public function test_topic_unsubscribe() {
-        $result = self::$client->topic_unsubscribe( $this->test_topic, $this->test_token );
+        $result = self::$client->topic_unsubscribe( self::$test_topic, self::$test_token );
         self::assertTrue($result instanceof stdClass );
         self::assertObjectHasAttribute('code', $result);
         self::assertTrue( $result->code === ResultCodes::SUBMISSION_SUCCESS, "Error $result->code: $result->message" );
@@ -75,7 +85,7 @@ class PushKitTest extends BaseTestCase {
 
     /** Test: Send message to token. */
     public function test_send_message_to_token() {
-        $result = self::$client->send_message_to_token( $this->test_token, self::$test_message_title, self::$test_message_body );
+        $result = self::$client->send_message_to_token( self::$test_token, self::$test_message_title, self::$test_message_body );
         self::assertTrue($result instanceof stdClass );
         self::assertObjectHasAttribute('code', $result);
         self::assertTrue( $result->code === ResultCodes::SUBMISSION_SUCCESS, "Error $result->code: $result->message" );
@@ -83,7 +93,7 @@ class PushKitTest extends BaseTestCase {
 
     /** Test: Send message to topic. */
     public function test_send_message_to_topic() {
-        $result = self::$client->send_message_to_topic( $this->test_topic, self::$test_message_title, self::$test_message_body );
+        $result = self::$client->send_message_to_topic( self::$test_topic, self::$test_message_title, self::$test_message_body );
         self::assertTrue($result instanceof stdClass );
         self::assertObjectHasAttribute('code', $result);
         self::assertTrue( $result->code === ResultCodes::SUBMISSION_SUCCESS, "Error $result->code: $result->message" );
@@ -91,7 +101,7 @@ class PushKitTest extends BaseTestCase {
 
     /** Test: Send message to condition. */
     public function test_send_message_to_condition() {
-        $result = self::$client->send_message_to_condition( $this->test_condition, self::$test_message_title, self::$test_message_body );
+        $result = self::$client->send_message_to_condition( self::$test_condition, self::$test_message_title, self::$test_message_body );
         self::assertTrue($result instanceof stdClass );
         self::assertObjectHasAttribute('code', $result);
         self::assertTrue( $result->code === ResultCodes::SUBMISSION_SUCCESS, "Error $result->code: $result->message" );
@@ -99,7 +109,7 @@ class PushKitTest extends BaseTestCase {
 
     /** Test: Querying Data as a Data Controller. */
     public function test_token_data_query() {
-        $result = self::$client->token_data_query( $this->test_token );
+        $result = self::$client->token_data_query( self::$test_token );
         self::assertTrue($result instanceof stdClass );
         self::assertObjectHasAttribute('code', $result);
         self::assertTrue( $result->code === ResultCodes::SUBMISSION_SUCCESS, "Error $result->code: $result->message" );
@@ -108,7 +118,7 @@ class PushKitTest extends BaseTestCase {
 
     /** Test: Deleting Data as a Data Controller. */
     public function test_token_data_delete() {
-        $result = self::$client->token_data_delete( $this->test_token );
+        $result = self::$client->token_data_delete( self::$test_token );
         self::assertTrue($result instanceof stdClass );
         self::assertObjectHasAttribute('code', $result);
         self::assertTrue( $result->code === ResultCodes::SUBMISSION_SUCCESS, "Error $result->code: $result->message" );
@@ -211,12 +221,12 @@ class PushKitTest extends BaseTestCase {
     /** Test: Model UpstreamMessage. */
     public function test_upstream_message() {
 
-        $hmac_verification_key = getenv('HUAWEI_UPSTREAM_HMAC_VERIFICATION_KEY');
+        $hmac_verification_key = getenv('PHPUNIT_HCM_TEST_HMAC_VERIFICATION_KEY');
         $item = new UpstreamMessage( $hmac_verification_key );
         self::assertTrue( is_null( $item->getRawBody() ) );
 
         $data_str = '{"key": "value"}';
-        $raw_body = '{"message_id": "1", "from": "'.$this->test_token.'", "category": "'.self::$package_name.'", "data": "'.base64_encode($data_str).'"}';
+        $raw_body = '{"message_id": "1", "from": "'.self::$test_token.'", "category": "'.self::$package_name.'", "data": "'.base64_encode($data_str).'"}';
         $signature = 'timestamp=1563105451261; nonce=:; value=E4YeOsnMtHZ6592U8B9S37238E+Hwtjfrmpf8AQXF+c=';
 
         // TODO: instead test this with an actual upstream message $_POST.

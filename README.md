@@ -68,14 +68,14 @@ Then one can map namespace `HMS` in the `composer.json` PSR-4 `autoload` block:
 <summary>PHPUnit Test Suite</summary>
 <p>
 
-### `PushKitTest`
+The test suite depends on further environmental variables:
 
-The `PushKitTest` test depends on these environmental variables:
+ - ### `PushKitTest`
 
-- `PHPUNIT_HCM_TOKEN` - the HCM device registration ID, which will receive the notifications.
-- `PHPUNIT_HCM_TOPIC` - the HCM device registration ID, which will receive the notifications.
-- `PHPUNIT_HCM_CONDITION` - the HCM device registration ID, which will receive the notifications.
-- `PHPUNIT_HCM_HMAC_VERIFICATION_KEY` - an HMAC verification key, which can be obtained from an upstream message webhook.
+- `PHPUNIT_HCM_TEST_DEVICE_TOKEN`<br/>
+   HCM device registration ID, which will receive push notifications.<br/>
+- `PHPUNIT_HCM_TEST_HMAC_VERIFICATION_KEY`<br/>
+   HMAC SHA256 verification key, which can be obtained from an upstream message webhook.
 
 Running tests:
 ````shell
@@ -98,7 +98,7 @@ composer run-script coverage
 
 
 ### Known Issues
-When receiving an `Error 10021: Invalid clientId` this suggests, that the API is not enabled for the project.<br/>
+When receiving an `Error 10021: Invalid clientId` this may suggest,<br/>that the API which one tries to access is not enabled for the project.<br/>
 Enabling the desired API on [AppGallery Connect](https://developer.huawei.com/consumer/en/service/josp/agc/index.html) should help.
 
 ### License
