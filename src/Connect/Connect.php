@@ -14,6 +14,18 @@ class Connect extends Wrapper {
         parent::__construct( $config );
     }
 
+    public function request_file_upload_url(string $upload_url, string $auth_code, string $file_path) {
+
+    }
+
+    public function upload_file(string $upload_url, string $auth_code, string $file_path) {
+
+    }
+
+    public function update_file_info($file_url, $file_size) {
+
+    }
+
     /**
      * On Submission Callback
      * TODO: emulate & process post-back.
