@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<phpunit
-        colors="true">
+<phpunit colors="true">
     <php>
         <!--
         <server name="X-HUAWEI-CALLBACK-ID" value="timestamp=1563105451261; nonce=a07bfa17-6d82-4b53-a9a2-07cfef5ceef1; value=E4YeOsnMtHZ6592U8B9S37238E+Hwtjfrmpf8AQXF+c="/>

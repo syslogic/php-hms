@@ -3,6 +3,8 @@ namespace Tests;
 
 use HMS\PushKit\Android\AndroidConfig;
 use HMS\PushKit\Android\AndroidNotification;
+use HMS\PushKit\Android\Button;
+use HMS\PushKit\Android\ClickAction;
 use HMS\PushKit\Apns\ApnsConfig;
 use HMS\PushKit\Apns\ApnsNotification;
 use HMS\PushKit\Message;
@@ -13,6 +15,8 @@ use HMS\PushKit\QuickApp\QuickAppNotification;
 use HMS\PushKit\ReceiptStatus;
 use HMS\PushKit\ResultCodes;
 use HMS\PushKit\UpstreamMessage;
+use HMS\PushKit\WebPush\Headers;
+use HMS\PushKit\WebPush\HmsOptions;
 use HMS\PushKit\WebPush\WebAction;
 use HMS\PushKit\WebPush\WebNotification;
 use HMS\PushKit\WebPush\WebPushConfig;
@@ -128,6 +132,21 @@ class PushKitTest extends BaseTestCase {
         self::assertTrue( $result->code === ResultCodes::SUBMISSION_SUCCESS, "Error $result->code: $result->message" );
     }
 
+    /** Test: Model UpstreamMessage. */
+    public function test_upstream_message() {
+
+        $item = new UpstreamMessage( self::$hmac_verification_key );
+        self::assertTrue( is_null( $item->getRawBody() ) );
+
+        $data_str = '{"key": "value"}';
+        $raw_body = '{"message_id": "1", "from": "'.self::$test_token.'", "category": "'.self::$package_name.'", "data": "'.base64_encode($data_str).'"}';
+        $signature = 'timestamp=1563105451261; nonce=:; value=E4YeOsnMtHZ6592U8B9S37238E+Hwtjfrmpf8AQXF+c=';
+
+        // TODO: instead test this with an actual upstream message $_POST.
+        // self::assertTrue( $item->hmac_verify( $raw_body, $secret_key, $signature ) );
+        self::assertFalse( $item->hmac_verify( $raw_body, $signature ) );
+    }
+
     /** Test: Model ReceiptStatus. */
     public function test_receipt_status() {
         $item = new ReceiptStatus();
@@ -159,7 +178,8 @@ class PushKitTest extends BaseTestCase {
         self::assertTrue( $item->validate() );
     }
 
-    /** Test: Model AndroidConfig. */
+
+    /** Test: Model Android\AndroidConfig. */
     public function test_android_config() {
         $item = new AndroidConfig( [
             'notification' => new AndroidNotification( [
@@ -169,7 +189,7 @@ class PushKitTest extends BaseTestCase {
         self::assertTrue( is_object($item->asObject()) );
     }
 
-    /** Test: Model AndroidNotification. */
+    /** Test: Model Android\AndroidNotification. */
     public function test_android_notification() {
         $item = new AndroidNotification( [
 
@@ -177,7 +197,24 @@ class PushKitTest extends BaseTestCase {
         self::assertTrue( is_object($item->asObject()) );
     }
 
-    /** Test: Model ApnsConfig. */
+    /** Test: Model Android\ClickAction. */
+    public function test_click_action() {
+        $item = new ClickAction( [
+
+        ] );
+        self::assertTrue( is_object($item->asObject()) );
+    }
+
+    /** Test: Model Android\Button. */
+    public function test_button() {
+        $item = new Button( [
+
+        ] );
+        self::assertTrue( is_object($item->asObject()) );
+    }
+
+
+    /** Test: Model Apns\ApnsConfig. */
     public function test_apns_config() {
         $item = new ApnsConfig( [
 
@@ -185,7 +222,7 @@ class PushKitTest extends BaseTestCase {
         self::assertTrue( is_object($item->asObject()) );
     }
 
-    /** Test: Model ApnsNotification. */
+    /** Test: Model Apns\ApnsNotification. */
     public function test_apns_notification() {
         $item = new ApnsNotification( [
 
@@ -193,7 +230,16 @@ class PushKitTest extends BaseTestCase {
         self::assertTrue( is_object($item->asObject()) );
     }
 
-    /** Test: Model QuickAppConfig. */
+    /** Test: Model ApnsConfig.HmsOptions. */
+    public function test_apns_hms_options() {
+        $item = new \HMS\PushKit\Apns\HmsOptions( [
+
+        ] );
+        self::assertTrue( is_object($item->asObject()) );
+    }
+
+
+    /** Test: Model QuickApp\QuickAppConfig. */
     public function test_quick_app_config() {
         $item = new QuickAppConfig( [
 
@@ -201,7 +247,7 @@ class PushKitTest extends BaseTestCase {
         self::assertTrue( is_object($item->asObject()) );
     }
 
-    /** Test: Model QuickAppNotification. */
+    /** Test: Model QuickApp\QuickAppNotification. */
     public function test_quick_app_notification() {
         $item = new QuickAppNotification( [
 
@@ -209,7 +255,8 @@ class PushKitTest extends BaseTestCase {
         self::assertTrue( is_object($item->asObject()) );
     }
 
-    /** Test: Model WebPushConfig. */
+
+    /** Test: Model WebPush\WebPushConfig. */
     public function test_web_push_config() {
         $item = new WebPushConfig( [
 
@@ -217,7 +264,7 @@ class PushKitTest extends BaseTestCase {
         self::assertTrue( is_object($item->asObject()) );
     }
 
-    /** Test: Model WebNotification. */
+    /** Test: Model WebPush\WebNotification. */
     public function test_web_notification() {
         $item = new WebNotification( [
 
@@ -225,7 +272,7 @@ class PushKitTest extends BaseTestCase {
         self::assertTrue( is_object($item->asObject()) );
     }
 
-    /** Test: Model WebAction. */
+    /** Test: Model WebPush\WebAction. */
     public function test_web_action() {
         $item = new WebAction( [
 
@@ -233,18 +280,19 @@ class PushKitTest extends BaseTestCase {
         self::assertTrue( is_object($item->asObject()) );
     }
 
-    /** Test: Model UpstreamMessage. */
-    public function test_upstream_message() {
+    /** Test: Model WebPush\Headers. */
+    public function test_web_headers() {
+        $item = new Headers( [
 
-        $item = new UpstreamMessage( self::$hmac_verification_key );
-        self::assertTrue( is_null( $item->getRawBody() ) );
+        ] );
+        self::assertTrue( is_object($item->asObject()) );
+    }
 
-        $data_str = '{"key": "value"}';
-        $raw_body = '{"message_id": "1", "from": "'.self::$test_token.'", "category": "'.self::$package_name.'", "data": "'.base64_encode($data_str).'"}';
-        $signature = 'timestamp=1563105451261; nonce=:; value=E4YeOsnMtHZ6592U8B9S37238E+Hwtjfrmpf8AQXF+c=';
+    /** Test: Model WebPushConfig.HmsOptions. */
+    public function test_web_hms_options() {
+        $item = new \HMS\PushKit\WebPush\HmsOptions( [
 
-        // TODO: instead test this with an actual upstream message $_POST.
-        // self::assertTrue( $item->hmac_verify( $raw_body, $secret_key, $signature ) );
-        self::assertFalse( $item->hmac_verify( $raw_body, $signature ) );
+        ] );
+        self::assertTrue( is_object($item->asObject()) );
     }
 }

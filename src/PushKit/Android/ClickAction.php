@@ -38,14 +38,14 @@ class ClickAction extends Model {
 
     /**
      * For details about intent implementation, please refer to Setting the intent Parameter.
-     * When type is set to 1, you must set at least one of intent and action.
+     * When type is set to 1, you must set at least one of intent or action.
      * @var int $intent
      */
     private string|null $intent = null;
 
     /**
      * Action corresponding to the activity of the page to be opened when the custom app page is opened through the action.
-     * When type is set to 1 (open a custom page), you must set at least one of intent and action.
+     * When type is set to 1 (open a custom page), you must set at least one of intent or action.
      * @var string|null $action
      */
     private string|null $action = null;
@@ -69,19 +69,17 @@ class ClickAction extends Model {
     /** Conditionally adding array items. */
     public function asArray(): array {
         $data = [];
-        if ( in_array($this->type, [1, 2, 3])) {$data['type'] = $this->type;}
+        if ( in_array($this->type, [1, 2, 3]) ) {$data['type'] = $this->type;}
         if ($this->intent != null) {$data['intent'] = $this->intent;}
         if ($this->action != null) {$data['action'] = $this->action;}
         if ($this->url    != null) {$data['url']    = $this->url;}
         return $data;
     }
 
-    // TODO: Implement asObject() method.
     public function asObject(): object {
         return (object) $this->asArray();
     }
 
-    // TODO: Implement validate() method.
     function validate(): bool {
         if (! in_array($this->type, [1, 2, 3])) {
             throw new InvalidArgumentException(self::INVALID_CLICK_ACTION_TYPE);
