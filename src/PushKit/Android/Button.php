@@ -72,7 +72,7 @@ class Button extends Model {
 
     private function parse_array( array $data ): void {
         foreach ($data as $key => $value) {
-            if ( in_array($key, $this->mandatory_fields) || in_array($key, $this->optional_fields)) {
+            if ( in_array($key, array_merge($this->mandatory_fields, $this->optional_fields)) ) {
                 $this->$key = $value;
             }
         }
@@ -88,10 +88,10 @@ class Button extends Model {
         if ($this->name != null) {
             $data['name'] = $this->name;
         }
-        if ( in_array($this->action_type, [0,1,2,3,4]) ) {
+        if ( in_array($this->action_type, [0, 1, 2, 3, 4]) ) {
             $data['action_type'] = $this->action_type;
         }
-        if ( in_array($this->intent_type, [0,1]) ) {
+        if ( in_array($this->intent_type, [0, 1]) ) {
             $data['intent_type'] = $this->intent_type;
         }
         if ($this->intent != null) {

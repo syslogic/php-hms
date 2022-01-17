@@ -14,17 +14,15 @@ class UpstreamMessage {
     private string|null $raw_body = null;
     private string $hmac_verification_key;
 
-    private string|null $sender_token = null;
-    private string|null $package_name = null;
-    private string|null $message_id = null;
+    private string|null $sender_token  = null;
+    private string|null $package_name  = null;
+    private string|null $message_id    = null;
     private string|false $message_data = false;
 
     /** Constructor */
     public function __construct( string $key ) {
         $this->hmac_verification_key = $key;
-        if ( $this->parse_request_body()) {
-            // $this->default_response();
-        }
+        $this->parse_request_body();
     }
 
     public function getRawBody(): string|null {
@@ -109,9 +107,5 @@ class UpstreamMessage {
             'message_id'   => $this->message_id,
             'message_data' => $this->message_data
         ];
-    }
-
-    private function default_response() {
-        die(json_encode(['errno' => 0, 'errmsg' => 'success']));
     }
 }

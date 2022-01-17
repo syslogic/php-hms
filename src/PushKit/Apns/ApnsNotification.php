@@ -34,7 +34,7 @@ class ApnsNotification extends Model {
 
     private function parse_array( array $data ): void {
         foreach ($data as $key => $value) {
-            if ( in_array($key, $this->mandatory_fields) || in_array($key, $this->optional_fields)) {
+            if ( in_array($key, array_merge($this->mandatory_fields, $this->optional_fields)) ) {
                 $this->$key = $value;
             }
         }

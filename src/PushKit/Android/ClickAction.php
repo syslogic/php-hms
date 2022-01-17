@@ -56,7 +56,7 @@ class ClickAction extends Model {
 
     private function parse_array( array $data ): void {
         foreach ($data as $key => $value) {
-            if ( in_array($key, $this->mandatory_fields) || in_array($key, $this->optional_fields)) {
+            if ( in_array($key, array_merge($this->mandatory_fields, $this->optional_fields)) ) {
                 $this->$key = $value;
             }
         }
@@ -69,7 +69,7 @@ class ClickAction extends Model {
     /** Conditionally adding array items. */
     public function asArray(): array {
         $data = [];
-        if (in_array($this->type, [1,2,3])) {$data['type'] = $this->type;}
+        if ( in_array($this->type, [1, 2, 3])) {$data['type'] = $this->type;}
         if ($this->intent != null) {$data['intent'] = $this->intent;}
         if ($this->action != null) {$data['action'] = $this->action;}
         if ($this->url    != null) {$data['url']    = $this->url;}
