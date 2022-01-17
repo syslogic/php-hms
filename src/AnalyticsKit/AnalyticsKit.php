@@ -26,7 +26,7 @@ class AnalyticsKit extends Wrapper {
     private string|null $url_report_dimensions_list;
 
     public function __construct( array|string $config ) {
-        parent::__construct( $config, 3 );
+        parent::__construct( $config );
         if ($this->is_ready()) {
             $base_url = Constants::ANALYTICS_KIT_BASE_URL;
             $this->url_user_data_export             = $base_url.Constants::ANALYTICS_KIT_GDPR_USER_DATA_EXPORT;
