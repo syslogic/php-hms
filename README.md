@@ -1,8 +1,7 @@
 ## PHP SDK for Huawei REST API
 
 Legal Disclaimer: This product is **not** officially endorsed or certified by Huawei Technologies Co., Ltd.<br/>
-The trademarks are being referenced for identification purposes only, in terms of a nominative fair use.<br/>
-The usage of the abstracted REST API still depends on the [HUAWEI Developers Service Agreement](https://developer.huawei.com/consumer/en/doc/start/agreement-0000001052728169).
+The trademarks are being referenced for identification purposes only, in terms of a nominative fair use.
 
 <details>
 <summary>Project Status</summary>
@@ -103,7 +102,8 @@ When receiving an `Error 10021: Invalid clientId` this may suggest,<br/>that the
 Enabling the desired API on [AppGallery Connect](https://developer.huawei.com/consumer/en/service/josp/agc/index.html) should help.
 
 ### License
-The PHP SDK for Huawei REST API is licensed under the [MIT License](LICENSE).
+The PHP SDK for Huawei REST API (the library) is licensed under the [MIT License](LICENSE).<br/>
+While the usage of the API depends on the [HUAWEI Developers Service Agreement](https://developer.huawei.com/consumer/en/doc/start/agreement-0000001052728169).
 
 ### Support
 - [Documentation](https://developer.huawei.com/consumer/en/doc/landing/development)
