@@ -29,6 +29,8 @@ class PushKitTest extends BaseTestCase {
     private const ENV_VAR_HCM_TEST_HMAC_VERIFICATION_KEY = 'Variable PHPUNIT_HCM_TEST_HMAC_VERIFICATION_KEY is not set.';
     private const ENV_VAR_HCM_TEST_DEVICE_TOKEN = 'Variable PHPUNIT_HCM_TEST_DEVICE_TOKEN is not set.';
 
+    private static string|null $hmac_verification_key = null;
+
     private static string|null $test_topic = null;
     private static string|null $test_condition = null;
     private static string|null $test_token = null;
@@ -39,12 +41,15 @@ class PushKitTest extends BaseTestCase {
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {
         parent::setUpBeforeClass();
+
         self::assertTrue( getenv('PHPUNIT_HCM_TEST_HMAC_VERIFICATION_KEY')  != false, self::ENV_VAR_HCM_TEST_HMAC_VERIFICATION_KEY);
+        self::$hmac_verification_key = getenv('PHPUNIT_HCM_TEST_HMAC_VERIFICATION_KEY');
+
         self::assertTrue( getenv('PHPUNIT_HCM_TEST_DEVICE_TOKEN')  != false, self::ENV_VAR_HCM_TEST_DEVICE_TOKEN);
+        self::$test_token = getenv('PHPUNIT_HCM_TEST_DEVICE_TOKEN');
 
         self::$test_topic = 'test';
         self::$test_condition = "'TopicA' in topics && ('TopicB' in topics || 'TopicC' in topics)";
-        self::$test_token = getenv('PHPUNIT_HCM_TEST_DEVICE_TOKEN');
         self::$test_message_title = 'Test Message from PHP ' . phpversion();
         self::$test_message_body = 'Test Body';
 
@@ -54,7 +59,7 @@ class PushKitTest extends BaseTestCase {
 
     /** Test: Topic subscriptions list. */
     public function test_topics_list() {
-        $result =  self::$client->topics_list( self::$test_token );
+        $result = self::$client->topics_list( self::$test_token );
         self::assertTrue($result instanceof stdClass );
         self::assertObjectHasAttribute('code', $result);
         self::assertTrue( $result->code === ResultCodes::SUBMISSION_SUCCESS, "Error $result->code: $result->message" );
@@ -221,8 +226,8 @@ class PushKitTest extends BaseTestCase {
     /** Test: Model UpstreamMessage. */
     public function test_upstream_message() {
 
-        $hmac_verification_key = getenv('PHPUNIT_HCM_TEST_HMAC_VERIFICATION_KEY');
-        $item = new UpstreamMessage( $hmac_verification_key );
+
+        $item = new UpstreamMessage( self::$hmac_verification_key );
         self::assertTrue( is_null( $item->getRawBody() ) );
 
         $data_str = '{"key": "value"}';

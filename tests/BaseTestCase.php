@@ -1,5 +1,4 @@
 <?php /** @noinspection PhpUnusedPrivateFieldInspection */
-
 namespace Tests;
 
 use JetBrains\PhpStorm\ArrayShape;
@@ -22,28 +21,26 @@ abstract class BaseTestCase extends TestCase {
     protected static int $app_id = 0;
     protected static int $cp_id = 0;
 
-    private const ENV_VAR_APP_SECRET = 'Variable HUAWEI_APP_SECRET is not set.';
     private const ENV_VAR_APPLICATION_CREDENTIALS = 'Variable HUAWEI_APPLICATION_CREDENTIALS is not set.';
-    protected const CONFIG_NOT_LOADED = 'The configuration JSON was not loaded.';
-    protected const CLIENT_NOT_READY = 'The client is not ready.';
-
-    #[ArrayShape(['client_id' => "int", 'client_secret' => "null|string"])]
-    protected static function get_secret(): array {
-        return ['client_id' => self::$app_id, 'client_secret' => self::$app_secret];
-    }
+    private const ENV_VAR_APP_SECRET  = 'Variable HUAWEI_APP_SECRET is not set.';
+    protected const CONFIG_NOT_LOADED = 'agconnect-services.json was not loaded.';
+    protected const CLIENT_NOT_READY  = 'The client is not ready.';
 
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {
-        self::assertTrue(getenv('HUAWEI_APP_SECRET') != false, self::ENV_VAR_APP_SECRET);
+
         self::assertTrue(getenv('HUAWEI_APPLICATION_CREDENTIALS') != false, self::ENV_VAR_APPLICATION_CREDENTIALS);
         $config_file = getenv('HUAWEI_APPLICATION_CREDENTIALS');
+
+        self::assertTrue(getenv('HUAWEI_APP_SECRET') != false, self::ENV_VAR_APP_SECRET);
+        self::$app_secret = getenv('HUAWEI_APP_SECRET'); // this value is not contained in the JSON.
+
         if ( file_exists( $config_file ) ) {
             $config = json_decode(file_get_contents( $config_file ));
             if ( is_object( $config )) {
                 if ( property_exists( $config, 'client' ) && is_object( $config->client )) {
                     self::$cp_id         =     (int) $config->client->cp_id;
                     self::$app_id        =    (int) $config->client->app_id;
-                    self::$app_secret    = (string) getenv('HUAWEI_APP_SECRET'); // not contained in the JSON.
                     self::$package_name  = (string) $config->client->package_name;
                     self::$project_id    =    (int) $config->client->project_id;
                     self::$product_id    =    (int) $config->client->product_id;
@@ -53,5 +50,10 @@ abstract class BaseTestCase extends TestCase {
                 }
             }
         }
+    }
+
+    #[ArrayShape(['client_id' => "int", 'client_secret' => "string"])]
+    protected static function get_secret(): array {
+        return ['client_id' => self::$app_id, 'client_secret' => self::$app_secret];
     }
 }
