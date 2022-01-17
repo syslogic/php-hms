@@ -32,7 +32,7 @@ This library depends on the following environmental variables:
  - `HUAWEI_APPLICATION_CREDENTIALS`<br/>
    The path to JSON configuration file `agconnect-services.json`.<br/>This file can be obtained from the AppGallery Connect console.<br/><br/>
  - `HUAWEI_APP_SECRET`<br/>
-   The "App Secret" is not contained in `agconnect-services.json` and therefore must be provided.<br/>
+   The "App Secret" is not contained in `agconnect-services.json` and therefore has to be provided.<br/>
    Please refer to the documentation, which explains how to obtain it: [Viewing App Basic Information](https://developer.huawei.com/consumer/en/doc/distribution/app/agc-help-appinfo-0000001100014694).
 
 <details>
