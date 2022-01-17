@@ -40,7 +40,7 @@ class Wrapper {
     /** Constructor. */
     public function __construct( array|string|null $config = null, int $token_endpoint_version = 3 ) {
         if (! in_array( $token_endpoint_version, [2, 3] ) ) {
-            $message = 'The token endpoint version must be either 1, 2, 3; provided: ' . $token_endpoint_version;
+            $message = 'The token endpoint version must be either 2 or 3; provided: ' . $token_endpoint_version;
             throw new InvalidArgumentException( $message );
         }
         if ($token_endpoint_version == 2) {
@@ -120,7 +120,10 @@ class Wrapper {
         return !$this->token_has_expired();
     }
 
-    /** oAuth2 token refresh; $this->url_token_refresh either uses v2 or v3 endpoint. */
+    /**
+     * oAuth2 token refresh; $this->url_token_refresh either uses v2 or v3 endpoint.
+     * TODO: should better be be moved to AccountKit; grant_type must be variable.
+     */
     private function token_refresh(): void {
         $result = $this->curl_request('POST', $this->url_token_refresh, [
             'grant_type'    => 'client_credentials',
@@ -131,7 +134,7 @@ class Wrapper {
         ]);
         if ( is_object( $result ) ) {
             if ( property_exists( $result, 'error' ) && property_exists( $result, 'sub_error' )) {
-                $this->handle_error( $result );
+                die( 'oAuth2 Error '.$result->error.' / '.$result->sub_error.' -> '.$result->error_description );
             } else {
                 if ( property_exists( $result, 'access_token' ) ) {
                     $this->access_token = $result->access_token;
@@ -147,11 +150,6 @@ class Wrapper {
                 }
             }
         }
-    }
-
-    #[NoReturn]
-    private function handle_error(stdClass $error ): void {
-        die( 'Error '.$error->error.' / '.$error->sub_error.' -> '.$error->error_description );
     }
 
     /** Determine if the token has expired. */
