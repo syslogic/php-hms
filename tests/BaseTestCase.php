@@ -36,15 +36,14 @@ abstract class BaseTestCase extends TestCase {
     public static function setUpBeforeClass(): void {
         self::assertTrue(getenv('HUAWEI_APP_SECRET') != false, self::ENV_VAR_APP_SECRET);
         self::assertTrue(getenv('HUAWEI_APPLICATION_CREDENTIALS') != false, self::ENV_VAR_APPLICATION_CREDENTIALS);
-        $app_secret = getenv('HUAWEI_APP_SECRET'); // not contained in the JSON.
         $config_file = getenv('HUAWEI_APPLICATION_CREDENTIALS');
         if ( file_exists( $config_file ) ) {
             $config = json_decode(file_get_contents( $config_file ));
             if ( is_object( $config )) {
                 if ( property_exists( $config, 'client' ) && is_object( $config->client )) {
-                    self::$cp_id        =     (int) $config->client->cp_id;
+                    self::$cp_id         =     (int) $config->client->cp_id;
                     self::$app_id        =    (int) $config->client->app_id;
-                    self::$app_secret    = (string) $app_secret;
+                    self::$app_secret    = (string) getenv('HUAWEI_APP_SECRET'); // not contained in the JSON.
                     self::$package_name  = (string) $config->client->package_name;
                     self::$project_id    =    (int) $config->client->project_id;
                     self::$product_id    =    (int) $config->client->product_id;

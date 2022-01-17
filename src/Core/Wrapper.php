@@ -97,11 +97,11 @@ class Wrapper {
     /** Try to initialize from array, on array input. */
     private function init_by_array( array $config ) {
         if (
-            isset($config['client_id']) && !empty($config['client_id']) &&
-            isset($config['client_secret']) && !empty($config['client_secret'])
+            isset($config['app_id']) && !empty($config['app_id']) &&
+            isset($config['app_secret']) && !empty($config['app_secret'])
         ) {
-            $this->client_id  =       (int) $config['client_id'];
-            $this->client_secret = (string) $config['client_secret'];
+            $this->app_id     =    (int) $config['app_id'];
+            $this->app_secret = (string) $config['app_secret'];
         }
     }
 
@@ -111,8 +111,8 @@ class Wrapper {
             is_string( getenv('HUAWEI_APP_ID' ) ) &&
             is_string( getenv('HUAWEI_APP_SECRET' ) )
         ) {
-            $this->client_id     =    (int) getenv( 'HUAWEI_APP_ID' );
-            $this->client_secret = (string) getenv( 'HUAWEI_APP_SECRET' );
+            $this->app_id     =    (int) getenv( 'HUAWEI_APP_ID' );
+            $this->app_secret = (string) getenv( 'HUAWEI_APP_SECRET' );
         }
     }
 
