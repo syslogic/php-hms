@@ -4,8 +4,6 @@ namespace HMS\PushKit;
 use HMS\Core\Wrapper;
 use HMS\PushKit\Android\AndroidConfig;
 use HMS\PushKit\Android\AndroidNotification;
-use HMS\PushKit\Apns\ApnsConfig;
-use HMS\PushKit\WebPush\WebPushConfig;
 use JetBrains\PhpStorm\ArrayShape;
 use stdClass;
 
@@ -133,17 +131,13 @@ class PushKit extends Wrapper {
                 ]
             ])
         ]);
-        $web_push     = new WebPushConfig([]);
-        $apns         = new ApnsConfig([]);
         return [
             'validate_only' => false,
             'message' => (object) [
                 $mode          => $argument, // one of: token, topic, condition.
                 'notification' => $notification->asObject(),
                 'data'         => '',
-                'android'      => $android->asObject(),
-                // 'webpush'      => $web_push->asObject(),
-                // 'apns'         => $apns->asObject()
+                'android'      => $android->asObject()
             ]
         ];
     }

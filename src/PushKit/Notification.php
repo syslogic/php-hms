@@ -2,8 +2,6 @@
 namespace HMS\PushKit;
 
 use HMS\Core\Model;
-use HMS\PushKit\WebPush\WebNotification;
-use JetBrains\PhpStorm\Pure;
 
 /**
  * Class HMS PushKit Notification
