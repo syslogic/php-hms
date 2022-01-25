@@ -1,7 +1,7 @@
 <?php /** @noinspection PhpPropertyOnlyWrittenInspection */
 namespace HMS\Core;
 
-use InvalidArgumentException;
+use HMS\AccountKit\AccountKit;
 use stdClass;
 
 /**
@@ -12,23 +12,14 @@ use stdClass;
 class Wrapper {
 
     /** oAuth2 Token related. */
-    private string|null $url_token_refresh = Constants::URL_OAUTH2_TOKEN_REFRESH_V3;
     protected string|null $access_token = null;
-    protected string|null $refresh_token = null;
-    private int $token_expiry = 0;
-
-    /** ID Token related. */
-    private string|null $id_token = null;
-    private string|null $token_scope = null;
-    private string|null $union_id = null;
-    private string|null $open_id = null;
 
     /** Default Result. */
     protected stdClass $result;
 
     /** These are now available through Core\Config. */
     private string|null $client_secret = null;
-    private string|null $app_secret = null;
+    protected string|null $app_secret = null;
     protected string|null $package_name = null;
     protected string|null $api_key = null;
     protected int $project_id = 0;
@@ -38,13 +29,6 @@ class Wrapper {
 
     /** Constructor. */
     public function __construct( array|string|null $config = null, int $token_endpoint_version = 3 ) {
-        if (! in_array( $token_endpoint_version, [2, 3] ) ) {
-            $message = 'The token endpoint version must be either 2 or 3; provided: ' . $token_endpoint_version;
-            throw new InvalidArgumentException( $message );
-        }
-        if ($token_endpoint_version == 2) {
-            $this->url_token_refresh = Constants::URL_OAUTH2_TOKEN_REFRESH_V2;
-        }
         $this->init( $config );
     }
 
@@ -67,8 +51,14 @@ class Wrapper {
             $this->init_by_environment();
         }
 
-        /* Refresh the access-token once. */
-        $this->token_refresh();
+        /* Obtain an access-token. */
+        $account_kit = new AccountKit(['client_id' => $this->app_id, 'client_secret' => $this->app_secret]);
+        $this->access_token = $account_kit->get_access_token();
+    }
+
+    /** The expiry doesn't matter as this token is always being fetched */
+    public function is_ready(): bool {
+        return $this->access_token != null;
     }
 
     /** Try to initialize from agconnect-services.json on string input. */
@@ -108,49 +98,6 @@ class Wrapper {
             $this->app_id     =    (int) getenv( 'HUAWEI_APP_ID' );
             $this->app_secret = (string) getenv( 'HUAWEI_APP_SECRET' );
         }
-    }
-
-    public function is_ready(): bool {
-        return !$this->token_has_expired();
-    }
-
-    /**
-     * oAuth2 token refresh; $this->url_token_refresh either uses v2 or v3 endpoint.
-     * TODO: should better be be moved to AccountKit; grant_type must be variable.
-     */
-    private function token_refresh(): void {
-        $result = $this->curl_request('POST', $this->url_token_refresh, [
-            'grant_type'    => 'client_credentials',
-            'client_id'     => $this->app_id,
-            'client_secret' => $this->app_secret
-        ], [
-            'Content-Type: application/x-www-form-urlencoded;charset=utf-8'
-        ]);
-        if ( is_object( $result ) ) {
-            if ( property_exists( $result, 'error' ) && property_exists( $result, 'sub_error' )) {
-                die( 'oAuth2 Error '.$result->error.' / '.$result->sub_error.' -> '.$result->error_description );
-            } else {
-                if ( property_exists( $result, 'access_token' ) ) {
-                    $this->access_token = $result->access_token;
-                }
-                if ( property_exists( $result, 'expires_in' ) ) {
-                    $this->token_expiry = time() + $result->expires_in;
-                }
-                if ( property_exists( $result, 'id_token' ) ) {
-                    $this->id_token = $result->id_token;
-                }
-                if ( property_exists( $result, 'scope' ) ) {
-                    $this->token_scope = $result->scope;
-                }
-            }
-        }
-    }
-
-    /** Determine if the token has expired. */
-    private function token_has_expired(): bool {
-        if (time() >= $this->token_expiry) {return true;}
-        if ($this->access_token == null || empty($this->access_token)) {return true;}
-        return false;
     }
 
     /** Provide HTTP request headers as array. */

@@ -27,10 +27,10 @@ class PushKit extends Wrapper {
         $app_id = $config['client_id']; /* The oAuth2 `client_id` actually is the `app_id`. */
         $this->url_message_send      = str_replace('{appId}', $app_id, Constants::PUSHKIT_MESSAGE_SEND);
         $this->url_topics_list       = str_replace('{appId}', $app_id, Constants::PUSHKIT_TOPICS_LIST);
-        $this->url_topic_subscribe   = str_replace('{appId}', $app_id,  Constants::PUSHKIT_TOPIC_SUBSCRIBE);
-        $this->url_topic_unsubscribe = str_replace('{appId}', $app_id,  Constants::PUSHKIT_TOPIC_UNSUBSCRIBE);
-        $this->url_token_data_query  = str_replace('{appId}', $app_id,  Constants::PUSHKIT_TOKEN_DATA_QUERY);
-        $this->url_token_data_delete = str_replace('{appId}', $app_id,  Constants::PUSHKIT_TOKEN_DATA_DELETE);
+        $this->url_topic_subscribe   = str_replace('{appId}', $app_id, Constants::PUSHKIT_TOPIC_SUBSCRIBE);
+        $this->url_topic_unsubscribe = str_replace('{appId}', $app_id, Constants::PUSHKIT_TOPIC_UNSUBSCRIBE);
+        $this->url_token_data_query  = str_replace('{appId}', $app_id, Constants::PUSHKIT_TOKEN_DATA_QUERY);
+        $this->url_token_data_delete = str_replace('{appId}', $app_id, Constants::PUSHKIT_TOKEN_DATA_DELETE);
     }
 
     /**

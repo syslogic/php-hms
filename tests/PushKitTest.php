@@ -49,7 +49,6 @@ class PushKitTest extends BaseTestCase {
         } else {
             self::$client = new PushKit( self::get_secret() );
         }
-        self::assertTrue( self::$client->is_ready(), self::CLIENT_NOT_READY );
 
         self::$test_topic = 'test';
         self::$test_condition = "'TopicA' in topics && ('TopicB' in topics || 'TopicC' in topics)";
