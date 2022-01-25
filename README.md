@@ -41,12 +41,7 @@ This library depends on the following environmental variables:
 <summary>Installation</summary>
 <p>
 
-The package is **not** yet published, else that would be:
-````shell
-composer require syslogic/php-hms
-````
-
-In the meanwhile one still can manually check out into project directory `lib`:
+One can manually check out into project directory `lib`:
 ````shell
 mkdir lib
 git clone git@github.com:syslogic/php-hms ./lib/php-hms
