@@ -56,16 +56,17 @@ abstract class BaseTestCase extends TestCase {
         $config_file = './oauth2-config.json';
         if ( file_exists( $config_file ) ) {
             $config = json_decode(file_get_contents( $config_file ));
-            if ( is_object( $config )) {
-                if ( property_exists( $config, 'client_id' )) {
+                if (
+                    is_object( $config ) &&
+                    property_exists( $config, 'client_id' ) &&
+                    property_exists( $config, 'client_secret' )
+                ) {
                     self::$app_id     =    (int) $config->client_id;
-                }
-                if ( property_exists( $config, 'client_secret' )) {
                     self::$app_secret = (string) $config->client_secret;
+                    return self::get_secret();
                 }
-            }
         }
-        return $config;
+        return [];
     }
 
 

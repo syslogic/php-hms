@@ -44,7 +44,7 @@ class PushKitTest extends BaseTestCase {
     public static function setUpBeforeClass(): void {
         parent::setUpBeforeClass();
 
-        if ( is_int(getenv('GITHUB_RUN_NUMBER')) ) {
+        if ( getenv('GITHUB_RUN_NUMBER') !== false) {
             self::$client = new PushKit( self::get_secret_from_file() );
         } else {
             self::$client = new PushKit( self::get_secret() );
