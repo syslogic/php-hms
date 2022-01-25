@@ -25,7 +25,7 @@ abstract class BaseTestCase extends TestCase {
     private const ENV_VAR_APPLICATION_CREDENTIALS = 'Variable HUAWEI_APPLICATION_CREDENTIALS is not set.';
     private const ENV_VAR_APP_SECRET  = 'Variable HUAWEI_APP_SECRET is not set.';
     protected const CONFIG_NOT_LOADED = 'agconnect-services.json was not loaded.';
-    protected const CLIENT_NOT_READY  = 'The client is not ready.';
+    protected const CLIENT_NOT_READY  = 'The REST API client is not ready.';
 
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {
