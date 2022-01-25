@@ -1,5 +1,4 @@
 <?php
-
 namespace HMS\PushKit\Android;
 
 use HMS\Core\Model;
@@ -27,8 +26,8 @@ class Color extends Model {
         }
     }
 
-    static function fromArray( array $model ): Button {
-        return new Button( $model );
+    static function fromArray( array $model ): Color {
+        return new Color( $model );
     }
 
     /** Conditionally adding array items. */

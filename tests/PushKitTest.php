@@ -3,6 +3,7 @@ namespace Tests;
 
 use HMS\PushKit\Android\AndroidConfig;
 use HMS\PushKit\Android\AndroidNotification;
+use HMS\PushKit\Android\BadgeNotification;
 use HMS\PushKit\Android\Button;
 use HMS\PushKit\Android\ClickAction;
 use HMS\PushKit\Apns\ApnsConfig;
@@ -194,6 +195,14 @@ class PushKitTest extends BaseTestCase {
     /** Test: Model Android\AndroidNotification. */
     public function test_android_notification() {
         $item = new AndroidNotification( [
+
+        ] );
+        self::assertTrue( is_object($item->asObject()) );
+    }
+
+    /** Test: Model Android\BadgeNotification. */
+    public function test_badge_notification() {
+        $item = new BadgeNotification( [
 
         ] );
         self::assertTrue( is_object($item->asObject()) );

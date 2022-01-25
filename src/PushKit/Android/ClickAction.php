@@ -32,14 +32,14 @@ class ClickAction extends Model {
      * URL to be opened. The URL must be an HTTPS URL. Example: https://example.com/image.png
      * This parameter is mandatory when type is set to 2.
      *
-     * @var int $url
+     * @var string|null $url
      */
     private string|null $url = null;
 
     /**
      * For details about intent implementation, please refer to Setting the intent Parameter.
      * When type is set to 1, you must set at least one of intent or action.
-     * @var int $intent
+     * @var string|null $intent
      */
     private string|null $intent = null;
 

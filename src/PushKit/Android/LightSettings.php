@@ -25,8 +25,8 @@ class LightSettings extends Model {
         }
     }
 
-    static function fromArray( array $model ): Button {
-        return new Button( $model );
+    static function fromArray( array $model ): LightSettings {
+        return new LightSettings( $model );
     }
 
     /** Conditionally adding array items. */

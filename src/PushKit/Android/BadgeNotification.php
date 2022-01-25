@@ -25,8 +25,8 @@ class BadgeNotification extends Model {
         }
     }
 
-    static function fromArray( array $model ): Button {
-        return new Button( $model );
+    static function fromArray( array $model ): BadgeNotification {
+        return new BadgeNotification( $model );
     }
 
     /** Conditionally adding array items. */
