@@ -29,12 +29,11 @@ abstract class BaseTestCase extends TestCase {
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {
 
+        self::$app_secret = getenv('HUAWEI_APP_SECRET'); // this value is not contained in the JSON.
+        self::assertTrue(is_string(self::$app_secret), self::ENV_VAR_APP_SECRET);
+
         self::assertTrue(is_string(getenv('HUAWEI_APPLICATION_CREDENTIALS')), self::ENV_VAR_APPLICATION_CREDENTIALS);
         $config_file = getenv('HUAWEI_APPLICATION_CREDENTIALS');
-
-        self::assertTrue(is_string(getenv('HUAWEI_APP_SECRET')), self::ENV_VAR_APP_SECRET);
-        self::$app_secret = getenv('HUAWEI_APP_SECRET'); // this value is not contained in the JSON.
-
         if ( file_exists( $config_file ) ) {
             $config = json_decode(file_get_contents( $config_file ));
             if ( is_object( $config )) {
@@ -50,22 +49,25 @@ abstract class BaseTestCase extends TestCase {
                 }
             }
         }
+    }
 
-        if ( is_int(getenv('GITHUB_RUN_NUMBER')) ) {
-            $config_file = './oauth2-config.json';
-            if ( file_exists( $config_file ) ) {
-                $config = json_decode(file_get_contents( $config_file ));
-                if ( is_object( $config )) {
-                    if ( property_exists( $config, 'client_id' )) {
-                        self::$app_id     =    (int) $config->client_id;
-                    }
-                    if ( property_exists( $config, 'client_secret' )) {
-                        self::$app_secret = (string) $config->client_secret;
-                    }
+    #[ArrayShape(['client_id' => "int", 'client_secret' => "string"])]
+    protected static function get_secret_from_file(): array {
+        $config_file = './oauth2-config.json';
+        if ( file_exists( $config_file ) ) {
+            $config = json_decode(file_get_contents( $config_file ));
+            if ( is_object( $config )) {
+                if ( property_exists( $config, 'client_id' )) {
+                    self::$app_id     =    (int) $config->client_id;
+                }
+                if ( property_exists( $config, 'client_secret' )) {
+                    self::$app_secret = (string) $config->client_secret;
                 }
             }
         }
+        return $config;
     }
+
 
     #[ArrayShape(['client_id' => "int", 'client_secret' => "string"])]
     protected static function get_secret(): array {

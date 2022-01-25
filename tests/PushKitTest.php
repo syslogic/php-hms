@@ -44,19 +44,23 @@ class PushKitTest extends BaseTestCase {
     public static function setUpBeforeClass(): void {
         parent::setUpBeforeClass();
 
-        self::assertTrue( getenv('PHPUNIT_HCM_TEST_HMAC_VERIFICATION_KEY')  != false, self::ENV_VAR_HCM_TEST_HMAC_VERIFICATION_KEY);
-        self::$hmac_verification_key = getenv('PHPUNIT_HCM_TEST_HMAC_VERIFICATION_KEY');
-
-        self::assertTrue( getenv('PHPUNIT_HCM_TEST_DEVICE_TOKEN')  != false, self::ENV_VAR_HCM_TEST_DEVICE_TOKEN);
-        self::$test_token = getenv('PHPUNIT_HCM_TEST_DEVICE_TOKEN');
+        if ( is_int(getenv('GITHUB_RUN_NUMBER')) ) {
+            self::$client = new PushKit( self::get_secret_from_file() );
+        } else {
+            self::$client = new PushKit( self::get_secret() );
+        }
+        self::assertTrue( self::$client->is_ready(), self::CLIENT_NOT_READY );
 
         self::$test_topic = 'test';
         self::$test_condition = "'TopicA' in topics && ('TopicB' in topics || 'TopicC' in topics)";
         self::$test_message_title = 'Test Message from PHP ' . phpversion();
         self::$test_message_body = 'Test Body';
 
-        self::$client = new PushKit( self::get_secret() );
-        self::assertTrue( self::$client->is_ready(), self::CLIENT_NOT_READY );
+        self::assertTrue( getenv('PHPUNIT_HCM_TEST_HMAC_VERIFICATION_KEY')  != false, self::ENV_VAR_HCM_TEST_HMAC_VERIFICATION_KEY);
+        self::$hmac_verification_key = getenv('PHPUNIT_HCM_TEST_HMAC_VERIFICATION_KEY');
+
+        self::assertTrue( getenv('PHPUNIT_HCM_TEST_DEVICE_TOKEN')  != false, self::ENV_VAR_HCM_TEST_DEVICE_TOKEN);
+        self::$test_token = getenv('PHPUNIT_HCM_TEST_DEVICE_TOKEN');
     }
 
     /** Test: Topic subscriptions list. */
