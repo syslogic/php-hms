@@ -16,7 +16,7 @@ jobs:
 
     - name: 🗄️ Provide config.json
       id: oauth2-config
-      run: echo '${{ secrets.OAUTH2_CONFIG_JSON }}' > ./oauth2-config.json
+      run: echo '${{ secrets.PHPUNIT_OAUTH2_CONFIG_JSON }}' > ./oauth2-config.json
 
     - name: 🗄️ Provide agconnect-services.json
       id: agconnect-services
