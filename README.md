@@ -32,9 +32,21 @@ This library depends on the following environmental variables:
 
  - `HUAWEI_APPLICATION_CREDENTIALS`<br/>
    The path to JSON configuration file `agconnect-services.json`.<br/>This file can be obtained from the AppGallery Connect console.<br/><br/>
+ - `HUAWEI_APP_ID`<br/>
+   The "App ID" is being passed as the `client_id`.<br/><br/>
  - `HUAWEI_APP_SECRET`<br/>
-   The "App Secret" is not contained in `agconnect-services.json` and therefore has to be provided.<br/>
-   Please refer to the documentation, which explains how to obtain it: [Viewing App Basic Information](https://developer.huawei.com/consumer/en/doc/distribution/app/agc-help-appinfo-0000001100014694).
+   The "App Secret" is being passed as the `client_secret`. This value is not contained in `agconnect-services.json` and therefore must be provided. Please refer to the documentation, which explains how to obtain it: [Viewing App Basic Information](https://developer.huawei.com/consumer/en/doc/distribution/app/agc-help-appinfo-0000001100014694).
+
+For example, `nano ~/.bashrc`:
+
+````bash
+# PHP SDK for Huawei REST API
+export HUAWEI_APP_ID=...
+export HUAWEI_APP_SECRET=...
+export HUAWEI_APPLICATION_CREDENTIALS=...
+export PHPUNIT_HCM_TEST_HMAC_VERIFICATION_KEY=...
+export PHPUNIT_HCM_TEST_DEVICE_TOKEN=...
+````
 
 <details>
 <summary>Installation</summary>
