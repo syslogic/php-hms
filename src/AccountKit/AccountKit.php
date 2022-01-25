@@ -14,9 +14,11 @@ class AccountKit {
     /** oAuth2 Token related. */
     private string|null $url_token = Constants::URL_OAUTH2_TOKEN;
 
+    private string|null $url_token_info = Constants::ACCOUNT_KIT_USER_INFO;
+
     /** oAuth2 Token related. */
     protected int $client_id = 0;
-    private string|null $client_secret = null;
+    private string|null $client_secret;
 
     protected string|null $access_token = null;
     protected string|null $refresh_token = null;
@@ -34,8 +36,8 @@ class AccountKit {
     ];
 
     public function __construct( array $config ) {
-        $this->client_id = $config['client_id'];
-        $this->client_secret = $config['client_secret'];
+        $this->client_id     =    (int) $config['client_id'];
+        $this->client_secret = (string) $config['client_secret'];
     }
 
     public function is_ready(): bool {
@@ -85,32 +87,63 @@ class AccountKit {
     }
 
     /**
-     * TODO: Verifying an ID Token.
+     * TODO: Verify an ID Token.
      *
-     * @return string|null
+     * @param string|null $id_token
+     * @return bool
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/account-verify-id-token_hms_reference-0000001050050577">Verifying an ID Token</a>
      */
-    public function verify_id_token(): string|null {
-        return null;
+    public function verify_id_token( string|null $id_token ): bool {
+        return true;
     }
 
     /**
-     * TODO: Parsing an Access Token.
+     * TODO: Parse an Access Token.
      *
-     * @return string|null
+     * @param string|null $access_token
+     * @return bool
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/account-gettokeninfo-0000001050050585">Parsing an Access Token</a>
      */
-    public function parse_access_token(): string|null {
-        return null;
+    public function parse_access_token( string|null $access_token ): bool {
+        return true;
     }
 
     /**
-     * TODO: Obtaining User Information.
+     * TODO: Obtain User Information.
      *
-     * @return string|null
+     * @param string|null $access_token
+     * @return UserInfo|null
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/get-user-info-0000001060261938">Obtaining User Information</a>
      */
-    public function get_user_info(): string|null {
+    public function get_user_info( string|null $access_token ): UserInfo|null {
+
+        $result = $this->curl_request('POST', $this->url_token_info, [
+            'access_token' => $access_token,
+            'getNickName' => 1
+        ], [
+            'Content-Type: application/x-www-form-urlencoded;charset=utf-8'
+        ]);
+
+        if ( is_object( $result ) ) {
+            if ( property_exists( $result, 'error' ) && property_exists( $result, 'sub_error' )) {
+                die( 'oAuth2 Error '.$result->error.' / '.$result->sub_error.' -> '.$result->error_description );
+            } else if ( property_exists( $result, 'error' ) ) {
+                die( 'oAuth2 Error -> '.$result->error );
+            } else {
+                if ( property_exists( $result, 'openID' ) ) {
+
+                }
+                if ( property_exists( $result, 'displayName' ) ) {
+
+                }
+                if ( property_exists( $result, 'headPictureURL' ) ) {
+
+                }
+                if ( property_exists( $result, 'email' ) ) {
+
+                }
+            }
+        }
         return null;
     }
 
