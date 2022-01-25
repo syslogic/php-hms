@@ -40,8 +40,9 @@ jobs:
       run: composer install --prefer-dist --no-progress
 
     - name: 🗄️ Run test suite
-      id: phpunit-test
-      run: composer run-script test
+      id: phpunit-testsuite
+      run: |
+        vendor/bin/phpunit --bootstrap vendor/autoload.php --configuration phpunit.xml --testsuite main
       env:
         TEST_NAME: main
         XDEBUG_MODE: debug
@@ -49,14 +50,3 @@ jobs:
         HUAWEI_APPLICATION_CREDENTIALS: ${{ secrets.HUAWEI_APPLICATION_CREDENTIALS }}
         PHPUNIT_HCM_TEST_DEVICE_TOKEN: ${{ secrets.PHPUNIT_HCM_TEST_DEVICE_TOKEN }}
         PHPUNIT_HCM_TEST_HMAC_VERIFICATION_KEY: ${{ secrets.PHPUNIT_HCM_TEST_HMAC_VERIFICATION_KEY }}
-
-    - name: 🗄️ Run test suite with coverage
-      id: phpunit-coverage
-      run: composer run-script coverage
-      env:
-          TEST_NAME: main
-          XDEBUG_MODE: coverage
-          HUAWEI_APP_SECRET: ${{ secrets.HUAWEI_APP_SECRET }}
-          HUAWEI_APPLICATION_CREDENTIALS: ${{ secrets.HUAWEI_APPLICATION_CREDENTIALS }}
-          PHPUNIT_HCM_TEST_DEVICE_TOKEN: ${{ secrets.PHPUNIT_HCM_TEST_DEVICE_TOKEN }}
-          PHPUNIT_HCM_TEST_HMAC_VERIFICATION_KEY: ${{ secrets.PHPUNIT_HCM_TEST_HMAC_VERIFICATION_KEY }}
