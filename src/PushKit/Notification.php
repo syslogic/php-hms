@@ -2,6 +2,7 @@
 namespace HMS\PushKit;
 
 use HMS\Core\Model;
+use InvalidArgumentException;
 
 /**
  * Class HMS PushKit Notification
@@ -13,13 +14,19 @@ class Notification extends Model {
     protected array $mandatory_fields = ['title', 'body'];
     protected array $optional_fields  = ['image'];
 
-    /** @var string $title (mandatory) */
+    /**
+     * @var string|null $title (mandatory)
+     */
     protected string|null $title = null;
 
-    /** @var string $body (mandatory) */
+    /**
+     * @var string|null $body (mandatory)
+     */
     protected string|null $body = null;
 
-    /** @var string|null $image (optional) */
+    /**
+     * @var string|null $image (optional)
+     */
     protected string|null $image = null;
 
     private function parse_array( array $data ): void {
@@ -48,13 +55,17 @@ class Notification extends Model {
         ];
     }
 
-    /** TODO: Implement fromArray() method. */
     static function fromArray( array $model ): Notification {
         return new Notification( $model['title'], $model['body'], $model['image'] );
     }
 
-    /** TODO: Implement validate() method. */
     function validate(): bool {
+        if ( $this->title == null ) {
+            throw new InvalidArgumentException( 'title must not be null' );
+        }
+        if ( $this->body == null ) {
+            throw new InvalidArgumentException( 'body must not be null' );
+        }
         return true;
     }
 }
