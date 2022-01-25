@@ -37,17 +37,6 @@ This library depends on the following environmental variables:
  - `HUAWEI_APP_SECRET`<br/>
    The "App Secret" is being passed as the `client_secret`. This value is not contained in `agconnect-services.json` and therefore must be provided. Please refer to the documentation, which explains how to obtain it: [Viewing App Basic Information](https://developer.huawei.com/consumer/en/doc/distribution/app/agc-help-appinfo-0000001100014694).
 
-For example, `nano ~/.bashrc`:
-
-````bash
-# PHP SDK for Huawei REST API
-export HUAWEI_APP_ID=...
-export HUAWEI_APP_SECRET=...
-export HUAWEI_APPLICATION_CREDENTIALS=...
-export PHPUNIT_HCM_TEST_HMAC_VERIFICATION_KEY=...
-export PHPUNIT_HCM_TEST_DEVICE_TOKEN=...
-````
-
 <details>
 <summary>Installation</summary>
 <p>
@@ -74,6 +63,15 @@ And then map namespace `HMS` in `composer.json` PSR-4 `autoload` block:
   }
 }
 ````
+
+To set up the environment, for example `nano ~/.bashrc`:
+
+````bash
+# PHP SDK for Huawei REST API
+export HUAWEI_APP_ID=...
+export HUAWEI_APP_SECRET=...
+export HUAWEI_APPLICATION_CREDENTIALS=...
+````
 </p>
 </details>
 
@@ -88,6 +86,11 @@ The test suite depends on further environmental variables:
 | `PushKitTest` | `PHPUNIT_HCM_TEST_DEVICE_TOKEN` | The HCM device registration ID, to which the test will push notifications to.  |
 | `PushKitTest` | `PHPUNIT_HCM_TEST_HMAC_VERIFICATION_KEY` | The HMAC verification key is unique to each upstream message webhook. The value can also be obtained from there. |
 
+````bash
+# PHP SDK for Huawei REST API
+export PHPUNIT_HCM_TEST_HMAC_VERIFICATION_KEY=...
+export PHPUNIT_HCM_TEST_DEVICE_TOKEN=...
+````
 
 Running tests:
 ````shell
