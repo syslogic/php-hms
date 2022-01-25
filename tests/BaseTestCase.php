@@ -21,7 +21,6 @@ abstract class BaseTestCase extends TestCase {
     protected static int $app_id = 0;
     protected static int $cp_id = 0;
 
-    private const PHP_FPM_CLEAR_ENV = 'PHP configuration clear_env does what it says.';
     private const ENV_VAR_APPLICATION_CREDENTIALS = 'Variable HUAWEI_APPLICATION_CREDENTIALS is not set.';
     private const ENV_VAR_APP_SECRET  = 'Variable HUAWEI_APP_SECRET is not set.';
     protected const CONFIG_NOT_LOADED = 'agconnect-services.json was not loaded.';
@@ -29,8 +28,6 @@ abstract class BaseTestCase extends TestCase {
 
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {
-
-        self::assertFalse(ini_get('clear_env'), self::PHP_FPM_CLEAR_ENV);
 
         self::assertTrue(is_string(getenv('HUAWEI_APPLICATION_CREDENTIALS')), self::ENV_VAR_APPLICATION_CREDENTIALS);
         $config_file = getenv('HUAWEI_APPLICATION_CREDENTIALS');
@@ -50,6 +47,21 @@ abstract class BaseTestCase extends TestCase {
                     self::$client_id     =    (int) $config->client->client_id;
                     self::$client_secret = (string) $config->client->client_secret;
                     self::$api_key       = (string) $config->client->api_key;
+                }
+            }
+        }
+
+        if ( is_int(getenv('GITHUB_RUN_NUMBER')) ) {
+            $config_file = './oauth2-config.json';
+            if ( file_exists( $config_file ) ) {
+                $config = json_decode(file_get_contents( $config_file ));
+                if ( is_object( $config )) {
+                    if ( property_exists( $config, 'client_id' )) {
+                        self::$app_id     =    (int) $config->client_id;
+                    }
+                    if ( property_exists( $config, 'client_secret' )) {
+                        self::$app_secret = (string) $config->client_secret;
+                    }
                 }
             }
         }

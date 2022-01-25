@@ -16,7 +16,6 @@ use HMS\PushKit\ReceiptStatus;
 use HMS\PushKit\ResultCodes;
 use HMS\PushKit\UpstreamMessage;
 use HMS\PushKit\WebPush\Headers;
-use HMS\PushKit\WebPush\HmsOptions;
 use HMS\PushKit\WebPush\WebAction;
 use HMS\PushKit\WebPush\WebNotification;
 use HMS\PushKit\WebPush\WebPushConfig;
