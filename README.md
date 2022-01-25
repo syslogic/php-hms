@@ -122,5 +122,5 @@ The usage of these APIs depends on the [HUAWEI Developers Service Agreement](htt
 
 ### Support
 - [Documentation](https://developer.huawei.com/consumer/en/doc/landing/development)
-- [Stack Overflow](https://stackoverflow.com/questions/tagged/huawei-mobile-services)
+- [Stack Overflow](https://stackoverflow.com/questions/tagged/huawei-developers)
 - [Issue Tracker](https://github.com/syslogic/php-hms/issues)
