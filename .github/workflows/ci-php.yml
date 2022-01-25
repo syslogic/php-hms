@@ -14,10 +14,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: 🗄️ Provide config.json
-      id: oauth2-config
-      run: echo '${{ secrets.PHPUNIT_OAUTH2_CONFIG_JSON }}' > ./oauth2-config.json
-
     - name: 🗄️ Provide agconnect-services.json
       id: agconnect-services
       run: echo '${{ secrets.AGCONNECT_SERVICES_JSON }}' > ./agconnect-services.json
@@ -42,6 +38,7 @@ jobs:
     - name: 🗄️ Run test suite
       id: phpunit-testsuite
       run: |
+        echo $PHPUNIT_OAUTH2_CONFIG_JSON > ./oauth2-config.json
         echo "Run # $GITHUB_RUN_NUMBER"
         composer run-script test
       env:
@@ -51,3 +48,4 @@ jobs:
         HUAWEI_APPLICATION_CREDENTIALS: ${{ secrets.HUAWEI_APPLICATION_CREDENTIALS }}
         PHPUNIT_HCM_TEST_DEVICE_TOKEN: ${{ secrets.PHPUNIT_HCM_TEST_DEVICE_TOKEN }}
         PHPUNIT_HCM_TEST_HMAC_VERIFICATION_KEY: ${{ secrets.PHPUNIT_HCM_TEST_HMAC_VERIFICATION_KEY }}
+        PHPUNIT_OAUTH2_CONFIG_JSON: ${{ secrets.PHPUNIT_OAUTH2_CONFIG_JSON }}
