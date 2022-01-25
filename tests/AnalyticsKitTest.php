@@ -34,7 +34,7 @@ class AnalyticsKitTest extends BaseTestCase {
         self::assertTrue($result instanceof stdClass );
         self::assertObjectHasAttribute('code', $result);
         //Error 10031: user data exported in two month
-        self::assertTrue( $result->code === ResultCodes::DATA_EXPORT_REQUEST_INTERVAL, "Error $result->code: $result->message" ); // user data exported in two month
+        self::assertTrue( $result->code === ResultCodes::DATA_EXPORT_REQUEST_INTERVAL, "Error $result->code -> $result->message" ); // user data exported in two month
     }
 
     /** Test: Querying the Export Task Status. */
@@ -42,7 +42,7 @@ class AnalyticsKitTest extends BaseTestCase {
         $result = self::$client->request_user_data_export_status( self::$test_aaid );
         self::assertTrue($result instanceof stdClass );
         self::assertObjectHasAttribute('code', $result);
-        self::assertTrue( $result->code === ResultCodes::REQUEST_SUCCESSFUL, "Error $result->code: $result->message" );
+        self::assertTrue( $result->code === ResultCodes::REQUEST_SUCCESSFUL, "Error $result->code -> $result->message" );
     }
 
     /** Test: Deleting Personal Data. */
@@ -51,7 +51,7 @@ class AnalyticsKitTest extends BaseTestCase {
         self::assertTrue($result instanceof stdClass );
         self::assertObjectHasAttribute('code', $result);
         // Error 10002: Request frequency exceeds system limit!
-        self::assertTrue( $result->code === ResultCodes::REQUEST_SUCCESSFUL, "Error $result->code: $result->message" );
+        self::assertTrue( $result->code === ResultCodes::REQUEST_SUCCESSFUL, "Error $result->code -> $result->message" );
     }
 
     /** Test: Querying the Deletion Task Status. */
@@ -60,7 +60,7 @@ class AnalyticsKitTest extends BaseTestCase {
         self::assertTrue($result instanceof stdClass );
         self::assertObjectHasAttribute('code', $result);
         // Error 10002: Request frequency exceeds system limit!
-        self::assertTrue( $result->code === ResultCodes::REQUEST_SUCCESSFUL, "Error $result->code: $result->message" );
+        self::assertTrue( $result->code === ResultCodes::REQUEST_SUCCESSFUL, "Error $result->code -> $result->message" );
     }
 
     /** Test: Creating a Data Export Task. */
@@ -69,7 +69,7 @@ class AnalyticsKitTest extends BaseTestCase {
         self::assertTrue($result instanceof stdClass );
         self::assertObjectHasAttribute('code', $result);
         // Error 10031: user data exported in two month
-        self::assertTrue( $result->code === ResultCodes::DATA_EXPORT_REQUEST_INTERVAL, "Error $result->code: $result->message" );
+        self::assertTrue( $result->code === ResultCodes::DATA_EXPORT_REQUEST_INTERVAL, "Error $result->code -> $result->message" );
     }
 
     /** TODO Test: Receiving the Execution Status of a Data Export Task; post-back. */

@@ -51,6 +51,7 @@ class AccountKit {
 
     /**
      * Obtaining Access Token
+     *
      * @return string|null
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/account-obtain-token_hms_reference-0000001050048618">Obtaining Access Token</a>
      */
@@ -81,6 +82,36 @@ class AccountKit {
             }
         }
         return $this->access_token;
+    }
+
+    /**
+     * TODO: Verifying an ID Token.
+     *
+     * @return string|null
+     * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/account-verify-id-token_hms_reference-0000001050050577">Verifying an ID Token</a>
+     */
+    public function verify_id_token(): string|null {
+        return null;
+    }
+
+    /**
+     * TODO: Parsing an Access Token.
+     *
+     * @return string|null
+     * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/account-gettokeninfo-0000001050050585">Parsing an Access Token</a>
+     */
+    public function parse_access_token(): string|null {
+        return null;
+    }
+
+    /**
+     * TODO: Obtaining User Information.
+     *
+     * @return string|null
+     * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/get-user-info-0000001060261938">Obtaining User Information</a>
+     */
+    public function get_user_info(): string|null {
+        return null;
     }
 
     /** Perform cURL request. */

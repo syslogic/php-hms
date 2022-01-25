@@ -64,4 +64,10 @@ class ResultCodes {
      * Try again later.
      */
     public const AUTHENTICATION_REQUEST_TIMED_OUT = 10020;
+
+
+    // Error 10031: user data exported in two month
+    // Error 10002: Request frequency exceeds system limit!
+    // Error 10020: importItem4DataCollection.importItem.itemSet: must not be null, importItem4DataCollection.importItem.dataType: must not be null
+
 }
