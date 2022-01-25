@@ -39,9 +39,10 @@ class AndroidConfig extends Model {
     private int $fast_app_target = 2;
 
     /**
+     * If the message body contains `message.data` and does not contain `message.notification` or `message.android.notification`, the message is a data message.
      * @var string|null $data
      */
-    private string|null $data = '';
+    private string|null $data = null;
 
     /**
      * @var AndroidNotification|null $notification
@@ -72,7 +73,6 @@ class AndroidConfig extends Model {
         ];
     }
 
-    /** TODO: Implement fromArray() method. */
     static function fromArray( array $model ): AndroidConfig {
         return new AndroidConfig( $model );
     }

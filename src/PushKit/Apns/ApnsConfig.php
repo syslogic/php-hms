@@ -48,9 +48,8 @@ class ApnsConfig extends Model {
         ];
     }
 
-    /** TODO: Implement fromArray() method. */
     static function fromArray( array $model ): ApnsConfig {
-
+        return new ApnsConfig( $model );
     }
 
     /** TODO: Implement validate() method. */
