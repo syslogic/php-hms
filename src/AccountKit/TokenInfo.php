@@ -2,6 +2,8 @@
 namespace HMS\AccountKit;
 
 use HMS\Core\Model;
+use JetBrains\PhpStorm\ArrayShape;
+use JetBrains\PhpStorm\Pure;
 
 /**
  * Class HMS AccountKit TokenInfo
@@ -64,19 +66,20 @@ class TokenInfo extends Model {
     }
 
     /** Conditionally adding array items. */
+    #[ArrayShape(['client_id' => "null|string", 'expire_in' => "int", 'union_id' => "null|string", 'open_id' => "null|string", 'scope' => "null|string"])]
     public function asArray(): array {
-        $data = [];
-        return $data;
-    }
-
-    public function asObject(): object {
-        return (object) [
+        return [
             'client_id' => $this->client_id,
             'expire_in' => $this->expire_in,
             'union_id'  => $this->union_id,
             'open_id'   => $this->open_id,
             'scope'     => $this->scope
         ];
+    }
+
+    #[Pure]
+    function asObject(): object {
+        return (object) $this->asArray();
     }
 
     static function fromArray( array $model ): TokenInfo {

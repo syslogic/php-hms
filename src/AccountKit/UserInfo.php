@@ -3,6 +3,8 @@ namespace HMS\AccountKit;
 
 use HMS\Core\Model;
 use InvalidArgumentException;
+use JetBrains\PhpStorm\ArrayShape;
+use JetBrains\PhpStorm\Pure;
 
 /**
  * Class HMS AccountKit UserInfo
@@ -58,21 +60,21 @@ class UserInfo extends Model {
         }
     }
 
-    /** Conditionally adding array items. */
+    #[ArrayShape(['openID' => "null|string", 'displayName' => "null|string", 'headPictureURL' => "null|string", 'email' => "null|string"])]
     public function asArray(): array {
-        $data = [];
-
-        return $data;
-    }
-
-    public function asObject(): object {
-        return (object) [
+        return  [
             'openID'          => $this->openID,
             'displayName'     => $this->displayName,
             'headPictureURL'  => $this->headPictureURL,
             'email'           => $this->email
         ];
     }
+
+    #[Pure]
+    function asObject(): object {
+        return (object) $this->asArray();
+    }
+
 
     static function fromArray( array $model ): UserInfo {
         return new UserInfo( $model );
