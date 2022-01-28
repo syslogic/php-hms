@@ -30,12 +30,14 @@ The trademarks are being referenced for identification purposes only, in terms o
 
 This library depends on the following environmental variables:
 
- - `HUAWEI_APPLICATION_CREDENTIALS`<br/>
-   The path to JSON configuration file `agconnect-services.json`.<br/>This file can be obtained from the AppGallery Connect console.<br/><br/>
  - `HUAWEI_APP_ID`<br/>
-   The "App ID" is being passed as the `client_id`.<br/><br/>
+   The "App ID" is being passed as the `client_id`.<br/>
  - `HUAWEI_APP_SECRET`<br/>
    The "App Secret" is being passed as the `client_secret`. This value is not contained in `agconnect-services.json` and therefore must be provided. Please refer to the documentation, which explains how to obtain it: [Viewing App Basic Information](https://developer.huawei.com/consumer/en/doc/distribution/app/agc-help-appinfo-0000001100014694).
+ - `HUAWEI_APPLICATION_CREDENTIALS` (optional)<br/>
+   The path to JSON configuration file `agconnect-services.json`.<br/>This file can be obtained from the AppGallery Connect console.<br/>
+ - `HUAWEI_HMAC_VERIFICATION_KEY` (optional)<br/>
+   The HMAC verification key is unique to each upstream message webhook. The value can also be obtained from there.
 
 <details>
 <summary>Installation</summary>
@@ -66,6 +68,7 @@ To set up the environment, for example `nano ~/.bashrc`:
 export HUAWEI_APP_ID=...
 export HUAWEI_APP_SECRET=...
 export HUAWEI_APPLICATION_CREDENTIALS=...
+export HUAWEI_HMAC_VERIFICATION_KEY=...
 ````
 </p>
 </details>
@@ -79,7 +82,6 @@ The test suite depends on further environmental variables:
 | Test Case | Environmental Variable | Description |
 | ---: | --- | --- |
 | `PushKitTest` | `PHPUNIT_HCM_TEST_DEVICE_TOKEN` | The HCM device registration ID, to which the test will push notifications to.  |
-| `PushKitTest` | `PHPUNIT_HCM_TEST_HMAC_VERIFICATION_KEY` | The HMAC verification key is unique to each upstream message webhook. The value can also be obtained from there. |
 
 ````bash
 # PHP SDK for Huawei REST API
