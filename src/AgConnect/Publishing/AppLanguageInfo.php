@@ -1,5 +1,5 @@
 <?php
-namespace HMS\Connect;
+namespace HMS\AgConnect\Publishing;
 
 use HMS\Core\Model;
 use JetBrains\PhpStorm\ArrayShape;

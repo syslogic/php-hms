@@ -1,5 +1,5 @@
 <?php
-namespace HMS\Connect;
+namespace HMS\AgConnect\Publishing;
 
 use HMS\Core\Wrapper;
 
@@ -14,14 +14,29 @@ class Connect extends Wrapper {
         parent::__construct( $config );
     }
 
+    /**
+     * GET: Obtaining the File Upload URL.
+     *
+     * @see <a href="https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-upload-url-0000001158365047">Obtaining the File Upload URL</a>
+     */
     public function request_file_upload_url(string $upload_url, string $auth_code, string $file_path) {
 
     }
 
+    /**
+     * Uploading a File.
+     *
+     * @see <a href="https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-upload-file-0000001158245059">Uploading a File</a>
+     */
     public function upload_file(string $upload_url, string $auth_code, string $file_path) {
 
     }
 
+    /**
+     * Updating App File Information.
+     *
+     * @see <a href="https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-app-file-info-0000001111685202">Updating App File Information</a>
+     */
     public function update_file_info($file_url, $file_size) {
 
     }

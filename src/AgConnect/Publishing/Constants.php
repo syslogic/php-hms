@@ -1,5 +1,5 @@
 <?php /** @noinspection PhpUnused */
-namespace HMS\Connect;
+namespace HMS\AgConnect\Publishing;
 
 /**
  * Class HMS AppGallery Connect Constants

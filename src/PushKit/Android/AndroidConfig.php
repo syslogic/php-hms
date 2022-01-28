@@ -61,16 +61,21 @@ class AndroidConfig extends Model {
         }
     }
 
+    /** Conditionally adding array items. */
+    public function asArray(): array {
+        $data = [];
+        if ($this->collapse_key    != null) {$data['collapse_key']    = $this->collapse_key;}
+        if ($this->ttl             != null) {$data['ttl']             = $this->ttl;}
+        if ($this->bi_tag          != null) {$data['bi_tag']          = $this->bi_tag;}
+        if ($this->receipt_id      != null) {$data['receipt_id']      = $this->receipt_id;}
+        if ($this->fast_app_target != null) {$data['fast_app_target'] = $this->fast_app_target;}
+        if ($this->data            != null) {$data['data']            = $this->data;}
+        if ($this->notification    != null) {$data['notification']    = $this->notification->asObject();}
+        return $data;
+    }
+
     public function asObject(): object {
-        return (object) [
-            'collapse_key'    => $this->collapse_key,
-            'ttl'             => $this->ttl,
-            'bi_tag'          => $this->bi_tag,
-            'receipt_id'      => $this->receipt_id,
-            'fast_app_target' => $this->fast_app_target,
-            'data'            => $this->data,
-            'notification'    => $this->notification->asObject()
-        ];
+        return (object) $this->asArray();
     }
 
     static function fromArray( array $model ): AndroidConfig {

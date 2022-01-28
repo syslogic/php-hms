@@ -1,17 +1,17 @@
 <?php
 namespace Tests;
 
-use HMS\Connect\AppInfo;
-use HMS\Connect\AppLanguageInfo;
-use HMS\Connect\Connect;
+use HMS\AgConnect\Publishing\Connect;
+use HMS\AgConnect\Publishing\AppInfo;
+use HMS\AgConnect\Publishing\AppLanguageInfo;
 use InvalidArgumentException;
 
 /**
- * HMS Connect Test
+ * HMS AgConnect Publishing API Test
  *
  * @author Martin Zeitler
  */
-class ConnectTest extends BaseTestCase {
+class ConnectPublishingTest extends BaseTestCase {
 
     private static Connect|null $client;
 
