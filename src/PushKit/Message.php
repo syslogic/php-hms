@@ -99,6 +99,14 @@ class Message extends Model {
     /** Conditionally adding array items. */
     public function asArray(): array {
         $data = [];
+        if ($this->data           != null) {$data['data']         = $this->data;}
+        if ($this->notification   != null) {$data['notification'] = $this->notification;}
+        if ($this->android        != null) {$data['android']      = $this->android;}
+        if ($this->apns           != null) {$data['apns']         = $this->apns;}
+        if ($this->webpush        != null) {$data['webpush']      = $this->webpush;}
+             if ($this->token     != null) {$data['token'] = $this->token;}
+        else if ($this->topic     != null) {$data['topic'] = $this->topic;}
+        else if ($this->condition != null) {$data['condition'] = $this->condition;}
         return $data;
     }
 

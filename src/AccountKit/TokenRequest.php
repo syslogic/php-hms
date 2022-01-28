@@ -42,6 +42,7 @@ class TokenRequest extends Model {
      * OAuth 2.0 client ID (mandatory field).
      *
      * An unique identifier allocated by the HUAWEI Developers website to an app after it is created.
+     *
      * @see <a href="https://developer.huawei.com/consumer/en/doc/distribution/app/agc-help-appinfo-0000001100014694">Viewing App Basic Information</a>
      * @var int|null $client_id
      */
@@ -51,6 +52,7 @@ class TokenRequest extends Model {
      * OAuth 2.0 client secret (mandatory field).
      *
      * A public key allocated by the HUAWEI Developers website to an app after it is created.
+     *
      * @see <a href="https://developer.huawei.com/consumer/en/doc/distribution/app/agc-help-appinfo-0000001100014694">Viewing App Basic Information</a>
      * @var string|null $client_secret
      */

@@ -3,8 +3,6 @@ namespace HMS\AccountKit;
 
 use HMS\Core\Model;
 use InvalidArgumentException;
-use JetBrains\PhpStorm\ArrayShape;
-use JetBrains\PhpStorm\Pure;
 
 /**
  * Class HMS AccountKit UserInfo
@@ -48,8 +46,27 @@ class UserInfo extends Model {
      */
     private string|null $email = null;
 
-    public function __construct( array $data ) {
-        $this->parse_array( $data );
+    public function __construct( object|array $data ) {
+        if ( is_object( $data ) ) {
+            $this->parse_object( $data );
+        } else if ( is_array( $data ) ) {
+            $this->parse_array( $data );
+        }
+    }
+
+    private function parse_object( object $data ): void {
+        if ( property_exists( $data, 'openID' ) ) {
+            $this->openID = $data->access_token;
+        }
+        if ( property_exists( $data, 'displayName' ) ) {
+            $this->displayName = $data->displayName;
+        }
+        if ( property_exists( $data, 'headPictureURL' ) ) {
+            $this->headPictureURL = $data->headPictureURL;
+        }
+        if ( property_exists( $data, 'email' ) ) {
+            $this->email = $data->email;
+        }
     }
 
     private function parse_array( array $data ): void {
@@ -60,21 +77,19 @@ class UserInfo extends Model {
         }
     }
 
-    #[ArrayShape(['openID' => "null|string", 'displayName' => "null|string", 'headPictureURL' => "null|string", 'email' => "null|string"])]
+    /** Conditionally adding array items. */
     public function asArray(): array {
-        return  [
-            'openID'          => $this->openID,
-            'displayName'     => $this->displayName,
-            'headPictureURL'  => $this->headPictureURL,
-            'email'           => $this->email
-        ];
+        $data = [];
+        if ($this->openID         != null) {$data['openID']         = $this->openID;}
+        if ($this->displayName    != null) {$data['displayName']    = $this->displayName;}
+        if ($this->headPictureURL != null) {$data['headPictureURL'] = $this->headPictureURL;}
+        if ($this->email          != null) {$data['email']          = $this->email;}
+        return $data;
     }
 
-    #[Pure]
-    function asObject(): object {
+    public function asObject(): object {
         return (object) $this->asArray();
     }
-
 
     static function fromArray( array $model ): UserInfo {
         return new UserInfo( $model );

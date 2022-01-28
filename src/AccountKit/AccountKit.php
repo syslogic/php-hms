@@ -131,18 +131,7 @@ class AccountKit {
             } else if ( property_exists( $result, 'error' ) ) {
                 die( 'oAuth2 Error -> '.$result->error );
             } else {
-                if ( property_exists( $result, 'openID' ) ) {
-
-                }
-                if ( property_exists( $result, 'displayName' ) ) {
-
-                }
-                if ( property_exists( $result, 'headPictureURL' ) ) {
-
-                }
-                if ( property_exists( $result, 'email' ) ) {
-
-                }
+                return new UserInfo( $result );
             }
         }
         return null;
