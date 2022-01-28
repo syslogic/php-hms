@@ -4,12 +4,12 @@ namespace HMS\PushKit;
 use HMS\Core\Model;
 
 /**
- * Class HMS PushKit Message
+ * Class HMS PushKit CloudMessage
  *
  * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-Guides/rest-sample-code-0000001050040242">Sample Code for Sending Downlink Messages Through HTTPS</a>
  * @author Martin Zeitler
  */
-class Message extends Model {
+class CloudMessage extends Model {
 
     protected array $mandatory_fields = [];
     protected array $optional_fields = ['data', 'notification', 'android', 'apns', 'webpush', 'token', 'topic', 'condition'];
@@ -92,8 +92,8 @@ class Message extends Model {
         }
     }
 
-    static function fromArray( array $model ): Message {
-        return new Message( $model );
+    static function fromArray( array $model ): CloudMessage {
+        return new CloudMessage( $model );
     }
 
     /** Conditionally adding array items. */

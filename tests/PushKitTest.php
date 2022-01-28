@@ -8,7 +8,7 @@ use HMS\PushKit\Android\Button;
 use HMS\PushKit\Android\ClickAction;
 use HMS\PushKit\Apns\ApnsConfig;
 use HMS\PushKit\Apns\ApnsNotification;
-use HMS\PushKit\Message;
+use HMS\PushKit\CloudMessage;
 use HMS\PushKit\Notification;
 use HMS\PushKit\PushKit;
 use HMS\PushKit\QuickApp\QuickAppConfig;
@@ -165,9 +165,9 @@ class PushKitTest extends BaseTestCase {
         self::assertTrue( is_object( $item ) );
     }
 
-    /** Test: Model Message. */
-    public function test_message() {
-        $item = new Message([
+    /** Test: Model CloudMessage. */
+    public function test_cloud_message() {
+        $item = new CloudMessage([
 
         ]);
         self::assertTrue( is_object($item->asObject()) );
@@ -185,18 +185,19 @@ class PushKitTest extends BaseTestCase {
     /** Test: Model Android\AndroidConfig. */
     public function test_android_config() {
         $item = new AndroidConfig( [
-            'notification' => new AndroidNotification( [
 
-            ] )
         ] );
         self::assertTrue( is_object($item->asObject()) );
     }
 
     /** Test: Model Android\AndroidNotification. */
     public function test_android_notification() {
-        $item = new AndroidNotification( [
-
-        ] );
+        $item = AndroidNotification::fromArray([
+            'click_action' => [
+                'type' => 2,
+                'url' => 'https://syslogic.io'
+            ]
+        ]);
         self::assertTrue( is_object($item->asObject()) );
     }
 

@@ -121,9 +121,10 @@ class PushKit extends Wrapper {
 
     #[ArrayShape(['validate_only' => "bool", 'message' => "object"])]
     private function get_payload_by_mode( string $mode, string|array $argument, string $title, string $body, string|null $image=null ): array {
+
         if (! in_array( $mode , ['token', 'topic', 'condition'] ) ) {return [];}
         $notification = new Notification( $title, $body, $image );
-        $android = new AndroidConfig([
+        $android = AndroidConfig::fromArray([
             'notification' => AndroidNotification::fromArray([
                 'click_action' => [
                     'type' => 2,
@@ -131,14 +132,17 @@ class PushKit extends Wrapper {
                 ]
             ])
         ]);
+
+        $message = CloudMessage::fromArray([
+            $mode          => $argument, // one of: token, topic, condition.
+            'notification' => $notification->asObject(),
+            'android'      => $android->asObject(),
+            'data'         => ''
+        ]);
+
         return [
             'validate_only' => false,
-            'message' => (object) [
-                $mode          => $argument, // one of: token, topic, condition.
-                'notification' => $notification->asObject(),
-                'data'         => '',
-                'android'      => $android->asObject()
-            ]
+            'message' => $message->asObject()
         ];
     }
 

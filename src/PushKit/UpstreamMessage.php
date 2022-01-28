@@ -1,6 +1,7 @@
 <?php
 namespace HMS\PushKit;
 
+use InvalidArgumentException;
 use stdClass;
 
 /**
@@ -11,16 +12,20 @@ use stdClass;
  */
 class UpstreamMessage {
 
-    private string|null $raw_body = null;
-    private string $hmac_verification_key;
+    private const ENV_VAR_HUAWEI_HMAC_VERIFICATION_KEY = 'Variable ENV_VAR_HUAWEI_HMAC_VERIFICATION_KEY is not set.';
 
+    private string|null $raw_body = null;
+    private string|null $hmac_verification_key;
     private string|null $sender_token  = null;
     private string|null $package_name  = null;
     private string|null $message_id    = null;
     private string|false $message_data = false;
 
     /** Constructor */
-    public function __construct( string $key ) {
+    public function __construct( string|null $key ) {
+        if ($key == null) {
+            throw new InvalidArgumentException(self::ENV_VAR_HUAWEI_HMAC_VERIFICATION_KEY );
+        }
         $this->hmac_verification_key = $key;
         $this->parse_request_body();
     }
