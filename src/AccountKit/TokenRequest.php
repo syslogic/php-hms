@@ -92,20 +92,19 @@ class TokenRequest extends Model {
         }
     }
 
-    #[ArrayShape(['grant_type' => "string", 'client_id' => "int|null", 'client_secret' => "null|string", 'code' => "null|string", 'redirect_uri' => "null|string", 'refresh_token' => "null|string"])]
+    /** Conditionally adding array items. */
     public function asArray(): array {
-        return [
-            'grant_type'    => $this->grant_type,
-            'client_id'     => $this->client_id,
-            'client_secret' => $this->client_secret,
-            'code'          => $this->code,
-            'redirect_uri'  => $this->redirect_uri,
-            'refresh_token' => $this->refresh_token
-        ];
+        $data = [];
+        if ($this->grant_type    != null) {$data['grant_type']    = $this->grant_type;}
+        if ($this->client_id     != null) {$data['client_id']     = $this->client_id;}
+        if ($this->client_secret != null) {$data['client_secret'] = $this->client_secret;}
+        if ($this->code          != null) {$data['code']          = $this->code;}
+        if ($this->redirect_uri  != null) {$data['redirect_uri']  = $this->redirect_uri;}
+        if ($this->refresh_token != null) {$data['refresh_token'] = $this->code;}
+        return $data;
     }
 
-    #[Pure]
-    function asObject(): object {
+    public function asObject(): object {
         return (object) $this->asArray();
     }
 
@@ -113,7 +112,6 @@ class TokenRequest extends Model {
         return new TokenRequest( $model );
     }
 
-    /** TODO: Implement validate() method. */
     function validate(): bool {
         if (! in_array($this->grant_type, $this->grant_types) ) {
             throw new InvalidArgumentException(self::INVALID_GRANT_TYPE);
