@@ -8,6 +8,9 @@ namespace HMS\AgConnect\AuthService;
  */
 class Constants {
 
+    /** The Gateway URL may be overridden by the configuration in file `agconnect-services.json`. */
+    public const CONNECT_API_BASE_URL = "https://connect-dre.dbankcloud.cn/";
+
     /**
      * POST: Importing Users.
      *

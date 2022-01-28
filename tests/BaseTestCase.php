@@ -21,6 +21,9 @@ abstract class BaseTestCase extends TestCase {
     protected static int $app_id = 0;
     protected static int $cp_id = 0;
 
+    /** AppGallery Connect Gateway URL */
+    protected static string|null $agc_gateway = 'https://connect-drcn.dbankcloud.cn/';
+
     private const ENV_VAR_APPLICATION_CREDENTIALS = 'Variable HUAWEI_APPLICATION_CREDENTIALS is not set.';
     private const ENV_VAR_APP_SECRET  = 'Variable HUAWEI_APP_SECRET is not set.';
     protected const CONFIG_NOT_LOADED = 'agconnect-services.json was not loaded.';
@@ -46,6 +49,9 @@ abstract class BaseTestCase extends TestCase {
                     self::$client_id     =    (int) $config->client->client_id;
                     self::$client_secret = (string) $config->client->client_secret;
                     self::$api_key       = (string) $config->client->api_key;
+                }
+                if ( property_exists( $config, 'agcgw' ) && is_object( $config->agcgw )) {
+                    self::$agc_gateway   =     (string) 'https://'.$config->agcgw->url.'/';
                 }
             }
         }
