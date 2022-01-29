@@ -10,6 +10,8 @@ use HMS\Core\Wrapper;
  */
 class AuthService extends Wrapper {
 
+    private static Connect|null $connect;
+
     private string $url_user_import;
     private string $url_user_export;
     private string $url_token_verify;
@@ -25,11 +27,10 @@ class AuthService extends Wrapper {
         $this->url_token_revoke = Constants::CONNECT_API_BASE_URL.Constants::CONNECT_API_AUTH_SERVICE_REVOKE_TOKEN;
 
         /* Obtain an alternate access-token. */
-        $this->access_token = null;
-        $agc_client_id  = getenv('HUAWEI_CONNECT_API_CLIENT_ID');
-        $agc_client_key = getenv('HUAWEI_CONNECT_API_CLIENT_KEY');
-        $connect_api = new Connect(['client_id' => $agc_client_id, 'client_secret' => $agc_client_key]);
-        $this->access_token = $connect_api->get_access_token();
+        $this->connect = new Connect( $config );
+        if ( $this->connect->is_ready() ) {
+
+        }
     }
 
     /**
@@ -39,7 +40,7 @@ class AuthService extends Wrapper {
      */
     public function import_users( array $users ) {
         $payload =['users' => $users];
-        return $this->curl_request('POST', $this->url_user_import, $payload, $this->auth_header());
+        return $this->curl_request('POST', $this->url_user_import, $payload, $this->auth_header(), false);
     }
 
     /**
@@ -49,7 +50,7 @@ class AuthService extends Wrapper {
      */
     public function export_users() {
         $payload =[];
-        return $this->curl_request('POST', $this->url_user_export, $payload, $this->auth_header());
+        return $this->curl_request('POST', $this->url_user_export, $payload, $this->auth_header(), false);
     }
 
     /**
@@ -59,7 +60,7 @@ class AuthService extends Wrapper {
      */
     public function verify_access_token() {
         $payload =[];
-        return $this->curl_request('GET', $this->url_token_verify, $payload, $this->auth_header());
+        return $this->curl_request('GET', $this->url_token_verify, $payload, $this->auth_header(), false);
     }
 
     /**
@@ -69,6 +70,6 @@ class AuthService extends Wrapper {
      */
     public function revoke_access_token() {
         $payload =[];
-        return $this->curl_request('POST', $this->url_token_revoke, $payload, $this->auth_header());
+        return $this->curl_request('POST', $this->url_token_revoke, $payload, $this->auth_header(), false);
     }
 }

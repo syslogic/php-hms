@@ -1,6 +1,7 @@
 <?php /** @noinspection PhpPropertyOnlyWrittenInspection */
 namespace HMS\AnalyticsKit;
 
+use HMS\AccountKit\AccountKit;
 use HMS\Core\Wrapper;
 use InvalidArgumentException;
 use stdClass;
@@ -27,20 +28,22 @@ class AnalyticsKit extends Wrapper {
 
     public function __construct( array|string $config ) {
         parent::__construct( $config );
-        if ($this->is_ready()) {
-            $base_url = Constants::ANALYTICS_KIT_BASE_URL;
-            $this->url_user_data_export             = $base_url.Constants::ANALYTICS_KIT_GDPR_USER_DATA_EXPORT;
-            $this->url_user_data_export_status      = $base_url.Constants::ANALYTICS_KIT_GDPR_USER_DATA_EXPORT_STATUS;
-            $this->url_user_data_deletion           = $base_url.Constants::ANALYTICS_KIT_GDPR_USER_DATA_DELETION;
-            $this->url_user_data_deletion_status    = $base_url.Constants::ANALYTICS_KIT_GDPR_USER_DATA_DELETION_STATUS;
-            $this->url_raw_data_export              = $base_url.Constants::ANALYTICS_KIT_RAW_DATA_EXPORT;
-            $this->url_raw_data_export_status       = $base_url.Constants::ANALYTICS_KIT_RAW_DATA_EXPORT_STATUS; // postback URL
-            $this->url_data_collection_import_user  = $base_url.Constants::ANALYTICS_KIT_DATA_COLLECTION_IMPORT_USER;
-            $this->url_data_collection_import_item  = $base_url.Constants::ANALYTICS_KIT_DATA_COLLECTION_IMPORT_ITEM;
-            $this->url_data_collection_import_event = $base_url.Constants::ANALYTICS_KIT_DATA_COLLECTION_IMPORT_EVENT;
-            $this->url_report_metrics_list          = $base_url.Constants::ANALYTICS_KIT_REPORT_METRICS_LIST;
-            $this->url_report_dimensions_list       = $base_url.Constants::ANALYTICS_KIT_REPORT_DIMENSIONS_LIST;
-        }
+        $base_url = Constants::ANALYTICS_KIT_BASE_URL;
+        $this->url_user_data_export             = $base_url.Constants::ANALYTICS_KIT_GDPR_USER_DATA_EXPORT;
+        $this->url_user_data_export_status      = $base_url.Constants::ANALYTICS_KIT_GDPR_USER_DATA_EXPORT_STATUS;
+        $this->url_user_data_deletion           = $base_url.Constants::ANALYTICS_KIT_GDPR_USER_DATA_DELETION;
+        $this->url_user_data_deletion_status    = $base_url.Constants::ANALYTICS_KIT_GDPR_USER_DATA_DELETION_STATUS;
+        $this->url_raw_data_export              = $base_url.Constants::ANALYTICS_KIT_RAW_DATA_EXPORT;
+        $this->url_raw_data_export_status       = $base_url.Constants::ANALYTICS_KIT_RAW_DATA_EXPORT_STATUS; // postback URL
+        $this->url_data_collection_import_user  = $base_url.Constants::ANALYTICS_KIT_DATA_COLLECTION_IMPORT_USER;
+        $this->url_data_collection_import_item  = $base_url.Constants::ANALYTICS_KIT_DATA_COLLECTION_IMPORT_ITEM;
+        $this->url_data_collection_import_event = $base_url.Constants::ANALYTICS_KIT_DATA_COLLECTION_IMPORT_EVENT;
+        $this->url_report_metrics_list          = $base_url.Constants::ANALYTICS_KIT_REPORT_METRICS_LIST;
+        $this->url_report_dimensions_list       = $base_url.Constants::ANALYTICS_KIT_REPORT_DIMENSIONS_LIST;
+
+        /* Obtain an access-token. */
+        $account_kit = new AccountKit(['client_id' => $this->app_id, 'client_secret' => $this->app_secret]);
+        $this->access_token = $account_kit->get_access_token();
     }
 
     /** Provide HTTP request headers as array. */

@@ -48,10 +48,6 @@ class Wrapper {
         } else {
             $this->init_by_environment();
         }
-
-        /* Obtain an access-token. */
-        $account_kit = new AccountKit(['client_id' => $this->app_id, 'client_secret' => $this->app_secret]);
-        $this->access_token = $account_kit->get_access_token();
     }
 
     /** The expiry doesn't matter as this token is always being fetched */

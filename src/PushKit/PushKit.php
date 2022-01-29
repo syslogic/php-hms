@@ -1,6 +1,7 @@
 <?php
 namespace HMS\PushKit;
 
+use HMS\AccountKit\AccountKit;
 use HMS\Core\Wrapper;
 use HMS\PushKit\Android\AndroidConfig;
 use HMS\PushKit\Android\AndroidNotification;
@@ -31,6 +32,10 @@ class PushKit extends Wrapper {
         $this->url_topic_unsubscribe = str_replace('{appId}', $app_id, Constants::PUSHKIT_TOPIC_UNSUBSCRIBE);
         $this->url_token_data_query  = str_replace('{appId}', $app_id, Constants::PUSHKIT_TOKEN_DATA_QUERY);
         $this->url_token_data_delete = str_replace('{appId}', $app_id, Constants::PUSHKIT_TOKEN_DATA_DELETE);
+
+        /* Obtain an access-token. */
+        $account_kit = new AccountKit(['client_id' => $this->app_id, 'client_secret' => $this->app_secret]);
+        $this->access_token = $account_kit->get_access_token();
     }
 
     /**

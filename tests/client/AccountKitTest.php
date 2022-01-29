@@ -2,6 +2,7 @@
 namespace Tests\client;
 
 use HMS\AccountKit\AccountKit;
+use JetBrains\PhpStorm\ArrayShape;
 use Tests\BaseTestCase;
 
 /**
@@ -22,6 +23,11 @@ class AccountKitTest extends BaseTestCase {
     public static function setUpBeforeClass(): void {
         parent::setUpBeforeClass();
         self::$client = new AccountKit( self::get_secret() );
+    }
+
+    #[ArrayShape(['client_id' => "int", 'client_secret' => "string"])]
+    protected static function get_secret(): array {
+        return ['client_id' => self::$app_id, 'client_secret' => self::$app_secret];
     }
 
     /** Test: Obtaining Access Token. */

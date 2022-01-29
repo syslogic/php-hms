@@ -17,14 +17,15 @@ class Connect extends Wrapper {
     protected string|null $agc_client_id = null;
     protected string|null $agc_client_key = null;
     protected string|null $access_token = null;
+    private int $token_expiry = 0;
 
     /** Constructor. */
     public function __construct( array|string $config ) {
-
         parent::__construct( $config );
         $this->url_token  = Constants::URL_OAUTH2_TOKEN;
-        $this->agc_client_id = getenv('HUAWEI_CONNECT_API_CLIENT_ID');
-        $this->agc_client_key = getenv('HUAWEI_CONNECT_API_CLIENT_KEY');
+        $this->agc_client_id = $config['client_id'];
+        $this->agc_client_key = $config['client_secret'];
+        $this->access_token = $this->get_access_token();
     }
 
     /**
