@@ -1,14 +1,14 @@
 <?php
-namespace HMS\AgConnect\Publishing;
+namespace HMS\AppGallery\Publishing;
 
 use HMS\Core\Wrapper;
 
 /**
- * Class HMS AppGallery Connect Wrapper
+ * Class HMS AppGallery Publishing Wrapper
  *
  * @author Martin Zeitler
  */
-class Connect extends Wrapper {
+class Publishing extends Wrapper {
 
     public function __construct( array|string $config ) {
         parent::__construct( $config );

@@ -1,5 +1,5 @@
 <?php
-namespace HMS\AgConnect\AuthService;
+namespace HMS\AppGallery\AuthService;
 
 use HMS\Core\Model;
 

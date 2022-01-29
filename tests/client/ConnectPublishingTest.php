@@ -1,9 +1,9 @@
 <?php
 namespace Tests\client;
 
-use HMS\AgConnect\Publishing\Connect;
-use HMS\AgConnect\Publishing\AppInfo;
-use HMS\AgConnect\Publishing\AppLanguageInfo;
+use HMS\AppGallery\Publishing\Publishing;
+use HMS\AppGallery\Publishing\AppInfo;
+use HMS\AppGallery\Publishing\AppLanguageInfo;
 use InvalidArgumentException;
 use Tests\BaseTestCase;
 
@@ -14,12 +14,12 @@ use Tests\BaseTestCase;
  */
 class ConnectPublishingTest extends BaseTestCase {
 
-    private static Connect|null $client;
+    private static Publishing|null $client;
 
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {
         parent::setUpBeforeClass();
-        self::$client = new Connect( self::get_secret() );
+        self::$client = new Publishing( self::get_secret() );
         self::assertTrue( self::$client->is_ready(), self::CLIENT_NOT_READY );
     }
 

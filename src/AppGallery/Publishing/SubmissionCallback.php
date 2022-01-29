@@ -1,5 +1,5 @@
 <?php /** @noinspection PhpUnused */
-namespace HMS\AgConnect\Publishing;
+namespace HMS\AppGallery\Publishing;
 
 use InvalidArgumentException;
 use phpseclib3\Crypt\Common\AsymmetricKey;

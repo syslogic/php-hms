@@ -139,10 +139,15 @@ class Wrapper {
 
         $result = curl_exec( $curl );
         $info = curl_getinfo( $curl );
+        curl_close($curl);
+
         if ($result === false) {
             return false;
         }
-        curl_close($curl);
+        if ($result === '' && $info['http_code'] !== 200) {
+            return false;
+        }
+
         $data = json_decode( $result );
         return $this->sanitize( $data );
     }

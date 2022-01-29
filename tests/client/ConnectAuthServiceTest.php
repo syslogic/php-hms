@@ -1,12 +1,12 @@
 <?php
 namespace Tests\client;
 
-use HMS\AgConnect\AuthService\AuthService;
-use HMS\AgConnect\AuthService\ImportUser;
+use HMS\AppGallery\AuthService\AuthService;
+use HMS\AppGallery\AuthService\ImportUser;
 use Tests\BaseTestCase;
 
 /**
- * HMS AgConnect AuthService Test
+ * HMS AppGallery AuthService Test
  *
  * @author Martin Zeitler
  */
@@ -23,7 +23,12 @@ class ConnectAuthServiceTest extends BaseTestCase {
 
     /** Test: Importing Users. */
     public function test_import_users() {
-        self::$client->import_users();
+        $data = [
+            ImportUser::fromArray( ['importUid' => 'W4Z34934F34dH93265R96'] )->asArray(),
+            ImportUser::fromArray( ['importUid' => 'W4Z34934F34dH93265R97'] )->asArray(),
+            ImportUser::fromArray( ['importUid' => 'W4Z34934F34dH93265R98'] )->asArray()
+        ];
+        self::$client->import_users( $data );
     }
 
     /** Test: Exporting Users. */
@@ -32,8 +37,8 @@ class ConnectAuthServiceTest extends BaseTestCase {
     }
 
     /** Test: Authenticating a User's Access Token. */
-    public function test_authenticate_access_token() {
-        self::$client->authenticate_access_token();
+    public function test_verify_access_token() {
+        self::$client->verify_access_token();
     }
 
     /** Test: Revoking a User's Access Token. */

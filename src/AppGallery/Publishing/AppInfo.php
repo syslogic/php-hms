@@ -1,5 +1,5 @@
 <?php
-namespace HMS\AgConnect\Publishing;
+namespace HMS\AppGallery\Publishing;
 
 use HMS\Core\Model;
 use JetBrains\PhpStorm\Pure;
