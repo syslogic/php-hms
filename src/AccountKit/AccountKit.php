@@ -2,7 +2,6 @@
 namespace HMS\AccountKit;
 
 use HMS\Core\Wrapper;
-use stdClass;
 
 /**
  * Class HMS AccountKit Wrapper
