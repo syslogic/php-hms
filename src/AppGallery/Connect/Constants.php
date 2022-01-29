@@ -9,7 +9,7 @@ namespace HMS\AppGallery\Connect;
 class Constants {
 
     /** Connect API apparently has its own oAuth2 token endpoint. */
-    public const URL_OAUTH2_TOKEN = "https://connect-api.cloud.huawei.com/api/oauth2/v3/token";
+    public const URL_OAUTH2_TOKEN = "https://connect-api.cloud.huawei.com/api/oauth2/v1/token";
 
     /** The Gateway URL may be overridden by the configuration in file `agconnect-services.json`. */
     public const CONNECT_API_BASE_URL = "https://connect-api-dre.cloud.huawei.com/";

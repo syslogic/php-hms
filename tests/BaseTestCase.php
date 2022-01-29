@@ -24,13 +24,18 @@ abstract class BaseTestCase extends TestCase {
     /** AppGallery Connect Gateway URL */
     protected static string|null $agc_gateway = 'https://connect-drcn.dbankcloud.cn/';
 
-    private const ENV_VAR_APPLICATION_CREDENTIALS = 'Variable HUAWEI_APPLICATION_CREDENTIALS is not set.';
+    private const ENV_VAR_APP_ID      = 'Variable HUAWEI_APP_ID is not set.';
     private const ENV_VAR_APP_SECRET  = 'Variable HUAWEI_APP_SECRET is not set.';
+    private const ENV_VAR_APPLICATION_CREDENTIALS = 'Variable HUAWEI_APPLICATION_CREDENTIALS is not set.';
+
     protected const CONFIG_NOT_LOADED = 'agconnect-services.json was not loaded.';
     protected const CLIENT_NOT_READY  = 'The REST API client is not ready.';
 
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {
+
+        self::$app_id =  (int) getenv('HUAWEI_APP_ID');
+        self::assertTrue(is_int(self::$app_id), self::ENV_VAR_APP_ID);
 
         self::$app_secret = getenv('HUAWEI_APP_SECRET'); // this value is not contained in the JSON.
         self::assertTrue(is_string(self::$app_secret), self::ENV_VAR_APP_SECRET);
@@ -41,17 +46,17 @@ abstract class BaseTestCase extends TestCase {
             $config = json_decode(file_get_contents( $config_file ));
             if ( is_object( $config )) {
                 if ( property_exists( $config, 'client' ) && is_object( $config->client )) {
-                    self::$cp_id         =     (int) $config->client->cp_id;
-                    self::$app_id        =    (int) $config->client->app_id;
+                    self::$app_id        =          $config->client->app_id;
                     self::$package_name  = (string) $config->client->package_name;
                     self::$project_id    =    (int) $config->client->project_id;
                     self::$product_id    =    (int) $config->client->product_id;
                     self::$client_id     =    (int) $config->client->client_id;
                     self::$client_secret = (string) $config->client->client_secret;
                     self::$api_key       = (string) $config->client->api_key;
+                    self::$cp_id         =    (int) $config->client->cp_id;
                 }
                 if ( property_exists( $config, 'agcgw' ) && is_object( $config->agcgw )) {
-                    self::$agc_gateway   =     (string) 'https://'.$config->agcgw->url.'/';
+                    self::$agc_gateway   = 'https://'.$config->agcgw->url.'/';
                 }
             }
         }

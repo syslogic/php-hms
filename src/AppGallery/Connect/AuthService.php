@@ -26,9 +26,9 @@ class AuthService extends Wrapper {
 
         /* Obtain an alternate access-token. */
         $this->access_token = null;
-        $client_id  = getenv('HUAWEI_CONNECT_API_CLIENT_ID');
-        $client_key = getenv('HUAWEI_CONNECT_API_CLIENT_KEY');
-        $connect_api = new Connect(['client_id' => $client_id, 'client_secret' => $client_key]);
+        $agc_client_id  = getenv('HUAWEI_CONNECT_API_CLIENT_ID');
+        $agc_client_key = getenv('HUAWEI_CONNECT_API_CLIENT_KEY');
+        $connect_api = new Connect(['client_id' => $agc_client_id, 'client_secret' => $agc_client_key]);
         $this->access_token = $connect_api->get_access_token();
     }
 

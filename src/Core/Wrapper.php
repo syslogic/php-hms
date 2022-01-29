@@ -187,6 +187,17 @@ class Wrapper {
             $data->sub_error = (int) $data->sub_error;
         }
 
+        /** $data->ret */
+        if (property_exists($data, 'ret')) {
+            if (property_exists($data->ret, 'code')) {
+                $data->code = (int) $data->ret->code;
+            }
+            if (property_exists($data->ret, 'msg')) {
+                $data->message = (string) $data->ret->msg;
+            }
+            unset( $data->ret );
+        }
+
         return $data;
     }
 }

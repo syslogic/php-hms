@@ -14,17 +14,17 @@ use HMS\Core\Wrapper;
 class Connect extends Wrapper {
 
     private string $url_token;
-    protected string|null $connect_api_client_id = null;
-    protected string|null $connect_api_client_key = null;
+    protected string|null $agc_client_id = null;
+    protected string|null $agc_client_key = null;
     protected string|null $access_token = null;
-    private int $token_expiry = 0;
 
     /** Constructor. */
     public function __construct( array|string $config ) {
+
         parent::__construct( $config );
         $this->url_token  = Constants::URL_OAUTH2_TOKEN;
-        $this->connect_api_client_id = getenv('HUAWEI_CONNECT_API_CLIENT_ID');
-        $this->connect_api_client_key = getenv('HUAWEI_CONNECT_API_CLIENT_KEY');
+        $this->agc_client_id = getenv('HUAWEI_CONNECT_API_CLIENT_ID');
+        $this->agc_client_key = getenv('HUAWEI_CONNECT_API_CLIENT_KEY');
     }
 
     /**
@@ -35,8 +35,8 @@ class Connect extends Wrapper {
     public function get_access_token(): string|null {
         $result = $this->curl_request('POST', $this->url_token, [
             'grant_type'    => 'client_credentials',
-            'client_id'     => $this->connect_api_client_id,
-            'client_secret' => $this->connect_api_client_key
+            'client_id'     => $this->agc_client_id,
+            'client_secret' => $this->agc_client_key
         ], ['Content-Type: application/json;charset=utf-8'], false);
         if ( is_object( $result ) ) {
             if ( property_exists( $result, 'ret' ) && property_exists( $result->ret, 'code' )) {
