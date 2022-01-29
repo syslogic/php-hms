@@ -8,6 +8,7 @@ use HMS\Core\Wrapper;
  *
  * @property int $app_id
  * @property string|null $app_secret
+ * @see <a href="https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-Guides/agcapi-getstarted-0000001111845114">Getting Started</a>
  * @author Martin Zeitler
  */
 class Connect extends Wrapper {
@@ -31,7 +32,7 @@ class Connect extends Wrapper {
      *
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-obtain_token-0000001158365043">Obtaining a Token</a>
      */
-    public function get_access_token() {
+    public function get_access_token(): string|null {
         $result = $this->curl_request('POST', $this->url_token, [
             'grant_type'    => 'client_credentials',
             'client_id'     => $this->connect_api_client_id,
