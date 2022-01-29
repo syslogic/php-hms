@@ -41,7 +41,7 @@ This library depends on the following environmental variables:
  - `HUAWEI_HMAC_VERIFICATION_KEY` (optional)<br/>
    The HMAC verification key is unique to each upstream message webhook. The value can also be obtained from there.
 
-####AppGallery Connect API:
+#### AppGallery Connect API:
 
  - `HUAWEI_CONNECT_API_CLIENT_ID`<br/>
     The client ID for the REST API client can be obtained on the [console](https://developer.huawei.com/consumer/en/service/josp/agc/index.html).<br/>
