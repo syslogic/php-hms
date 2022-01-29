@@ -1,0 +1,11 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="PushKit Client" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
+    <CommandLine>
+      <envs>
+        <env name="XDEBUG_MODE" value="debug" />
+      </envs>
+    </CommandLine>
+    <TestRunner class="Tests\client\PushKitTest" configuration_file="$PROJECT_DIR$/phpunit.xml" file="$PROJECT_DIR$/tests/client/PushKitTest.php" scope="Class" />
+    <method v="2" />
+  </configuration>
+</component>

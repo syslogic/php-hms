@@ -1,21 +1,22 @@
 <?php
-namespace Tests;
+namespace Tests\client;
 
-use HMS\SearchKit\SearchKit;
+use HMS\WalletKit\WalletKit;
+use Tests\BaseTestCase;
 
 /**
- * HMS SearchKit Test
+ * HMS WalletKit Test
  *
  * @author Martin Zeitler
  */
-class SearchKitTest extends BaseTestCase {
+class WalletKitTest extends BaseTestCase {
 
-    private static SearchKit|null $client;
+    private static WalletKit|null $client;
 
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {
         parent::setUpBeforeClass();
-        self::$client = new SearchKit( self::get_secret() );
+        self::$client = new WalletKit( self::get_secret() );
         self::assertTrue( self::$client->is_ready(), self::CLIENT_NOT_READY );
     }
 

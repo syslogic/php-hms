@@ -5,7 +5,7 @@
         <env name="XDEBUG_MODE" value="debug" />
       </envs>
     </CommandLine>
-    <TestRunner class="Tests\ConnectPublishingTest" configuration_file="$PROJECT_DIR$/phpunit.xml" file="$PROJECT_DIR$/tests/ConnectPublishingTest.php" scope="Class" />
+    <TestRunner class="Tests\client\ConnectPublishingTest" configuration_file="$PROJECT_DIR$/phpunit.xml" file="$PROJECT_DIR$/tests/client/ConnectPublishingTest.php" scope="Class" />
     <method v="2" />
   </configuration>
 </component>

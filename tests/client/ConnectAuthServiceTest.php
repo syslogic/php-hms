@@ -1,8 +1,9 @@
 <?php
-namespace Tests;
+namespace Tests\client;
 
 use HMS\AgConnect\AuthService\AuthService;
 use HMS\AgConnect\AuthService\ImportUser;
+use Tests\BaseTestCase;
 
 /**
  * HMS AgConnect AuthService Test

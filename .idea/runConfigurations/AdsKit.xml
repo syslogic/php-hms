@@ -5,7 +5,7 @@
         <env name="XDEBUG_MODE" value="debug" />
       </envs>
     </CommandLine>
-    <TestRunner class="Tests\AdsKitTest" configuration_file="$PROJECT_DIR$/phpunit.xml" file="$PROJECT_DIR$/tests/AdsKitTest.php" scope="Class" />
+    <TestRunner class="Tests\client\AdsKitTest" configuration_file="$PROJECT_DIR$/phpunit.xml" file="$PROJECT_DIR$/tests/client/AdsKitTest.php" scope="Class" />
     <method v="2" />
   </configuration>
 </component>

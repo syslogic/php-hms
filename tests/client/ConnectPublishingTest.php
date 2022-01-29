@@ -1,10 +1,11 @@
 <?php
-namespace Tests;
+namespace Tests\client;
 
 use HMS\AgConnect\Publishing\Connect;
 use HMS\AgConnect\Publishing\AppInfo;
 use HMS\AgConnect\Publishing\AppLanguageInfo;
 use InvalidArgumentException;
+use Tests\BaseTestCase;
 
 /**
  * HMS AgConnect Publishing API Test

@@ -1,9 +1,10 @@
 <?php
-namespace Tests;
+namespace Tests\client;
 
 use HMS\AnalyticsKit\AnalyticsKit;
 use HMS\AnalyticsKit\ResultCodes;
 use stdClass;
+use Tests\BaseTestCase;
 
 /**
  * HMS AnalyticsKit Test

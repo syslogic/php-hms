@@ -1,5 +1,5 @@
 <?php
-namespace Tests;
+namespace Tests\client;
 
 use HMS\PushKit\Android\AndroidConfig;
 use HMS\PushKit\Android\AndroidNotification;
@@ -13,14 +13,13 @@ use HMS\PushKit\Notification;
 use HMS\PushKit\PushKit;
 use HMS\PushKit\QuickApp\QuickAppConfig;
 use HMS\PushKit\QuickApp\QuickAppNotification;
-use HMS\PushKit\ReceiptStatus;
 use HMS\PushKit\ResultCodes;
-use HMS\PushKit\UpstreamMessage;
 use HMS\PushKit\WebPush\Headers;
 use HMS\PushKit\WebPush\WebAction;
 use HMS\PushKit\WebPush\WebNotification;
 use HMS\PushKit\WebPush\WebPushConfig;
 use stdClass;
+use Tests\BaseTestCase;
 
 /**
  * HMS PushKit Test
@@ -31,33 +30,23 @@ class PushKitTest extends BaseTestCase {
 
     private static PushKit|null $client;
 
-    private static string|null $test_token            = null;
-    private static string|null $test_topic            = null;
-    private static string|null $test_condition        = null;
-    private static string|null $hmac_verification_key = null;
-    private static string|null $test_message_title    = null;
-    private static string|null $test_message_body     = null;
+    private static string|null $test_token         = null;
+    private static string|null $test_topic         = null;
+    private static string|null $test_condition     = null;
+    private static string|null $test_message_title = null;
+    private static string|null $test_message_body  = null;
 
-    private const ENV_VAR_HUAWEI_HMAC_VERIFICATION_KEY = 'Variable ENV_VAR_HUAWEI_HMAC_VERIFICATION_KEY is not set.';
-    private const ENV_VAR_HCM_TEST_DEVICE_TOKEN        = 'Variable PHPUNIT_HCM_TEST_DEVICE_TOKEN is not set.';
+    private const ENV_VAR_HCM_TEST_DEVICE_TOKEN    = 'Variable PHPUNIT_HCM_TEST_DEVICE_TOKEN is not set.';
 
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {
         parent::setUpBeforeClass();
+        self::$client = new PushKit( self::get_secret() );
 
-        if ( getenv('GITHUB_RUN_NUMBER') !== false) {
-            self::$client = new PushKit( self::get_secret_from_file() );
-        } else {
-            self::$client = new PushKit( self::get_secret() );
-        }
-
-        self::$test_topic = 'test';
-        self::$test_condition = "'TopicA' in topics && ('TopicB' in topics || 'TopicC' in topics)";
+        self::$test_topic         = 'TopicA';
+        self::$test_condition     = "'TopicA' in topics && ('TopicB' in topics || 'TopicC' in topics)";
         self::$test_message_title = 'Test Message from PHP ' . phpversion();
-        self::$test_message_body = 'Test Body';
-
-        self::assertTrue( getenv('HUAWEI_HMAC_VERIFICATION_KEY')  != false, self::ENV_VAR_HUAWEI_HMAC_VERIFICATION_KEY);
-        self::$hmac_verification_key = getenv('HUAWEI_HMAC_VERIFICATION_KEY');
+        self::$test_message_body  = 'Test Body';
 
         self::assertTrue( getenv('PHPUNIT_HCM_TEST_DEVICE_TOKEN')  != false, self::ENV_VAR_HCM_TEST_DEVICE_TOKEN);
         self::$test_token = getenv('PHPUNIT_HCM_TEST_DEVICE_TOKEN');
@@ -133,30 +122,6 @@ class PushKitTest extends BaseTestCase {
         self::assertTrue($result instanceof stdClass );
         self::assertObjectHasAttribute('code', $result);
         self::assertTrue( $result->code === ResultCodes::SUBMISSION_SUCCESS, "Error $result->code: $result->message" );
-    }
-
-    /** Test: Model UpstreamMessage. */
-    public function test_upstream_message() {
-
-        $item = new UpstreamMessage( self::$hmac_verification_key );
-        self::assertTrue( is_null( $item->getRawBody() ) );
-
-        $data_str = '{"key": "value"}';
-        $raw_body = '{"message_id": "1", "from": "'.self::$test_token.'", "category": "'.self::$package_name.'", "data": "'.base64_encode($data_str).'"}';
-        $signature = 'timestamp=1563105451261; nonce=:; value=E4YeOsnMtHZ6592U8B9S37238E+Hwtjfrmpf8AQXF+c=';
-
-        // TODO: instead test this with an actual upstream message $_POST.
-        // self::assertTrue( $item->hmac_verify( $raw_body, $secret_key, $signature ) );
-        self::assertFalse( $item->hmac_verify( $raw_body, $signature ) );
-    }
-
-    /** Test: Model ReceiptStatus. */
-    public function test_receipt_status() {
-        $item = new ReceiptStatus();
-        foreach ( [0, 2, 5, 6, 10, 15, 27, 102, 144, 201] as $receipt_status_code) {
-            $status_message = $item->get_receipt_state( $receipt_status_code );
-            self::assertTrue( is_string( $status_message ) );
-        }
     }
 
     /** Test: Model ResultCodes. */

@@ -1,7 +1,8 @@
 <?php
-namespace Tests;
+namespace Tests\client;
 
 use HMS\AccountKit\AccountKit;
+use Tests\BaseTestCase;
 
 /**
  * HMS AccountKit Test
