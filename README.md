@@ -11,18 +11,18 @@ The trademarks are being referenced for identification purposes only, in terms o
 
 | Class | Status |
 | ---: | --- |
-| [`AccountKit`](https://github.com/syslogic/php-hms/blob/master/src/AccountKit)     | in progress |
-| [`AdsKit`](https://github.com/syslogic/php-hms/blob/master/src/AdsKit)             | N/A         |
-| [`AnalyticsKit`](https://github.com/syslogic/php-hms/blob/master/src/AnalyticsKit) | in progress |
-| [`Connect`](https://github.com/syslogic/php-hms/tree/master/src/Connect)           | in progress |
-| [`DriveKit`](https://github.com/syslogic/php-hms/tree/master/src/DriveKit)         | N/A         |
-| [`GameService`](https://github.com/syslogic/php-hms/tree/master/src/GameService)   | N/A         |
-| [`LocationKit`](https://github.com/syslogic/php-hms/blob/master/src/LocationKit)   | N/A         |
-| [`MapKit`](https://github.com/syslogic/php-hms/blob/master/src/MapKit)             | N/A         |
-| [`PushKit`](https://github.com/syslogic/php-hms/blob/master/src/PushKit)           | working     |
-| [`SearchKit`](https://github.com/syslogic/php-hms/blob/master/src/SearchKit)       | N/A         |
-| [`WalletKit`](https://github.com/syslogic/php-hms/blob/master/src/WalletKit)       | N/A         |
-| [`Core\Wrapper`](https://github.com/syslogic/php-hms/blob/master/src/Core)         | working     |
+| [`AccountKit`](https://github.com/syslogic/php-hms/blob/master/src/AccountKit)                | in progress |
+| [`AdsKit`](https://github.com/syslogic/php-hms/blob/master/src/AdsKit)                        |             |
+| [`AnalyticsKit`](https://github.com/syslogic/php-hms/blob/master/src/AnalyticsKit)            | in progress |
+| [`AppGallery\Connect`](https://github.com/syslogic/php-hms/tree/master/src/AppGallery/Connect)| in progress |
+| [`DriveKit`](https://github.com/syslogic/php-hms/tree/master/src/DriveKit)                    |             |
+| [`GameService`](https://github.com/syslogic/php-hms/tree/master/src/GameService)              |             |
+| [`LocationKit`](https://github.com/syslogic/php-hms/blob/master/src/LocationKit)              |             |
+| [`MapKit`](https://github.com/syslogic/php-hms/blob/master/src/MapKit)                        |             |
+| [`PushKit`](https://github.com/syslogic/php-hms/blob/master/src/PushKit)                      | working     |
+| [`SearchKit`](https://github.com/syslogic/php-hms/blob/master/src/SearchKit)                  |             |
+| [`WalletKit`](https://github.com/syslogic/php-hms/blob/master/src/WalletKit)                  |             |
+| [`Core\Wrapper`](https://github.com/syslogic/php-hms/blob/master/src/Core)                    | working     |
 </p>
 </details>
 
@@ -30,14 +30,24 @@ The trademarks are being referenced for identification purposes only, in terms o
 
 This library depends on the following environmental variables:
 
- - `HUAWEI_APP_ID`<br/>
-   The "App ID" is being passed as the `client_id`.<br/>
- - `HUAWEI_APP_SECRET`<br/>
-   The "App Secret" is being passed as the `client_secret`. This value is not contained in `agconnect-services.json` and therefore must be provided. Please refer to the documentation, which explains how to obtain it: [Viewing App Basic Information](https://developer.huawei.com/consumer/en/doc/distribution/app/agc-help-appinfo-0000001100014694).
- - `HUAWEI_APPLICATION_CREDENTIALS` (optional)<br/>
-   The path to JSON configuration file `agconnect-services.json`.<br/>This file can be obtained from the AppGallery Connect console.<br/>
+#### PushKit API
+- `HUAWEI_APP_ID`<br/>
+  The "App ID" is being passed as the `client_id`.<br/>
+- `HUAWEI_APP_SECRET`<br/>
+  The "App Secret" is being passed as the `client_secret`. This value is not contained in `agconnect-services.json` and therefore must be provided. Please refer to the documentation, which explains how to obtain it: [Viewing App Basic Information](https://developer.huawei.com/consumer/en/doc/distribution/app/agc-help-appinfo-0000001100014694).
+- `HUAWEI_APPLICATION_CREDENTIALS` (optional)<br/>
+  The path to JSON configuration file `agconnect-services.json`.<br/>This file can be obtained from the AppGallery Connect console.<br/>
+
  - `HUAWEI_HMAC_VERIFICATION_KEY` (optional)<br/>
    The HMAC verification key is unique to each upstream message webhook. The value can also be obtained from there.
+
+####AppGallery Connect API:
+
+ - `HUAWEI_CONNECT_API_CLIENT_ID`<br/>
+    The client ID for the REST API client can be obtained on the [console](https://developer.huawei.com/consumer/en/service/josp/agc/index.html).<br/>
+ 
+ - `HUAWEI_CONNECT_API_CLIENT_KEY`<br/>
+   The client key for the REST API client can be obtained on the [console](https://developer.huawei.com/consumer/en/service/josp/agc/index.html).<br/>
 
 <details>
 <summary>Installation</summary>

@@ -1,8 +1,10 @@
 <?php
 namespace Tests\client;
 
-use HMS\AppGallery\AuthService\AuthService;
-use HMS\AppGallery\AuthService\ImportUser;
+use HMS\AppGallery\Connect\AuthService;
+use HMS\AppGallery\Connect\Connect;
+use HMS\AppGallery\Connect\ImportUser;
+use JetBrains\PhpStorm\ArrayShape;
 use Tests\BaseTestCase;
 
 /**
@@ -10,15 +12,26 @@ use Tests\BaseTestCase;
  *
  * @author Martin Zeitler
  */
-class ConnectAuthServiceTest extends BaseTestCase {
+class AppGalleryConnectTest extends BaseTestCase {
 
+    private static Connect|null $connect;
     private static AuthService|null $client;
 
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {
+
         parent::setUpBeforeClass();
+        self::$connect = new Connect( self::get_secret() );
+        $access_token = self::$connect->get_access_token();
+
         self::$client = new AuthService( self::get_secret() );
-        self::assertTrue( self::$client->is_ready(), self::CLIENT_NOT_READY );
+    }
+
+    #[ArrayShape(['client_id' => "int", 'client_secret' => "string"])]
+    protected static function get_secret(): array {
+        $client_id  = getenv('HUAWEI_CONNECT_API_CLIENT_ID');
+        $client_key = getenv('HUAWEI_CONNECT_API_CLIENT_KEY');
+        return ['client_id' => $client_id, 'client_secret' => $client_key];
     }
 
     /** Test: Importing Users. */
@@ -28,7 +41,7 @@ class ConnectAuthServiceTest extends BaseTestCase {
             ImportUser::fromArray( ['importUid' => 'W4Z34934F34dH93265R97'] )->asArray(),
             ImportUser::fromArray( ['importUid' => 'W4Z34934F34dH93265R98'] )->asArray()
         ];
-        self::$client->import_users( $data );
+        $result = self::$client->import_users( $data );
     }
 
     /** Test: Exporting Users. */

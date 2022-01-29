@@ -46,7 +46,8 @@ class AnalyticsKit extends Wrapper {
     /** Provide HTTP request headers as array. */
     protected function auth_header(): array {
         return [
-            "Content-Type: application/json", "Authorization: Bearer $this->access_token",
+            "Content-Type: application/json",
+            "Authorization: Bearer $this->access_token",
             "x-product-id: $this->product_id",
             "x-app-id: $this->app_id"
         ];

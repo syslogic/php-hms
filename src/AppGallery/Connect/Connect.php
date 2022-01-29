@@ -6,16 +6,24 @@ use HMS\Core\Wrapper;
 /**
  * Class HMS AppGallery Connect Wrapper
  *
+ * @property int $app_id
+ * @property string|null $app_secret
  * @author Martin Zeitler
  */
 class Connect extends Wrapper {
 
     private string $url_token;
+    protected string|null $connect_api_client_id = null;
+    protected string|null $connect_api_client_key = null;
+    protected string|null $access_token = null;
+    private int $token_expiry = 0;
 
     /** Constructor. */
     public function __construct( array|string $config ) {
         parent::__construct( $config );
         $this->url_token  = Constants::URL_OAUTH2_TOKEN;
+        $this->connect_api_client_id = getenv('HUAWEI_CONNECT_API_CLIENT_ID');
+        $this->connect_api_client_key = getenv('HUAWEI_CONNECT_API_CLIENT_KEY');
     }
 
     /**
@@ -23,8 +31,24 @@ class Connect extends Wrapper {
      *
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-obtain_token-0000001158365043">Obtaining a Token</a>
      */
-    public function get_token( ) {
-        $payload =[];
-        return $this->curl_request('POST', $this->url_token, $payload, $this->auth_header());
+    public function get_access_token() {
+        $result = $this->curl_request('POST', $this->url_token, [
+            'grant_type'    => 'client_credentials',
+            'client_id'     => $this->connect_api_client_id,
+            'client_secret' => $this->connect_api_client_key
+        ], ['Content-Type: application/json;charset=utf-8'], false);
+        if ( is_object( $result ) ) {
+            if ( property_exists( $result, 'ret' ) && property_exists( $result->ret, 'code' )) {
+                die( 'oAuth2 Error '.$result->ret->code.' -> '.$result->ret->msg);
+            } else {
+                if ( property_exists( $result, 'access_token' ) ) {
+                    $this->access_token = $result->access_token;
+                }
+                if ( property_exists( $result, 'expires_in' ) ) {
+                    $this->token_expiry = time() + $result->expires_in;
+                }
+            }
+        }
+        return $this->access_token;
     }
 }

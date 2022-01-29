@@ -1,5 +1,5 @@
 <?php
-namespace HMS\AppGallery\AuthService;
+namespace HMS\AppGallery\Connect;
 
 use HMS\Core\Model;
 

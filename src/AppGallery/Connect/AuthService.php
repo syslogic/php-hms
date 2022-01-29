@@ -1,5 +1,5 @@
 <?php
-namespace HMS\AppGallery\AuthService;
+namespace HMS\AppGallery\Connect;
 
 use HMS\Core\Wrapper;
 
@@ -17,12 +17,19 @@ class AuthService extends Wrapper {
 
     /** Constructor. */
     public function __construct( array|string $config ) {
+
         parent::__construct( $config );
         $this->url_user_import  = Constants::CONNECT_API_BASE_URL.Constants::CONNECT_API_AUTH_SERVICE_USER_IMPORT;
         $this->url_user_export  = Constants::CONNECT_API_BASE_URL.Constants::CONNECT_API_AUTH_SERVICE_USER_EXPORT;
         $this->url_token_verify = Constants::CONNECT_API_BASE_URL.Constants::CONNECT_API_AUTH_SERVICE_VERIFY_TOKEN;
         $this->url_token_revoke = Constants::CONNECT_API_BASE_URL.Constants::CONNECT_API_AUTH_SERVICE_REVOKE_TOKEN;
-        parent::__construct( $config );
+
+        /* Obtain an alternate access-token. */
+        $this->access_token = null;
+        $client_id  = getenv('HUAWEI_CONNECT_API_CLIENT_ID');
+        $client_key = getenv('HUAWEI_CONNECT_API_CLIENT_KEY');
+        $connect_api = new Connect(['client_id' => $client_id, 'client_secret' => $client_key]);
+        $this->access_token = $connect_api->get_access_token();
     }
 
     /**

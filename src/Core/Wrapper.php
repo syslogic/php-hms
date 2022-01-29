@@ -28,13 +28,11 @@ class Wrapper {
     protected int $app_id = 0;
 
     /** Constructor. */
-    public function __construct( array|string|null $config = null, int $token_endpoint_version = 3 ) {
+    public function __construct( array|string|null $config = null ) {
         $this->init( $config );
     }
 
-    /**
-     * Initialize the oAuth2 client; either by filename, array or environmental variables.
-     */
+    /** Initialize the oAuth2 client; either by filename, array or environmental variables. */
     private function init( array|string|null $config ): void {
 
         /** Try to get file-name from $HUAWEI_APPLICATION_CREDENTIALS. */
@@ -106,7 +104,7 @@ class Wrapper {
     }
 
     /** Perform cURL request. */
-    protected function curl_request(string $method='POST', string $url=null, array|object $post_fields=[], array $headers=[] ): stdClass|bool {
+    protected function curl_request(string $method='POST', string $url=null, array|object $post_fields=[], array $headers=[], bool $build_query_string=true ): stdClass|bool {
 
         $curl = curl_init( $url );
 
@@ -117,8 +115,9 @@ class Wrapper {
 
         /* Apply JSON request-body. */
         if ( in_array($method, ['POST', 'PUT']) ) {
+
             if ( is_array( $post_fields ) && sizeof($post_fields) > 0) {
-                if ( isset($post_fields['grant_type']) ) {
+                if ( isset($post_fields['grant_type']) && $build_query_string ) {
                     $post_fields = http_build_query($post_fields);  /* It's a token request. */
                 } else {
                     $post_fields = json_encode((object) $post_fields); /* Post request incl. token as JSON request-body. */
@@ -126,6 +125,7 @@ class Wrapper {
             } else if ( is_object($post_fields) ) {
                 $post_fields = json_encode($post_fields);
             }
+
             curl_setopt($curl, CURLOPT_POSTFIELDS, $post_fields);
             curl_setopt($curl, CURLOPT_POST, 1);
         }

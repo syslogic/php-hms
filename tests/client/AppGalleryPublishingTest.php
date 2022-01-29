@@ -12,7 +12,7 @@ use Tests\BaseTestCase;
  *
  * @author Martin Zeitler
  */
-class ConnectPublishingTest extends BaseTestCase {
+class AppGalleryPublishingTest extends BaseTestCase {
 
     private static Publishing|null $client;
 
