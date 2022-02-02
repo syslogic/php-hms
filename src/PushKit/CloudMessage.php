@@ -2,6 +2,7 @@
 namespace HMS\PushKit;
 
 use HMS\Core\Model;
+use InvalidArgumentException;
 
 /**
  * Class HMS PushKit CloudMessage
@@ -92,6 +93,11 @@ class CloudMessage extends Model {
         }
     }
 
+    /** Compatibility wrapper method */
+    static function fromRawArray( array $model ): CloudMessage {
+        return self::fromArray( $model );
+    }
+
     static function fromArray( array $model ): CloudMessage {
         return new CloudMessage( $model );
     }
@@ -99,14 +105,14 @@ class CloudMessage extends Model {
     /** Conditionally adding array items. */
     public function asArray(): array {
         $data = [];
-        if ($this->data           != null) {$data['data']         = $this->data;}
-        if ($this->notification   != null) {$data['notification'] = $this->notification;}
-        if ($this->android        != null) {$data['android']      = $this->android;}
-        if ($this->apns           != null) {$data['apns']         = $this->apns;}
-        if ($this->webpush        != null) {$data['webpush']      = $this->webpush;}
-             if ($this->token     != null) {$data['token'] = $this->token;}
-        else if ($this->topic     != null) {$data['topic'] = $this->topic;}
-        else if ($this->condition != null) {$data['condition'] = $this->condition;}
+        if ($this->data         != null) {$data['data']         = $this->data;}
+        if ($this->notification != null) {$data['notification'] = $this->notification;}
+        if ($this->android      != null) {$data['android']      = $this->android;}
+        if ($this->apns         != null) {$data['apns']         = $this->apns;}
+        if ($this->webpush      != null) {$data['webpush']      = $this->webpush;}
+        if ($this->token        != null) {$data['token']        = $this->token;}
+        if ($this->topic        != null) {$data['topic']        = $this->topic;}
+        if ($this->condition    != null) {$data['condition']    = $this->condition;}
         return $data;
     }
 
@@ -114,8 +120,20 @@ class CloudMessage extends Model {
         return (object) $this->asArray();
     }
 
-    // TODO: Implement validate() method.
     function validate(): bool {
+
+        if ($this->notification == null) {
+            throw new InvalidArgumentException( 'notification must not be null' );
+        }
+
+        $targets = 0;
+        if ($this->token != null) {$targets++;}
+        if ($this->topic != null) {$targets++;}
+        if ($this->condition != null) {$targets++;}
+        if ($targets != 1) {
+            throw new InvalidArgumentException( 'one of token, topic or condition must be set' );
+        }
+
         return true;
     }
 }
