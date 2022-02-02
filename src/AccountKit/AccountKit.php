@@ -76,14 +76,16 @@ class AccountKit extends Wrapper {
     }
 
     /**
-     * TODO: Parse an Access Token.
+     * Parse an Access Token.
+     *
+     * TokenInfo Error 1500 / 15007 -> id_token is empty
      *
      * @param string|null $access_token
-     * @return bool
+     * @return TokenInfo
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/account-gettokeninfo-0000001050050585">Parsing an Access Token</a>
      */
-    public function parse_access_token( string|null $access_token ): TokenInfo {
-        $result = $this->curl_request('POST', $this->url_token_info, [
+    public function parse_access_token( string|null $access_token ): TokenInfo|null {
+        $result = $this->curl_request('POST', Constants::ACCOUNT_KIT_TOKEN_INFO, [
             'access_token' => $access_token,
             'getNickName' => 1
         ], [
@@ -91,9 +93,13 @@ class AccountKit extends Wrapper {
             "Authorization: Bearer $this->access_token"
         ]);
         if ( is_object( $result ) ) {
-            return new TokenInfo( $result );
+            if ( property_exists( $result, 'error' ) && property_exists( $result, 'sub_error' )) {
+                die( 'TokenInfo Error '.$result->error.' / '.$result->sub_error.' -> '.$result->error_description );
+            } else {
+                return new TokenInfo( $result );
+            }
         }
-        return true;
+        return null;
     }
 
     /**
@@ -124,14 +130,28 @@ class AccountKit extends Wrapper {
     }
 
     /**
-     * TODO: Verify an ID Token.
+     * TODO: Verify an ID Token URL_OAUTH2_TOKEN_INFO.
      *
      * @param string|null $id_token
-     * @return bool
+     * @return IdTokenInfo|null
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/account-verify-id-token_hms_reference-0000001050050577">Verifying an ID Token</a>
      */
-    public function verify_id_token( string|null $id_token ): bool {
-
-        return true;
+    public function verify_id_token( string|null $id_token ): IdTokenInfo|null {
+        $result = $this->curl_request('POST', $this->url_token_info, [
+            'id_token' => $id_token
+        ], [
+            'Content-Type: application/x-www-form-urlencoded;charset=utf-8',
+            "Authorization: Bearer $this->access_token" // OK
+        ]);
+        if ( is_object( $result ) ) {
+            if ( property_exists( $result, 'error' ) && property_exists( $result, 'sub_error' )) {
+                die( 'oAuth2 Error '.$result->error.' / '.$result->sub_error.' -> '.$result->error_description );
+            } else if ( property_exists( $result, 'error' ) ) {
+                die( 'oAuth2 Error -> '.$result->error );
+            } else {
+                return new IdTokenInfo( $result );
+            }
+        }
+        return null;
     }
 }

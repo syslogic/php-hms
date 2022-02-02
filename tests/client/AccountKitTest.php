@@ -2,6 +2,7 @@
 namespace Tests\client;
 
 use HMS\AccountKit\AccountKit;
+use HMS\AccountKit\IdTokenInfo;
 use HMS\AccountKit\TokenInfo;
 use HMS\AccountKit\UserInfo;
 use JetBrains\PhpStorm\ArrayShape;
@@ -58,7 +59,6 @@ class AccountKitTest extends BaseTestCase {
     /** TODO: Verify an ID Token. */
     public function test_verify_id_token() {
         $result = self::$client->verify_id_token( self::$id_token );
-        self::assertTrue( $result instanceof UserInfo, self::VERIFY_ID_TOKEN );
-
+        self::assertTrue( $result instanceof IdTokenInfo, self::VERIFY_ID_TOKEN );
     }
 }
