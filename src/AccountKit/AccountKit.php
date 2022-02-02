@@ -76,17 +76,6 @@ class AccountKit extends Wrapper {
     }
 
     /**
-     * TODO: Verify an ID Token.
-     *
-     * @param string|null $id_token
-     * @return bool
-     * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/account-verify-id-token_hms_reference-0000001050050577">Verifying an ID Token</a>
-     */
-    public function verify_id_token( string|null $id_token ): bool {
-        return true;
-    }
-
-    /**
      * TODO: Parse an Access Token.
      *
      * @param string|null $access_token
@@ -94,22 +83,46 @@ class AccountKit extends Wrapper {
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/account-gettokeninfo-0000001050050585">Parsing an Access Token</a>
      */
     public function parse_access_token( string|null $access_token ): bool {
+        $result = $this->curl_request('POST', $this->url_token_info, [
+            'access_token' => $access_token,
+            'getNickName' => 1
+        ], [
+            'Content-Type: application/x-www-form-urlencoded;charset=utf-8',
+            "Authorization: Bearer $this->access_token"
+        ]);
+        if ( is_object( $result ) ) {
+
+        }
+        return true;
+    }
+
+
+    /**
+     * TODO: Verify an ID Token.
+     *
+     * @param string|null $id_token
+     * @return bool
+     * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/account-verify-id-token_hms_reference-0000001050050577">Verifying an ID Token</a>
+     */
+    public function verify_id_token( string|null $id_token ): bool {
+
         return true;
     }
 
     /**
      * TODO: Obtain User Information.
      *
-     * @param string|null $access_token
+     * @param string|null $user_access_token
      * @return UserInfo|null
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/get-user-info-0000001060261938">Obtaining User Information</a>
      */
-    public function get_user_info( string|null $access_token ): UserInfo|null {
-        $result = $this->curl_request('POST', $this->url_token_info, [
-            'access_token' => $access_token,
+    public function get_user_info( string|null $user_access_token ): UserInfo|null {
+        $result = $this->curl_request('POST', $this->url_user_info, [
+            'access_token' => $user_access_token,
             'getNickName' => 1
         ], [
-            'Content-Type: application/x-www-form-urlencoded;charset=utf-8'
+            'Content-Type: application/x-www-form-urlencoded;charset=utf-8',
+            "Authorization: Bearer $this->access_token" // OK
         ]);
         if ( is_object( $result ) ) {
             if ( property_exists( $result, 'error' ) && property_exists( $result, 'sub_error' )) {
