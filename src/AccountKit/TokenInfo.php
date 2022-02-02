@@ -53,8 +53,12 @@ class TokenInfo extends Model {
      */
     private string|null $scope = null;
 
-    public function __construct( array $data ) {
-        $this->parse_array( $data );
+    public function __construct( object|array $data ) {
+        if ( is_object( $data ) ) {
+            $this->parse_array((array) $data );
+        } else if ( is_array( $data ) ) {
+            $this->parse_array( $data );
+        }
     }
 
     private function parse_array( array $data ): void {

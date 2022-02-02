@@ -2,6 +2,8 @@
 namespace Tests\client;
 
 use HMS\AccountKit\AccountKit;
+use HMS\AccountKit\TokenInfo;
+use HMS\AccountKit\UserInfo;
 use JetBrains\PhpStorm\ArrayShape;
 use Tests\BaseTestCase;
 
@@ -42,16 +44,21 @@ class AccountKitTest extends BaseTestCase {
 
     /** Parse an Access Token. */
     public function test_parse_access_token() {
-        self::assertTrue( self::$client->parse_access_token( self::$app_access_token ), self::PARSE_ACCESS_TOKEN );
+        $result = self::$client->parse_access_token( self::$app_access_token );
+        self::assertTrue( $result instanceof TokenInfo, self::PARSE_ACCESS_TOKEN );
+        self::assertTrue( $result->validate(), self::PARSE_ACCESS_TOKEN );
     }
 
     /** TODO: Obtain User Information. */
     public function test_get_user_info() {
-        self::assertNull( self::$client->get_user_info( self::$user_access_token ), self::GET_USER_INFO );
+        $result = self::$client->get_user_info( self::$user_access_token );
+        self::assertTrue( $result instanceof UserInfo, self::GET_USER_INFO );
     }
 
     /** TODO: Verify an ID Token. */
     public function test_verify_id_token() {
-        self::assertTrue( self::$client->verify_id_token( self::$id_token ), self::VERIFY_ID_TOKEN );
+        $result = self::$client->verify_id_token( self::$id_token );
+        self::assertTrue( $result instanceof UserInfo, self::VERIFY_ID_TOKEN );
+
     }
 }

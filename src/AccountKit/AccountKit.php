@@ -82,7 +82,7 @@ class AccountKit extends Wrapper {
      * @return bool
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/account-gettokeninfo-0000001050050585">Parsing an Access Token</a>
      */
-    public function parse_access_token( string|null $access_token ): bool {
+    public function parse_access_token( string|null $access_token ): TokenInfo {
         $result = $this->curl_request('POST', $this->url_token_info, [
             'access_token' => $access_token,
             'getNickName' => 1
@@ -91,21 +91,8 @@ class AccountKit extends Wrapper {
             "Authorization: Bearer $this->access_token"
         ]);
         if ( is_object( $result ) ) {
-
+            return new TokenInfo( $result );
         }
-        return true;
-    }
-
-
-    /**
-     * TODO: Verify an ID Token.
-     *
-     * @param string|null $id_token
-     * @return bool
-     * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/account-verify-id-token_hms_reference-0000001050050577">Verifying an ID Token</a>
-     */
-    public function verify_id_token( string|null $id_token ): bool {
-
         return true;
     }
 
@@ -134,5 +121,17 @@ class AccountKit extends Wrapper {
             }
         }
         return null;
+    }
+
+    /**
+     * TODO: Verify an ID Token.
+     *
+     * @param string|null $id_token
+     * @return bool
+     * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/account-verify-id-token_hms_reference-0000001050050577">Verifying an ID Token</a>
+     */
+    public function verify_id_token( string|null $id_token ): bool {
+
+        return true;
     }
 }

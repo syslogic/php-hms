@@ -48,24 +48,9 @@ class UserInfo extends Model {
 
     public function __construct( object|array $data ) {
         if ( is_object( $data ) ) {
-            $this->parse_object( $data );
+            $this->parse_array((array) $data );
         } else if ( is_array( $data ) ) {
             $this->parse_array( $data );
-        }
-    }
-
-    private function parse_object( object $data ): void {
-        if ( property_exists( $data, 'openID' ) ) {
-            $this->openID = $data->access_token;
-        }
-        if ( property_exists( $data, 'displayName' ) ) {
-            $this->displayName = $data->displayName;
-        }
-        if ( property_exists( $data, 'headPictureURL' ) ) {
-            $this->headPictureURL = $data->headPictureURL;
-        }
-        if ( property_exists( $data, 'email' ) ) {
-            $this->email = $data->email;
         }
     }
 
