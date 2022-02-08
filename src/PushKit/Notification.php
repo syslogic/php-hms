@@ -29,14 +29,6 @@ class Notification extends Model {
      */
     protected string|null $image = null;
 
-    private function parse_array( array $data ): void {
-        foreach ($data as $key => $value) {
-            if ( in_array($key, array_merge($this->mandatory_fields, $this->optional_fields)) ) {
-                $this->$key = $value;
-            }
-        }
-    }
-
     public function __construct( string|array $arg0, string|null $arg1=null, string|null $arg2=null ) {
         if ( is_array( $arg0 )) {
             $this->parse_array( $arg0 );
@@ -44,6 +36,14 @@ class Notification extends Model {
             if ( is_string($arg0) ) {$this->title = $arg0;}
             if ( is_string($arg1) ) {$this->body  = $arg1;}
             if ( is_string($arg2) ) {$this->image = $arg2;}
+        }
+    }
+
+    private function parse_array( array $data ): void {
+        foreach ($data as $key => $value) {
+            if ( in_array($key, array_merge($this->mandatory_fields, $this->optional_fields)) ) {
+                $this->$key = $value;
+            }
         }
     }
 
