@@ -1,5 +1,4 @@
 /vendor/
+/build/
 /.phpunit.result.cache
 /__*/
-/gen/
-/agconnect-services.json

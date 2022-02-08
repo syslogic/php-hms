@@ -33,9 +33,9 @@ class Wrapper {
     }
 
     /** Initialize the oAuth2 client; either by filename, array or environmental variables. */
-    private function init( array|string|null $config ): void {
+    private function init( array|string|null $config = null ): void {
 
-        /** Try to get file-name from $HUAWEI_APPLICATION_CREDENTIALS. */
+        /** Try to get file-name from $HUAWEI_APPLICATION_CREDENTIALS (not in use anymore). */
         if ( is_string( getenv('HUAWEI_APPLICATION_CREDENTIALS') )) {
             $config_file = getenv('HUAWEI_APPLICATION_CREDENTIALS');
             if (is_string( $config_file ) && file_exists( $config_file ) && is_readable( $config_file )) {
