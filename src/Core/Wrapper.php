@@ -1,7 +1,6 @@
 <?php /** @noinspection PhpPropertyOnlyWrittenInspection */
 namespace HMS\Core;
 
-use HMS\AccountKit\AccountKit;
 use stdClass;
 
 /**
@@ -28,67 +27,30 @@ class Wrapper {
     protected int $app_id = 0;
 
     /** Constructor. */
-    public function __construct( array|string|null $config = null ) {
+    public function __construct( array|null $config = null ) {
         $this->init( $config );
     }
 
-    /** Initialize the oAuth2 client; either by filename, array or environmental variables. */
-    private function init( array|string|null $config = null ): void {
-
-        /** Try to get file-name from $HUAWEI_APPLICATION_CREDENTIALS (not in use anymore). */
-        if ( is_string( getenv('HUAWEI_APPLICATION_CREDENTIALS') )) {
-            $config_file = getenv('HUAWEI_APPLICATION_CREDENTIALS');
-            if (is_string( $config_file ) && file_exists( $config_file ) && is_readable( $config_file )) {
-                $this->init_by_file( $config_file );
-            }
-        }
-
-        if (is_array( $config )) {
+    /** Initialize the oAuth2 client; either by array or environmental variables. */
+    private function init( array|null $config = null ): void {
+        if ( is_array( $config ) ) {
             $this->init_by_array( $config );
         } else {
             $this->init_by_environment();
         }
     }
 
-    /** The expiry doesn't matter as this token is always being fetched */
-    public function is_ready(): bool {
-        return $this->access_token != null;
-    }
-
-    /** Try to initialize from agconnect-services.json on string input. */
-    private function init_by_file( string $config_file ) {
-        $config = json_decode(file_get_contents( $config_file ));
-        if ( is_object( $config )) {
-            if ( property_exists( $config, 'client' )) {
-                $this->app_id        =    (int) $config->client->app_id;
-                $this->app_secret    = (string) getenv('HUAWEI_APP_SECRET'); // not contained in the JSON.
-                $this->package_name  = (string) $config->client->package_name;
-                $this->project_id    =    (int) $config->client->project_id;
-                $this->product_id    =    (int) $config->client->product_id;
-                $this->client_id     =    (int) $config->client->client_id;
-                $this->client_secret = (string) $config->client->client_secret;
-                $this->api_key       = (string) $config->client->api_key;
-            }
-        }
-    }
-
-    /** Try to initialize from array, on array input. */
+    /** Try to initialize the client from array. */
     private function init_by_array( array $config ) {
-        if (
-            isset($config['app_id']) && !empty($config['app_id']) &&
-            isset($config['app_secret']) && !empty($config['app_secret'])
-        ) {
-            $this->app_id     =    (int) $config['app_id'];
-            $this->app_secret = (string) $config['app_secret'];
+        if ( isset( $config['client_id'] ) && isset( $config['client_secret'] ) ) {
+            $this->app_id     =    (int) $config['client_id'];
+            $this->app_secret = (string) $config['client_secret'];
         }
     }
 
-    /** Try to initialize from environmental variables. */
+    /** Try to initialize the client from environmental variables. */
     private function init_by_environment() {
-        if (
-            is_string( getenv('HUAWEI_APP_ID' ) ) &&
-            is_string( getenv('HUAWEI_APP_SECRET' ) )
-        ) {
+        if ( is_string( getenv('HUAWEI_APP_ID' ) ) && is_string( getenv('HUAWEI_APP_SECRET' ) ) ) {
             $this->app_id     =    (int) getenv( 'HUAWEI_APP_ID' );
             $this->app_secret = (string) getenv( 'HUAWEI_APP_SECRET' );
         }
@@ -97,6 +59,11 @@ class Wrapper {
     /** Provide HTTP request headers as array. */
     protected function auth_header(): array {
         return [ "Content-Type: application/json", "Authorization: Bearer $this->access_token" ];
+    }
+
+    /** The expiry doesn't matter as this token is always being fetched */
+    public function is_ready(): bool {
+        return $this->access_token != null;
     }
 
     /** Perform cURL request. */

@@ -40,7 +40,9 @@ class PushKitTest extends BaseTestCase {
 
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {
+
         parent::setUpBeforeClass();
+
         self::$client = new PushKit( self::get_secret() );
 
         self::$test_topic         = 'TopicA';
@@ -133,7 +135,10 @@ class PushKitTest extends BaseTestCase {
     /** Test: Model CloudMessage. */
     public function test_cloud_message() {
         $item = new CloudMessage([
-
+            'notification' => new Notification( [
+                'title' => 'PHPUnit',
+                'body' => 'test body'
+            ] )
         ]);
         self::assertTrue( is_object($item->asObject()) );
         self::assertTrue( $item->validate() );
