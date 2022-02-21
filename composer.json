@@ -21,21 +21,21 @@
     "url": "https://www.paypal.me/syslogic"
   }],
   "scripts": {
-    "test": "vendor/bin/phpunit --bootstrap vendor/autoload.php --configuration phpunit.xml --testsuite main",
+    "test": "vendor/bin/phpunit --bootstrap vendor/autoload.php --configuration phpunit.xml --testsuite client",
     "coverage": "export XDEBUG_MODE=coverage && vendor/bin/phpunit --bootstrap vendor/autoload.php --configuration coverage.xml --testsuite main"
   },
   "scripts-descriptions": {
-    "test": "Run PHPunit tests",
-    "coverage": "Run PHPunit tests with coverage"
+    "test": "Run PHPUnit tests",
+    "coverage": "Run PHPUnit tests with code coverage"
 },
   "require": {
     "php": ">=8.0",
     "ext-json": "*",
     "ext-curl": "*",
-    "phpseclib/phpseclib": "^3.0.12"
+    "phpseclib/phpseclib": "^3.0.13"
   },
   "require-dev": {
-    "phpunit/phpunit": "^9.5.13"
+    "phpunit/phpunit": "^9.5.14"
   },
   "autoload": {
     "psr-4": {
