@@ -30,14 +30,16 @@ The trademarks are being referenced for identification purposes only, in terms o
 
 This library depends on the following environmental variables:
 
-#### PushKit API
+#### PushKit API Client
 - `HUAWEI_APP_ID`<br/>
   The "App ID" is being passed as the `client_id`.<br/>
 - `HUAWEI_APP_SECRET`<br/>
   The "App Secret" is being passed as the `client_secret`. Please refer to the documentation, which explains how to obtain these: [Viewing App Basic Information](https://developer.huawei.com/consumer/en/doc/distribution/app/agc-help-appinfo-0000001100014694).
 
+#### PushKit API Callback
+
  - `HUAWEI_HMAC_VERIFICATION_KEY` (optional)<br/>
-   The HMAC verification key is unique to each upstream message webhook. The value can also be obtained from the webhook configuration settings.
+   The HMAC verification key is unique to each upstream message webhook. <br/>The value can also be obtained from the webhook configuration settings.
 
 #### AppGallery Connect API:
 
