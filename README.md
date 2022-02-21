@@ -39,7 +39,7 @@ Please refer to the official documentation, which explains how to obtain these: 
 #### PushKit API Callback
 
  - `HUAWEI_HMAC_VERIFICATION_KEY` (optional)<br/>
-   The HMAC verification key is unique to each upstream message webhook. <br/>The value can also be obtained from the webhook configuration settings.
+   The HMAC verification key is unique to each upstream message webhook. <br/>The value can be obtained from such webhook configuration settings.
 
 #### AppGallery Connect API:
 
