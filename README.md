@@ -32,9 +32,11 @@ This library depends on the following environmental variables:
 
 #### PushKit API Client
 - `HUAWEI_APP_ID`<br/>
-  The "App ID" is being passed as the `client_id`.<br/>
+  The "App ID" is being passed as the Oauth2 `client_id`.<br/>
 - `HUAWEI_APP_SECRET`<br/>
-  The "App Secret" is being passed as the `client_secret`. Please refer to the documentation, which explains how to obtain these: [Viewing App Basic Information](https://developer.huawei.com/consumer/en/doc/distribution/app/agc-help-appinfo-0000001100014694).
+  The "App Secret" is being passed as the Oauth2 `client_secret`.
+
+Please refer to the official documentation, which explains how to obtain these: <br/>[Viewing App Basic Information](https://developer.huawei.com/consumer/en/doc/distribution/app/agc-help-appinfo-0000001100014694).
 
 #### PushKit API Callback
 
