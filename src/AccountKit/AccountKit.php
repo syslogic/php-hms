@@ -2,6 +2,7 @@
 namespace HMS\AccountKit;
 
 use HMS\Core\Wrapper;
+use stdClass;
 
 /**
  * Class HMS AccountKit Wrapper
@@ -109,7 +110,7 @@ class AccountKit extends Wrapper {
      * @return UserInfo|null
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/get-user-info-0000001060261938">Obtaining User Information</a>
      */
-    public function get_user_info( string|null $user_access_token ): UserInfo|null {
+    public function get_user_info( string|null $user_access_token ): UserInfo|stdClass {
         $result = $this->curl_request('POST', $this->url_user_info, [
             'access_token' => $user_access_token,
             'getNickName' => 1
@@ -117,16 +118,16 @@ class AccountKit extends Wrapper {
             'Content-Type: application/x-www-form-urlencoded;charset=utf-8',
             "Authorization: Bearer $this->access_token" // OK
         ]);
-        if ( is_object( $result ) ) {
-            if ( property_exists( $result, 'error' ) && property_exists( $result, 'sub_error' )) {
-                die( 'oAuth2 Error '.$result->error.' / '.$result->sub_error.' -> '.$result->error_description );
-            } else if ( property_exists( $result, 'error' ) ) {
-                die( 'oAuth2 Error -> '.$result->error );
-            } else {
-                return new UserInfo( $result );
-            }
+        if (! is_object( $result ) ) {return new stdClass();}
+        if ( property_exists( $result, 'error' ) && property_exists( $result, 'sub_error' )) {
+            // die( 'oAuth2 Error '.$result->error.' / '.$result->sub_error.' -> '.$result->error_description );
+            return $result;
+        } else if ( property_exists( $result, 'error' ) ) {
+            // die( 'oAuth2 Error -> '.$result->error );
+            return $result;
+        } else {
+            return new UserInfo( $result );
         }
-        return null;
     }
 
     /**

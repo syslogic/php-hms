@@ -17,7 +17,7 @@ class AccountKitTest extends BaseTestCase {
 
     private static AccountKit|null $client;
     private static string|null $app_access_token;
-    private static string|null $user_access_token = '...';
+    private static string|null $user_access_token;
     private static string|null $id_token = '...';
 
     private const PARSE_ACCESS_TOKEN  = 'PARSE_ACCESS_TOKEN has failed.';
@@ -26,10 +26,15 @@ class AccountKitTest extends BaseTestCase {
 
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {
+
         parent::setUpBeforeClass();
+
         self::$client = new AccountKit( self::get_secret() );
         self::$app_access_token = self::$client->get_access_token();
         self::assertNotNull( self::$app_access_token, self::CLIENT_NOT_READY );
+
+        self::$user_access_token = self::$app_access_token; // this is obviously wrong.
+        self::assertNotNull( self::$user_access_token, self::CLIENT_NOT_READY );
     }
 
     #[ArrayShape(['client_id' => "int", 'client_secret' => "string"])]
@@ -50,7 +55,10 @@ class AccountKitTest extends BaseTestCase {
         self::assertTrue( $result->validate(), self::PARSE_ACCESS_TOKEN );
     }
 
-    /** TODO: Obtain User Information. */
+    /**
+     * TODO: Obtain User Information.
+     * oAuth2 Error -> Not rights for this app token,Pls use user token.
+     */
     public function test_get_user_info() {
         $result = self::$client->get_user_info( self::$user_access_token );
         self::assertTrue( $result instanceof UserInfo, self::GET_USER_INFO );
