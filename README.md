@@ -44,10 +44,10 @@ This library depends on the following environmental variables:
 #### AppGallery Connect API:
 
  - `HUAWEI_CONNECT_API_CLIENT_ID`<br/>
-    The client ID for the REST API client can be obtained on the [console](https://developer.huawei.com/consumer/en/service/josp/agc/index.html) below `Users and permissions` > `API key` > `Connect API`.
+    The client ID for the REST API client can be obtained on the [console](https://developer.huawei.com/consumer/en/service/josp/agc/index.html) <br/>below `Users and permissions` > `API key` > `Connect API`.
  
  - `HUAWEI_CONNECT_API_CLIENT_KEY`<br/>
-   The client key for the REST API client can be obtained on the [console](https://developer.huawei.com/consumer/en/service/josp/agc/index.html) below `Users and permissions` > `API key` > `Connect API`.
+   The client key for the REST API client can be obtained on the [console](https://developer.huawei.com/consumer/en/service/josp/agc/index.html) <br/>below `Users and permissions` > `API key` > `Connect API`.
  
 <details>
 <summary>Installation</summary>
