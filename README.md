@@ -35,8 +35,6 @@ This library depends on the following environmental variables:
   The "App ID" is being passed as the `client_id`.<br/>
 - `HUAWEI_APP_SECRET`<br/>
   The "App Secret" is being passed as the `client_secret`. This value is not contained in `agconnect-services.json` and therefore must be provided. Please refer to the documentation, which explains how to obtain it: [Viewing App Basic Information](https://developer.huawei.com/consumer/en/doc/distribution/app/agc-help-appinfo-0000001100014694).
-- `HUAWEI_APPLICATION_CREDENTIALS` (optional)<br/>
-  The path to JSON configuration file `agconnect-services.json`.<br/>This file can be obtained from the AppGallery Connect console.<br/>
 
  - `HUAWEI_HMAC_VERIFICATION_KEY` (optional)<br/>
    The HMAC verification key is unique to each upstream message webhook. The value can also be obtained from there.
