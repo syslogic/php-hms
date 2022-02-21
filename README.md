@@ -37,7 +37,7 @@ This library depends on the following environmental variables:
   The "App Secret" is being passed as the `client_secret`. Please refer to the documentation, which explains how to obtain these: [Viewing App Basic Information](https://developer.huawei.com/consumer/en/doc/distribution/app/agc-help-appinfo-0000001100014694).
 
  - `HUAWEI_HMAC_VERIFICATION_KEY` (optional)<br/>
-   The HMAC verification key is unique to each upstream message webhook. The value can also be obtained from there.
+   The HMAC verification key is unique to each upstream message webhook. The value can also be obtained from the webhook configuration settings.
 
 #### AppGallery Connect API:
 
