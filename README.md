@@ -119,7 +119,7 @@ composer run-script coverage
 
 ### Known Issues
 When receiving an `Error 10021: Invalid clientId` this may suggest,<br/>that the API which one tries to access is not enabled for the project.<br/>
-Enabling the desired API on [AppGallery Connect](https://developer.huawei.com/consumer/en/service/josp/agc/index.html) should help.
+Enabling the desired API on the [AppGallery Connect](https://developer.huawei.com/consumer/en/service/josp/agc/index.html) console should help.
 
 ### License
 The PHP SDK for Huawei REST API (the library) is licensed under the [MIT License](LICENSE).<br/>
