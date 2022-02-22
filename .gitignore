@@ -2,3 +2,4 @@
 /build/
 /.phpunit.result.cache
 /__*/
+/agconnect-services.json
