@@ -66,7 +66,7 @@ class AnalyticsKit extends Wrapper {
     public function request_user_data_export( string|null $aaid ): stdClass {
         $payload = [];
         if ($aaid != null) {$payload = (object)['aaid' => $aaid];}
-        return $this->curl_request('POST', $this->url_user_data_export, $payload, $this->auth_header());
+        return $this->curl_request('POST', $this->url_user_data_export, $this->auth_header(), $payload);
     }
 
     /**
@@ -78,7 +78,7 @@ class AnalyticsKit extends Wrapper {
      */
     public function request_user_data_export_status( string $aaid ): stdClass {
         $payload = ['aaid' => $aaid];
-        return $this->curl_request('POST', $this->url_user_data_export_status, $payload, $this->auth_header());
+        return $this->curl_request('POST', $this->url_user_data_export_status, $this->auth_header(), $payload);
     }
 
     /**
@@ -90,7 +90,7 @@ class AnalyticsKit extends Wrapper {
      */
     public function request_user_data_deletion( string $aaid ): stdClass {
         $payload = ['aaid' => $aaid];
-        return $this->curl_request('POST', $this->url_user_data_deletion, $payload, $this->auth_header());
+        return $this->curl_request('POST', $this->url_user_data_deletion, $this->auth_header(), $payload);
     }
 
     /**
@@ -102,7 +102,7 @@ class AnalyticsKit extends Wrapper {
      */
     public function request_user_data_deletion_status( string $aaid ): stdClass {
         $payload = ['aaid' => $aaid];
-        return $this->curl_request('POST', $this->url_user_data_deletion_status, $payload, $this->auth_header());
+        return $this->curl_request('POST', $this->url_user_data_deletion_status, $this->auth_header(), $payload);
     }
 
     /**
@@ -114,7 +114,7 @@ class AnalyticsKit extends Wrapper {
      */
     public function request_raw_data_export( string $aaid ): stdClass {
         $payload = ['aaid' => $aaid];
-        return $this->curl_request('POST', $this->url_user_data_export, $payload, $this->auth_header());
+        return $this->curl_request('POST', $this->url_user_data_export, $this->auth_header(), $payload);
     }
 
     /**
@@ -139,7 +139,7 @@ class AnalyticsKit extends Wrapper {
             throw new InvalidArgumentException('the userdata_set must have 1-100 items');
         }
         $payload = ['data_type' => 1, 'userdata_set' => $data];
-        return $this->curl_request('POST', $this->url_data_collection_import_user, $payload, $this->auth_header());
+        return $this->curl_request('POST', $this->url_data_collection_import_user, $this->auth_header(), $payload);
     }
 
     /**
@@ -154,7 +154,7 @@ class AnalyticsKit extends Wrapper {
             throw new InvalidArgumentException('the item_set must have 1-100 items');
         }
         $payload = ['data_type' => 2, 'item_set' => $data];
-        return $this->curl_request('POST', $this->url_data_collection_import_item, $payload, $this->auth_header());
+        return $this->curl_request('POST', $this->url_data_collection_import_item, $this->auth_header(), $payload);
     }
 
     /**
@@ -176,7 +176,7 @@ class AnalyticsKit extends Wrapper {
             'package_name'     => $this->package_name,
             'event_set'        => $data
         ];
-        return $this->curl_request('POST', $this->url_data_collection_import_item, $payload, $this->auth_header());
+        return $this->curl_request('POST', $this->url_data_collection_import_item, $this->auth_header(), $payload);
     }
 
     /**
@@ -193,7 +193,7 @@ class AnalyticsKit extends Wrapper {
             throw new InvalidArgumentException('lang must must be one of: en, cn, ru');
         }
         $payload = ['lang' => $lang, 'size' => $size, 'curr_page' => $curr_page];
-        return $this->curl_request('POST', $this->url_data_collection_import_item, $payload, $this->auth_header());
+        return $this->curl_request('POST', $this->url_data_collection_import_item, $this->auth_header(), $payload);
     }
 
     /**
@@ -212,7 +212,7 @@ class AnalyticsKit extends Wrapper {
             throw new InvalidArgumentException('lang must must be one of: en, cn, ru');
         }
         $payload = ['metric_name' => $metric, 'dim_name' => $dimension, 'lang' => $lang, 'size' => $size, 'from' => $from];
-        return $this->curl_request('POST', $this->url_data_collection_import_item, $payload, $this->auth_header());
+        return $this->curl_request('POST', $this->url_data_collection_import_item, $this->auth_header(), $payload);
     }
 
     /**
@@ -245,6 +245,6 @@ class AnalyticsKit extends Wrapper {
             'size'       => $size,
             'curr_page'  => $curr_page
         ];
-        return $this->curl_request('POST', $this->url_data_collection_import_item, $payload, $this->auth_header());
+        return $this->curl_request('POST', $this->url_data_collection_import_item, $this->auth_header(), $payload);
     }
 }

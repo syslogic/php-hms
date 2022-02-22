@@ -35,10 +35,12 @@ class Connect extends Wrapper {
      */
     public function get_access_token(): string|null {
         $result = $this->curl_request('POST', $this->url_token, [
+            'Content-Type: application/json;charset=utf-8'
+        ], [
             'grant_type'    => 'client_credentials',
             'client_id'     => $this->agc_client_id,
             'client_secret' => $this->agc_client_key
-        ], ['Content-Type: application/json;charset=utf-8'], false);
+        ], false);
         if ( is_object( $result ) ) {
             if ( property_exists( $result, 'ret' ) && property_exists( $result->ret, 'code' )) {
                 die( 'oAuth2 Error '.$result->ret->code.' -> '.$result->ret->msg);

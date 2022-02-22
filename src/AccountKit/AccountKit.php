@@ -49,11 +49,11 @@ class AccountKit extends Wrapper {
      */
     public function get_access_token(): string|null {
         $result = $this->curl_request('POST', $this->url_token, [
+            'Content-Type: application/x-www-form-urlencoded;charset=utf-8'
+        ], [
             'grant_type'    => 'client_credentials',
             'client_id'     => $this->app_id,
             'client_secret' => $this->app_secret
-        ], [
-            'Content-Type: application/x-www-form-urlencoded;charset=utf-8'
         ]);
         if ( is_object( $result ) ) {
             if ( property_exists( $result, 'error' ) && property_exists( $result, 'sub_error' )) {
@@ -87,11 +87,11 @@ class AccountKit extends Wrapper {
      */
     public function parse_access_token( string|null $access_token ): TokenInfo|null {
         $result = $this->curl_request('POST', Constants::ACCOUNT_KIT_TOKEN_INFO, [
-            'access_token' => $access_token,
-            'getNickName' => 1
-        ], [
             'Content-Type: application/x-www-form-urlencoded;charset=utf-8',
             "Authorization: Bearer $this->access_token"
+        ], [
+            'access_token' => $access_token,
+            'getNickName' => 1
         ]);
         if ( is_object( $result ) ) {
             if ( property_exists( $result, 'error' ) && property_exists( $result, 'sub_error' )) {
@@ -112,11 +112,11 @@ class AccountKit extends Wrapper {
      */
     public function get_user_info( string|null $user_access_token ): UserInfo|stdClass {
         $result = $this->curl_request('POST', $this->url_user_info, [
-            'access_token' => $user_access_token,
-            'getNickName' => 1
-        ], [
             'Content-Type: application/x-www-form-urlencoded;charset=utf-8',
             "Authorization: Bearer $this->access_token" // OK
+        ], [
+            'access_token' => $user_access_token,
+            'getNickName' => 1
         ]);
         if (! is_object( $result ) ) {return new stdClass();}
         if ( property_exists( $result, 'error' ) && property_exists( $result, 'sub_error' )) {
@@ -139,10 +139,10 @@ class AccountKit extends Wrapper {
      */
     public function verify_id_token( string|null $id_token ): IdTokenInfo|null {
         $result = $this->curl_request('POST', $this->url_token_info, [
-            'id_token' => $id_token
-        ], [
             'Content-Type: application/x-www-form-urlencoded;charset=utf-8',
             "Authorization: Bearer $this->access_token" // OK
+        ], [
+            'id_token' => $id_token
         ]);
         if ( is_object( $result ) ) {
             if ( property_exists( $result, 'error' ) && property_exists( $result, 'sub_error' )) {

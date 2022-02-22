@@ -1,10 +1,13 @@
 <?php /** @noinspection PhpPropertyOnlyWrittenInspection */
 namespace HMS\Core;
 
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 use stdClass;
 
 /**
  * Class HMS Core Wrapper
+ * TODO: Migrate from cURL to GuzzleHttp, in order not to depend on ext-curl.
  *
  * @author Martin Zeitler
  */
@@ -16,7 +19,7 @@ class Wrapper {
     /** Default Result. */
     protected stdClass $result;
 
-    /** These are now available through Core\Config. */
+    /** These would also be available through Core\Config. */
     private string|null $client_secret = null;
     protected string|null $app_secret = null;
     protected string|null $package_name = null;
@@ -67,7 +70,7 @@ class Wrapper {
     }
 
     /** Perform cURL request. */
-    protected function curl_request(string $method='POST', string $url=null, array|object $post_fields=[], array $headers=[], bool $build_query_string=true ): stdClass|bool {
+    protected function curl_request(string $method='POST', string $url=null, array $headers=[], array|object $post_fields=[], bool $build_query_string=true ): stdClass|bool {
 
         $curl = curl_init( $url );
 
@@ -100,19 +103,59 @@ class Wrapper {
         curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 5);
         curl_setopt($curl, CURLOPT_TIMEOUT,        5);
 
-        $result = curl_exec( $curl );
+        $body = curl_exec( $curl );
         $info = curl_getinfo( $curl );
         curl_close($curl);
 
-        if ($result === false) {
+        if ($body === false) {
             return false;
         }
-        if ($result === '' && $info['http_code'] !== 200) {
+        if ($body === '' && $info['http_code'] !== 200) {
             return false;
         }
 
-        $data = json_decode( $result );
+        $data = json_decode( $body );
         return $this->sanitize( $data );
+    }
+
+    /** Perform GuzzleHttp request. */
+    protected function guzzle_request(string $method='POST', string $url=null, array $headers=[], array $post_fields=[], bool $build_query_string=true ): stdClass|bool {
+        $client = new Client( [ 'allow_redirects' => true, 'cookies' => true ] );
+        $data = new stdClass();
+        try {
+            switch( $method ) {
+
+                case 'GET':
+
+                    break;
+
+                case 'POST':
+                    $response = $client->post( $url, [
+                        'headers' => $headers,
+                        'multipart' => $this->to_multipart( $post_fields )
+                    ] );
+
+                    if ($response->getStatusCode() == 200) {
+                        $body = $response->getBody();
+                        $data = json_decode( $body );
+                    }
+                    break;
+            }
+
+        } catch (GuzzleException $e) {
+
+        }
+
+        return $this->sanitize( $data );
+    }
+
+    /** Converting $post_fields array to $multipart array. */
+    private function to_multipart( array $post_fields ): array {
+        $multipart = [];
+        foreach ($post_fields as $key => $value) {
+            $multipart[ $key ] = [ 'name' => $key, 'contents' => $value ];
+        }
+        return $multipart;
     }
 
     /** Different kinds of field descriptors may be returned ... */

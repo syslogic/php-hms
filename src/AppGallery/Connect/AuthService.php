@@ -40,7 +40,7 @@ class AuthService extends Wrapper {
      */
     public function import_users( array $users ) {
         $payload =['users' => $users];
-        return $this->curl_request('POST', $this->url_user_import, $payload, $this->auth_header(), false);
+        return $this->curl_request('POST', $this->url_user_import, $this->auth_header(), $payload, false);
     }
 
     /**
@@ -50,7 +50,7 @@ class AuthService extends Wrapper {
      */
     public function export_users() {
         $payload =[];
-        return $this->curl_request('POST', $this->url_user_export, $payload, $this->auth_header(), false);
+        return $this->curl_request('POST', $this->url_user_export, $this->auth_header(), $payload, false);
     }
 
     /**
@@ -60,7 +60,7 @@ class AuthService extends Wrapper {
      */
     public function verify_access_token() {
         $payload =[];
-        return $this->curl_request('GET', $this->url_token_verify, $payload, $this->auth_header(), false);
+        return $this->curl_request('GET', $this->url_token_verify, $this->auth_header(), $payload, false);
     }
 
     /**
@@ -70,6 +70,6 @@ class AuthService extends Wrapper {
      */
     public function revoke_access_token() {
         $payload =[];
-        return $this->curl_request('POST', $this->url_token_revoke, $payload, $this->auth_header(), false);
+        return $this->curl_request('POST', $this->url_token_revoke, $this->auth_header(), $payload, false);
     }
 }

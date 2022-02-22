@@ -2,7 +2,6 @@
 namespace HMS\Core;
 
 use stdClass;
-use function PHPUnit\Framework\objectEquals;
 
 /**
  * Class HMS Core Configuration
