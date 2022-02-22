@@ -126,7 +126,9 @@ class Wrapper {
             switch( $method ) {
 
                 case 'GET':
-
+                    $response = $client->get( $url, [
+                        'headers' => $headers
+                    ] );
                     break;
 
                 case 'POST':
@@ -135,13 +137,12 @@ class Wrapper {
                         'multipart' => $this->to_multipart( $post_fields )
                     ] );
 
-                    if ($response->getStatusCode() == 200) {
-                        $body = $response->getBody();
-                        $data = json_decode( $body );
-                    }
                     break;
             }
-
+            if ($response->getStatusCode() == 200) {
+                $body = $response->getBody();
+                $data = json_decode( $body );
+            }
         } catch (GuzzleException $e) {
 
         }

@@ -33,11 +33,12 @@
     "ext-json": "*",
     "ext-curl": "*",
     "phpseclib/phpseclib": "^3.0.13",
-    "guzzlehttp/guzzle": "^7.4",
+    "guzzlehttp/guzzle": "^7.4.1",
     "guzzlehttp/psr7": "^2.1.0",
     "psr/http-message": "^1.0.1"
   },
   "require-dev": {
+    "ext-xdebug": "*",
     "phpunit/phpunit": "^9.5.14"
   },
   "autoload": {
