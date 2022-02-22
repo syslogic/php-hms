@@ -47,7 +47,7 @@ class PushKitTest extends BaseTestCase {
         $item = new ReceiptStatus();
         foreach ( [0, 2, 5, 6, 10, 15, 27, 102, 144, 201] as $receipt_status_code) {
             $status_message = $item->get_receipt_state( $receipt_status_code );
-            self::assertTrue( is_string( $status_message ) );
+            self::assertTrue( !empty( $status_message ));
         }
     }
 }

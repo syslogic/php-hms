@@ -31,17 +31,17 @@ abstract class BaseTestCase extends TestCase {
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {
 
-        self::$app_id =  getenv('HUAWEI_APP_ID');
+        self::$app_id = getenv('HUAWEI_APP_ID');
         self::assertTrue(is_int(self::$app_id), self::ENV_VAR_APP_ID);
 
-        self::$app_secret = getenv('HUAWEI_APP_SECRET'); // this value is not contained in the JSON.
+        self::$app_secret = getenv('HUAWEI_APP_SECRET');
         self::assertTrue(is_string(self::$app_secret), self::ENV_VAR_APP_SECRET);
     }
 
     #[ArrayShape(['client_id' => "int", 'client_secret' => "string"])]
     protected static function get_secret(): array {
         return [
-            'client_id' => self::$app_id,
+            'client_id'     => self::$app_id,
             'client_secret' => self::$app_secret
         ];
     }
