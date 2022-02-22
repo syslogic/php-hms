@@ -138,7 +138,10 @@ class PushKitTest extends BaseTestCase {
             'notification' => new Notification( [
                 'title' => 'PHPUnit',
                 'body' => 'test body'
-            ] )
+            ] ),
+            'token' => [
+                self::$test_token
+            ]
         ]);
         self::assertTrue( is_object($item->asObject()) );
         self::assertTrue( $item->validate() );
