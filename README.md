@@ -9,16 +9,16 @@ The trademarks are being referenced for identification purposes only, in terms o
 
 [![PHP Composer](https://github.com/syslogic/php-hms/actions/workflows/ci-php.yml/badge.svg)](https://github.com/syslogic/php-hms/actions/workflows/ci-php.yml)
 
-| Class | Status |
-| ---: | --- |
-| [`AccountKit`](https://github.com/syslogic/php-hms/blob/master/src/AccountKit)                | in progress |
+| Class | Status      |
+| ---: |-------------|
+| [`AccountKit`](https://github.com/syslogic/php-hms/blob/master/src/AccountKit)                |             |
 | [`AdsKit`](https://github.com/syslogic/php-hms/blob/master/src/AdsKit)                        |             |
-| [`AnalyticsKit`](https://github.com/syslogic/php-hms/blob/master/src/AnalyticsKit)            | in progress |
-| [`AppGallery\Connect`](https://github.com/syslogic/php-hms/tree/master/src/AppGallery/Connect)| in progress |
+| [`AnalyticsKit`](https://github.com/syslogic/php-hms/blob/master/src/AnalyticsKit)            |             |
+| [`AppGallery\Connect`](https://github.com/syslogic/php-hms/tree/master/src/AppGallery/Connect)|             |
 | [`DriveKit`](https://github.com/syslogic/php-hms/tree/master/src/DriveKit)                    |             |
 | [`GameService`](https://github.com/syslogic/php-hms/tree/master/src/GameService)              |             |
 | [`LocationKit`](https://github.com/syslogic/php-hms/blob/master/src/LocationKit)              |             |
-| [`MapKit`](https://github.com/syslogic/php-hms/blob/master/src/MapKit)                        |             |
+| [`MapKit`](https://github.com/syslogic/php-hms/blob/master/src/MapKit)                        | in progress |
 | [`PushKit`](https://github.com/syslogic/php-hms/blob/master/src/PushKit)                      | working     |
 | [`SearchKit`](https://github.com/syslogic/php-hms/blob/master/src/SearchKit)                  |             |
 | [`WalletKit`](https://github.com/syslogic/php-hms/blob/master/src/WalletKit)                  |             |
@@ -51,8 +51,10 @@ Please refer to the documentation, which explains how to obtain these values: <b
 
 #### MapKit API:
 
-- `HUAWEI_MAPKIT_API_KEY`
-
+- `HUAWEI_MAPKIT_API_KEY`<br/>
+  
+- `HUAWEI_MAPKIT_SIGNATURE_KEY`<br/>
+  
 
 <details>
 <summary>Installation</summary>
