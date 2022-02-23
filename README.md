@@ -36,7 +36,7 @@ This library depends on the following environmental variables:
 
 Please refer to the documentation, which explains how to obtain these values: <br/>[Viewing App Basic Information](https://developer.huawei.com/consumer/en/doc/distribution/app/agc-help-appinfo-0000001100014694).
 
-#### PushKit API Callback
+#### PushKit API Server
 
  - `HUAWEI_HMAC_VERIFICATION_KEY` (optional)<br/>
    The HMAC verification key is unique to each upstream message webhook. <br/>The value can be obtained from such webhook configuration settings.
@@ -48,7 +48,12 @@ Please refer to the documentation, which explains how to obtain these values: <b
  
  - `HUAWEI_CONNECT_API_CLIENT_KEY`<br/>
    The client key for the REST API client can be obtained on the [console](https://developer.huawei.com/consumer/en/service/josp/agc/index.html) <br/>below `Users and permissions` > `API key` > `Connect API`.
- 
+
+#### MapKit API:
+
+- `HUAWEI_MAPKIT_API_KEY`
+
+
 <details>
 <summary>Installation</summary>
 <p>
@@ -77,8 +82,8 @@ To set up the environment, for example `nano ~/.bashrc`:
 # PHP SDK for Huawei REST API
 export HUAWEI_APP_ID=...
 export HUAWEI_APP_SECRET=...
-export HUAWEI_APPLICATION_CREDENTIALS=...
 export HUAWEI_HMAC_VERIFICATION_KEY=...
+export HUAWEI_MAPKIT_API_KEY=...
 ````
 </p>
 </details>

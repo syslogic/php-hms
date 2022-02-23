@@ -54,12 +54,14 @@ class Wrapper {
 
     /** Try to initialize the client from environmental variables. */
     private function init_by_environment() {
-        if ( is_string( getenv('HUAWEI_APP_ID' ) ) && is_string( getenv('HUAWEI_APP_SECRET' ) ) ) {
-            $this->app_id     =    (int) getenv( 'HUAWEI_APP_ID' );
+        if ( is_string( getenv('HUAWEI_APP_ID' ) ) ) {
+            $this->app_id = (int) getenv( 'HUAWEI_APP_ID' );
+        }
+        if ( is_string( getenv('HUAWEI_APP_SECRET' ) ) ) {
             $this->app_secret = (string) getenv( 'HUAWEI_APP_SECRET' );
         }
-        if ( is_string( getenv('HUAWEI_API_KEY' ) ) ) {
-            $this->api_key = (string) getenv( 'HUAWEI_API_KEY' );
+        if ( is_string( getenv('HUAWEI_MAPKIT_API_KEY' ) ) ) {
+            $this->api_key = (string) getenv( 'HUAWEI_MAPKIT_API_KEY' );
         }
     }
 

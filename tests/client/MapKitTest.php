@@ -14,7 +14,7 @@ class MapKitTest extends BaseTestCase {
 
     private static MapKit|null $client;
 
-    private const ENV_VAR_API_KEY     = 'Variable HUAWEI_API_KEY is not set.';
+    private const ENV_VAR_API_KEY = 'Variable HUAWEI_MAPKIT_API_KEY is not set.';
 
     #[ArrayShape(['api_key' => "string"])]
     protected static function get_secret(): array {
@@ -26,7 +26,7 @@ class MapKitTest extends BaseTestCase {
 
         parent::setUpBeforeClass();
 
-        self::$api_key = getenv('HUAWEI_API_KEY');
+        self::$api_key = getenv('HUAWEI_MAPKIT_API_KEY');
         self::assertTrue(is_string(self::$api_key), self::ENV_VAR_API_KEY);
 
         self::$client = new MapKit( self::get_secret() );
