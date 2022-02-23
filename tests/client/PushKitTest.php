@@ -66,7 +66,6 @@ class PushKitTest extends BaseTestCase {
     /** Test: Topic subscribe. */
     public function test_topic_subscribe() {
         $result = self::$client->topic_subscribe( self::$test_topic, self::$test_token );
-        self::assertTrue($result instanceof stdClass );
         self::assertObjectHasAttribute('code', $result);
         self::assertTrue( $result->code === ResultCodes::SUBMISSION_SUCCESS, "Error $result->code: $result->message" );
         self::assertTrue(is_array( $result->errors ) && sizeof( $result->errors ) == 0 );
@@ -77,7 +76,6 @@ class PushKitTest extends BaseTestCase {
     /** Test: Topic unsubscribe. */
     public function test_topic_unsubscribe() {
         $result = self::$client->topic_unsubscribe( self::$test_topic, self::$test_token );
-        self::assertTrue($result instanceof stdClass );
         self::assertObjectHasAttribute('code', $result);
         self::assertTrue( $result->code === ResultCodes::SUBMISSION_SUCCESS, "Error $result->code: $result->message" );
         self::assertTrue(is_array( $result->errors ) && sizeof( $result->errors ) == 0 );
@@ -88,7 +86,6 @@ class PushKitTest extends BaseTestCase {
     /** Test: Send message to token. */
     public function test_send_message_to_token() {
         $result = self::$client->send_message_to_token( self::$test_token, self::$test_message_title, self::$test_message_body );
-        self::assertTrue($result instanceof stdClass );
         self::assertObjectHasAttribute('code', $result);
         self::assertTrue( $result->code === ResultCodes::SUBMISSION_SUCCESS, "Error $result->code: $result->message" );
     }
@@ -96,7 +93,6 @@ class PushKitTest extends BaseTestCase {
     /** Test: Send message to topic. */
     public function test_send_message_to_topic() {
         $result = self::$client->send_message_to_topic( self::$test_topic, self::$test_message_title, self::$test_message_body );
-        self::assertTrue($result instanceof stdClass );
         self::assertObjectHasAttribute('code', $result);
         self::assertTrue( $result->code === ResultCodes::SUBMISSION_SUCCESS, "Error $result->code: $result->message" );
     }
@@ -104,7 +100,6 @@ class PushKitTest extends BaseTestCase {
     /** Test: Send message to condition. */
     public function test_send_message_to_condition() {
         $result = self::$client->send_message_to_condition( self::$test_condition, self::$test_message_title, self::$test_message_body );
-        self::assertTrue($result instanceof stdClass );
         self::assertObjectHasAttribute('code', $result);
         self::assertTrue( $result->code === ResultCodes::SUBMISSION_SUCCESS, "Error $result->code: $result->message" );
     }
@@ -112,7 +107,6 @@ class PushKitTest extends BaseTestCase {
     /** Test: Querying Data as a Data Controller. */
     public function test_token_data_query() {
         $result = self::$client->token_data_query( self::$test_token );
-        self::assertTrue($result instanceof stdClass );
         self::assertObjectHasAttribute('code', $result);
         self::assertTrue( $result->code === ResultCodes::SUBMISSION_SUCCESS, "Error $result->code: $result->message" );
         self::assertTrue( is_array( $result->topics ) );
@@ -121,19 +115,18 @@ class PushKitTest extends BaseTestCase {
     /** Test: Deleting Data as a Data Controller. */
     public function test_token_data_delete() {
         $result = self::$client->token_data_delete( self::$test_token );
-        self::assertTrue($result instanceof stdClass );
         self::assertObjectHasAttribute('code', $result);
         self::assertTrue( $result->code === ResultCodes::SUBMISSION_SUCCESS, "Error $result->code: $result->message" );
     }
 
     /** Test: Model ResultCodes. */
-    public function test_result_codes() {
+    public function test_model_result_codes() {
         $item = new ResultCodes();
         self::assertTrue( is_object( $item ) );
     }
 
     /** Test: Model CloudMessage. */
-    public function test_cloud_message() {
+    public function test_model_cloud_message() {
         $item = new CloudMessage([
             'notification' => new Notification( [
                 'title' => 'PHPUnit',
@@ -148,7 +141,7 @@ class PushKitTest extends BaseTestCase {
     }
 
     /** Test: Model Notification. */
-    public function test_notification() {
+    public function test_model_notification() {
         $item = new Notification(self::$test_message_title, self::$test_message_body );
         self::assertTrue( is_object($item->asObject()) );
         self::assertTrue( $item->validate() );
@@ -156,7 +149,7 @@ class PushKitTest extends BaseTestCase {
 
 
     /** Test: Model Android\AndroidConfig. */
-    public function test_android_config() {
+    public function test_model_android_config() {
         $item = new AndroidConfig( [
 
         ] );
@@ -164,120 +157,137 @@ class PushKitTest extends BaseTestCase {
     }
 
     /** Test: Model Android\AndroidNotification. */
-    public function test_android_notification() {
+    public function test_model_android_notification() {
         $item = AndroidNotification::fromArray([
+            'title' => self::$test_message_title,
+            'body' => self::$test_message_body,
             'click_action' => [
                 'type' => 2,
                 'url' => 'https://syslogic.io'
             ]
         ]);
         self::assertTrue( is_object($item->asObject()) );
+        self::assertTrue( $item->validate() );
     }
 
     /** Test: Model Android\BadgeNotification. */
-    public function test_badge_notification() {
+    public function test_model_badge_notification() {
         $item = new BadgeNotification( [
 
         ] );
         self::assertTrue( is_object($item->asObject()) );
+        self::assertTrue( $item->validate() );
     }
 
     /** Test: Model Android\ClickAction. */
-    public function test_click_action() {
+    public function test_model_click_action() {
         $item = new ClickAction( [
-
+            'type' => 2,
+            'url' => 'https://syslogic.io'
         ] );
         self::assertTrue( is_object($item->asObject()) );
+        self::assertTrue( $item->validate() );
     }
 
     /** Test: Model Android\Button. */
-    public function test_button() {
+    public function test_model_button() {
         $item = new Button( [
 
         ] );
         self::assertTrue( is_object($item->asObject()) );
+        self::assertTrue( $item->validate() );
     }
 
 
     /** Test: Model Apns\ApnsConfig. */
-    public function test_apns_config() {
+    public function test_model_apns_config() {
         $item = new ApnsConfig( [
 
         ] );
         self::assertTrue( is_object($item->asObject()) );
+        self::assertTrue( $item->validate() );
     }
 
     /** Test: Model Apns\ApnsNotification. */
-    public function test_apns_notification() {
+    public function test_model_apns_notification() {
         $item = new ApnsNotification( [
 
         ] );
         self::assertTrue( is_object($item->asObject()) );
+        self::assertTrue( $item->validate() );
     }
 
     /** Test: Model ApnsConfig.HmsOptions. */
-    public function test_apns_hms_options() {
+    public function test_model_apns_hms_options() {
         $item = new \HMS\PushKit\Apns\HmsOptions( [
 
         ] );
         self::assertTrue( is_object($item->asObject()) );
+        self::assertTrue( $item->validate() );
     }
 
 
     /** Test: Model QuickApp\QuickAppConfig. */
-    public function test_quick_app_config() {
+    public function test_model_quick_app_config() {
         $item = new QuickAppConfig( [
 
         ] );
         self::assertTrue( is_object($item->asObject()) );
+        self::assertTrue( $item->validate() );
     }
 
     /** Test: Model QuickApp\QuickAppNotification. */
-    public function test_quick_app_notification() {
+    public function test_model_quick_app_notification() {
         $item = new QuickAppNotification( [
 
         ] );
         self::assertTrue( is_object($item->asObject()) );
+        self::assertTrue( $item->validate() );
     }
 
 
     /** Test: Model WebPush\WebPushConfig. */
-    public function test_web_push_config() {
+    public function test_model_web_push_config() {
         $item = new WebPushConfig( [
 
         ] );
         self::assertTrue( is_object($item->asObject()) );
+        self::assertTrue( $item->validate() );
     }
 
     /** Test: Model WebPush\WebNotification. */
-    public function test_web_notification() {
+    public function test_model_web_notification() {
         $item = new WebNotification( [
 
         ] );
         self::assertTrue( is_object($item->asObject()) );
+        self::assertTrue( $item->validate() );
     }
 
     /** Test: Model WebPush\WebAction. */
-    public function test_web_action() {
+    public function test_model_web_action() {
         $item = new WebAction( [
 
         ] );
         self::assertTrue( is_object($item->asObject()) );
+        self::assertTrue( $item->validate() );
     }
 
     /** Test: Model WebPush\Headers. */
-    public function test_web_headers() {
+    public function test_model_web_headers() {
         $item = new Headers( [
 
         ] );
         self::assertTrue( is_object($item->asObject()) );
+        self::assertTrue( $item->validate() );
     }
 
     /** Test: Model WebPushConfig.HmsOptions. */
-    public function test_web_hms_options() {
+    public function test_model_web_hms_options() {
         $item = new \HMS\PushKit\WebPush\HmsOptions( [
 
         ] );
         self::assertTrue( is_object($item->asObject()) );
+        self::assertTrue( $item->validate() );
     }
 }
