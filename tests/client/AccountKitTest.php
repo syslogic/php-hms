@@ -20,9 +20,9 @@ class AccountKitTest extends BaseTestCase {
     private static string|null $user_access_token;
     private static string|null $id_token = '...';
 
-    private const PARSE_ACCESS_TOKEN  = 'PARSE_ACCESS_TOKEN has failed.';
-    private const VERIFY_ID_TOKEN     = 'VERIFY_ID_TOKEN has failed.';
-    private const GET_USER_INFO       = 'GET_USER_INFO has failed.';
+    private const PARSE_ACCESS_TOKEN = 'PARSE_ACCESS_TOKEN has failed.';
+    private const VERIFY_ID_TOKEN    = 'VERIFY_ID_TOKEN has failed.';
+    private const GET_USER_INFO      = 'GET_USER_INFO has failed.';
 
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {

@@ -36,8 +36,6 @@ class PushKitTest extends BaseTestCase {
     private static string|null $test_message_title = null;
     private static string|null $test_message_body  = null;
 
-    private const ENV_VAR_HCM_TEST_DEVICE_TOKEN    = 'Variable PHPUNIT_HCM_TEST_DEVICE_TOKEN is not set.';
-
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {
 

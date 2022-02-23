@@ -21,9 +21,6 @@ class AppGalleryConnectTest extends BaseTestCase {
     protected static int $agc_client_id = 0;
     protected static string|null $agc_client_key = null;
 
-    private const ENV_VAR_CONNECT_API_CLIENT_ID   = 'Variable HUAWEI_CONNECT_API_CLIENT_ID is not set.';
-    private const ENV_VAR_CONNECT_API_CLIENT_KEY  = 'Variable HUAWEI_CONNECT_API_CLIENT_KEY is not set.';
-
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {
         parent::setUpBeforeClass();

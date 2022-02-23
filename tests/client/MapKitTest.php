@@ -14,23 +14,19 @@ class MapKitTest extends BaseTestCase {
 
     private static MapKit|null $client;
 
-    private const ENV_VAR_API_KEY = 'Variable HUAWEI_MAPKIT_API_KEY is not set.';
-
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {
 
         parent::setUpBeforeClass();
 
         self::$api_key = getenv('HUAWEI_MAPKIT_API_KEY');
-        self::assertTrue( is_string(self::$api_key), self::ENV_VAR_API_KEY );
+        self::assertTrue( is_string(self::$api_key), self::ENV_VAR_MAPKIT_API_KEY );
 
-        self::$client = new MapKit( self::get_secret() );
+        // self::$signature_key = getenv('HUAWEI_MAPKIT_SIGNATURE_KEY');
+        // self::assertTrue( is_string(self::$signature_key),self::ENV_VAR_MAPKIT_SIGNATURE_KEY );
+
+        self::$client = new MapKit( [ 'api_key' => self::$api_key ] );
         self::assertTrue( self::$client->is_ready(), self::CLIENT_NOT_READY );
-    }
-
-    #[ArrayShape(['api_key' => "string"])]
-    protected static function get_secret(): array {
-        return [ 'api_key' => self::$api_key ];
     }
 
     /** Test: Directions */
