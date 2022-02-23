@@ -90,7 +90,7 @@ class ClickAction extends Model {
         if ($this->type == 2) {
             if ($this->url == null) {
                 throw new InvalidArgumentException(self::MISSING_URL);
-            } else if (str_split($this->url, 8) != 'https://'){
+            } else if (substr($this->url, 0, 8) != 'https://'){
                 throw new InvalidArgumentException(self::NON_HTTPS_URL);
             }
         }
