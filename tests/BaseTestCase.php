@@ -32,10 +32,10 @@ abstract class BaseTestCase extends TestCase {
     public static function setUpBeforeClass(): void {
 
         self::$app_id = getenv('HUAWEI_APP_ID');
-        self::assertTrue(is_int(self::$app_id), self::ENV_VAR_APP_ID);
+        self::assertTrue( is_int(self::$app_id), self::ENV_VAR_APP_ID );
 
         self::$app_secret = getenv('HUAWEI_APP_SECRET');
-        self::assertTrue(is_string(self::$app_secret), self::ENV_VAR_APP_SECRET);
+        self::assertTrue( is_string(self::$app_secret), self::ENV_VAR_APP_SECRET );
     }
 
     #[ArrayShape(['client_id' => "int", 'client_secret' => "string"])]

@@ -10,9 +10,17 @@ use HMS\MapKit\Constants;
  */
 class SnapToRoads {
 
-    private string $base_url;
+    private string $url_snap;
 
     public function __construct(string $api_key ) {
-        $this->base_url = Constants::MAPKIT_BASE_URL . Constants::MAPKIT_SNAP_TO_ROADS_URL . $api_key;
+        $this->setSnapUrl(Constants::MAPKIT_BASE_URL . Constants::MAPKIT_SNAP_TO_ROADS_URL . $api_key );
+    }
+
+    private function setSnapUrl(string $value): void {
+        $this->url_snap = $value;
+    }
+
+    public function getSnapUrl(): string {
+        return $this->url_snap;
     }
 }

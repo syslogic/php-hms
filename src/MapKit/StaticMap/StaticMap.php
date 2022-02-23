@@ -10,9 +10,17 @@ use HMS\MapKit\Constants;
  */
 class StaticMap {
 
-    private string $base_url;
+    private string $url_static;
 
     public function __construct(string $api_key ) {
-        $this->base_url = Constants::MAPKIT_BASE_URL . Constants::MAPKIT_STATIC_MAP_URL . $api_key;
+        $this->setStaticUrl(Constants::MAPKIT_BASE_URL . Constants::MAPKIT_STATIC_MAP_URL . $api_key );
+    }
+
+    private function setStaticUrl(string $value): void {
+        $this->url_static = $value;
+    }
+
+    public function getStaticUrl(): string {
+        return $this->url_static;
     }
 }

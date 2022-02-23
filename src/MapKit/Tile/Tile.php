@@ -10,9 +10,17 @@ use HMS\MapKit\Constants;
  */
 class Tile {
 
-    private string $base_url;
+    private string $url_tile;
 
     public function __construct( string $api_key ) {
-        $this->base_url = Constants::MAPKIT_BASE_URL . Constants::MAPKIT_MAP_TILE_URL . $api_key;
+        $this->setTileUrl(Constants::MAPKIT_BASE_URL . Constants::MAPKIT_MAP_TILE_URL . $api_key );
+    }
+
+    private function setTileUrl(string $value): void {
+        $this->url_tile = $value;
+    }
+
+    public function getTileUrl(): string {
+        return $this->url_tile;
     }
 }

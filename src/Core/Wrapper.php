@@ -43,16 +43,20 @@ class Wrapper {
         }
     }
 
-    /** Try to initialize the client from array. */
+    /** Try to initialize the OAuth2 or API client from array. */
     private function init_by_array( array $config ) {
-        if ( isset( $config['client_id'] ) && isset( $config['client_secret'] ) ) {
-            $this->app_id     =    (int) $config['client_id'];
+        if ( isset( $config['client_id'] ) ) {
+            $this->app_id = (int) $config['client_id'];
+        }
+        if ( isset( $config['client_secret'] ) ) {
             $this->app_secret = (string) $config['client_secret'];
-            $this->api_key    = (string) $config['api_key'];
+        }
+        if ( isset( $config['api_key'] ) ) {
+            $this->api_key = (string) $config['api_key'];
         }
     }
 
-    /** Try to initialize the client from environmental variables. */
+    /** Try to initialize the OAuth2 or API client from environmental variables. */
     private function init_by_environment() {
         if ( is_string( getenv('HUAWEI_APP_ID' ) ) ) {
             $this->app_id = (int) getenv( 'HUAWEI_APP_ID' );
