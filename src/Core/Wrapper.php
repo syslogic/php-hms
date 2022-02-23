@@ -48,6 +48,7 @@ class Wrapper {
         if ( isset( $config['client_id'] ) && isset( $config['client_secret'] ) ) {
             $this->app_id     =    (int) $config['client_id'];
             $this->app_secret = (string) $config['client_secret'];
+            $this->api_key    = (string) $config['api_key'];
         }
     }
 
@@ -56,6 +57,9 @@ class Wrapper {
         if ( is_string( getenv('HUAWEI_APP_ID' ) ) && is_string( getenv('HUAWEI_APP_SECRET' ) ) ) {
             $this->app_id     =    (int) getenv( 'HUAWEI_APP_ID' );
             $this->app_secret = (string) getenv( 'HUAWEI_APP_SECRET' );
+        }
+        if ( is_string( getenv('HUAWEI_API_KEY' ) ) ) {
+            $this->api_key = (string) getenv( 'HUAWEI_API_KEY' );
         }
     }
 

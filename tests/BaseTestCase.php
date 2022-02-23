@@ -42,7 +42,8 @@ abstract class BaseTestCase extends TestCase {
     protected static function get_secret(): array {
         return [
             'client_id'     => self::$app_id,
-            'client_secret' => self::$app_secret
+            'client_secret' => self::$app_secret,
+            'api_key' => self::$api_key
         ];
     }
 }
