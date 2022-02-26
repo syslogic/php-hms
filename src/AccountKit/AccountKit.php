@@ -14,13 +14,8 @@ class AccountKit extends Wrapper {
 
     /** oAuth2 Token related. */
     private string|null $url_token = Constants::URL_OAUTH2_TOKEN;
-
     private string|null $url_token_info = Constants::ACCOUNT_KIT_TOKEN_INFO;
     private string|null $url_user_info  = Constants::ACCOUNT_KIT_USER_INFO;
-
-    /** oAuth2 Token related. */
-    protected int $client_id = 0;
-    private string|null $client_secret;
 
     protected string|null $access_token = null;
     protected string|null $refresh_token = null;
