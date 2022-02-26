@@ -55,7 +55,6 @@ class PushKitTest extends BaseTestCase {
     /** Test: Topic subscriptions list. */
     public function test_topics_list() {
         $result = self::$client->topics_list( self::$test_token );
-        self::assertTrue($result instanceof stdClass );
         self::assertObjectHasAttribute('code', $result);
         self::assertTrue( $result->code === ResultCodes::SUBMISSION_SUCCESS, "Error $result->code: $result->message" );
         self::assertTrue( is_array( $result->topics ) );

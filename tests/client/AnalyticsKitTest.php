@@ -4,7 +4,6 @@ namespace Tests\client;
 use HMS\AnalyticsKit\AnalyticsKit;
 use HMS\AnalyticsKit\ResultCodes;
 use JetBrains\PhpStorm\ArrayShape;
-use stdClass;
 use Tests\BaseTestCase;
 
 /**
@@ -104,7 +103,6 @@ class AnalyticsKitTest extends BaseTestCase {
     /** Test: Querying Open Metrics and Dimensions. */
     public function test_query_metrics_and_dimensions() {
         $result = self::$client->query_metrics_and_dimensions( 'en', 10,  1 );
-        self::assertTrue($result instanceof stdClass );
         self::assertObjectHasAttribute('code', $result);
         // Error 10020: importItem4DataCollection.importItem.itemSet: must not be null, importItem4DataCollection.importItem.dataType: must not be null
         self::assertTrue( $result->code === ResultCodes::REQUEST_SUCCESSFUL, "Error $result->code: $result->message" );

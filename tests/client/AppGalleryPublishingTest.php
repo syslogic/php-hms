@@ -38,9 +38,12 @@ class AppGalleryPublishingTest extends BaseTestCase {
         }
     }
 
-    #[ArrayShape(['client_id' => "int", 'client_secret' => "string"])]
+    #[ArrayShape(['client_id' => 'int', 'client_secret' => 'string'])]
     protected static function get_secret(): array {
-        return ['client_id' => self::$agc_client_id, 'client_secret' => self::$agc_client_key];
+        return [
+            'client_id' => self::$agc_client_id,
+            'client_secret' => self::$agc_client_key
+        ];
     }
 
     /** Test: On Release Submission Callback. */
