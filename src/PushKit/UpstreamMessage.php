@@ -89,7 +89,9 @@ class UpstreamMessage {
         return $data;
     }
 
-    public function hmac_verify( string $raw_body, string $signature ): bool {
+    public function hmac_verify( string|null $raw_body, string $signature ): bool {
+
+        if ($raw_body == null) {return false;}
 
         /* Extract data-string from the raw body. */
         $payload = json_decode( $raw_body );

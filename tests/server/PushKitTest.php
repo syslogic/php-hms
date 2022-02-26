@@ -16,7 +16,6 @@ class PushKitTest extends BaseTestCase {
     private static string|null $hmac_verification_key  = null;
 
     private const ENV_VAR_HUAWEI_HMAC_VERIFICATION_KEY = 'Variable ENV_VAR_HUAWEI_HMAC_VERIFICATION_KEY is not set.';
-    private const ENV_VAR_HCM_TEST_DEVICE_TOKEN        = 'Variable PHPUNIT_HCM_TEST_DEVICE_TOKEN is not set.';
 
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {
