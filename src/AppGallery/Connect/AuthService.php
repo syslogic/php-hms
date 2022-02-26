@@ -27,8 +27,8 @@ class AuthService extends Wrapper {
         $this->url_token_revoke = Constants::CONNECT_API_BASE_URL.Constants::CONNECT_API_AUTH_SERVICE_REVOKE_TOKEN;
 
         /* Obtain an alternate access-token. */
-        $this->connect = new Connect( $config );
-        if ( $this->connect->is_ready() ) {
+        self::$connect = new Connect( $config );
+        if ( self::$connect->is_ready() ) {
 
         }
     }
