@@ -44,6 +44,8 @@ class AnalyticsKit extends Wrapper {
         /* Obtain an access-token. */
         $account_kit = new AccountKit(['client_id' => $this->app_id, 'client_secret' => $this->app_secret]);
         $this->access_token = $account_kit->get_access_token();
+
+        /* TODO: it fails because product_id is 0, since not reading agconnect-services.json anymore. */
     }
 
     /** Provide HTTP request headers as array. */
