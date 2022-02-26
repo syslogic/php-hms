@@ -15,7 +15,6 @@ class Coordinate extends Model {
     private const LONGITUDE_OUT_OF_BOUNDS = 'longitude is out of bounds: ';
 
     protected array $mandatory_fields = ['lat', 'lng'];
-    protected array $optional_fields  = [];
 
     /**
      * Latitude.
