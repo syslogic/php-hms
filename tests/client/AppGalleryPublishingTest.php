@@ -27,10 +27,10 @@ class AppGalleryPublishingTest extends BaseTestCase {
         parent::setUpBeforeClass();
 
         self::$agc_client_id = (int) getenv('HUAWEI_CONNECT_API_CLIENT_ID');
-        self::assertTrue(is_int(self::$client_id), self::ENV_VAR_CONNECT_API_CLIENT_ID);
+        self::assertTrue(is_int(self::$agc_client_id), self::ENV_VAR_CONNECT_API_CLIENT_ID);
 
         self::$agc_client_key = getenv('HUAWEI_CONNECT_API_CLIENT_KEY');
-        self::assertTrue(is_string(self::$client_secret), self::ENV_VAR_CONNECT_API_CLIENT_KEY);
+        self::assertTrue(is_string(self::$agc_client_key), self::ENV_VAR_CONNECT_API_CLIENT_KEY);
 
         self::$connect = new Connect( self::get_secret() );
         if ( self::$connect->is_ready() ) {
