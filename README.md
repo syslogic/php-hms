@@ -41,6 +41,10 @@ Please refer to the documentation, which explains how to obtain these values: <b
  - `HUAWEI_HMAC_VERIFICATION_KEY` (optional)<br/>
    The HMAC verification key is unique to each upstream message webhook. <br/>The value can be obtained from such webhook configuration settings.
 
+#### AnalyticsKit API:
+
+- `HUAWEI_ANALYTICS_KIT_PRODUCT_ID`
+
 #### AppGallery Connect API:
 
  - `HUAWEI_CONNECT_API_CLIENT_ID`<br/>

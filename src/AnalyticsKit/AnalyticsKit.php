@@ -26,7 +26,7 @@ class AnalyticsKit extends Wrapper {
     private string|null $url_report_metrics_list;
     private string|null $url_report_dimensions_list;
 
-    public function __construct( array|string $config ) {
+    public function __construct( array $config ) {
         parent::__construct( $config );
         $base_url = Constants::ANALYTICS_KIT_BASE_URL;
         $this->url_user_data_export             = $base_url.Constants::ANALYTICS_KIT_GDPR_USER_DATA_EXPORT;
@@ -45,7 +45,10 @@ class AnalyticsKit extends Wrapper {
         $account_kit = new AccountKit(['client_id' => $this->app_id, 'client_secret' => $this->app_secret]);
         $this->access_token = $account_kit->get_access_token();
 
-        /* TODO: it fails because product_id is 0, since not reading agconnect-services.json anymore. */
+        /* Extract the product_id from $config array (not reading from JSON anymore). */
+        if ( isset($config['product_id']) && is_int($config['product_id'])) {
+            $this->product_id = $config['product_id'];
+        }
     }
 
     /** Provide HTTP request headers as array. */
@@ -62,7 +65,7 @@ class AnalyticsKit extends Wrapper {
      * Exporting Personal Data.
      *
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/android-api-export-personal-data-0000001050987229">Exporting Personal Data</a>
-     * @param string $aaid
+     * @param string|null $aaid
      * @return stdClass
      */
     public function request_user_data_export( string|null $aaid ): stdClass {
@@ -134,7 +137,7 @@ class AnalyticsKit extends Wrapper {
      *
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/android-api-import-customized-user-attributes-0000001050747215">Importing Custom User Attributes</a>
      * @param array $data
-     * @return stdClass
+     * @return stdClass|false
      */
     public function data_collection_import_user( array $data ): stdClass|false {
         if (sizeof($data) < 1 || sizeof($data) > 100) {

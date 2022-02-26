@@ -26,10 +26,12 @@ abstract class BaseTestCase extends TestCase {
     protected static int $cp_id = 0;
 
     /** AppGallery Connect Gateway URL */
-    protected static string|null $agc_gateway = 'https://connect-drcn.dbankcloud.cn/';
+    protected static string|null $agc_gateway      = 'https://connect-drcn.dbankcloud.cn/';
 
     private const ENV_VAR_APP_ID                   = 'Variable HUAWEI_APP_ID is not set.';
     private const ENV_VAR_APP_SECRET               = 'Variable HUAWEI_APP_SECRET is not set.';
+
+    protected const ENV_VAR_ANALYTICS_KIT_PRODUCT_ID = 'Variable HUAWEI_ANALYTICS_KIT_PRODUCT_ID is not set.';
 
     protected const ENV_VAR_CONNECT_API_CLIENT_ID  = 'Variable HUAWEI_CONNECT_API_CLIENT_ID is not set.';
     protected const ENV_VAR_CONNECT_API_CLIENT_KEY = 'Variable HUAWEI_CONNECT_API_CLIENT_KEY is not set.';
