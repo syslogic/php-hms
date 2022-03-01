@@ -9,11 +9,10 @@
      * @author Martin Zeitler
      */
     use HMS\AccountKit\AccountKit;
-    $config = [
-        'client_id' => getenv('HUAWEI_APP_ID'),
-        'client_secret' => getenv('HUAWEI_APP_SECRET')
-    ];
-    $api = new AccountKit( $config );
+    $api = new AccountKit( [
+        'app_id' => getenv('HUAWEI_OAUTH2_CLIENT_ID'),
+        'app_secret' => getenv('HUAWEI_OAUTH2_CLIENT_SECRET')
+    ] );
     if ( $api->is_ready() ) {
 
     }
