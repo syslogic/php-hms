@@ -27,6 +27,7 @@ class AnalyticsKit extends Wrapper {
     private string|null $url_report_dimensions_list;
 
     public function __construct( array $config ) {
+
         parent::__construct( $config );
         $base_url = Constants::ANALYTICS_KIT_BASE_URL;
         $this->url_user_data_export             = $base_url.Constants::ANALYTICS_KIT_GDPR_USER_DATA_EXPORT;
@@ -42,13 +43,8 @@ class AnalyticsKit extends Wrapper {
         $this->url_report_dimensions_list       = $base_url.Constants::ANALYTICS_KIT_REPORT_DIMENSIONS_LIST;
 
         /* Obtain an access-token. */
-        $account_kit = new AccountKit(['client_id' => $this->app_id, 'client_secret' => $this->app_secret]);
+        $account_kit = new AccountKit( $config );
         $this->access_token = $account_kit->get_access_token();
-
-        /* Extract the product_id from $config array (not reading from JSON anymore). */
-        if ( isset($config['product_id']) && is_int($config['product_id'])) {
-            $this->product_id = $config['product_id'];
-        }
     }
 
     /** Provide HTTP request headers as array. */

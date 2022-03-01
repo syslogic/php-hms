@@ -2,18 +2,20 @@
 namespace HMS\MapKit\Elevation;
 
 use HMS\MapKit\Constants;
+use HMS\MapKit\MapKit;
 
 /**
  * Class HMS MapKit Elevation API
  *
  * @author Martin Zeitler
  */
-class Elevation {
+class Elevation extends MapKit {
 
     private string $url_elevation;
 
-    public function __construct(string $api_key ) {
-        $this->setElevationUrl(Constants::MAPKIT_BASE_URL . Constants::MAPKIT_ELEVATION_URL . $api_key);
+    public function __construct( array $config ) {
+        parent::__construct( $config );
+        $this->setElevationUrl(Constants::MAPKIT_BASE_URL . Constants::MAPKIT_ELEVATION_URL . $config['api_key']);
     }
 
     private function setElevationUrl(string $value): void {

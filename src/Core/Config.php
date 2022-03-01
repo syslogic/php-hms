@@ -1,4 +1,6 @@
-<?php /** @noinspection PhpPropertyOnlyWrittenInspection */
+<?php /** @noinspection PhpUnused */
+
+/** @noinspection PhpPropertyOnlyWrittenInspection */
 namespace HMS\Core;
 
 use stdClass;

@@ -20,13 +20,16 @@ class SmsServiceTest extends BaseTestCase {
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {
         parent::setUpBeforeClass();
-        self::$client = new SmsService( self::get_secret() );
+        self::$client = new SmsService( self::get_config() );
         self::assertTrue( self::$client->is_ready(), self::CLIENT_NOT_READY );
     }
 
     #[ArrayShape(['account' => 'string', 'password' => 'string'])]
-    protected static function get_secret(): array {
-        return ['account' => self::$business_sms_account, 'password' => self::$business_sms_password];
+    protected static function get_config(): array {
+        return [
+            'account' => self::$business_sms_account,
+            'password' => self::$business_sms_password
+        ];
     }
 
     /** Test: Dummy. */

@@ -29,17 +29,12 @@ class AccountKitTest extends BaseTestCase {
 
         parent::setUpBeforeClass();
 
-        self::$client = new AccountKit( self::get_secret() );
+        self::$client = new AccountKit( self::get_config() );
         self::$app_access_token = self::$client->get_access_token();
         self::assertNotNull( self::$app_access_token, self::CLIENT_NOT_READY );
 
         self::$user_access_token = self::$app_access_token; // this is obviously wrong.
         self::assertNotNull( self::$user_access_token, self::CLIENT_NOT_READY );
-    }
-
-    #[ArrayShape(['client_id' => "int", 'client_secret' => "string"])]
-    protected static function get_secret(): array {
-        return ['client_id' => self::$app_id, 'client_secret' => self::$app_secret];
     }
 
     /** Test: Obtaining Access Token. */

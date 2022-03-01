@@ -1,4 +1,5 @@
-<?php
+<?php /** @noinspection PhpPropertyOnlyWrittenInspection */
+
 namespace HMS\AppGallery\Connect;
 
 use HMS\Core\Wrapper;
@@ -6,25 +7,17 @@ use HMS\Core\Wrapper;
 /**
  * Class HMS AppGallery Connect Wrapper
  *
- * @property int $app_id
- * @property string|null $app_secret
  * @see <a href="https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-Guides/agcapi-getstarted-0000001111845114">Getting Started</a>
  * @author Martin Zeitler
  */
 class Connect extends Wrapper {
 
     private string $url_token;
-    protected string|null $agc_client_id = null;
-    protected string|null $agc_client_key = null;
-    protected string|null $access_token = null;
-    private int $token_expiry = 0;
 
     /** Constructor. */
     public function __construct( array|string $config ) {
         parent::__construct( $config );
         $this->url_token  = Constants::URL_OAUTH2_TOKEN;
-        $this->agc_client_id = $config['client_id'];
-        $this->agc_client_key = $config['client_secret'];
         $this->access_token = $this->get_access_token();
     }
 
@@ -39,7 +32,7 @@ class Connect extends Wrapper {
         ], [
             'grant_type'    => 'client_credentials',
             'client_id'     => $this->agc_client_id,
-            'client_secret' => $this->agc_client_key
+            'client_secret' => $this->agc_client_secret
         ], false);
         if ( is_object( $result ) ) {
             if ( property_exists( $result, 'ret' ) && property_exists( $result->ret, 'code' )) {

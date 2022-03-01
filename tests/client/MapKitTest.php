@@ -1,6 +1,7 @@
 <?php
 namespace Tests\client;
 
+use HMS\MapKit\Coordinate;
 use HMS\MapKit\MapKit;
 use JetBrains\PhpStorm\ArrayShape;
 use Tests\BaseTestCase;
@@ -14,27 +15,33 @@ class MapKitTest extends BaseTestCase {
 
     private static MapKit|null $client;
 
+    private static Coordinate $point_a;
+    private static Coordinate $point_b;
+
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {
 
         parent::setUpBeforeClass();
 
-        self::$api_key = getenv('HUAWEI_MAPKIT_API_KEY');
-        self::assertTrue( is_string(self::$api_key), self::ENV_VAR_MAPKIT_API_KEY );
-
-        // self::$signature_key = getenv('HUAWEI_MAPKIT_SIGNATURE_KEY');
-        // self::assertTrue( is_string(self::$signature_key),self::ENV_VAR_MAPKIT_SIGNATURE_KEY );
-
-        self::$client = new MapKit( [ 'api_key' => self::$api_key ] );
+        self::$client = new MapKit( self::get_config() );
         self::assertTrue( self::$client->is_ready(), self::CLIENT_NOT_READY );
+
+        // 48.14291,11.57934
+        self::$point_a = new Coordinate(['lat' => -4.66529, 'lng' => 54.216608]);
+        self::$point_b = new Coordinate(['lat' => -4.66552, 'lng' => 54.2166]);
     }
 
     /** Test: Directions */
     public function test_directions_api() {
+
         $endpoint = self::$client->getDirections();
         self::assertTrue( is_string($endpoint->getWalkingUrl()) );
         self::assertTrue( is_string($endpoint->getCyclingUrl()) );
         self::assertTrue( is_string($endpoint->getDrivingUrl()) );
+
+        $result_a = $endpoint->getWalkingDirections(self::$point_a, self::$point_b);
+        $result_b = $endpoint->getCyclingDirections(self::$point_a, self::$point_b);
+        $result_c = $endpoint->getDrivingDirections(self::$point_a, self::$point_b);
     }
 
     /** Test: Distance Matrix */

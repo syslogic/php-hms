@@ -25,16 +25,30 @@ class PushKit extends Wrapper {
     /** Constructor. */
     public function __construct( array|string $config ) {
         parent::__construct( $config );
-        $app_id = $config['client_id']; /* The oAuth2 `client_id` actually is the `app_id`. */
-        $this->url_message_send      = str_replace('{appId}', $app_id, Constants::PUSHKIT_MESSAGE_SEND);
-        $this->url_topics_list       = str_replace('{appId}', $app_id, Constants::PUSHKIT_TOPICS_LIST);
-        $this->url_topic_subscribe   = str_replace('{appId}', $app_id, Constants::PUSHKIT_TOPIC_SUBSCRIBE);
-        $this->url_topic_unsubscribe = str_replace('{appId}', $app_id, Constants::PUSHKIT_TOPIC_UNSUBSCRIBE);
-        $this->url_token_data_query  = str_replace('{appId}', $app_id, Constants::PUSHKIT_TOKEN_DATA_QUERY);
-        $this->url_token_data_delete = str_replace('{appId}', $app_id, Constants::PUSHKIT_TOKEN_DATA_DELETE);
+
+        /* from oauth2 secret */
+        if (sizeof($config) == 2 ) {
+            if (isset($config['client_id'])) {
+                /* The oAuth2 `client_id` actually is the `app_id`. */
+                $this->app_id = $config['client_id'];
+            } else if (isset($config['app_id'])) {
+                $this->app_id = $config['app_id'];
+            }
+            if (isset($config['client_secret'])) {
+                /* The oAuth2 `client_secret` actually is the `app_secret`. */
+                $this->app_secret = $config['client_secret'];
+            }
+        }
+
+        $this->url_message_send      = str_replace('{appId}', $this->app_id, Constants::PUSHKIT_MESSAGE_SEND);
+        $this->url_topics_list       = str_replace('{appId}', $this->app_id, Constants::PUSHKIT_TOPICS_LIST);
+        $this->url_topic_subscribe   = str_replace('{appId}', $this->app_id, Constants::PUSHKIT_TOPIC_SUBSCRIBE);
+        $this->url_topic_unsubscribe = str_replace('{appId}', $this->app_id, Constants::PUSHKIT_TOPIC_UNSUBSCRIBE);
+        $this->url_token_data_query  = str_replace('{appId}', $this->app_id, Constants::PUSHKIT_TOKEN_DATA_QUERY);
+        $this->url_token_data_delete = str_replace('{appId}', $this->app_id, Constants::PUSHKIT_TOKEN_DATA_DELETE);
 
         /* Obtain an access-token. */
-        $account_kit = new AccountKit(['client_id' => $this->app_id, 'client_secret' => $this->app_secret]);
+        $account_kit = new AccountKit( ['app_id' => $this->app_id, 'app_secret' => $this->app_secret] );
         $this->access_token = $account_kit->get_access_token();
     }
 

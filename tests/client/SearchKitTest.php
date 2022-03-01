@@ -16,7 +16,7 @@ class SearchKitTest extends BaseTestCase {
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {
         parent::setUpBeforeClass();
-        self::$client = new SearchKit( self::get_secret() );
+        self::$client = new SearchKit( self::get_config() );
         self::assertTrue( self::$client->is_ready(), self::CLIENT_NOT_READY );
     }
 

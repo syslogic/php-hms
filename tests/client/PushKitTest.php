@@ -18,7 +18,6 @@ use HMS\PushKit\WebPush\Headers;
 use HMS\PushKit\WebPush\WebAction;
 use HMS\PushKit\WebPush\WebNotification;
 use HMS\PushKit\WebPush\WebPushConfig;
-use stdClass;
 use Tests\BaseTestCase;
 
 /**
@@ -41,7 +40,7 @@ class PushKitTest extends BaseTestCase {
 
         parent::setUpBeforeClass();
 
-        self::$client = new PushKit( self::get_secret() );
+        self::$client = new PushKit( self::get_config() );
 
         self::$test_topic         = 'TopicA';
         self::$test_condition     = "'TopicA' in topics && ('TopicB' in topics || 'TopicC' in topics)";

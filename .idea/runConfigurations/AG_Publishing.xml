@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="AppGallery Publishing" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
+  <configuration default="false" name="AG Publishing" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
     <CommandLine>
       <envs>
         <env name="XDEBUG_MODE" value="debug" />

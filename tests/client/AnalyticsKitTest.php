@@ -21,20 +21,11 @@ class AnalyticsKitTest extends BaseTestCase {
 
         parent::setUpBeforeClass();
 
-        self::$product_id = getenv('HUAWEI_ANALYTICS_KIT_PRODUCT_ID');
-        self::assertTrue( is_int(self::$product_id), self::ENV_VAR_ANALYTICS_KIT_PRODUCT_ID );
+        self::$product_id = getenv('HUAWEI_CONNECT_PRODUCT_ID');
+        self::assertTrue( is_int(self::$product_id), self::ENV_VAR_CONNECT_PRODUCT_ID );
 
-        self::$client = new AnalyticsKit( self::get_secret() );
+        self::$client = new AnalyticsKit( self::get_config() );
         self::assertTrue( self::$client->is_ready(), self::CLIENT_NOT_READY );
-    }
-
-    #[ArrayShape(['client_id' => 'int', 'client_secret' => "string", 'product_id' => 'int'])]
-    protected static function get_secret(): array {
-        return [
-            'client_id'     => self::$app_id,
-            'client_secret' => self::$app_secret,
-            'product_id'    => self::$product_id
-        ];
     }
 
     /** Test: Exporting Personal Data. */

@@ -3,31 +3,49 @@ namespace HMS\Core;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
+use JetBrains\PhpStorm\ArrayShape;
+use Psr\Http\Message\ResponseInterface;
 use stdClass;
 
 /**
  * Class HMS Core Wrapper
- * TODO: Migrate from cURL to GuzzleHttp, in order not to depend on ext-curl.
  *
+ * @property int $client_id AGC client ID.
+ * @property string|null $client_secret AGC client secret.
+ * @property int $app_id OAuth2 client ID.
+ * @property string|null $app_secret OAuth2 client secret
+ * @property string|null $access_token OAuth2 (app) access token.
+ * @property string|null $refresh_token OAuth2 refresh token.
+ * @property int $token_expiry OAuth2 access token expiry.
+ * @property string|null $api_key MapKit API key.
+ * @property string|null $signature_key MapKit Static API signature key.
+ * @property string|null $package_name AnalyticsKit related; for PushKit click_action?
+ * @property int $product_id AnalyticsKit related.
+ * @property int $project_id AnalyticsKit related.
+ * @property int $agc_client_id  AGC API client ID.
+ * @property string|null $agc_client_secret AGC API client secret.
+ * @property ResponseInterface $response Default Response.
+ * @property stdClass $result Default Result.
  * @author Martin Zeitler
  */
 class Wrapper {
 
-    /** oAuth2 Token related. */
-    protected string|null $access_token = null;
-
-    /** Default Result. */
-    protected stdClass $result;
-
-    /** These would also be available through Core\Config. */
-    private string|null $client_secret = null;
-    protected string|null $app_secret = null;
-    protected string|null $package_name = null;
-    protected string|null $api_key = null;
-    protected int $project_id = 0;
-    protected int $product_id = 0;
     protected int $client_id = 0;
+    protected string|null $client_secret = null;
     protected int $app_id = 0;
+    protected string|null $app_secret = null;
+    protected string|null $api_key = null;
+    protected static string|null $signature_key = null;
+    protected string|null $access_token = null;
+    protected string|null $refresh_token = null;
+    protected int $token_expiry = 0;
+    protected string|null $package_name = null;
+    protected int $product_id = 0;
+    protected int $project_id = 0;
+    protected int $agc_client_id = 0;
+    protected string|null $agc_client_secret = null;
+    private ResponseInterface $response;
+    protected stdClass $result;
 
     /** Constructor. */
     public function __construct( array|null $config = null ) {
@@ -43,35 +61,56 @@ class Wrapper {
         }
     }
 
-    /** Try to initialize the OAuth2 or API client from array. */
+    /** Try to initialize the client from array. */
     private function init_by_array( array $config ) {
-        if ( isset( $config['client_id'] ) ) {
-            $this->app_id = (int) $config['client_id'];
+        if ( isset( $config['app_id'] ) ) {
+            $this->app_id = (int) $config['app_id'];
         }
-        if ( isset( $config['client_secret'] ) ) {
-            $this->app_secret = (string) $config['client_secret'];
+        if ( isset( $config['app_secret'] ) ) {
+            $this->app_secret = (string) $config['app_secret'];
+        }
+        if ( isset( $config['agc_client_id'] ) ) {
+            $this->agc_client_id = (int) $config['agc_client_id'];
+        }
+        if ( isset( $config['agc_client_secret'] ) ) {
+            $this->agc_client_secret = (string) $config['agc_client_secret'];
         }
         if ( isset( $config['api_key'] ) ) {
             $this->api_key = (string) $config['api_key'];
         }
+        if ( isset($config['product_id']) && is_int($config['product_id'])) {
+            $this->product_id = $config['product_id'];
+        }
     }
 
-    /** Try to initialize the OAuth2 or API client from environmental variables. */
+    /** Try to initialize the client from environment. */
     private function init_by_environment() {
-        if ( is_string( getenv('HUAWEI_APP_ID' ) ) ) {
-            $this->app_id = (int) getenv( 'HUAWEI_APP_ID' );
+        if ( is_string( getenv('HUAWEI_OAUTH2_CLIENT_ID' ) ) ) {
+            $this->app_id = (int) getenv( 'HUAWEI_OAUTH2_CLIENT_ID' );
         }
-        if ( is_string( getenv('HUAWEI_APP_SECRET' ) ) ) {
-            $this->app_secret = (string) getenv( 'HUAWEI_APP_SECRET' );
+        if ( is_string( getenv('HUAWEI_OAUTH2_CLIENT_SECRET' ) ) ) {
+            $this->app_secret = (string) getenv( 'HUAWEI_OAUTH2_CLIENT_SECRET' );
+        }
+        if ( is_string( getenv('HUAWEI_CONNECT_API_CLIENT_ID' ) ) ) {
+            $this->agc_client_id = (int) getenv( 'HUAWEI_CONNECT_API_CLIENT_ID' );
+        }
+        if ( is_string( getenv('HUAWEI_CONNECT_API_CLIENT_SECRET' ) ) ) {
+            $this->agc_client_secret = (string) getenv( 'HUAWEI_CONNECT_API_CLIENT_SECRET' );
         }
         if ( is_string( getenv('HUAWEI_MAPKIT_API_KEY' ) ) ) {
             $this->api_key = (string) getenv( 'HUAWEI_MAPKIT_API_KEY' );
+        }
+        if ( is_string( getenv('HUAWEI_CONNECT_PRODUCT_ID' ) ) ) {
+            $this->product_id = (int) getenv( 'HUAWEI_CONNECT_PRODUCT_ID' );
         }
     }
 
     /** Provide HTTP request headers as array. */
     protected function auth_header(): array {
-        return [ "Content-Type: application/json", "Authorization: Bearer $this->access_token" ];
+        return [
+            "Content-Type: application/json",
+            "Authorization: Bearer $this->access_token"
+        ];
     }
 
     /** The expiry doesn't matter as this token is always being fetched */
@@ -129,44 +168,33 @@ class Wrapper {
     }
 
     /** Perform GuzzleHttp request. */
-    protected function guzzle_request(string $method='POST', string $url=null, array $headers=[], array $post_fields=[], bool $build_query_string=true ): stdClass|bool {
+    protected function guzzle_request(string $method='POST', string $url=null, array $headers=[], array $post_fields=[] ): stdClass|bool {
         $client = new Client( [ 'allow_redirects' => true, 'cookies' => true ] );
-        $data = new stdClass();
         try {
             switch( $method ) {
 
                 case 'GET':
-                    $response = $client->get( $url, [
+                    $this->response = $client->get( $url, [
                         'headers' => $headers
                     ] );
                     break;
 
                 case 'POST':
-                    $response = $client->post( $url, [
+                    $this->response = $client->post( $url, [
                         'headers' => $headers,
-                        'multipart' => $this->to_multipart( $post_fields )
+                        'json' => $post_fields
                     ] );
-
                     break;
             }
-            if ($response->getStatusCode() == 200) {
-                $body = $response->getBody();
-                $data = json_decode( $body );
+            if ($this->response->getStatusCode() == 200) {
+                $body = $this->response->getBody();
+                $this->result = json_decode( $body );
             }
         } catch (GuzzleException $e) {
-
+            die($e->getMessage());
         }
 
-        return $this->sanitize( $data );
-    }
-
-    /** Converting $post_fields array to $multipart array. */
-    private function to_multipart( array $post_fields ): array {
-        $multipart = [];
-        foreach ($post_fields as $key => $value) {
-            $multipart[ $key ] = [ 'name' => $key, 'contents' => $value ];
-        }
-        return $multipart;
+        return $this->sanitize( $this->result );
     }
 
     /** Different kinds of field descriptors may be returned ... */

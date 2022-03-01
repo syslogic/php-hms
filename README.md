@@ -30,9 +30,23 @@ The trademarks are being referenced for identification purposes only, in terms o
 
 This library depends on the following environmental variables:
 
+#### AppGallery Connect API:
+
+- `HUAWEI_CONNECT_API_CLIENT_ID`<br/>
+  The client ID can be obtained on the [console](https://developer.huawei.com/consumer/en/service/josp/agc/index.html) <br/>below `Users and permissions` > `API key` > `Connect API`.
+
+- `HUAWEI_CONNECT_API_CLIENT_SECRET`<br/>
+  The client key can be obtained on the [console](https://developer.huawei.com/consumer/en/service/josp/agc/index.html) <br/>below `Users and permissions` > `API key` > `Connect API`.
+
+#### MapKit API:
+
+- `HUAWEI_MAPKIT_API_KEY`<br/>
+
+- `HUAWEI_MAPKIT_SIGNATURE_KEY`<br/>
+
 #### PushKit API Client
-- `HUAWEI_APP_ID` The "App ID" is being passed as the Oauth2 `client_id`.
-- `HUAWEI_APP_SECRET` The "App Secret" is being passed as the Oauth2 `client_secret`.
+- `HUAWEI_OAUTH2_CLIENT_ID` The "App ID" is being passed as the Oauth2 `client_id`.
+- `HUAWEI_OAUTH2_CLIENT_SECRET` The "App Secret" is being passed as the Oauth2 `client_secret`.
 
 Please refer to the documentation, which explains how to obtain these values: <br/>[Viewing App Basic Information](https://developer.huawei.com/consumer/en/doc/distribution/app/agc-help-appinfo-0000001100014694).
 
@@ -43,22 +57,7 @@ Please refer to the documentation, which explains how to obtain these values: <b
 
 #### AnalyticsKit API:
 
-- `HUAWEI_ANALYTICS_KIT_PRODUCT_ID`
-
-#### AppGallery Connect API:
-
- - `HUAWEI_CONNECT_API_CLIENT_ID`<br/>
-    The client ID for the REST API client can be obtained on the [console](https://developer.huawei.com/consumer/en/service/josp/agc/index.html) <br/>below `Users and permissions` > `API key` > `Connect API`.
- 
- - `HUAWEI_CONNECT_API_CLIENT_KEY`<br/>
-   The client key for the REST API client can be obtained on the [console](https://developer.huawei.com/consumer/en/service/josp/agc/index.html) <br/>below `Users and permissions` > `API key` > `Connect API`.
-
-#### MapKit API:
-
-- `HUAWEI_MAPKIT_API_KEY`<br/>
-  
-- `HUAWEI_MAPKIT_SIGNATURE_KEY`<br/>
-  
+- `HUAWEI_CONNECT_PRODUCT_ID`  
 
 <details>
 <summary>Installation</summary>
@@ -86,8 +85,11 @@ To set up the environment, for example `nano ~/.bashrc`:
 
 ````bash
 # PHP SDK for Huawei REST API
-export HUAWEI_APP_ID=...
-export HUAWEI_APP_SECRET=...
+export HUAWEI_OAUTH2_CLIENT_ID=...
+export HUAWEI_OAUTH2_CLIENT_SECRET=...
+export HUAWEI_CONNECT_API_CLIENT_ID=...
+export HUAWEI_CONNECT_API_CLIENT_SECRET=...
+export HUAWEI_CONNECT_PRODUCT_ID=...
 export HUAWEI_HMAC_VERIFICATION_KEY=...
 export HUAWEI_MAPKIT_API_KEY=...
 ````

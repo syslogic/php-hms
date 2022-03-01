@@ -2,22 +2,24 @@
 namespace HMS\MapKit\Matrix;
 
 use HMS\MapKit\Constants;
+use HMS\MapKit\MapKit;
 
 /**
  * Class HMS MapKit Matrix API
  *
  * @author Martin Zeitler
  */
-class Matrix {
+class Matrix extends MapKit {
 
     private string $url_walking;
     private string $url_cycling;
     private string $url_driving;
 
-    public function __construct( string $api_key ) {
-        $this->setWalkingUrl(Constants::MAPKIT_BASE_URL . Constants::MAPKIT_WALKING_MATRIX_URL . $api_key);
-        $this->setCyclingUrl(Constants::MAPKIT_BASE_URL . Constants::MAPKIT_CYCLING_MATRIX_URL . $api_key);
-        $this->setDrivingUrl(Constants::MAPKIT_BASE_URL . Constants::MAPKIT_DRIVING_MATRIX_URL . $api_key);
+    public function __construct( array $config ) {
+        parent::__construct( $config );
+        $this->setWalkingUrl(Constants::MAPKIT_BASE_URL . Constants::MAPKIT_WALKING_MATRIX_URL . $config['api_key']);
+        $this->setCyclingUrl(Constants::MAPKIT_BASE_URL . Constants::MAPKIT_CYCLING_MATRIX_URL . $config['api_key']);
+        $this->setDrivingUrl(Constants::MAPKIT_BASE_URL . Constants::MAPKIT_DRIVING_MATRIX_URL . $config['api_key']);
     }
 
     private function setWalkingUrl(string $value): void {

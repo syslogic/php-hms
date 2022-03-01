@@ -3,6 +3,7 @@ namespace HMS\AdsKit;
 
 use HMS\AccountKit\AccountKit;
 use HMS\Core\Wrapper;
+use JetBrains\PhpStorm\ArrayShape;
 
 /**
  * Class HMS AdsKit Wrapper
@@ -15,7 +16,7 @@ class AdsKit extends Wrapper {
         parent::__construct( $config );
 
         /* Obtain an access-token. */
-        $account_kit = new AccountKit(['client_id' => $this->app_id, 'client_secret' => $this->app_secret]);
+        $account_kit = new AccountKit( $config );
         $this->access_token = $account_kit->get_access_token();
     }
 }
