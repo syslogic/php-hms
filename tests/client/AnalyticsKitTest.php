@@ -21,9 +21,6 @@ class AnalyticsKitTest extends BaseTestCase {
 
         parent::setUpBeforeClass();
 
-        self::$product_id = getenv('HUAWEI_CONNECT_PRODUCT_ID');
-        self::assertTrue( is_int(self::$product_id), self::ENV_VAR_CONNECT_PRODUCT_ID );
-
         self::$client = new AnalyticsKit( self::get_config() );
         self::assertTrue( self::$client->is_ready(), self::CLIENT_NOT_READY );
     }

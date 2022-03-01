@@ -44,11 +44,15 @@ class Wrapper {
     protected int $project_id = 0;
     protected int $agc_client_id = 0;
     protected string|null $agc_client_secret = null;
-    private ResponseInterface $response;
+
+    protected Client $client;
+    protected ResponseInterface $response;
     protected stdClass $result;
 
     /** Constructor. */
     public function __construct( array|null $config = null ) {
+        $this->client = new Client( [ 'allow_redirects' => true, 'cookies' => true ] );
+        $this->result = new stdClass();
         $this->init( $config );
     }
 
@@ -59,6 +63,11 @@ class Wrapper {
         } else {
             $this->init_by_environment();
         }
+    }
+
+    /** The expiry doesn't matter as this token is always being fetched */
+    public function is_ready(): bool {
+        return $this->access_token != null;
     }
 
     /** Try to initialize the client from array. */
@@ -106,94 +115,62 @@ class Wrapper {
     }
 
     /** Provide HTTP request headers as array. */
+    #[ArrayShape(['Content-Type' => 'string', 'Authorization' => 'string'])]
     protected function auth_header(): array {
         return [
-            "Content-Type: application/json",
-            "Authorization: Bearer $this->access_token"
+            'Content-Type' => 'application/json; charset=utf-8',
+            'Authorization' => ' Bearer ' . $this->access_token
         ];
     }
 
-    /** The expiry doesn't matter as this token is always being fetched */
-    public function is_ready(): bool {
-        return $this->access_token != null;
-    }
-
-    /** Perform cURL request. */
-    protected function curl_request(string $method='POST', string $url=null, array $headers=[], array|object $post_fields=[], bool $build_query_string=true ): stdClass|bool {
-
-        $curl = curl_init( $url );
-
-        /* Apply headers. */
-        if ( sizeof($headers) > 0) {
-            curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
-        }
-
-        /* Apply JSON request-body. */
-        if ( in_array($method, ['POST', 'PUT']) ) {
-
-            if ( is_array( $post_fields ) && sizeof($post_fields) > 0) {
-                if ( isset($post_fields['grant_type']) && $build_query_string ) {
-                    $post_fields = http_build_query($post_fields);  /* It's a token request. */
-                } else {
-                    $post_fields = json_encode((object) $post_fields); /* Post request incl. token as JSON request-body. */
-                }
-            } else if ( is_object($post_fields) ) {
-                $post_fields = json_encode($post_fields);
-            }
-
-            curl_setopt($curl, CURLOPT_POSTFIELDS, $post_fields);
-            curl_setopt($curl, CURLOPT_POST, 1);
-        }
-
-        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 0);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 5);
-        curl_setopt($curl, CURLOPT_TIMEOUT,        5);
-
-        $body = curl_exec( $curl );
-        $info = curl_getinfo( $curl );
-        curl_close($curl);
-
-        if ($body === false) {
-            return false;
-        }
-        if ($body === '' && $info['http_code'] !== 200) {
-            return false;
-        }
-
-        $data = json_decode( $body );
-        return $this->sanitize( $data );
-    }
-
-    /** Perform GuzzleHttp request. */
-    protected function guzzle_request(string $method='POST', string $url=null, array $headers=[], array $post_fields=[] ): stdClass|bool {
-        $client = new Client( [ 'allow_redirects' => true, 'cookies' => true ] );
+    /** Perform GuzzleHttp POST request. */
+    protected function guzzle_post( string $url=null, array $headers=[], array|object $post_fields=[] ): stdClass|bool {
         try {
-            switch( $method ) {
-
-                case 'GET':
-                    $this->response = $client->get( $url, [
-                        'headers' => $headers
-                    ] );
-                    break;
-
-                case 'POST':
-                    $this->response = $client->post( $url, [
-                        'headers' => $headers,
-                        'json' => $post_fields
-                    ] );
-                    break;
-            }
+            $this->response = $this->client->post( $url, [
+                'headers' => $headers,
+                'json' => $post_fields
+            ] );
             if ($this->response->getStatusCode() == 200) {
-                $body = $this->response->getBody();
-                $this->result = json_decode( $body );
+                $this->result = json_decode( $this->response->getBody() );
             }
         } catch (GuzzleException $e) {
-            die($e->getMessage());
+            $this->result->code = $e->getCode();
+            $this->result->message = $e->getMessage();
         }
+        return $this->sanitize( $this->result );
+    }
 
+    /** Perform GuzzleHttp POST request. */
+    protected function guzzle_urlencoded( string $url=null, array $headers=[], array $form_params=[] ): stdClass|bool {
+        try {
+            $this->response = $this->client->post( $url, [
+                'headers' => $headers,
+                'form_params' => $form_params
+            ] );
+            if ($this->response->getStatusCode() == 200) {
+                $this->result = json_decode( $this->response->getBody() );
+            }
+        } catch (GuzzleException $e) {
+            $this->result->code = $e->getCode();
+            $this->result->message = $e->getMessage();
+        }
+        return $this->sanitize( $this->result );
+    }
+
+    /** Perform GuzzleHttp GET request. */
+    protected function guzzle_get( string $url=null, array $headers=[], array $query=[] ): stdClass|bool {
+        try {
+            $this->response = $this->client->get( $url, [
+                'headers' => $headers,
+                'query' => $query
+            ] );
+            if ($this->response->getStatusCode() == 200) {
+                $this->result = json_decode( $this->response->getBody() );
+            }
+        } catch (GuzzleException $e) {
+            $this->result->code = $e->getCode();
+            $this->result->message = $e->getMessage();
+        }
         return $this->sanitize( $this->result );
     }
 

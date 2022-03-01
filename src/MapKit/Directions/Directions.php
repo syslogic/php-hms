@@ -51,7 +51,7 @@ class Directions extends MapKit {
     }
 
     public function getWalkingDirections(Coordinate $point_a, Coordinate $point_b): bool|stdClass {
-        return $this->guzzle_request('POST', $this->getWalkingUrl(), [
+        return $this->guzzle_post($this->getWalkingUrl(), [
             'Content-Type' => 'application/json; charset=utf-8'
         ], [
             'origin' => $point_a->asObject(),
@@ -61,7 +61,7 @@ class Directions extends MapKit {
     }
 
     public function getCyclingDirections(Coordinate $point_a, Coordinate $point_b): bool|stdClass {
-        return $this->guzzle_request('POST', $this->getCyclingUrl(), [
+        return $this->guzzle_post($this->getCyclingUrl(), [
             'Content-Type' => 'application/json; charset=utf-8'
         ], [
             'origin' => $point_a->asObject(),
@@ -71,7 +71,7 @@ class Directions extends MapKit {
     }
 
     public function getDrivingDirections(Coordinate $point_a, Coordinate $point_b): bool|stdClass {
-        return $this->guzzle_request('POST', $this->getDrivingUrl(), [
+        return $this->guzzle_post($this->getDrivingUrl(), [
             'Content-Type' => 'application/json; charset=utf-8'
         ], [
             'origin' => $point_a->asObject(),

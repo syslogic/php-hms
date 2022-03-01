@@ -3,7 +3,6 @@ namespace Tests\client;
 
 use HMS\MapKit\Coordinate;
 use HMS\MapKit\MapKit;
-use JetBrains\PhpStorm\ArrayShape;
 use Tests\BaseTestCase;
 
 /**
@@ -34,14 +33,21 @@ class MapKitTest extends BaseTestCase {
     /** Test: Directions */
     public function test_directions_api() {
 
+        /* Walking */
         $endpoint = self::$client->getDirections();
         self::assertTrue( is_string($endpoint->getWalkingUrl()) );
-        self::assertTrue( is_string($endpoint->getCyclingUrl()) );
-        self::assertTrue( is_string($endpoint->getDrivingUrl()) );
+        $result = $endpoint->getWalkingDirections(self::$point_a, self::$point_b);
+        self::assertTrue( $result->code != 403, $result->message );
 
-        $result_a = $endpoint->getWalkingDirections(self::$point_a, self::$point_b);
-        $result_b = $endpoint->getCyclingDirections(self::$point_a, self::$point_b);
-        $result_c = $endpoint->getDrivingDirections(self::$point_a, self::$point_b);
+        /* Cycling */
+        self::assertTrue( is_string($endpoint->getCyclingUrl()) );
+        $result = $endpoint->getCyclingDirections(self::$point_a, self::$point_b);
+        self::assertTrue( $result->code != 403, $result->message );
+
+        /* Driving */
+        self::assertTrue( is_string($endpoint->getDrivingUrl()) );
+        $result = $endpoint->getDrivingDirections(self::$point_a, self::$point_b);
+        self::assertTrue( $result->code != 403, $result->message );
     }
 
     /** Test: Distance Matrix */

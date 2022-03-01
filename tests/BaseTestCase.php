@@ -26,12 +26,12 @@ abstract class BaseTestCase extends TestCase {
     protected static int $cp_id = 0;
 
     /** AppGallery Connect Gateway URL */
-    protected static string|null $agc_gateway        = 'https://connect-drcn.dbankcloud.cn/';
+    protected static string|null $agc_gateway         = 'https://connect-drcn.dbankcloud.cn/';
     private const ENV_VAR_OAUTH2_CLIENT_ID            = 'Variable HUAWEI_OAUTH2_CLIENT_ID is not set.';
     private const ENV_VAR_OAUTH2_CLIENT_SECRET        = 'Variable HUAWEI_OAUTH2_CLIENT_SECRET is not set.';
-    protected const ENV_VAR_CONNECT_PRODUCT_ID        = 'Variable HUAWEI_CONNECT_PRODUCT_ID is not set.';
     protected const ENV_VAR_CONNECT_API_CLIENT_ID     = 'Variable HUAWEI_CONNECT_API_CLIENT_ID is not set.';
     protected const ENV_VAR_CONNECT_API_CLIENT_SECRET = 'Variable HUAWEI_CONNECT_API_CLIENT_SECRET is not set.';
+    protected const ENV_VAR_CONNECT_PRODUCT_ID        = 'Variable HUAWEI_CONNECT_PRODUCT_ID is not set.';
     protected const ENV_VAR_MAPKIT_API_KEY            = 'Variable HUAWEI_MAPKIT_API_KEY is not set.';
     protected const ENV_VAR_HCM_TEST_DEVICE_TOKEN     = 'Variable PHPUNIT_HCM_TEST_DEVICE_TOKEN is not set.';
     protected const CLIENT_NOT_READY                  = 'The API client is not ready.';
@@ -53,12 +53,16 @@ abstract class BaseTestCase extends TestCase {
 
         self::$agc_client_secret = getenv('HUAWEI_CONNECT_API_CLIENT_SECRET');
         self::assertNotEmpty( self::$agc_client_secret, self::ENV_VAR_CONNECT_API_CLIENT_SECRET );
+
+        self::$product_id = getenv('HUAWEI_CONNECT_PRODUCT_ID');
+        self::assertTrue( is_int(self::$product_id) && self::$product_id > 0, self::ENV_VAR_CONNECT_PRODUCT_ID );
     }
 
     /** It provides the configuration array. */
     #[ArrayShape([
         'agc_client_id'     => 'integer',
         'agc_client_secret' => 'string',
+        'product_id'        => 'integer',
         'app_id'            => 'integer',
         'app_secret'        => 'string',
         'api_key'           => 'string'
@@ -67,6 +71,7 @@ abstract class BaseTestCase extends TestCase {
         return [
             'agc_client_id'     => self::$agc_client_id,
             'agc_client_secret' => self::$agc_client_secret,
+            'product_id'        => self::$product_id,
             'app_id'            => self::$app_id,
             'app_secret'        => self::$app_secret,
             'api_key'           => self::$api_key

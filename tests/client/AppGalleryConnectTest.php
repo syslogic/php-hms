@@ -4,8 +4,6 @@ namespace Tests\client;
 use HMS\AppGallery\Connect\AuthService;
 use HMS\AppGallery\Connect\Connect;
 use HMS\AppGallery\Connect\ImportUser;
-use HMS\AppGallery\Connect\ResultCodes;
-use JetBrains\PhpStorm\ArrayShape;
 use Tests\BaseTestCase;
 
 /**

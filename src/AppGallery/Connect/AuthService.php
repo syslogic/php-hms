@@ -39,8 +39,8 @@ class AuthService extends Wrapper {
      * @see <a href="https://developer.huawei.com/consumer/de/doc/development/AppGallery-connect-References/server-rest-import-0000001136020892">Importing Users</a>
      */
     public function import_users( array $users ) {
-        $payload =['users' => $users];
-        return $this->curl_request('POST', $this->url_user_import, $this->auth_header(), $payload, false);
+        $payload = ['users' => $users];
+        return $this->guzzle_post($this->url_user_import, $this->auth_header(), $payload);
     }
 
     /**
@@ -49,8 +49,8 @@ class AuthService extends Wrapper {
      * @see <a href="https://developer.huawei.com/consumer/de/doc/development/AppGallery-connect-References/server-rest-import-0000001136020892">Exporting Users</a>
      */
     public function export_users() {
-        $payload =[];
-        return $this->curl_request('POST', $this->url_user_export, $this->auth_header(), $payload, false);
+        $payload = [];
+        return $this->guzzle_post($this->url_user_export, $this->auth_header(), $payload);
     }
 
     /**
@@ -59,8 +59,8 @@ class AuthService extends Wrapper {
      * @see <a href="https://developer.huawei.com/consumer/de/doc/development/AppGallery-connect-References/server-rest-verify-0000001182300271">Authenticating a User's Access Token</a>
      */
     public function verify_access_token() {
-        $payload =[];
-        return $this->curl_request('GET', $this->url_token_verify, $this->auth_header(), $payload, false);
+        $payload = [];
+        return $this->guzzle_post($this->url_token_verify, $this->auth_header(), $payload);
     }
 
     /**
@@ -69,7 +69,7 @@ class AuthService extends Wrapper {
      * @see <a href="https://developer.huawei.com/consumer/de/doc/development/AppGallery-connect-References/server-rest-revoke-0000001182420193">Authenticating a User's Access Token</a>
      */
     public function revoke_access_token() {
-        $payload =[];
-        return $this->curl_request('POST', $this->url_token_revoke, $this->auth_header(), $payload, false);
+        $payload = [];
+        return $this->guzzle_post($this->url_token_revoke, $this->auth_header(), $payload, false);
     }
 }

@@ -18,7 +18,7 @@ class AccountKitTest extends BaseTestCase {
     private static AccountKit|null $client;
     private static string|null $app_access_token;
     private static string|null $user_access_token;
-    private static string|null $id_token = '...';
+    private static string|null $id_token = '';
 
     private const PARSE_ACCESS_TOKEN = 'PARSE_ACCESS_TOKEN has failed.';
     private const VERIFY_ID_TOKEN    = 'VERIFY_ID_TOKEN has failed.';
