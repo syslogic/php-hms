@@ -128,22 +128,22 @@ class AccountKit extends Wrapper {
      * @return IdTokenInfo|null
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/account-verify-id-token_hms_reference-0000001050050577">Verifying an ID Token</a>
      */
-    public function verify_id_token( string|null $id_token ): IdTokenInfo|null {
+    public function verify_id_token( string|null $id_token ): IdTokenInfo|stdClass {
         $result = $this->guzzle_urlencoded($this->url_token_info, [
             'Content-Type: application/x-www-form-urlencoded;charset=utf-8',
             "Authorization: Bearer $this->access_token" // OK
         ], [
             'id_token' => $id_token
         ]);
-        if ( is_object( $result ) ) {
-            if ( property_exists( $result, 'error' ) && property_exists( $result, 'sub_error' )) {
-                die( 'oAuth2 Error '.$result->error.' / '.$result->sub_error.' -> '.$result->error_description );
-            } else if ( property_exists( $result, 'error' ) ) {
-                die( 'oAuth2 Error -> '.$result->error );
-            } else {
-                return new IdTokenInfo( $result );
-            }
+        if (! is_object( $result ) ) {return new stdClass();}
+        if ( property_exists( $result, 'error' ) && property_exists( $result, 'sub_error' )) {
+            // die( 'oAuth2 Error '.$result->error.' / '.$result->sub_error.' -> '.$result->error_description );
+            return $result;
+        } else if ( property_exists( $result, 'error' ) ) {
+            // die( 'oAuth2 Error -> '.$result->error );
+            return $result;
+        } else {
+            return new IdTokenInfo( $result );
         }
-        return null;
     }
 }

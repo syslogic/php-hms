@@ -19,8 +19,6 @@ class AccountKitTest extends BaseTestCase {
     private static string|null $id_token = '';
 
     private const PARSE_ACCESS_TOKEN = 'PARSE_ACCESS_TOKEN has failed.';
-    private const VERIFY_ID_TOKEN    = 'VERIFY_ID_TOKEN has failed.';
-    private const GET_USER_INFO      = 'GET_USER_INFO has failed.';
 
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {
@@ -60,6 +58,6 @@ class AccountKitTest extends BaseTestCase {
     /** TODO: Verify an ID Token. */
     public function test_verify_id_token() {
         $result = self::$client->verify_id_token( self::$id_token );
-        self::assertTrue( $result instanceof IdTokenInfo, self::VERIFY_ID_TOKEN );
+        self::assertTrue( $result instanceof IdTokenInfo, $result->error );
     }
 }
