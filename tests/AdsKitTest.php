@@ -1,8 +1,7 @@
 <?php
-namespace Tests\client;
+namespace Tests;
 
 use HMS\AdsKit\AdsKit;
-use Tests\BaseTestCase;
 
 /**
  * HMS AdsKit Test

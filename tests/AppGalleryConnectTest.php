@@ -1,10 +1,9 @@
 <?php
-namespace Tests\client;
+namespace Tests;
 
 use HMS\AppGallery\Connect\AuthService;
 use HMS\AppGallery\Connect\Connect;
 use HMS\AppGallery\Connect\ImportUser;
-use Tests\BaseTestCase;
 
 /**
  * HMS AppGallery AuthService Test
@@ -29,9 +28,15 @@ class AppGalleryConnectTest extends BaseTestCase {
     /** Test: Importing Users. */
     public function test_import_users() {
         $data = [
-            ImportUser::fromArray( ['importUid' => 'W4Z34934F34dH93265R96'] )->asArray(),
-            ImportUser::fromArray( ['importUid' => 'W4Z34934F34dH93265R97'] )->asArray(),
-            ImportUser::fromArray( ['importUid' => 'W4Z34934F34dH93265R98'] )->asArray()
+            ImportUser::fromArray( [
+                'importUid' => 'W4Z34934F34dH93265R91'
+            ] )->asArray(),
+            ImportUser::fromArray( [
+                'importUid' => 'W4Z34934F34dH93265R92'
+            ] )->asArray(),
+            ImportUser::fromArray( [
+                'importUid' => 'W4Z34934F34dH93265R93'
+            ] )->asArray()
         ];
 
         $result = self::$client->import_users( $data );

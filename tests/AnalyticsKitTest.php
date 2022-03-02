@@ -1,10 +1,8 @@
 <?php
-namespace Tests\client;
+namespace Tests;
 
 use HMS\AnalyticsKit\AnalyticsKit;
 use HMS\AnalyticsKit\ResultCodes;
-use JetBrains\PhpStorm\ArrayShape;
-use Tests\BaseTestCase;
 
 /**
  * HMS AnalyticsKit Test

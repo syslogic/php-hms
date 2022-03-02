@@ -5,7 +5,7 @@
         <env name="XDEBUG_MODE" value="debug" />
       </envs>
     </CommandLine>
-    <TestRunner class="Tests\client\AppGalleryConnectTest" configuration_file="$PROJECT_DIR$/phpunit.xml" file="$PROJECT_DIR$/tests/client/AppGalleryConnectTest.php" scope="Class" />
+    <TestRunner class="Tests\AppGalleryConnectTest" configuration_file="$PROJECT_DIR$/phpunit.xml" file="$PROJECT_DIR$/tests/AppGalleryConnectTest.php" scope="Class" />
     <method v="2" />
   </configuration>
 </component>

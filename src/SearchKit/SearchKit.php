@@ -32,7 +32,8 @@ class SearchKit extends Wrapper {
     /** Provide HTTP request headers as array. */
     protected function auth_header(): array {
         return [
-            "Content-Type: application/json", "Authorization: Bearer $this->access_token",
+            "Content-Type: application/json; charset=utf-8",
+            "Authorization: Bearer $this->access_token",
             "X-Kit-AppID: $this->app_id",
             "X-Kit-ClientIP: $this->client_ip",
             "X-Kit-RequestID: $this->request_id"

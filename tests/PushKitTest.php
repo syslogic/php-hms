@@ -1,5 +1,5 @@
 <?php
-namespace Tests\client;
+namespace Tests;
 
 use HMS\PushKit\Android\AndroidConfig;
 use HMS\PushKit\Android\AndroidNotification;
@@ -13,12 +13,13 @@ use HMS\PushKit\Notification;
 use HMS\PushKit\PushKit;
 use HMS\PushKit\QuickApp\QuickAppConfig;
 use HMS\PushKit\QuickApp\QuickAppNotification;
+use HMS\PushKit\ReceiptStatus;
 use HMS\PushKit\ResultCodes;
+use HMS\PushKit\UpstreamMessage;
 use HMS\PushKit\WebPush\Headers;
 use HMS\PushKit\WebPush\WebAction;
 use HMS\PushKit\WebPush\WebNotification;
 use HMS\PushKit\WebPush\WebPushConfig;
-use Tests\BaseTestCase;
 
 /**
  * HMS PushKit Test
@@ -35,6 +36,10 @@ class PushKitTest extends BaseTestCase {
     private static string|null $test_message_title = null;
     private static string|null $test_message_body  = null;
 
+    private static string|null $hmac_verification_key  = null;
+
+    private const ENV_VAR_HUAWEI_HMAC_VERIFICATION_KEY = 'Variable ENV_VAR_HUAWEI_HMAC_VERIFICATION_KEY is not set.';
+
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {
 
@@ -46,6 +51,9 @@ class PushKitTest extends BaseTestCase {
         self::$test_condition     = "'TopicA' in topics && ('TopicB' in topics || 'TopicC' in topics)";
         self::$test_message_title = 'Test Message from PHP ' . phpversion();
         self::$test_message_body  = 'Test Body';
+
+        self::assertTrue( getenv('HUAWEI_HMAC_VERIFICATION_KEY')  != false, self::ENV_VAR_HUAWEI_HMAC_VERIFICATION_KEY);
+        self::$hmac_verification_key = getenv('HUAWEI_HMAC_VERIFICATION_KEY');
 
         self::assertTrue( getenv('PHPUNIT_HCM_TEST_DEVICE_TOKEN')  != false, self::ENV_VAR_HCM_TEST_DEVICE_TOKEN);
         self::$test_token = getenv('PHPUNIT_HCM_TEST_DEVICE_TOKEN');
@@ -285,5 +293,29 @@ class PushKitTest extends BaseTestCase {
         ] );
         self::assertTrue( is_object($item->asObject()) );
         self::assertTrue( $item->validate() );
+    }
+
+    /** Test: Model UpstreamMessage. */
+    public function test_upstream_message() {
+
+        $item = new UpstreamMessage( self::$hmac_verification_key );
+        self::assertTrue( is_null( $item->getRawBody() ) );
+
+        $data_str = '{"key": "value"}';
+        $raw_body = '{"message_id": "1", "from": "'.self::$test_token.'", "category": "'.self::$package_name.'", "data": "'.base64_encode($data_str).'"}';
+        $signature = 'timestamp=1563105451261; nonce=:; value=E4YeOsnMtHZ6592U8B9S37238E+Hwtjfrmpf8AQXF+c=';
+
+        // TODO: instead test this with an actual upstream message $_POST.
+        // self::assertTrue( $item->hmac_verify( $raw_body, $secret_key, $signature ) );
+        self::assertFalse( $item->hmac_verify( $raw_body, $signature ) );
+    }
+
+    /** Test: Model ReceiptStatus. */
+    public function test_receipt_status() {
+        $item = new ReceiptStatus();
+        foreach ( [0, 2, 5, 6, 10, 15, 27, 102, 144, 201] as $receipt_status_code) {
+            $status_message = $item->get_receipt_state( $receipt_status_code );
+            self::assertTrue( !empty( $status_message ));
+        }
     }
 }

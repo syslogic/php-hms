@@ -51,13 +51,17 @@ class Wrapper {
 
     /** Constructor. */
     public function __construct( array|null $config = null ) {
-        $this->client = new Client( [ 'allow_redirects' => true, 'cookies' => true ] );
-        $this->result = new stdClass();
         $this->init( $config );
     }
 
-    /** Initialize the oAuth2 client; either by array or environmental variables. */
+    /** Initialize the client; either by array or by environmental variables. */
     private function init( array|null $config = null ): void {
+        $this->result = new stdClass();
+        $this->client = new Client( [
+            'verify' => ! $this->is_windows(),
+            'allow_redirects' => true,
+            'cookies' => true
+        ] );
         if ( is_array( $config ) ) {
             $this->init_by_array( $config );
         } else {
@@ -65,7 +69,15 @@ class Wrapper {
         }
     }
 
-    /** The expiry doesn't matter as this token is always being fetched */
+    /** Determine if running on Windows. */
+    private function is_windows(): bool {
+        return DIRECTORY_SEPARATOR === '\\';
+    }
+
+    /**
+     * Determine if an access token has already been fetched.
+     * Implementations may check for the presence of other values.
+     */
     public function is_ready(): bool {
         return $this->access_token != null;
     }

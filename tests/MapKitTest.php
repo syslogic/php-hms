@@ -1,9 +1,8 @@
 <?php
-namespace Tests\client;
+namespace Tests;
 
 use HMS\MapKit\Coordinate;
 use HMS\MapKit\MapKit;
-use Tests\BaseTestCase;
 
 /**
  * HMS MapKit Test

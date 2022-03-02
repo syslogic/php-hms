@@ -1,8 +1,7 @@
 <?php /** @noinspection PhpPropertyOnlyWrittenInspection */
-namespace Tests\client;
+namespace Tests;
 
 use HMS\Core\Wrapper;
-use Tests\BaseTestCase;
 
 /**
  * HMS Wrapper Test

@@ -1,8 +1,7 @@
 <?php
-namespace Tests\client;
+namespace Tests;
 
 use HMS\SearchKit\SearchKit;
-use Tests\BaseTestCase;
 
 /**
  * HMS SearchKit Test

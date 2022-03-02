@@ -33,7 +33,7 @@ class AccountKit extends Wrapper {
     }
 
     /**
-     * Obtaining Access Token
+     * Obtaining an Access Token.
      *
      * @return string|null
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/account-obtain-token_hms_reference-0000001050048618">Obtaining Access Token</a>

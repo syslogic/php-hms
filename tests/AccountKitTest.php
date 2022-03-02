@@ -1,12 +1,10 @@
 <?php
-namespace Tests\client;
+namespace Tests;
 
 use HMS\AccountKit\AccountKit;
 use HMS\AccountKit\IdTokenInfo;
 use HMS\AccountKit\TokenInfo;
 use HMS\AccountKit\UserInfo;
-use JetBrains\PhpStorm\ArrayShape;
-use Tests\BaseTestCase;
 
 /**
  * HMS AccountKit Test
@@ -56,7 +54,7 @@ class AccountKitTest extends BaseTestCase {
      */
     public function test_get_user_info() {
         $result = self::$client->get_user_info( self::$user_access_token );
-        self::assertTrue( $result instanceof UserInfo, self::GET_USER_INFO );
+        self::assertTrue( $result instanceof UserInfo, $result->error );
     }
 
     /** TODO: Verify an ID Token. */

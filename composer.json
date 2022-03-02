@@ -21,8 +21,7 @@
     "url": "https://www.paypal.me/syslogic"
   }],
   "scripts": {
-    "test": "vendor/bin/phpunit --bootstrap vendor/autoload.php --configuration phpunit.xml --testsuite client",
-    "test_server": "vendor/bin/phpunit --bootstrap vendor/autoload.php --configuration phpunit.xml --testsuite server",
+    "test": "vendor/bin/phpunit --bootstrap vendor/autoload.php --configuration phpunit.xml --testsuite main",
     "coverage": "export XDEBUG_MODE=coverage && vendor/bin/phpunit --bootstrap vendor/autoload.php --configuration coverage.xml --testsuite main"
   },
   "scripts-descriptions": {

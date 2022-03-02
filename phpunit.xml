@@ -8,11 +8,8 @@
         <server name="X-HW-TIMESTAMP" value="1563105451261"/>
     </php>
     <testsuites>
-        <testsuite name="client">
-            <directory suffix="Test.php">./tests/client</directory>
-        </testsuite>
-        <testsuite name="server">
-            <directory suffix="Test.php">./tests/server</directory>
+        <testsuite name="main">
+            <directory suffix="Test.php">./tests</directory>
         </testsuite>
     </testsuites>
     <logging/>

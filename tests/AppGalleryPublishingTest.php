@@ -1,13 +1,11 @@
 <?php
-namespace Tests\client;
+namespace Tests;
 
 use HMS\AppGallery\Connect\Connect;
-use HMS\AppGallery\Publishing\Publishing;
 use HMS\AppGallery\Publishing\AppInfo;
 use HMS\AppGallery\Publishing\AppLanguageInfo;
+use HMS\AppGallery\Publishing\Publishing;
 use InvalidArgumentException;
-use JetBrains\PhpStorm\ArrayShape;
-use Tests\BaseTestCase;
 
 /**
  * HMS AgConnect Publishing API Test

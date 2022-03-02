@@ -1,22 +1,21 @@
 <?php
-namespace Tests\client;
+namespace Tests;
 
-use HMS\GameService\GameService;
-use Tests\BaseTestCase;
+use HMS\WalletKit\WalletKit;
 
 /**
- * HMS GameService Test
+ * HMS WalletKit Test
  *
  * @author Martin Zeitler
  */
-class GameServiceTest extends BaseTestCase {
+class WalletKitTest extends BaseTestCase {
 
-    private static GameService|null $client;
+    private static WalletKit|null $client;
 
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {
         parent::setUpBeforeClass();
-        self::$client = new GameService( self::get_config() );
+        self::$client = new WalletKit( self::get_config() );
         self::assertTrue( self::$client->is_ready(), self::CLIENT_NOT_READY );
     }
 

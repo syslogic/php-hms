@@ -5,7 +5,7 @@
         <env name="XDEBUG_MODE" value="debug" />
       </envs>
     </CommandLine>
-    <TestRunner class="Tests\client\WalletKitTest" configuration_file="$PROJECT_DIR$/phpunit.xml" file="$PROJECT_DIR$/tests/client/WalletKitTest.php" scope="Class" />
+    <TestRunner class="Tests\WalletKitTest" configuration_file="$PROJECT_DIR$/phpunit.xml" file="$PROJECT_DIR$/tests/WalletKitTest.php" scope="Class" />
     <method v="2" />
   </configuration>
 </component>

@@ -1,9 +1,8 @@
 <?php
-namespace Tests\client;
+namespace Tests;
 
 use HMS\SmsService\SmsService;
 use JetBrains\PhpStorm\ArrayShape;
-use Tests\BaseTestCase;
 
 /**
  * HMS SmsService Test
