@@ -36,7 +36,8 @@ class Connect extends Wrapper {
         ]);
         if ( is_object( $result ) ) {
             if ( property_exists( $result, 'ret' ) && property_exists( $result->ret, 'code' )) {
-                die( 'oAuth2 Error '.$result->ret->code.' -> '.$result->ret->msg);
+                // die( 'oAuth2 Error '.$result->ret->code.' -> '.$result->ret->msg);
+                return $this->sanitize( $this->result );
             } else {
                 if ( property_exists( $result, 'access_token' ) ) {
                     $this->access_token = $result->access_token;

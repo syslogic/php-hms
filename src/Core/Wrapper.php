@@ -57,11 +57,7 @@ class Wrapper {
     /** Initialize the client; either by array or by environmental variables. */
     private function init( array|null $config = null ): void {
         $this->result = new stdClass();
-        $this->client = new Client( [
-            'verify' => ! $this->is_windows(),
-            'allow_redirects' => true,
-            'cookies' => true
-        ] );
+        $this->client = new Client( ['verify' => !$this->is_windows()] );
         if ( is_array( $config ) ) {
             $this->init_by_array( $config );
         } else {
@@ -187,7 +183,7 @@ class Wrapper {
     }
 
     /** Different kinds of field descriptors may be returned ... */
-    private function sanitize( object $data ): object {
+    protected function sanitize(object $data ): object {
 
         /** $data->code */
         if ( property_exists( $data, 'code') ) {

@@ -4,6 +4,7 @@ namespace Tests;
 use HMS\AppGallery\Connect\AuthService;
 use HMS\AppGallery\Connect\Connect;
 use HMS\AppGallery\Connect\ImportUser;
+use HMS\AppGallery\Connect\ResultCodes;
 
 /**
  * HMS AppGallery AuthService Test
@@ -20,9 +21,10 @@ class AppGalleryConnectTest extends BaseTestCase {
         parent::setUpBeforeClass();
 
         self::$connect = new Connect( self::get_config() );
-        if ( self::$connect->is_ready() ) {
-            self::$client = new AuthService( self::get_config() );
-        }
+        self::assertNotFalse( self::$connect->is_ready() );
+
+        self::$client = new AuthService( self::get_config() );
+        self::assertNotFalse( self::$client->is_ready() );
     }
 
     /** Test: Importing Users. */
@@ -40,8 +42,7 @@ class AppGalleryConnectTest extends BaseTestCase {
         ];
 
         $result = self::$client->import_users( $data );
-        // self::assertFalse($result->code === ResultCodes::AUTHENTICATION_FAILED_CLIENT_TOKEN );
-        self::assertNotFalse( $result );
+        self::assertFalse($result->code === ResultCodes::AUTHENTICATION_FAILED_CLIENT_TOKEN, $result->message );
     }
 
     /** Test: Exporting Users. */

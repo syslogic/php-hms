@@ -8,7 +8,7 @@ use HMS\Core\Wrapper;
  *
  * @author Martin Zeitler
  */
-class AuthService extends Wrapper {
+class AuthService extends Connect {
 
     private static Connect|null $connect;
 
