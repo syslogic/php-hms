@@ -36,17 +36,17 @@ class MapKitTest extends BaseTestCase {
         $endpoint = self::$client->getDirections();
         self::assertTrue( is_string($endpoint->getWalkingUrl()) );
         $result = $endpoint->getWalkingDirections(self::$point_a, self::$point_b);
-        self::assertTrue( $result->code != 403, $result->message );
+        self::assertFalse( in_array($result->code, [401, 403]), $result->message );
 
         /* Cycling */
         self::assertTrue( is_string($endpoint->getCyclingUrl()) );
         $result = $endpoint->getCyclingDirections(self::$point_a, self::$point_b);
-        self::assertTrue( $result->code != 403, $result->message );
+        self::assertFalse( in_array($result->code, [401, 403]), $result->message );
 
         /* Driving */
         self::assertTrue( is_string($endpoint->getDrivingUrl()) );
         $result = $endpoint->getDrivingDirections(self::$point_a, self::$point_b);
-        self::assertTrue( $result->code != 403, $result->message );
+        self::assertFalse( in_array($result->code, [401, 403]), $result->message );
     }
 
     /** Test: Distance Matrix */
