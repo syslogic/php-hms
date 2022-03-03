@@ -24,60 +24,77 @@ class MapKitTest extends BaseTestCase {
         self::$client = new MapKit( self::get_config() );
         self::assertTrue( self::$client->is_ready(), self::CLIENT_NOT_READY );
 
-        // 48.14291,11.57934
-        self::$point_a = new Coordinate(['lat' => -4.66529, 'lng' => 54.216608]);
-        self::$point_b = new Coordinate(['lat' => -4.66552, 'lng' => 54.2166]);
+        self::$point_a = new Coordinate(['lat' => 48.14291, 'lng' => 11.57934]);
+        self::$point_b = new Coordinate(['lat' => 48.14291, 'lng' => 11.57634]);
     }
 
     /** Test: Directions */
     public function test_directions_api() {
 
-        /* Walking */
+        /* Endpoint */
         $endpoint = self::$client->getDirections();
-        self::assertTrue( is_string($endpoint->getWalkingUrl()) );
+
+        /* Walking Directions */
         $result = $endpoint->getWalkingDirections(self::$point_a, self::$point_b);
-        self::assertFalse( in_array($result->code, [401, 403]), $result->message );
+        self::assertTrue( is_array($result->routes) && sizeof($result->routes) > 0 );
 
-        /* Cycling */
-        self::assertTrue( is_string($endpoint->getCyclingUrl()) );
+        /* Cycling Directions */
         $result = $endpoint->getCyclingDirections(self::$point_a, self::$point_b);
-        self::assertFalse( in_array($result->code, [401, 403]), $result->message );
+        self::assertTrue( is_array($result->routes) && sizeof($result->routes) > 0 );
 
-        /* Driving */
-        self::assertTrue( is_string($endpoint->getDrivingUrl()) );
+        /* Driving Directions */
         $result = $endpoint->getDrivingDirections(self::$point_a, self::$point_b);
-        self::assertFalse( in_array($result->code, [401, 403]), $result->message );
+        self::assertTrue( is_array($result->routes));
     }
 
     /** Test: Distance Matrix */
     public function test_matrix_api() {
+
+        /* Endpoint */
         $endpoint = self::$client->getMatrix();
-        self::assertTrue( is_string($endpoint->getWalkingUrl()) );
-        self::assertTrue( is_string($endpoint->getCyclingUrl()) );
-        self::assertTrue( is_string($endpoint->getDrivingUrl()) );
+
+        /* TODO: Walking Matrix */
+        $result = $endpoint->getWalkingMatrix(self::$point_a, self::$point_b);
+        self::assertTrue( is_array($result->routes) && sizeof($result->routes) > 0 );
+
+        /* TODO: Cycling Matrix */
+        $result = $endpoint->getCyclingMatrix(self::$point_a, self::$point_b);
+        self::assertTrue( is_array($result->routes) && sizeof($result->routes) > 0 );
+
+        /* TODO: Driving Matrix */
+        $result = $endpoint->getDrivingMatrix(self::$point_a, self::$point_b);
+        self::assertTrue( is_array($result->routes) && sizeof($result->routes) > 0 );
     }
 
     /** Test: Elevation */
     public function test_elevation_api() {
+
+        /* Endpoint */
         $endpoint = self::$client->getElevation();
-        self::assertTrue( is_string($endpoint->getElevationUrl()) );
+        self::assertTrue( true );
     }
 
     /** Test: Snap To Roads */
     public function test_snap_to_roads_api() {
+
+        /* Endpoint */
         $endpoint = self::$client->getSnapToRoads();
-        self::assertTrue( is_string($endpoint->getSnapUrl()) );
+        self::assertTrue( true );
     }
 
     /** Test: Static */
     public function test_static_api() {
+
+        /* Endpoint */
         $endpoint = self::$client->getStaticMap();
-        self::assertTrue( is_string($endpoint->getStaticUrl()) );
+        self::assertTrue( true );
     }
 
     /** Test: Tile */
     public function test_tile_api() {
+
+        /* Endpoint */
         $endpoint = self::$client->getTile();
-        self::assertTrue( is_string($endpoint->getTileUrl()) );
+        self::assertTrue( true );
     }
 }

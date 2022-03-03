@@ -22,7 +22,7 @@ class Elevation extends MapKit {
         $this->url_elevation = $value;
     }
 
-    public function getElevationUrl(): string {
+    private function getElevationUrl(): string {
         return $this->url_elevation;
     }
 }

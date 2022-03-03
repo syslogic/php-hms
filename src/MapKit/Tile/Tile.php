@@ -22,7 +22,7 @@ class Tile extends MapKit {
         $this->url_tile = $value;
     }
 
-    public function getTileUrl(): string {
+    private function getTileUrl(): string {
         return $this->url_tile;
     }
 }

@@ -12,7 +12,6 @@ use HMS\MapKit\Tile\Tile;
 
 /**
  * Class HMS MapKit Wrapper
- * It only uses API key, not OAuth2 token.
  *
  * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/api-summary-desc-0000001073697904">MapKit</a>
  * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/error-code-0000001050161430">Error codes</a>
@@ -27,7 +26,7 @@ class MapKit extends Wrapper {
         parent::__construct( $config );
     }
 
-    /** For MapKit the API key matters. */
+    /** For MapKit only the API key matters. */
     public function is_ready(): bool {
         return !empty( $this->api_key );
     }

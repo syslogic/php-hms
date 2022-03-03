@@ -17,8 +17,6 @@ class Directions extends MapKit {
     private string $url_cycling;
     private string $url_driving;
 
-    private string $language = 'en';
-
     public function __construct( array $config ) {
         parent::__construct( $config );
         $this->setWalkingUrl(Constants::MAPKIT_BASE_URL . Constants::MAPKIT_WALKING_DIRECTIONS_URL . urlencode($this->api_key));
@@ -38,45 +36,96 @@ class Directions extends MapKit {
         $this->url_driving = $value;
     }
 
-    public function getWalkingUrl(): string {
+    private function getWalkingUrl(): string {
         return $this->url_walking;
     }
 
-    public function getCyclingUrl(): string {
+    private function getCyclingUrl(): string {
         return $this->url_cycling;
     }
 
-    public function getDrivingUrl(): string {
+    private function getDrivingUrl(): string {
         return $this->url_driving;
     }
 
-    public function getWalkingDirections(Coordinate $point_a, Coordinate $point_b): bool|stdClass {
+    /**
+     * Route Planning: Walking
+     *
+     * @param Coordinate $point_a Longitude and latitude of the departure place.
+     * @param Coordinate $point_b Longitude and latitude of the destination.
+     * @param string $language    Language of the returned result. Currently,
+     *                            only zh_CN (Chinese) and en (English) are supported.
+     * @param array $policies     Specified policy for calculating routes.
+     *                            The options are as follows:
+     *                            0: Take least time.
+     *                            8: Avoid ferry.
+     * @return bool|stdClass
+     *
+     * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/directions-walking-0000001050161494">Route Planning: Walking</a>
+     */
+    public function getWalkingDirections(Coordinate $point_a, Coordinate $point_b, string $language='en', array $policies=[0]): bool|stdClass {
         return $this->guzzle_post($this->getWalkingUrl(), [
-            'Content-Type' => 'application/json; charset=utf-8'
+            'Content-Type' => 'application/json'
         ], [
             'origin' => $point_a->asObject(),
             'destination' => $point_b->asObject(),
-            'language' => $this->language
+            'language' => $language,
+            'avoid' => $policies
         ]);
     }
 
-    public function getCyclingDirections(Coordinate $point_a, Coordinate $point_b): bool|stdClass {
+    /**
+     * Route Planning: Cycling
+     *
+     * @param Coordinate $point_a Longitude and latitude of the departure place.
+     * @param Coordinate $point_b Longitude and latitude of the destination.
+     * @param string $language    Language of the returned result. Currently,
+     *                            only zh_CN (Chinese) and en (English) are supported.
+     * @param array $policies     Specified policy for calculating routes.
+     *                            The options are as follows:
+     *                            0: Take least time.
+     *                            8: Avoid ferry.
+     * @return bool|stdClass
+     *
+     * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/directions-bicycling-0000001050163449">Route Planning: Cycling</a>
+     */
+    public function getCyclingDirections(Coordinate $point_a, Coordinate $point_b, string $language='en', array $policies=[0]): bool|stdClass {
         return $this->guzzle_post($this->getCyclingUrl(), [
-            'Content-Type' => 'application/json; charset=utf-8'
+            'Content-Type' => 'application/json'
         ], [
             'origin' => $point_a->asObject(),
             'destination' => $point_b->asObject(),
-            'language' => $this->language
+            'language' => $language,
+            'avoid' => $policies
         ]);
     }
 
-    public function getDrivingDirections(Coordinate $point_a, Coordinate $point_b): bool|stdClass {
+    /**
+     * Route Planning: Driving
+     * TODO: the driving endpoint has more options than the others.
+     *
+     * @param Coordinate $point_a Longitude and latitude of the departure place.
+     * @param Coordinate $point_b Longitude and latitude of the destination.
+     * @param string $language    Language of the returned result. Currently,
+     *                            only zh_CN (Chinese) and en (English) are supported.
+     * @param array $policies     Specified policy for calculating routes.
+     *                            The options are as follows:
+     *                            0: Take least time.
+     *                            8: Avoid ferry.
+     *
+     * @return bool|stdClass
+     *
+     * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/directions-driving-0000001050161496">Route Planning: Driving</a>
+     */
+    public function getDrivingDirections(Coordinate $point_a, Coordinate $point_b, string $language='en', array $policies=[0]): bool|stdClass {
         return $this->guzzle_post($this->getDrivingUrl(), [
-            'Content-Type' => 'application/json; charset=utf-8'
+            'Content-Type' => 'application/json'
         ], [
             'origin' => $point_a->asObject(),
             'destination' => $point_b->asObject(),
-            'language' => $this->language
+            'language' => $language,
+            'avoid' => $policies
+
         ]);
     }
 }

@@ -3,6 +3,7 @@ namespace HMS\Core;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\RequestOptions;
 use JetBrains\PhpStorm\ArrayShape;
 use Psr\Http\Message\ResponseInterface;
 use stdClass;
@@ -57,7 +58,10 @@ class Wrapper {
     /** Initialize the client; either by array or by environmental variables. */
     private function init( array|null $config = null ): void {
         $this->result = new stdClass();
-        $this->client = new Client( ['verify' => !$this->is_windows()] );
+        $this->client = new Client( [
+            RequestOptions::VERIFY => !$this->is_windows(),
+            RequestOptions::DEBUG => true
+        ] );
         if ( is_array( $config ) ) {
             $this->init_by_array( $config );
         } else {
@@ -126,7 +130,7 @@ class Wrapper {
     #[ArrayShape(['Content-Type' => 'string', 'Authorization' => 'string'])]
     protected function auth_header(): array {
         return [
-            'Content-Type' => 'application/json; charset=utf-8',
+            'Content-Type' => 'application/json;charset=utf-8',
             'Authorization' => ' Bearer ' . $this->access_token
         ];
     }
@@ -135,8 +139,8 @@ class Wrapper {
     protected function guzzle_post( string $url=null, array $headers=[], array|object $post_fields=[] ): stdClass|bool {
         try {
             $this->response = $this->client->post( $url, [
-                'headers' => $headers,
-                'json' => $post_fields
+                RequestOptions::HEADERS => $headers,
+                RequestOptions::JSON => $post_fields
             ] );
             if ($this->response->getStatusCode() == 200) {
                 $this->result = json_decode( $this->response->getBody() );
@@ -152,8 +156,8 @@ class Wrapper {
     protected function guzzle_urlencoded( string $url=null, array $headers=[], array $form_params=[] ): stdClass|bool {
         try {
             $this->response = $this->client->post( $url, [
-                'headers' => $headers,
-                'form_params' => $form_params
+                RequestOptions::HEADERS => $headers,
+                RequestOptions::FORM_PARAMS => $form_params
             ] );
             if ($this->response->getStatusCode() == 200) {
                 $this->result = json_decode( $this->response->getBody() );
@@ -169,8 +173,8 @@ class Wrapper {
     protected function guzzle_get( string $url=null, array $headers=[], array $query=[] ): stdClass|bool {
         try {
             $this->response = $this->client->get( $url, [
-                'headers' => $headers,
-                'query' => $query
+                RequestOptions::HEADERS => $headers,
+                RequestOptions::QUERY => $query
             ] );
             if ($this->response->getStatusCode() == 200) {
                 $this->result = json_decode( $this->response->getBody() );

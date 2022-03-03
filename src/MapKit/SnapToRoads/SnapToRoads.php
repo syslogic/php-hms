@@ -22,7 +22,7 @@ class SnapToRoads extends MapKit {
         $this->url_snap = $value;
     }
 
-    public function getSnapUrl(): string {
+    private function getSnapUrl(): string {
         return $this->url_snap;
     }
 }

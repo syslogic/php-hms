@@ -22,7 +22,7 @@ class StaticMap extends MapKit {
         $this->url_static = $value;
     }
 
-    public function getStaticUrl(): string {
+    private function getStaticUrl(): string {
         return $this->url_static;
     }
 }
