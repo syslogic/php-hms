@@ -3,16 +3,16 @@
 Legal Disclaimer: This product is **NOT** officially endorsed or certified by Huawei Technologies Co., Ltd.<br/>
 The trademarks are being referenced for identification purposes only, in terms of a nominative fair use.
 
-The official repositories can be found: [@HMS-Core](https://github.com/syslogic?tab=overview&org=HMS-Core).
+The official Huawei repositories can be found [@HMS-Core](https://github.com/syslogic?tab=overview&org=HMS-Core).
 
 ### Project Status
 
 |                                                                                                Class |   Status    |
 |-----------------------------------------------------------------------------------------------------:|:-----------:|
 |                           [`Core\Wrapper`](https://github.com/syslogic/php-hms/blob/master/src/Core) |   working   |
+|                       [`AccountKit`](https://github.com/syslogic/php-hms/blob/master/src/AccountKit) |   working   |
 |                             [`PushKit`](https://github.com/syslogic/php-hms/blob/master/src/PushKit) |   working   |
 |                               [`MapKit`](https://github.com/syslogic/php-hms/blob/master/src/MapKit) | in progress |
-|                       [`AccountKit`](https://github.com/syslogic/php-hms/blob/master/src/AccountKit) |             |
 |                               [`AdsKit`](https://github.com/syslogic/php-hms/blob/master/src/AdsKit) |             |
 |                   [`AnalyticsKit`](https://github.com/syslogic/php-hms/blob/master/src/AnalyticsKit) |             |
 |       [`AppGallery\Connect`](https://github.com/syslogic/php-hms/tree/master/src/AppGallery/Connect) |             |
