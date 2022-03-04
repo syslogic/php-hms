@@ -3,6 +3,8 @@
 Legal Disclaimer: This product is **NOT** officially endorsed or certified by Huawei Technologies Co., Ltd.<br/>
 The trademarks are being referenced for identification purposes only, in terms of a nominative fair use.
 
+The official repositories can be found: [@HMS-Core](https://github.com/syslogic?tab=overview&org=HMS-Core).
+
 ### Project Status
 
 |                                                                                                Class |   Status    |
