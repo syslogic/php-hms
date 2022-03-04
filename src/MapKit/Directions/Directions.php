@@ -102,6 +102,7 @@ class Directions extends MapKit {
 
     /**
      * Route Planning: Driving
+     *
      * TODO: the driving endpoint has more options than the others.
      *
      * @param Coordinate $point_a Longitude and latitude of the departure place.

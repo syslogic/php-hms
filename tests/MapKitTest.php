@@ -15,6 +15,7 @@ class MapKitTest extends BaseTestCase {
 
     private static Coordinate $point_a;
     private static Coordinate $point_b;
+    private static Coordinate $point_c;
 
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {
@@ -24,8 +25,9 @@ class MapKitTest extends BaseTestCase {
         self::$client = new MapKit( self::get_config() );
         self::assertTrue( self::$client->is_ready(), self::CLIENT_NOT_READY );
 
-        self::$point_a = new Coordinate(['lat' => 48.14291, 'lng' => 11.57934]);
-        self::$point_b = new Coordinate(['lat' => 48.14291, 'lng' => 11.57634]);
+        self::$point_a = new Coordinate(['lat' => 48.142910, 'lng' => 11.579340]); // Munich @ Dianatempel
+        self::$point_b = new Coordinate(['lat' => 48.152463, 'lng' => 11.593503]); // Munich @ Chinesischer Turm
+        self::$point_c = new Coordinate(['lat' => 48.153022, 'lng' => 11.582501]); // Munich @ Leopoldstraße
     }
 
     /** Test: Directions */
@@ -36,15 +38,15 @@ class MapKitTest extends BaseTestCase {
 
         /* Walking Directions */
         $result = $endpoint->getWalkingDirections(self::$point_a, self::$point_b);
-        self::assertTrue( is_array($result->routes) && sizeof($result->routes) > 0 );
+        self::assertTrue( property_exists($result, 'routes') && is_array($result->routes) );
 
         /* Cycling Directions */
         $result = $endpoint->getCyclingDirections(self::$point_a, self::$point_b);
-        self::assertTrue( is_array($result->routes) && sizeof($result->routes) > 0 );
+        self::assertTrue( property_exists($result, 'routes') && is_array($result->routes) );
 
         /* Driving Directions */
         $result = $endpoint->getDrivingDirections(self::$point_a, self::$point_b);
-        self::assertTrue( is_array($result->routes));
+        self::assertTrue( property_exists($result, 'routes') && is_array($result->routes) );
     }
 
     /** Test: Distance Matrix */
@@ -53,17 +55,17 @@ class MapKitTest extends BaseTestCase {
         /* Endpoint */
         $endpoint = self::$client->getMatrix();
 
-        /* TODO: Walking Matrix */
-        $result = $endpoint->getWalkingMatrix(self::$point_a, self::$point_b);
-        self::assertTrue( is_array($result->routes) && sizeof($result->routes) > 0 );
+        /* Walking Matrix */
+        $result = $endpoint->getWalkingMatrix([self::$point_a, self::$point_b], [self::$point_c]);
+        self::assertTrue( property_exists($result, 'rows') && is_array($result->rows) );
 
-        /* TODO: Cycling Matrix */
-        $result = $endpoint->getCyclingMatrix(self::$point_a, self::$point_b);
-        self::assertTrue( is_array($result->routes) && sizeof($result->routes) > 0 );
+        /* Cycling Matrix */
+        $result = $endpoint->getCyclingMatrix([self::$point_a, self::$point_b], [self::$point_c]);
+        self::assertTrue( property_exists($result, 'rows') && is_array($result->rows) );
 
-        /* TODO: Driving Matrix */
-        $result = $endpoint->getDrivingMatrix(self::$point_a, self::$point_b);
-        self::assertTrue( is_array($result->routes) && sizeof($result->routes) > 0 );
+        /* Driving Matrix */
+        $result = $endpoint->getDrivingMatrix([self::$point_a, self::$point_b], [self::$point_b]);
+        self::assertTrue( property_exists($result, 'rows') && is_array($result->rows) );
     }
 
     /** Test: Elevation */
