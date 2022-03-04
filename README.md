@@ -11,6 +11,9 @@ The trademarks are being referenced for identification purposes only, in terms o
 
 | Class | Status      |
 | ---: |-------------|
+| [`Core\Wrapper`](https://github.com/syslogic/php-hms/blob/master/src/Core)                    | working     |
+| [`PushKit`](https://github.com/syslogic/php-hms/blob/master/src/PushKit)                      | working     |
+| [`MapKit`](https://github.com/syslogic/php-hms/blob/master/src/MapKit)                        | in progress |
 | [`AccountKit`](https://github.com/syslogic/php-hms/blob/master/src/AccountKit)                |             |
 | [`AdsKit`](https://github.com/syslogic/php-hms/blob/master/src/AdsKit)                        |             |
 | [`AnalyticsKit`](https://github.com/syslogic/php-hms/blob/master/src/AnalyticsKit)            |             |
@@ -18,11 +21,9 @@ The trademarks are being referenced for identification purposes only, in terms o
 | [`DriveKit`](https://github.com/syslogic/php-hms/tree/master/src/DriveKit)                    |             |
 | [`GameService`](https://github.com/syslogic/php-hms/tree/master/src/GameService)              |             |
 | [`LocationKit`](https://github.com/syslogic/php-hms/blob/master/src/LocationKit)              |             |
-| [`MapKit`](https://github.com/syslogic/php-hms/blob/master/src/MapKit)                        | in progress |
-| [`PushKit`](https://github.com/syslogic/php-hms/blob/master/src/PushKit)                      | working     |
 | [`SearchKit`](https://github.com/syslogic/php-hms/blob/master/src/SearchKit)                  |             |
 | [`WalletKit`](https://github.com/syslogic/php-hms/blob/master/src/WalletKit)                  |             |
-| [`Core\Wrapper`](https://github.com/syslogic/php-hms/blob/master/src/Core)                    | working     |
+
 </p>
 </details>
 
@@ -108,7 +109,6 @@ The test suite depends on further environmental variables:
 
 ````bash
 # PHP SDK for Huawei REST API
-export PHPUNIT_HCM_TEST_HMAC_VERIFICATION_KEY=...
 export PHPUNIT_HCM_TEST_DEVICE_TOKEN=...
 ````
 
