@@ -59,8 +59,8 @@ class Matrix extends MapKit {
             'Content-Type' => 'application/json',
             'Accept' => 'application/json'
         ], [
-            'origins' => $origins,
-            'destinations' => $destinations,
+            'origin' => $origins,
+            'destination' => $destinations,
             'language' => $language,
             'avoid' => $policy
         ]);
@@ -77,8 +77,8 @@ class Matrix extends MapKit {
         return $this->guzzle_post($this->getCyclingUrl(), [
             'Content-Type' => 'application/json'
         ], [
-            'origins' => $origins,
-            'destinations' => $destinations,
+            'origin' => $origins,
+            'destination' => $destinations,
             'language' => $language,
             'avoid' => $policy
         ]);
@@ -94,7 +94,7 @@ class Matrix extends MapKit {
         foreach ($destinations as $key => $value) {$destinations[$key] = $value->asObject();}
         return $this->guzzle_post($this->getDrivingUrl(), [
             'Content-Type' => 'application/json'
-        ], (object) [
+        ], [
             'origins' => $origins,
             'destinations' => $destinations,
             'language' => $language,

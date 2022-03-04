@@ -56,7 +56,7 @@ class MapKitTest extends BaseTestCase {
         $endpoint = self::$client->getMatrix();
 
         /* Walking Matrix */
-        $result = $endpoint->getWalkingMatrix([self::$point_a, self::$point_b], [self::$point_c]);
+        $result = $endpoint->getWalkingMatrix([self::$point_a], [self::$point_b, self::$point_c]);
         self::assertTrue( property_exists($result, 'rows') && is_array($result->rows) );
 
         /* Cycling Matrix */
