@@ -3,11 +3,7 @@
 Legal Disclaimer: This product is **NOT** officially endorsed or certified by Huawei Technologies Co., Ltd.<br/>
 The trademarks are being referenced for identification purposes only, in terms of a nominative fair use.
 
-<details>
-<summary>Project Status</summary>
-<p>
-
-[![PHP Composer](https://github.com/syslogic/php-hms/actions/workflows/ci-php.yml/badge.svg)](https://github.com/syslogic/php-hms/actions/workflows/ci-php.yml)
+### Project Status
 
 | Class | Status      |
 | ---: |-------------|
@@ -24,8 +20,8 @@ The trademarks are being referenced for identification purposes only, in terms o
 | [`SearchKit`](https://github.com/syslogic/php-hms/blob/master/src/SearchKit)                  |             |
 | [`WalletKit`](https://github.com/syslogic/php-hms/blob/master/src/WalletKit)                  |             |
 
-</p>
-</details>
+[![PHP Composer](https://github.com/syslogic/php-hms/actions/workflows/ci-php.yml/badge.svg)](https://github.com/syslogic/php-hms/actions/workflows/ci-php.yml)
+
 
 ### Prerequisites
 
