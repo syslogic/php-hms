@@ -53,13 +53,13 @@ class Directions extends MapKit {
      *
      * @param Coordinate $point_a Longitude and latitude of the departure place.
      * @param Coordinate $point_b Longitude and latitude of the destination.
-     * @param string $language    Language of the returned result. Currently,
-     *                            only zh_CN (Chinese) and en (English) are supported.
+     * @param string $language    Language of the returned result.
+     *                            Currently, only zh_CN (Chinese) and en (English) are supported.
      * @param array $policies     Specified policy for calculating routes.
      *                            The options are as follows:
      *                            0: Take least time.
      *                            8: Avoid ferry.
-     * @return bool|stdClass
+     * @return bool|stdClass      The result of the API call.
      *
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/directions-walking-0000001050161494">Route Planning: Walking</a>
      */
@@ -79,13 +79,13 @@ class Directions extends MapKit {
      *
      * @param Coordinate $point_a Longitude and latitude of the departure place.
      * @param Coordinate $point_b Longitude and latitude of the destination.
-     * @param string $language    Language of the returned result. Currently,
-     *                            only zh_CN (Chinese) and en (English) are supported.
+     * @param string $language    Language of the returned result.
+     *                            Currently, only zh_CN (Chinese) and en (English) are supported.
      * @param array $policies     Specified policy for calculating routes.
      *                            The options are as follows:
      *                            0: Take least time.
      *                            8: Avoid ferry.
-     * @return bool|stdClass
+     * @return bool|stdClass      The result of the API call.
      *
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/directions-bicycling-0000001050163449">Route Planning: Cycling</a>
      */
@@ -107,14 +107,13 @@ class Directions extends MapKit {
      *
      * @param Coordinate $point_a Longitude and latitude of the departure place.
      * @param Coordinate $point_b Longitude and latitude of the destination.
-     * @param string $language    Language of the returned result. Currently,
-     *                            only zh_CN (Chinese) and en (English) are supported.
+     * @param string $language    Language of the returned result.
+     *                            Currently, only zh_CN (Chinese) and en (English) are supported.
      * @param array $policies     Specified policy for calculating routes.
      *                            The options are as follows:
      *                            0: Take least time.
      *                            8: Avoid ferry.
-     *
-     * @return bool|stdClass
+     * @return bool|stdClass      The result of the API call.
      *
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/directions-driving-0000001050161496">Route Planning: Driving</a>
      */

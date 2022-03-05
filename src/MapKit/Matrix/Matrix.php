@@ -85,6 +85,8 @@ class Matrix extends MapKit {
     /**
      * Batch Route Planning: Driving
      *
+     * TODO: the driving endpoint has more options than the others.
+     *
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/matrix-driving-0000001050161508">Batch Route Planning: Driving</a>
      */
     public function getDrivingMatrix(array $origins, array $destinations, string $language='en'): bool|stdClass {

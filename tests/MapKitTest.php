@@ -76,11 +76,12 @@ class MapKitTest extends BaseTestCase {
         self::assertTrue( true );
 
         /* Elevation API */
-        $result = $endpoint->getElevations([self::$point_a, self::$point_b, self::$point_c]);
+        $result = $endpoint->getElevationByLocations([self::$point_a, self::$point_b, self::$point_c]);
         self::assertTrue( property_exists($result, 'results') && is_array($result->results) );
         self::assertTrue( sizeof($result->results) > 0 );
         foreach ($result->results as $item) {
-            self::assertTrue( $item->elevation > 510 );
+            // testing if we're still 500 meters above sea level.
+            self::assertTrue( $item->elevation > 500 );
         }
     }
 

@@ -2,13 +2,13 @@
 namespace HMS\MapKit\Elevation;
 
 use HMS\MapKit\Constants;
-use HMS\MapKit\Coordinate;
 use HMS\MapKit\MapKit;
 use stdClass;
 
 /**
  * Class HMS MapKit Elevation API
  *
+ * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/elevation-api-0000001158669981">Elevation API</a>
  * @author Martin Zeitler
  */
 class Elevation extends MapKit {
@@ -29,25 +29,60 @@ class Elevation extends MapKit {
     }
 
     /**
-     * Elevation API
-     *
-     * @param array $locations        Collection of 1 to 512 longitude-latitude coordinates, which are used to calculate the altitude.
-     * @param string $encodedLocation Language of the returned result. Currently,
-     *                            only zh_CN (Chinese) and en (English) are supported.
-     * @param array $policies     Specified policy for calculating routes.
-     *                            The options are as follows:
-     *                            0: Take least time.
-     *                            8: Avoid ferry.
-     * @return bool|stdClass
-     *
-     * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/elevation-api-0000001158669981">Elevation API</a>
+     * @param array $locations Collection of 1 to 512 longitude-latitude coordinates, which are used to calculate the altitude.
+     * @return bool|stdClass   The result of the API call.
      */
-    public function getElevations(array $locations, string $encodedLocation=null, array $policies=[0]): bool|stdClass {
+    public function getElevationByLocations(array $locations): bool|stdClass {
         foreach ($locations as $key => $value) {$locations[$key] = $value->asObject();}
         return $this->guzzle_post($this->getElevationUrl(), [
             'Content-Type' => 'application/json'
         ], [
             'locations' => $locations
+        ]);
+    }
+
+    /**
+     * @param string $encodedLocation Longitude-latitude coordinates encoded using the GeoHash algorithm.
+     *                                The value can be an array of strings separated by semicolons (;).
+     * @return bool|stdClass          The result of the API call.
+     */
+    public function getElevationByEncodedLocations(string $encodedLocation): bool|stdClass {
+        return $this->guzzle_post($this->getElevationUrl(), [
+            'Content-Type' => 'application/json'
+        ], [
+            'encodedLocation' => $encodedLocation
+        ]);
+    }
+
+    /**
+     * @param array $path    Specified path for calculating the altitude.
+     *                       The value is a collection of longitude-latitude coordinates along the path.
+     * @return bool|stdClass The result of the API call.
+     */
+    public function getElevationByPath(array $path): bool|stdClass {
+        foreach ($path as $key => $value) {$path[$key] = $value->asObject();}
+        return $this->guzzle_post($this->getElevationUrl(), [
+            'Content-Type' => 'application/json'
+        ], [
+            'path' => $path
+        ]);
+    }
+
+    /**
+     * @param string $encodedPath Longitude-latitude coordinates in the path, which are encoded using the GeoHash algorithm.
+     *                            The value can be an array of strings separated by semicolons (;).
+     * @param int $samples        Number of sampling points in the path. This parameter is used to generate the specified
+     *                            number of equidistant sampling points in the path specified by path or encodedPath.
+     *                            The path start and end points are also counted in the number of sampling points.
+     *                            This parameter is mandatory if path or encodedPath is passed.
+     * @return bool|stdClass      The result of the API call.
+     */
+    public function getElevationByEncodedPath(string $encodedPath, int $samples): bool|stdClass {
+        return $this->guzzle_post($this->getElevationUrl(), [
+            'Content-Type' => 'application/json'
+        ], [
+            'encodedPath' => $encodedPath,
+            'samples' => $samples
         ]);
     }
 
