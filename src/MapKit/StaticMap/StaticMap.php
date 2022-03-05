@@ -31,9 +31,21 @@ class StaticMap extends MapKit {
 
     /**
      *
+     * @param Coordinate $center Address information.
+     *                           The value can be a pair of latitude and longitude or a specific address.
+     *                           The latitude and longitude are in the Latitude,Longitude format, for example, 41.43206,-81.38992.
+     *                           If markers and path are not set, this parameter is mandatory.
+     * @param int $width         Image width.
+     *                           If scale is set to 1, the value ranges from 0 (excluded) to 1024.
+     *                           If scale is set to 2, the value ranges from 0 (excluded) to 512.
+     * @param int $height        Image height.
+     *                           If scale is set to 1, the value ranges from 0 (excluded) to 1024.
+     *                           If scale is set to 2, the value ranges from 0 (excluded) to 512.
+     * @param int $zoom
+     * @param int $scale
      * @return bool|stdClass The result of the API call.
      */
-    public function getMap( Coordinate $center, int $width, int $height, int $zoom=10, $scale=1 ): bool|stdClass {
+    public function getStaticMapByLocation( Coordinate $center, int $width, int $height, int $zoom=10, $scale=1 ): bool|stdClass {
         return $this->guzzle_get($this->getStaticUrl(), $this->request_headers(), [
             'key' => $this->api_key,
             'location' => $center->asString(),

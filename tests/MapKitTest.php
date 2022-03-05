@@ -102,7 +102,8 @@ class MapKitTest extends BaseTestCase {
         $endpoint = self::$client->getStaticMap();
         self::assertTrue( true );
 
-        $result = $endpoint->getMap(self::$point_a, 512, 512, 12, 2);
+        /* By Location */
+        $result = $endpoint->getStaticMapByLocation(self::$point_a, 512, 512, 12, 2);
         self::assertTrue( property_exists($result, 'url') && is_string($result->url) );
     }
 
@@ -112,5 +113,8 @@ class MapKitTest extends BaseTestCase {
         /* Endpoint */
         $endpoint = self::$client->getTile();
         self::assertTrue( true );
+
+        $result = $endpoint->getMapTile(512, 512);
+        self::assertTrue( property_exists($result, 'url') && is_string($result->url) );
     }
 }
