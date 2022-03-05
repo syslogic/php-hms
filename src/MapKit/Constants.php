@@ -57,13 +57,13 @@ class Constants {
      * GET: Static API
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/maps-static-api-0000001059461203">Static API</a>
      */
-    public const MAPKIT_STATIC_MAP_URL = "mapService/getStaticMap?Parameter&key="; // note: ?Parameter has no value.
+    public const MAPKIT_STATIC_MAP_URL = "mapService/getStaticMap?key=";
 
     /**
      * GET: Tile API
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/tile-api-0000001059859346">Tile API</a>
      */
-    public const MAPKIT_MAP_TILE_URL = "mapService/getTile?Parameter&key=";
+    public const MAPKIT_MAP_TILE_URL = "mapService/getTile?key=";
 
     /**
      * POST: Elevation API

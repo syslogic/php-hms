@@ -184,8 +184,18 @@ class Wrapper {
                 RequestOptions::HEADERS => $headers,
                 RequestOptions::QUERY => $query
             ] );
-            if ($this->response->getStatusCode() == 200) {
-                $this->result = json_decode( $this->response->getBody() );
+            $content_type = $this->response->getHeader('Content-Type')[0];
+            $status_code = $this->response->getStatusCode();
+            if ($status_code == 200) {
+                switch ($content_type) {
+                    case 'application/json':
+                        $this->result = json_decode( $this->response->getBody() );
+                        break;
+                    case 'image/png':
+                        $binary = $this->response->getBody()->getContents();
+                        $this->result->url = 'data:image/png;base64,'.base64_encode($binary);
+                        break;
+                }
             }
         } catch (GuzzleException $e) {
             $this->result->code = $e->getCode();

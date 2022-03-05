@@ -62,4 +62,8 @@ class Coordinate extends Model {
         }
         return true;
     }
+
+    public function asString(): string {
+        return $this->lat.','.$this->lng;
+    }
 }

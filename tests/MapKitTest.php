@@ -30,7 +30,7 @@ class MapKitTest extends BaseTestCase {
         self::$point_c = new Coordinate(['lat' => 48.153022, 'lng' => 11.582501]); // Munich @ Leopoldstraße
     }
 
-    /** Test: Directions */
+    /** Test: Directions API */
     public function test_directions_api() {
 
         /* Endpoint */
@@ -49,7 +49,7 @@ class MapKitTest extends BaseTestCase {
         self::assertTrue( property_exists($result, 'routes') && is_array($result->routes) );
     }
 
-    /** Test: Distance Matrix */
+    /** Test: Distance Matrix API */
     public function test_matrix_api() {
 
         /* Endpoint */
@@ -68,14 +68,14 @@ class MapKitTest extends BaseTestCase {
         self::assertTrue( property_exists($result, 'rows') && is_array($result->rows) );
     }
 
-    /** Test: Elevation */
+    /** Test: Elevation API */
     public function test_elevation_api() {
 
         /* Endpoint */
         $endpoint = self::$client->getElevation();
         self::assertTrue( true );
 
-        /* Elevation API */
+        /* By Locations */
         $result = $endpoint->getElevationByLocations([self::$point_a, self::$point_b, self::$point_c]);
         self::assertTrue( property_exists($result, 'results') && is_array($result->results) );
         self::assertTrue( sizeof($result->results) > 0 );
@@ -85,7 +85,7 @@ class MapKitTest extends BaseTestCase {
         }
     }
 
-    /** Test: Snap To Roads */
+    /** Test: Snap To Roads API */
     public function test_snap_to_roads_api() {
 
         /* Endpoint */
@@ -95,16 +95,18 @@ class MapKitTest extends BaseTestCase {
         /* TODO: testing this endpoint would require sample data. */
     }
 
-    /** Test: Static */
+    /** Test: Static Map API */
     public function test_static_api() {
 
         /* Endpoint */
         $endpoint = self::$client->getStaticMap();
         self::assertTrue( true );
 
+        $result = $endpoint->getMap(self::$point_a, 512, 512, 12, 2);
+        self::assertTrue( property_exists($result, 'url') && is_string($result->url) );
     }
 
-    /** Test: Tile */
+    /** Test: Tile API */
     public function test_tile_api() {
 
         /* Endpoint */
