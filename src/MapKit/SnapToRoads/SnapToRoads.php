@@ -15,7 +15,7 @@ class SnapToRoads extends MapKit {
 
     public function __construct( array $config ) {
         parent::__construct( $config );
-        $this->setSnapUrl(Constants::MAPKIT_BASE_URL . Constants::MAPKIT_SNAP_TO_ROADS_URL . $config['api_key'] );
+        $this->setSnapUrl(Constants::MAPKIT_BASE_URL . Constants::MAPKIT_SNAP_TO_ROADS_URL . urlencode($this->api_key) );
     }
 
     private function setSnapUrl(string $value): void {

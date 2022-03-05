@@ -55,16 +55,16 @@ class MapKitTest extends BaseTestCase {
         /* Endpoint */
         $endpoint = self::$client->getMatrix();
 
-        /* Walking Matrix */
-        $result = $endpoint->getWalkingMatrix([self::$point_a], [self::$point_b, self::$point_c]);
+        /* Walking Distance Matrix */
+        $result = $endpoint->getWalkingMatrix([self::$point_a, self::$point_b], [self::$point_c]);
         self::assertTrue( property_exists($result, 'rows') && is_array($result->rows) );
 
-        /* Cycling Matrix */
+        /* Cycling Distance Matrix */
         $result = $endpoint->getCyclingMatrix([self::$point_a, self::$point_b], [self::$point_c]);
         self::assertTrue( property_exists($result, 'rows') && is_array($result->rows) );
 
-        /* Driving Matrix */
-        $result = $endpoint->getDrivingMatrix([self::$point_a, self::$point_b], [self::$point_b]);
+        /* Driving Distance Matrix */
+        $result = $endpoint->getDrivingMatrix([self::$point_a, self::$point_b], [self::$point_c]);
         self::assertTrue( property_exists($result, 'rows') && is_array($result->rows) );
     }
 
@@ -74,6 +74,14 @@ class MapKitTest extends BaseTestCase {
         /* Endpoint */
         $endpoint = self::$client->getElevation();
         self::assertTrue( true );
+
+        /* Elevation API */
+        $result = $endpoint->getElevations([self::$point_a, self::$point_b, self::$point_c]);
+        self::assertTrue( property_exists($result, 'results') && is_array($result->results) );
+        self::assertTrue( sizeof($result->results) > 0 );
+        foreach ($result->results as $item) {
+            self::assertTrue( $item->elevation > 510 );
+        }
     }
 
     /** Test: Snap To Roads */

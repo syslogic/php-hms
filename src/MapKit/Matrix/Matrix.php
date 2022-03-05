@@ -52,17 +52,16 @@ class Matrix extends MapKit {
      *
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/matrix-walking-0000001050161506">Batch Route Planning: Walking</a>
      */
-    public function getWalkingMatrix(array $origins, array $destinations, string $language='en', int $policy=0): bool|stdClass {
+    public function getWalkingMatrix(array $origins, array $destinations, string $language='en'): bool|stdClass {
         foreach ($origins      as $key => $value) {$origins[$key]      = $value->asObject();}
         foreach ($destinations as $key => $value) {$destinations[$key] = $value->asObject();}
         return $this->guzzle_post($this->getWalkingUrl(), [
             'Content-Type' => 'application/json',
             'Accept' => 'application/json'
         ], [
-            'origin' => $origins,
-            'destination' => $destinations,
-            'language' => $language,
-            'avoid' => $policy
+            'origins' => $origins,
+            'destinations' => $destinations,
+            'language' => $language
         ]);
     }
 
@@ -71,16 +70,15 @@ class Matrix extends MapKit {
      *
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/matrix-bicycling-0000001050163459">Batch Route Planning: Cycling</a>
      */
-    public function getCyclingMatrix(array $origins, array $destinations, string $language='en', int $policy=0): bool|stdClass {
+    public function getCyclingMatrix(array $origins, array $destinations, string $language='en'): bool|stdClass {
         foreach ($origins      as $key => $value) {$origins[$key]      = $value->asObject();}
         foreach ($destinations as $key => $value) {$destinations[$key] = $value->asObject();}
         return $this->guzzle_post($this->getCyclingUrl(), [
             'Content-Type' => 'application/json'
         ], [
-            'origin' => $origins,
-            'destination' => $destinations,
-            'language' => $language,
-            'avoid' => $policy
+            'origins' => $origins,
+            'destinations' => $destinations,
+            'language' => $language
         ]);
     }
 
@@ -89,7 +87,7 @@ class Matrix extends MapKit {
      *
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/matrix-driving-0000001050161508">Batch Route Planning: Driving</a>
      */
-    public function getDrivingMatrix(array $origins, array $destinations, string $language='en', int $policy=0): bool|stdClass {
+    public function getDrivingMatrix(array $origins, array $destinations, string $language='en'): bool|stdClass {
         foreach ($origins      as $key => $value) {$origins[$key]      = $value->asObject();}
         foreach ($destinations as $key => $value) {$destinations[$key] = $value->asObject();}
         return $this->guzzle_post($this->getDrivingUrl(), [
@@ -97,8 +95,7 @@ class Matrix extends MapKit {
         ], [
             'origins' => $origins,
             'destinations' => $destinations,
-            'language' => $language,
-            'avoid' => $policy
+            'language' => $language
         ]);
     }
 }
