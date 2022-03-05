@@ -65,11 +65,10 @@ class AppGalleryConnectTest extends BaseTestCase {
         self::assertTrue( $result->code != 401, $result->message );
     }
 
-
     /** Test: Model ImportUser. */
     public function test_import_user() {
         $item = new ImportUser( [
-
+            'importUid' => 'W4Z34934F34dH93265R91'
         ] );
         self::assertTrue( is_array( $item->asArray() ) );
         self::assertTrue( $item->validate() );
