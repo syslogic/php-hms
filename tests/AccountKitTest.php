@@ -29,7 +29,7 @@ class AccountKitTest extends BaseTestCase {
         self::$app_access_token = self::$client->get_access_token();
         self::assertNotNull( self::$app_access_token, self::CLIENT_NOT_READY );
 
-        self::$user_access_token = self::$app_access_token; // this is obviously wrong.
+        self::$user_access_token = ''; // this is obviously wrong.
         self::assertNotNull( self::$user_access_token, self::CLIENT_NOT_READY );
     }
 
@@ -52,12 +52,12 @@ class AccountKitTest extends BaseTestCase {
      */
     public function test_get_user_info() {
         $result = self::$client->get_user_info( self::$user_access_token );
-        self::assertTrue( $result instanceof UserInfo, $result->error );
+        self::assertTrue( $result instanceof UserInfo, 'UserInfo: '.$result->error );
     }
 
     /** TODO: Verify an ID Token. */
     public function test_verify_id_token() {
         $result = self::$client->verify_id_token( self::$id_token );
-        self::assertTrue( $result instanceof IdTokenInfo, $result->error );
+        self::assertTrue( $result instanceof IdTokenInfo, 'IdTokenInfo: '.$result->error );
     }
 }
