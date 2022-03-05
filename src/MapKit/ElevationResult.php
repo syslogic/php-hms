@@ -6,6 +6,7 @@ use JetBrains\PhpStorm\Pure;
 
 /**
  * Class HMS MapKit ElevationResult
+ * not in use; just returning object.
  *
  * @author Martin Zeitler
  */

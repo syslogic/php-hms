@@ -7,6 +7,7 @@ use HMS\MapKit\MapKit;
 /**
  * Class HMS MapKit Tile API
  *
+ * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/tile-api-0000001059859346">Tile API</a>
  * @author Martin Zeitler
  */
 class Tile extends MapKit {

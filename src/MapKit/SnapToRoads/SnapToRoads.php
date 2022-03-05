@@ -9,6 +9,7 @@ use stdClass;
 /**
  * Class HMS MapKit Snap To Roads API
  *
+ * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/snap-to-roads-api-0000001211128705">Snap to Roads API</a>
  * @author Martin Zeitler
  */
 class SnapToRoads extends MapKit {

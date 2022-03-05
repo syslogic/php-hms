@@ -1,4 +1,5 @@
-<?php
+<?php /** @noinspection PhpPropertyOnlyWrittenInspection */
+
 namespace HMS\MapKit;
 
 use HMS\Core\Model;
