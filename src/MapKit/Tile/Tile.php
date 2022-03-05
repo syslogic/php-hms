@@ -17,7 +17,7 @@ class Tile extends MapKit {
 
     public function __construct( array $config ) {
         parent::__construct( $config );
-        $this->setTileUrl(Constants::MAPKIT_BASE_URL . Constants::MAPKIT_MAP_TILE_URL . urlencode($this->api_key) );
+        $this->setTileUrl(Constants::MAPKIT_BASE_URL . Constants::MAPKIT_MAP_TILE_URL );
     }
 
     private function setTileUrl(string $value): void {
