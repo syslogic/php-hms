@@ -55,10 +55,7 @@ abstract class Wrapper {
     /** Constructor. */
     public function __construct( array|null $config = null ) {
         $this->init( $config );
-        $this->post_init();
     }
-
-    protected abstract function post_init();
 
     /** Initialize the client; either by array or by environmental variables. */
     private function init( array|null $config = null ): void {
@@ -72,7 +69,14 @@ abstract class Wrapper {
         } else {
             $this->init_by_environment();
         }
+        $this->post_init();
     }
+
+    /**
+     * Not all class properties of Core\Wrapper are used by each particular child class.
+     * Unset irrelevant properties per child class, in order to make debugging easier.
+     */
+    protected abstract function post_init();
 
     /** Determine if running on Windows. */
     private function is_windows(): bool {

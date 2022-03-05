@@ -38,7 +38,7 @@ class PushKit extends Wrapper {
         $this->access_token = $account_kit->get_access_token();
     }
 
-    /** Post Init */
+    /** Unset properties irrelevant to the child class. */
     protected function post_init() {
         unset($this->api_key, $this->api_signature);
     }

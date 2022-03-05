@@ -31,6 +31,7 @@ class MapKit extends Wrapper {
         return !empty( $this->api_key );
     }
 
+    /** Unset properties irrelevant to the child class. */
     protected function post_init() {
         unset($this->app_id, $this->app_secret, $this->client_id, $this->client_secret);
         unset($this->access_token, $this->refresh_token, $this->token_expiry);

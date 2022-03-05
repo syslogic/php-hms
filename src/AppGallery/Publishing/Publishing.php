@@ -15,7 +15,7 @@ class Publishing extends Wrapper {
         parent::__construct( $config );
     }
 
-    /** Post Init */
+    /** Unset properties irrelevant to the child class. */
     protected function post_init() {
         unset($this->api_key, $this->api_signature);
     }
