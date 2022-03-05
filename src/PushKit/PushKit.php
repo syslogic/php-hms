@@ -24,7 +24,9 @@ class PushKit extends Wrapper {
 
     /** Constructor. */
     public function __construct( array|string $config ) {
+
         parent::__construct( $config );
+        $this->post_init();
 
         $this->url_message_send      = str_replace('{appId}', $this->app_id, Constants::PUSHKIT_MESSAGE_SEND);
         $this->url_topics_list       = str_replace('{appId}', $this->app_id, Constants::PUSHKIT_TOPICS_LIST);
@@ -39,7 +41,7 @@ class PushKit extends Wrapper {
     }
 
     /** Unset properties irrelevant to the child class. */
-    protected function post_init() {
+    protected function post_init(): void {
         unset($this->api_key, $this->api_signature);
     }
 

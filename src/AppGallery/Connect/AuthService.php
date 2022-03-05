@@ -19,7 +19,10 @@ class AuthService extends Connect {
 
     /** Constructor. */
     public function __construct( array|string $config ) {
+
         parent::__construct( $config );
+        parent::post_init();
+
         $this->url_user_import  = Constants::CONNECT_API_BASE_URL.Constants::CONNECT_API_AUTH_SERVICE_USER_IMPORT;
         $this->url_user_export  = Constants::CONNECT_API_BASE_URL.Constants::CONNECT_API_AUTH_SERVICE_USER_EXPORT;
         $this->url_token_verify = Constants::CONNECT_API_BASE_URL.Constants::CONNECT_API_AUTH_SERVICE_VERIFY_TOKEN;

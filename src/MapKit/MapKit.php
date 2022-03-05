@@ -24,6 +24,7 @@ class MapKit extends Wrapper {
 
     public function __construct( array $config ) {
         parent::__construct( $config );
+        $this->post_init();
     }
 
     /** For MapKit only the API key matters. */
@@ -32,7 +33,7 @@ class MapKit extends Wrapper {
     }
 
     /** Unset properties irrelevant to the child class. */
-    protected function post_init() {
+    protected function post_init(): void {
         unset($this->app_id, $this->app_secret, $this->client_id, $this->client_secret);
         unset($this->access_token, $this->refresh_token, $this->token_expiry);
         unset($this->package_name, $this->product_id, $this->project_id);

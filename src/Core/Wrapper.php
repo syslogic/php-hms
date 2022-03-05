@@ -11,23 +11,23 @@ use stdClass;
 /**
  * Class HMS Core Wrapper
  *
- * @property int $client_id AGC client ID.
- * @property string|null $client_secret AGC client secret.
- * @property int $app_id OAuth2 client ID.
- * @property string|null $app_secret OAuth2 client secret
- * @property string|null $access_token OAuth2 (app) access token.
- * @property string|null $refresh_token OAuth2 refresh token.
- * @property int $token_expiry OAuth2 access token expiry.
- * @property string|null $api_key MapKit API key.
- * @property string|null $signature_key MapKit Static API signature key.
- * @property string|null $package_name AnalyticsKit related; for PushKit click_action?
- * @property int $product_id AnalyticsKit related.
- * @property int $project_id AnalyticsKit related.
- * @property int $agc_client_id  AGC API client ID.
- * @property string|null $agc_client_secret AGC API client secret.
- * @property ResponseInterface $response Default response.
- * @property array $headers Default request headers.
- * @property stdClass $result Default API result.
+ * @property int $client_id                 AGConnect client ID.
+ * @property string|null $client_secret     AGConnect client secret.
+ * @property int $app_id                    OAuth2 client ID.
+ * @property string|null $app_secret        OAuth2 client secret
+ * @property string|null $access_token      OAuth2 (app) access token.
+ * @property string|null $refresh_token     OAuth2 refresh token.
+ * @property int $token_expiry              OAuth2 access token expiry.
+ * @property string|null $api_key           MapKit API key.
+ * @property string|null $api_signature     MapKit Static API signature key.
+ * @property string|null $package_name      AnalyticsKit related; for PushKit click_action?
+ * @property int $product_id                AnalyticsKit related.
+ * @property int $project_id                AnalyticsKit related.
+ * @property int $agc_client_id             AGConnect API client ID.
+ * @property string|null $agc_client_secret AGConnect API client secret.
+ * @property ResponseInterface $response    Default response.
+ * @property stdClass $result               Default API result.
+ * @property array $headers                 Default request headers.
  * @author Martin Zeitler
  */
 abstract class Wrapper {
@@ -49,8 +49,10 @@ abstract class Wrapper {
 
     protected Client $client;
     protected ResponseInterface $response;
-    private array $headers = [ 'Content-Type' => 'application/json;charset=utf-8' ];
     protected stdClass $result;
+    private array $headers = [
+        'Content-Type' => 'application/json;charset=utf-8'
+    ];
 
     /** Constructor. */
     public function __construct( array|null $config = null ) {
@@ -69,14 +71,13 @@ abstract class Wrapper {
         } else {
             $this->init_by_environment();
         }
-        $this->post_init();
     }
 
     /**
      * Not all class properties of Core\Wrapper are used by each particular child class.
      * Unset irrelevant properties per child class, in order to make debugging easier.
      */
-    protected abstract function post_init();
+    protected abstract function post_init(): void;
 
     /** Determine if running on Windows. */
     private function is_windows(): bool {
@@ -150,7 +151,7 @@ abstract class Wrapper {
     /** Provide HTTP request headers as array. */
     #[ArrayShape(['Content-Type' => 'string'])]
     protected function request_headers(): array {
-        return [ 'Content-Type' => 'application/json;charset=utf-8' ];
+        return [ 'Content-Type' => 'application/json' ];
     }
 
     /** Perform GuzzleHttp POST request. */

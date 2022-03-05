@@ -16,13 +16,18 @@ class Connect extends Wrapper {
 
     /** Constructor */
     public function __construct( array|string $config ) {
+
         parent::__construct( $config );
+        $this->post_init();
+
         $this->url_token  = Constants::URL_OAUTH2_TOKEN;
         $this->access_token = $this->get_access_token();
     }
 
     /** Unset properties irrelevant to the child class. */
-    protected function post_init() {
+    protected function post_init(): void {
+        unset($this->app_id, $this->app_secret, $this->client_id, $this->client_secret);
+        unset($this->package_name, $this->project_id, $this->refresh_token);
         unset($this->api_key, $this->api_signature);
     }
 
@@ -40,7 +45,6 @@ class Connect extends Wrapper {
         ]);
         if ( is_object( $result ) ) {
             if ( property_exists( $result, 'ret' ) && property_exists( $result->ret, 'code' )) {
-                // die( 'oAuth2 Error '.$result->ret->code.' -> '.$result->ret->msg);
                 return $this->sanitize( $this->result );
             } else {
                 if ( property_exists( $result, 'access_token' ) ) {

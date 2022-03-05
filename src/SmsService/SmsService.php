@@ -19,9 +19,12 @@ class SmsService {
                 isset( $config['password'] ) && !empty( $config['password'] )
             ) {
 
+                $this->post_init();
             }
         }
     }
+
+    protected function post_init(): void {}
 
     public function is_ready(): bool {
         return false;

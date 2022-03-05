@@ -13,7 +13,9 @@ use HMS\Core\Wrapper;
 class LocationKit extends Wrapper {
 
     public function __construct( array|string $config ) {
+
         parent::__construct( $config );
+        $this->post_init();
 
         /* Obtain an access-token. */
         $account_kit = new AccountKit( $config );
@@ -21,7 +23,7 @@ class LocationKit extends Wrapper {
     }
 
     /** Unset properties irrelevant to the child class. */
-    protected function post_init() {
+    protected function post_init(): void {
 
     }
 }

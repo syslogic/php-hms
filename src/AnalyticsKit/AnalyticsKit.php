@@ -27,7 +27,9 @@ class AnalyticsKit extends Wrapper {
     private string|null $url_report_dimensions_list;
 
     public function __construct( array $config ) {
+
         parent::__construct( $config );
+        $this->post_init();
 
         $base_url = Constants::ANALYTICS_KIT_BASE_URL;
         $this->url_user_data_export             = $base_url.Constants::ANALYTICS_KIT_GDPR_USER_DATA_EXPORT;
@@ -48,7 +50,7 @@ class AnalyticsKit extends Wrapper {
     }
 
     /** Unset properties irrelevant to the child class. */
-    protected function post_init() {
+    protected function post_init(): void {
         unset($this->api_key, $this->api_signature);
     }
 
