@@ -48,7 +48,7 @@ class AnalyticsKit extends Wrapper {
     }
 
     /** Provide HTTP request headers as array. */
-    protected function auth_header(): array {
+    protected function auth_headers(): array {
         return [
             "Content-Type: application/json; charset=utf-8",
             "Authorization: Bearer $this->access_token",
@@ -67,7 +67,7 @@ class AnalyticsKit extends Wrapper {
     public function request_user_data_export( string|null $aaid ): stdClass {
         $payload = [];
         if ($aaid != null) {$payload = ['aaid' => $aaid];}
-        return $this->guzzle_post($this->url_user_data_export, $this->auth_header(), $payload);
+        return $this->guzzle_post($this->url_user_data_export, $this->auth_headers(), $payload);
     }
 
     /**
@@ -79,7 +79,7 @@ class AnalyticsKit extends Wrapper {
      */
     public function request_user_data_export_status( string $aaid ): stdClass {
         $payload = ['aaid' => $aaid];
-        return $this->guzzle_post($this->url_user_data_export_status, $this->auth_header(), $payload);
+        return $this->guzzle_post($this->url_user_data_export_status, $this->auth_headers(), $payload);
     }
 
     /**
@@ -91,7 +91,7 @@ class AnalyticsKit extends Wrapper {
      */
     public function request_user_data_deletion( string $aaid ): stdClass {
         $payload = ['aaid' => $aaid];
-        return $this->guzzle_post($this->url_user_data_deletion, $this->auth_header(), $payload);
+        return $this->guzzle_post($this->url_user_data_deletion, $this->auth_headers(), $payload);
     }
 
     /**
@@ -103,7 +103,7 @@ class AnalyticsKit extends Wrapper {
      */
     public function request_user_data_deletion_status( string $aaid ): stdClass {
         $payload = ['aaid' => $aaid];
-        return $this->guzzle_post($this->url_user_data_deletion_status, $this->auth_header(), $payload);
+        return $this->guzzle_post($this->url_user_data_deletion_status, $this->auth_headers(), $payload);
     }
 
     /**
@@ -115,7 +115,7 @@ class AnalyticsKit extends Wrapper {
      */
     public function request_raw_data_export( string $aaid ): stdClass {
         $payload = ['aaid' => $aaid];
-        return $this->guzzle_post($this->url_user_data_export, $this->auth_header(), $payload);
+        return $this->guzzle_post($this->url_user_data_export, $this->auth_headers(), $payload);
     }
 
     /**
@@ -143,7 +143,7 @@ class AnalyticsKit extends Wrapper {
             'data_type' => 1,
             'userdata_set' => $data
         ];
-        return $this->guzzle_post($this->url_data_collection_import_user, $this->auth_header(), $payload);
+        return $this->guzzle_post($this->url_data_collection_import_user, $this->auth_headers(), $payload);
     }
 
     /**
@@ -161,7 +161,7 @@ class AnalyticsKit extends Wrapper {
             'data_type' => 2,
             'item_set' => $data
         ];
-        return $this->guzzle_post($this->url_data_collection_import_item, $this->auth_header(), $payload);
+        return $this->guzzle_post($this->url_data_collection_import_item, $this->auth_headers(), $payload);
     }
 
     /**
@@ -183,7 +183,7 @@ class AnalyticsKit extends Wrapper {
             'package_name'     => $this->package_name,
             'event_set'        => $data
         ];
-        return $this->guzzle_post($this->url_data_collection_import_item, $this->auth_header(), $payload);
+        return $this->guzzle_post($this->url_data_collection_import_item, $this->auth_headers(), $payload);
     }
 
     /**
@@ -204,7 +204,7 @@ class AnalyticsKit extends Wrapper {
             'size' => $size,
             'curr_page' => $curr_page
         ];
-        return $this->guzzle_post($this->url_data_collection_import_item, $this->auth_header(), $payload);
+        return $this->guzzle_post($this->url_data_collection_import_item, $this->auth_headers(), $payload);
     }
 
     /**
@@ -229,7 +229,7 @@ class AnalyticsKit extends Wrapper {
             'size' => $size,
             'from' => $from
         ];
-        return $this->guzzle_post($this->url_data_collection_import_item, $this->auth_header(), $payload);
+        return $this->guzzle_post($this->url_data_collection_import_item, $this->auth_headers(), $payload);
     }
 
     /**
@@ -262,6 +262,6 @@ class AnalyticsKit extends Wrapper {
             'size'       => $size,
             'curr_page'  => $curr_page
         ];
-        return $this->guzzle_post($this->url_data_collection_import_item, $this->auth_header(), $payload);
+        return $this->guzzle_post($this->url_data_collection_import_item, $this->auth_headers(), $payload);
     }
 }

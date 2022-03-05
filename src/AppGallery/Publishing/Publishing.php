@@ -19,7 +19,7 @@ class Publishing extends Wrapper {
      *
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-upload-url-0000001158365047">Obtaining the File Upload URL</a>
      */
-    public function request_file_upload_url(string $upload_url, string $auth_code, string $file_path) {
+    public function request_file_upload_url( string $upload_url, string $auth_code, string $file_path ) {
 
     }
 
@@ -28,7 +28,7 @@ class Publishing extends Wrapper {
      *
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-upload-file-0000001158245059">Uploading a File</a>
      */
-    public function upload_file(string $upload_url, string $auth_code, string $file_path) {
+    public function upload_file( string $upload_url, string $auth_code, string $file_path ) {
 
     }
 
@@ -37,7 +37,7 @@ class Publishing extends Wrapper {
      *
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-app-file-info-0000001111685202">Updating App File Information</a>
      */
-    public function update_file_info($file_url, $file_size) {
+    public function update_file_info( $file_url, $file_size ) {
 
     }
 
@@ -49,7 +49,6 @@ class Publishing extends Wrapper {
     public function on_submission_callback(): bool {
         $key_file = '/var/www/.credentials/agconnect.pem';
         $item = new SubmissionCallback( $key_file );
-
         return true; // TODO
     }
 }

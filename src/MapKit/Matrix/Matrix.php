@@ -3,6 +3,8 @@ namespace HMS\MapKit\Matrix;
 
 use HMS\MapKit\Constants;
 use HMS\MapKit\MapKit;
+use InvalidArgumentException;
+use JetBrains\PhpStorm\ArrayShape;
 use stdClass;
 
 /**
@@ -47,22 +49,31 @@ class Matrix extends MapKit {
         return $this->url_driving;
     }
 
+    #[ArrayShape(['origins' => 'array', 'destinations' => 'array', 'language' => 'string'])]
+    private function getSimplePayload(array $origins, array $destinations, string $language ): array {
+        if (sizeof($origins) == 0 || sizeof($destinations) == 0) {
+            throw new InvalidArgumentException();
+        }
+        if (! in_array($language, ['en', 'zh_CN'])) {$language='en';}
+        foreach ($origins      as $key => $value) {$origins[$key]      = $value->asObject();}
+        foreach ($destinations as $key => $value) {$destinations[$key] = $value->asObject();}
+        return [
+            'origins' => $origins,
+            'destinations' => $destinations,
+            'language' => $language
+        ];
+    }
+
     /**
      * Batch Route Planning: Walking
      *
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/matrix-walking-0000001050161506">Batch Route Planning: Walking</a>
      */
-    public function getWalkingMatrix(array $origins, array $destinations, string $language='en'): bool|stdClass {
-        foreach ($origins      as $key => $value) {$origins[$key]      = $value->asObject();}
-        foreach ($destinations as $key => $value) {$destinations[$key] = $value->asObject();}
-        return $this->guzzle_post($this->getWalkingUrl(), [
-            'Content-Type' => 'application/json',
-            'Accept' => 'application/json'
-        ], [
-            'origins' => $origins,
-            'destinations' => $destinations,
-            'language' => $language
-        ]);
+    public function getWalkingMatrix( array $origins, array $destinations, string $language='en' ): bool|stdClass {
+        return $this->guzzle_post($this->getWalkingUrl(),
+            $this->request_headers(),
+            $this->getSimplePayload( $origins, $destinations, $language )
+        );
     }
 
     /**
@@ -70,16 +81,11 @@ class Matrix extends MapKit {
      *
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/matrix-bicycling-0000001050163459">Batch Route Planning: Cycling</a>
      */
-    public function getCyclingMatrix(array $origins, array $destinations, string $language='en'): bool|stdClass {
-        foreach ($origins      as $key => $value) {$origins[$key]      = $value->asObject();}
-        foreach ($destinations as $key => $value) {$destinations[$key] = $value->asObject();}
-        return $this->guzzle_post($this->getCyclingUrl(), [
-            'Content-Type' => 'application/json'
-        ], [
-            'origins' => $origins,
-            'destinations' => $destinations,
-            'language' => $language
-        ]);
+    public function getCyclingMatrix( array $origins, array $destinations, string $language='en' ): bool|stdClass {
+        return $this->guzzle_post($this->getCyclingUrl(),
+            $this->request_headers(),
+            $this->getSimplePayload( $origins, $destinations, $language )
+        );
     }
 
     /**
@@ -89,15 +95,10 @@ class Matrix extends MapKit {
      *
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/matrix-driving-0000001050161508">Batch Route Planning: Driving</a>
      */
-    public function getDrivingMatrix(array $origins, array $destinations, string $language='en'): bool|stdClass {
-        foreach ($origins      as $key => $value) {$origins[$key]      = $value->asObject();}
-        foreach ($destinations as $key => $value) {$destinations[$key] = $value->asObject();}
-        return $this->guzzle_post($this->getDrivingUrl(), [
-            'Content-Type' => 'application/json'
-        ], [
-            'origins' => $origins,
-            'destinations' => $destinations,
-            'language' => $language
-        ]);
+    public function getDrivingMatrix( array $origins, array $destinations, string $language='en' ): bool|stdClass {
+        return $this->guzzle_post($this->getDrivingUrl(),
+            $this->request_headers(),
+            $this->getSimplePayload( $origins, $destinations, $language /* , ... */ )
+        );
     }
 }

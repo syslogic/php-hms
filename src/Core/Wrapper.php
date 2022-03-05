@@ -25,8 +25,9 @@ use stdClass;
  * @property int $project_id AnalyticsKit related.
  * @property int $agc_client_id  AGC API client ID.
  * @property string|null $agc_client_secret AGC API client secret.
- * @property ResponseInterface $response Default Response.
- * @property stdClass $result Default Result.
+ * @property ResponseInterface $response Default response.
+ * @property array $headers Default request headers.
+ * @property stdClass $result Default API result.
  * @author Martin Zeitler
  */
 class Wrapper {
@@ -48,6 +49,7 @@ class Wrapper {
 
     protected Client $client;
     protected ResponseInterface $response;
+    private array $headers = [ 'Content-Type' => 'application/json;charset=utf-8' ];
     protected stdClass $result;
 
     /** Constructor. */
@@ -128,11 +130,17 @@ class Wrapper {
 
     /** Provide HTTP request headers as array. */
     #[ArrayShape(['Content-Type' => 'string', 'Authorization' => 'string'])]
-    protected function auth_header(): array {
+    protected function auth_headers(): array {
         return [
             'Content-Type' => 'application/json;charset=utf-8',
             'Authorization' => ' Bearer ' . $this->access_token
         ];
+    }
+
+    /** Provide HTTP request headers as array. */
+    #[ArrayShape(['Content-Type' => 'string'])]
+    protected function request_headers(): array {
+        return [ 'Content-Type' => 'application/json;charset=utf-8' ];
     }
 
     /** Perform GuzzleHttp POST request. */

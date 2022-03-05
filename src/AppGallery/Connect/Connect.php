@@ -27,9 +27,8 @@ class Connect extends Wrapper {
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-obtain_token-0000001158365043">Obtaining a Token</a>
      */
     public function get_access_token(): string|null {
-        $result = $this->guzzle_post($this->url_token, [
-            'Content-Type: application/json;charset=utf-8'
-        ], [
+        $result = $this->guzzle_post($this->url_token,
+            $this->request_headers(), [
             'grant_type'    => 'client_credentials',
             'client_id'     => $this->agc_client_id,
             'client_secret' => $this->agc_client_secret

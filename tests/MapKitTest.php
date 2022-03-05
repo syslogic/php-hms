@@ -91,6 +91,8 @@ class MapKitTest extends BaseTestCase {
         /* Endpoint */
         $endpoint = self::$client->getSnapToRoads();
         self::assertTrue( true );
+
+        /* TODO: testing this endpoint would require sample data. */
     }
 
     /** Test: Static */
@@ -99,6 +101,7 @@ class MapKitTest extends BaseTestCase {
         /* Endpoint */
         $endpoint = self::$client->getStaticMap();
         self::assertTrue( true );
+
     }
 
     /** Test: Tile */

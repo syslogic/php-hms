@@ -3,6 +3,7 @@ namespace HMS\MapKit\Elevation;
 
 use HMS\MapKit\Constants;
 use HMS\MapKit\MapKit;
+use InvalidArgumentException;
 use stdClass;
 
 /**
@@ -32,13 +33,13 @@ class Elevation extends MapKit {
      * @param array $locations Collection of 1 to 512 longitude-latitude coordinates, which are used to calculate the altitude.
      * @return bool|stdClass   The result of the API call.
      */
-    public function getElevationByLocations(array $locations): bool|stdClass {
+    public function getElevationByLocations( array $locations ): bool|stdClass {
+        if (sizeof($locations) == 0 || sizeof($locations) > 512) {throw new InvalidArgumentException();}
         foreach ($locations as $key => $value) {$locations[$key] = $value->asObject();}
-        return $this->guzzle_post($this->getElevationUrl(), [
-            'Content-Type' => 'application/json'
-        ], [
-            'locations' => $locations
-        ]);
+        return $this->guzzle_post($this->getElevationUrl(),
+            $this->request_headers(),
+            [ 'locations' => $locations ]
+        );
     }
 
     /**
@@ -46,12 +47,12 @@ class Elevation extends MapKit {
      *                                The value can be an array of strings separated by semicolons (;).
      * @return bool|stdClass          The result of the API call.
      */
-    public function getElevationByEncodedLocations(string $encodedLocation): bool|stdClass {
-        return $this->guzzle_post($this->getElevationUrl(), [
-            'Content-Type' => 'application/json'
-        ], [
-            'encodedLocation' => $encodedLocation
-        ]);
+    public function getElevationByEncodedLocations( string $encodedLocation ): bool|stdClass {
+        if (empty($encodedLocation)) {throw new InvalidArgumentException();}
+        return $this->guzzle_post($this->getElevationUrl(),
+            $this->request_headers(),
+            [ 'encodedLocation' => $encodedLocation ]
+        );
     }
 
     /**
@@ -60,12 +61,12 @@ class Elevation extends MapKit {
      * @return bool|stdClass The result of the API call.
      */
     public function getElevationByPath(array $path): bool|stdClass {
+        if (sizeof($path) == 0) {throw new InvalidArgumentException();}
         foreach ($path as $key => $value) {$path[$key] = $value->asObject();}
-        return $this->guzzle_post($this->getElevationUrl(), [
-            'Content-Type' => 'application/json'
-        ], [
-            'path' => $path
-        ]);
+        return $this->guzzle_post($this->getElevationUrl(),
+            $this->request_headers(),
+            [ 'path' => $path ]
+        );
     }
 
     /**
@@ -78,12 +79,11 @@ class Elevation extends MapKit {
      * @return bool|stdClass      The result of the API call.
      */
     public function getElevationByEncodedPath(string $encodedPath, int $samples): bool|stdClass {
-        return $this->guzzle_post($this->getElevationUrl(), [
-            'Content-Type' => 'application/json'
-        ], [
-            'encodedPath' => $encodedPath,
-            'samples' => $samples
-        ]);
+        if (empty($encodedPath)) {throw new InvalidArgumentException();}
+        if ($samples < 1) {throw new InvalidArgumentException();}
+        return $this->guzzle_post($this->getElevationUrl(),
+            $this->request_headers(),
+            [ 'encodedPath' => $encodedPath, 'samples' => $samples ]
+        );
     }
-
 }
