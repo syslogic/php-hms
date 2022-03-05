@@ -17,6 +17,9 @@ class MapKitTest extends BaseTestCase {
     private static Coordinate $point_b;
     private static Coordinate $point_c;
 
+    private static string $marker_desc;
+    private static string $path_desc;
+
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {
 
@@ -28,6 +31,9 @@ class MapKitTest extends BaseTestCase {
         self::$point_a = new Coordinate(['lat' => 48.142910, 'lng' => 11.579340]); // Munich @ Dianatempel
         self::$point_b = new Coordinate(['lat' => 48.152463, 'lng' => 11.593503]); // Munich @ Chinesischer Turm
         self::$point_c = new Coordinate(['lat' => 48.153022, 'lng' => 11.582501]); // Munich @ Leopoldstraße
+
+        self::$marker_desc = '{'.self::$point_a->asString().'}|{'.self::$point_b->asString().'}|{'.self::$point_c->asString().'}';
+        self::$path_desc = '{'.self::$point_a->asString().'}|{'.self::$point_b->asString().'}|{'.self::$point_c->asString().'}';
     }
 
     /** Test: Directions API */
@@ -105,9 +111,17 @@ class MapKitTest extends BaseTestCase {
         /* By Location */
         $result = $endpoint->getStaticMapByLocation(self::$point_a, 512, 512, 12, 2);
         self::assertTrue( property_exists($result, 'url') && is_string($result->url) );
+
+        /* By Marker description */
+        $result = $endpoint->getStaticMapByMarkers(self::$marker_desc, 'size:tiny|color:blue|label:p', 512, 12, 2);
+        self::assertTrue( property_exists($result, 'url') && is_string($result->url) );
+
+        /* By Path description */
+        $result = $endpoint->getStaticMapByPath(self::$path_desc, 'weight:1|color:0x0000ff80|fillcolor:0x0000ff80', 512, 12, 2);
+        self::assertTrue( property_exists($result, 'url') && is_string($result->url) );
     }
 
-    /** Test: Tile API */
+    /** Test: Map Tile API */
     public function test_tile_api() {
 
         /* Endpoint */

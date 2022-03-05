@@ -37,7 +37,7 @@ class Wrapper {
     protected int $app_id = 0;
     protected string|null $app_secret = null;
     protected string|null $api_key = null;
-    protected static string|null $signature_key = null;
+    protected string|null $api_signature = null;
     protected string|null $access_token = null;
     protected string|null $refresh_token = null;
     protected int $token_expiry = 0;
@@ -100,6 +100,9 @@ class Wrapper {
         }
         if ( isset( $config['api_key'] ) ) {
             $this->api_key = (string) $config['api_key'];
+        }
+        if ( isset( $config['api_signature'] ) ) {
+            $this->api_signature = (string) $config['api_signature'];
         }
         if ( isset($config['product_id']) && is_int($config['product_id'])) {
             $this->product_id = $config['product_id'];
@@ -194,6 +197,7 @@ class Wrapper {
                     case 'image/png':
                         $binary = $this->response->getBody()->getContents();
                         $this->result->url = 'data:image/png;base64,'.base64_encode($binary);
+                        $this->result->raw = $binary;
                         break;
                 }
             }
