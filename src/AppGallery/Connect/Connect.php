@@ -14,11 +14,16 @@ class Connect extends Wrapper {
 
     private string $url_token;
 
-    /** Constructor. */
+    /** Constructor */
     public function __construct( array|string $config ) {
         parent::__construct( $config );
         $this->url_token  = Constants::URL_OAUTH2_TOKEN;
         $this->access_token = $this->get_access_token();
+    }
+
+    /** Post Init */
+    protected function post_init() {
+        unset($this->api_key, $this->api_signature);
     }
 
     /**

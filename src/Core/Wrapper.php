@@ -30,7 +30,7 @@ use stdClass;
  * @property stdClass $result Default API result.
  * @author Martin Zeitler
  */
-class Wrapper {
+abstract class Wrapper {
 
     protected int $client_id = 0;
     protected string|null $client_secret = null;
@@ -55,7 +55,10 @@ class Wrapper {
     /** Constructor. */
     public function __construct( array|null $config = null ) {
         $this->init( $config );
+        $this->post_init();
     }
+
+    protected abstract function post_init();
 
     /** Initialize the client; either by array or by environmental variables. */
     private function init( array|null $config = null ): void {

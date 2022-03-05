@@ -10,8 +10,14 @@ use HMS\Core\Wrapper;
  */
 class Publishing extends Wrapper {
 
+    /** Constructor */
     public function __construct( array|string $config ) {
         parent::__construct( $config );
+    }
+
+    /** Post Init */
+    protected function post_init() {
+        unset($this->api_key, $this->api_signature);
     }
 
     /**

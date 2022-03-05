@@ -29,6 +29,11 @@ class SearchKit extends Wrapper {
         $this->access_token = $account_kit->get_access_token();
     }
 
+    /** Post Init */
+    protected function post_init() {
+        unset($this->api_key, $this->api_signature);
+    }
+
     /** Provide HTTP request headers as array. */
     protected function auth_header(): array {
         return [

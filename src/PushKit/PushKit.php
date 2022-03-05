@@ -25,6 +25,7 @@ class PushKit extends Wrapper {
     /** Constructor. */
     public function __construct( array|string $config ) {
         parent::__construct( $config );
+
         $this->url_message_send      = str_replace('{appId}', $this->app_id, Constants::PUSHKIT_MESSAGE_SEND);
         $this->url_topics_list       = str_replace('{appId}', $this->app_id, Constants::PUSHKIT_TOPICS_LIST);
         $this->url_topic_subscribe   = str_replace('{appId}', $this->app_id, Constants::PUSHKIT_TOPIC_SUBSCRIBE);
@@ -35,6 +36,11 @@ class PushKit extends Wrapper {
         /* Obtain an access-token. */
         $account_kit = new AccountKit( $config );
         $this->access_token = $account_kit->get_access_token();
+    }
+
+    /** Post Init */
+    protected function post_init() {
+        unset($this->api_key, $this->api_signature);
     }
 
     /**
