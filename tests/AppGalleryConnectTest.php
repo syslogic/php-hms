@@ -16,6 +16,8 @@ class AppGalleryConnectTest extends BaseTestCase {
     private static Connect|null $connect;
     private static AuthService|null $client;
 
+    private static string $test_token = 'xyz';
+
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {
         parent::setUpBeforeClass();
@@ -48,19 +50,19 @@ class AppGalleryConnectTest extends BaseTestCase {
     /** Test: Exporting Users. */
     public function test_export_users() {
         $result = self::$client->export_users();
-        self::assertFalse( $result ); // TODO...
+        self::assertTrue( $result->code != 401, $result->message );
     }
 
     /** Test: Authenticating a User's Access Token. */
     public function test_verify_access_token() {
-        $result = self::$client->verify_access_token();
-        self::assertFalse( $result ); // TODO...
+        $result = self::$client->verify_access_token( self::$test_token );
+        self::assertTrue( $result->code == 404 );
     }
 
     /** Test: Revoking a User's Access Token. */
     public function test_revoke_access_token() {
-        $result = self::$client->revoke_access_token();
-        self::assertFalse( $result ); // TODO...
+        $result = self::$client->revoke_access_token( self::$test_token );
+        self::assertTrue( $result->code != 401, $result->message );
     }
 
 
