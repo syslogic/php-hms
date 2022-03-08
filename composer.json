@@ -39,7 +39,7 @@
   },
   "require-dev": {
     "ext-xdebug": "*",
-    "phpunit/phpunit": "^9.5.16"
+    "phpunit/phpunit": "^9.5.18"
   },
   "autoload": {
     "psr-4": {
