@@ -1,6 +1,5 @@
-/vendor/
-/build/
-/.phpunit.result.cache
-/__*/
-/agconnect-services.json
-mapkit_*.png
+__*/
+vendor/
+build/
+.phpunit.result.cache
+agconnect-services.json
