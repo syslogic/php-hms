@@ -112,19 +112,19 @@ class MapKitTest extends BaseTestCase {
         $result = $endpoint->getStaticMapByLocation(self::$point_a, 512, 256, 12, 2);
         self::assertTrue( property_exists($result, 'url') && is_string($result->url) );
         self::assertTrue( property_exists($result, 'raw') && is_string($result->raw) );
-        file_put_contents('./mapkit_01.png', $result->raw);
+        file_put_contents('./results/mapkit_01.png', $result->raw);
 
         /* By Marker description */
         $result = $endpoint->getStaticMapByMarkers(self::$marker_desc, 'size:tiny|color:blue|label:p', 512, 256);
         self::assertTrue( property_exists($result, 'url') && is_string($result->url) );
         self::assertTrue( property_exists($result, 'raw') && is_string($result->raw) );
-        file_put_contents('./mapkit_02.png', $result->raw);
+        file_put_contents('./results/mapkit_02.png', $result->raw);
 
         /* By Path description */
         $result = $endpoint->getStaticMapByPath(self::$path_desc, 'weight:1|color:0x0000ff80|fillcolor:0x0000ff80', 512, 256);
         self::assertTrue( property_exists($result, 'url') && is_string($result->url) );
         self::assertTrue( property_exists($result, 'raw') && is_string($result->raw) );
-        file_put_contents('./mapkit_03.png', $result->raw);
+        file_put_contents('./results/mapkit_03.png', $result->raw);
     }
 
     /** Test: Map Tile API */
