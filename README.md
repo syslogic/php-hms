@@ -37,6 +37,8 @@ This library depends on the following environmental variables:
 - `HUAWEI_CONNECT_API_CLIENT_SECRET`<br/>
   The client key can be obtained on the [console](https://developer.huawei.com/consumer/en/service/josp/agc/index.html) <br/>below `Users and permissions` > `API key` > `Connect API`.
 
+When creating the API client, project should be set to value "N/A".
+
 #### MapKit API:
 
 - `HUAWEI_MAPKIT_API_KEY`<br/>
