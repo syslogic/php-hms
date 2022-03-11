@@ -54,7 +54,7 @@ Please refer to the documentation, which explains how to obtain these values: <b
 #### PushKit API Server
 
  - `HUAWEI_HMAC_VERIFICATION_KEY` (optional)<br/>
-   The HMAC verification key is unique to each upstream message webhook. <br/>The value can be obtained from such webhook configuration settings.
+   The HMAC verification key is unique to each upstream message webhook. <br/>The value can be obtained from each such webhook configuration form.
 
 #### AnalyticsKit API:
 
