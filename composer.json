@@ -32,13 +32,13 @@
     "php": ">=8.0",
     "ext-json": "*",
     "ext-curl": "*",
-    "phpseclib/phpseclib": "^3.0.14",
-    "guzzlehttp/guzzle": "^7.4.5",
-    "guzzlehttp/psr7": "^2.4.0",
+    "phpseclib/phpseclib": "^3.0.16",
+    "guzzlehttp/guzzle": "^7.5.0",
+    "guzzlehttp/psr7": "^2.4.1",
     "psr/http-message": "^1.0.1"
   },
   "require-dev": {
-    "phpunit/phpunit": "^9.5.21"
+    "phpunit/phpunit": "^9.5.25"
   },
   "autoload": {
     "psr-4": {
