@@ -3,3 +3,4 @@ vendor/
 build/
 .phpunit.result.cache
 agconnect-services.json
+/composer.lock
