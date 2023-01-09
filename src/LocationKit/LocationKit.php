@@ -31,11 +31,19 @@ class LocationKit extends Wrapper {
         unset($this->agc_client_id, $this->agc_client_secret);
     }
 
-    public function getGeoLocation(): GeoLocation {
-        return new GeoLocation( ['app_id' => $this->app_id, 'app_secret' => $this->app_secret] );
+    public function getGeoLocation(string $geo_location): GeoLocation {
+        return new GeoLocation( [
+            'app_id' => $this->app_id,
+            'app_secret' => $this->app_secret,
+            'geo_location' => $geo_location
+        ] );
     }
 
-    public function getIPLocation(): IPLocation {
-        return new IPLocation( ['app_id' => $this->app_id, 'app_secret' => $this->app_secret] );
+    public function getIPLocation(string $ip_address): IPLocation {
+        return new IPLocation( [
+            'app_id' => $this->app_id,
+            'app_secret' => $this->app_secret,
+            'ip_address' => $ip_address
+        ] );
     }
 }
