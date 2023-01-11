@@ -3,13 +3,13 @@ namespace HMS\LocationKit;
 
 use HMS\AccountKit\AccountKit;
 use HMS\Core\Wrapper;
-use HMS\LocationKit\GeoLocation\GeoLocation;
-use HMS\LocationKit\IPLocation\IPLocation;
 
 /**
  * Class HMS LocationKit Wrapper
+ * Note: Not being implemented.
  *
  * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/web-overview-0000001052619173">LocationKit</a>
+ * @see <a href="https://developer.huawei.com/consumer/en/console#/myApi/">HMS API</a>
  * @author Martin Zeitler
  */
 class LocationKit extends Wrapper {
@@ -31,18 +31,16 @@ class LocationKit extends Wrapper {
         unset($this->agc_client_id, $this->agc_client_secret);
     }
 
-    public function getGeoLocation(string $geo_location): GeoLocation {
+    public function getGeoLocation(string $geocode): GeoLocation {
         return new GeoLocation( [
-            'app_id' => $this->app_id,
-            'app_secret' => $this->app_secret,
-            'geo_location' => $geo_location
+            'access_token' => $this->access_token,
+            'geocode' => $geocode
         ] );
     }
 
     public function getIPLocation(string $ip_address): IPLocation {
         return new IPLocation( [
-            'app_id' => $this->app_id,
-            'app_secret' => $this->app_secret,
+            'access_token' => $this->access_token,
             'ip_address' => $ip_address
         ] );
     }

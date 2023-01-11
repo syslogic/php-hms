@@ -1,16 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- https://phpunit.de/manual/current/en/appendixes.configuration.html -->
 <phpunit
-    verbose="true"
-    colors="true">
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
+        verbose="true"
+        colors="true">
     <php>
         <server name="X-HUAWEI-CALLBACK-ID" value="timestamp=1563105451261; nonce=a07bfa17-6d82-4b53-a9a2-07cfef5ceef1; value=E4YeOsnMtHZ6592U8B9S37238E+Hwtjfrmpf8AQXF+c="/>
         <server name="X-HW-SIGNATURE" value="timestamp=1563105451261; nonce=:; value=E4YeOsnMtHZ6592U8B9S37238E+Hwtjfrmpf8AQXF+c="/>
         <server name="X-HW-TIMESTAMP" value="1563105451261"/>
+        <env name="TEST_IP_ADDRESS" value="140.82.121.6"/>
+        <env name="TEST_GEO_CODE" value="Munich"/>
+        <ini name="error_reporting" value="-1"/>
     </php>
+
     <testsuites>
         <testsuite name="main">
-            <directory suffix="Test.php">./tests</directory>
+            <directory>./tests</directory>
         </testsuite>
     </testsuites>
+
     <logging/>
+
 </phpunit>
