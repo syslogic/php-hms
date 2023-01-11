@@ -50,9 +50,6 @@ abstract class Wrapper {
     protected Client $client;
     protected ResponseInterface $response;
     protected stdClass $result;
-    private array $headers = [
-        'Content-Type' => 'application/json;charset=utf-8'
-    ];
 
     /** Constructor. */
     public function __construct( array|null $config = null ) {
