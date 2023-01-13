@@ -67,7 +67,7 @@ class Directions extends MapKit {
         return $this->guzzle_post($this->getWalkingUrl(), $this->request_headers(), [
             'origin' => $point_a->asObject(),
             'destination' => $point_b->asObject(),
-            'language' => $language,
+            // 'language' => $language,
             // 'avoid' => $policies
         ]);
     }
@@ -93,7 +93,7 @@ class Directions extends MapKit {
         ], [
             'origin' => $point_a->asObject(),
             'destination' => $point_b->asObject(),
-            'language' => $language,
+            // 'language' => $language,
             // 'avoid' => $policies
         ]);
     }
@@ -121,7 +121,7 @@ class Directions extends MapKit {
         ], [
             'origin' => $point_a->asObject(),
             'destination' => $point_b->asObject(),
-            'language' => $language,
+            // 'language' => $language,
             // 'avoid' => $policies
         ]);
     }

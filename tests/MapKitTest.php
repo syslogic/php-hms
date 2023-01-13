@@ -48,7 +48,7 @@ class MapKitTest extends BaseTestCase {
     private function saveFile(string $filename, mixed $data) : void {
         $result = file_put_contents($filename, $data);
         if (is_integer($result)) {
-            echo "saved ".$filename.", ".$result." bytes\n";
+            echo "Saved ".$filename.", ".$result." bytes\n";
         }
     }
 

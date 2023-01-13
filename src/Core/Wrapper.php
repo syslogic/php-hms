@@ -54,6 +54,7 @@ abstract class Wrapper {
     protected Client $client;
     protected ResponseInterface $response;
     protected stdClass $result;
+    protected bool $debug_mode = false;
 
     /** Constructor. */
     public function __construct( array|null $config = null ) {
@@ -61,21 +62,28 @@ abstract class Wrapper {
     }
 
     /** Initialize the client; either by array or by environmental variables. */
-    private function init( array|null $config = null ): void {
+    private function init( array|null $config = null): void {
         $this->result = new stdClass();
-        $stack = HandlerStack::create();
-        $stack->push(
-            Middleware::log(
-                new Logger('Logger'),
-                new MessageFormatter('{req_body} - {res_body}')
-            )
-        );
+        if ( is_array( $config ) && isset( $config['debug'] ) && is_bool($config['debug']) ) {
+            $this->debug_mode = $config['debug'];
+        }
+        if ( $this->debug_mode ) {
+            $handlers = HandlerStack::create();
+            $handlers->push(
+                Middleware::log(new Logger('Logger'), new MessageFormatter('{req_body} >> {res_body}'))
+            );
+            $this->client = new Client( [
+                RequestOptions::VERIFY => !$this->is_windows(),
+                RequestOptions::DEBUG => false,
+                'handler' => $handlers
+            ] );
+        } else {
+            $this->client = new Client( [
+                RequestOptions::VERIFY => !$this->is_windows(),
+                RequestOptions::DEBUG => false
+            ] );
+        }
 
-        $this->client = new Client( [
-            RequestOptions::VERIFY => !$this->is_windows(),
-            RequestOptions::DEBUG => false,
-            'handler' => $stack
-        ] );
         if ( is_array( $config ) ) {
             $this->init_by_array( $config );
         } else {

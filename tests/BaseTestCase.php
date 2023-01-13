@@ -19,7 +19,6 @@ abstract class BaseTestCase extends TestCase {
 
     protected static string|null $api_key = null;       // MapKit in general.
     protected static string|null $signature_key = null; // Maps Static API.
-
     protected static string|null $package_name = null;
     protected static int $project_id = 0;
     protected static int $product_id = 0;
@@ -65,7 +64,8 @@ abstract class BaseTestCase extends TestCase {
         'product_id'        => 'integer',
         'app_id'            => 'integer',
         'app_secret'        => 'string',
-        'api_key'           => 'string'
+        'api_key'           => 'string',
+        'debug'             => 'bool'
     ])]
     protected static function get_config(): array {
         return [
@@ -74,7 +74,8 @@ abstract class BaseTestCase extends TestCase {
             'product_id'        => self::$product_id,
             'app_id'            => self::$app_id,
             'app_secret'        => self::$app_secret,
-            'api_key'           => self::$api_key
+            'api_key'           => self::$api_key,
+            'debug'             => true
         ];
     }
 }
