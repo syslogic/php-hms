@@ -45,8 +45,8 @@ class MapKitTest extends BaseTestCase {
         self::$path_desc = '{'.self::$point_a->asString().'}|{'.self::$point_b->asString().'}|{'.self::$point_c->asString().'}';
     }
 
-    private function saveFile(string $filename, mixed $data) : void {
-        $result = file_put_contents($filename, $data);
+    private function saveFile(string $filename, string $raw_data) : void {
+        $result = file_put_contents($filename, $raw_data);
         if (is_integer($result)) {
             echo "Saved ".$filename.", ".$result." bytes\n";
         }
@@ -133,20 +133,20 @@ class MapKitTest extends BaseTestCase {
 
         /* By Location */
         $result = $endpoint->getStaticMapByLocation(self::$point_a, self::$width, self::$height, self::$zoom, self::$scale);
-        self::assertTrue( property_exists($result, 'url') && is_string($result->url) );
-        self::assertTrue( property_exists($result, 'raw') && is_string($result->raw) );
+        self::assertTrue( property_exists($result, 'url') && is_string($result->url) && $result->url != 'data:image/png;base64,');
+        self::assertTrue( property_exists($result, 'raw') && is_string($result->raw) && !empty($result->raw));
         self::saveFile($results_path.'mapkit_01.png', $result->raw);
 
         /* By Marker description */
         $result = $endpoint->getStaticMapByMarkers(self::$marker_desc, self::$marker_styles, self::$width, self::$height, self::$zoom, self::$scale);
-        self::assertTrue( property_exists($result, 'url') && is_string($result->url) );
-        self::assertTrue( property_exists($result, 'raw') && is_string($result->raw) );
+        self::assertTrue( property_exists($result, 'url') && is_string($result->url) && $result->url != 'data:image/png;base64,');
+        self::assertTrue( property_exists($result, 'raw') && is_string($result->raw) && !empty($result->raw));
         self::saveFile($results_path.'mapkit_02.png', $result->raw);
 
         /* By Path description */
         $result = $endpoint->getStaticMapByPath(self::$path_desc, self::$path_styles, self::$width, self::$height, self::$zoom, self::$scale);
-        self::assertTrue( property_exists($result, 'url') && is_string($result->url) );
-        self::assertTrue( property_exists($result, 'raw') && is_string($result->raw) );
+        self::assertTrue( property_exists($result, 'url') && is_string($result->url) && $result->url != 'data:image/png;base64,', 'disable stack-handler');
+        self::assertTrue( property_exists($result, 'raw') && is_string($result->raw) && !empty($result->raw));
         self::saveFile($results_path.'mapkit_03.png', $result->raw);
     }
 

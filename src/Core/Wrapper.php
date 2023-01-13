@@ -68,10 +68,18 @@ abstract class Wrapper {
             $this->debug_mode = $config['debug'];
         }
         if ( $this->debug_mode ) {
+
+            $templates = [
+                '{code} >> {req_headers}',
+                '{code} >> {req_body}',
+                '{code} << {res_headers}',
+                '{code} << {res_body}'
+            ];
             $handlers = HandlerStack::create();
-            $handlers->push(
-                Middleware::log(new Logger('Logger'), new MessageFormatter('{req_body} >> {res_body}'))
-            );
+            $logger = new Logger('Logger');
+            foreach ($templates as $template) {
+                $handlers->unshift($this->getMiddleware($logger, $template));
+            }
             $this->client = new Client( [
                 RequestOptions::VERIFY => !$this->is_windows(),
                 RequestOptions::DEBUG => false,
@@ -89,6 +97,10 @@ abstract class Wrapper {
         } else {
             $this->init_by_environment();
         }
+    }
+
+    private function getMiddleware( Logger $logger, string $template ): callable {
+        return Middleware::log($logger, new MessageFormatter($template));
     }
 
     /**

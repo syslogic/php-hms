@@ -41,49 +41,29 @@ class MapKit extends Wrapper {
     }
 
     public function getDirections(): Directions {
-        return new Directions( [
-            'api_key' => $this->api_key,
-            'debug' => $this->debug_mode,
-            // 'app_id' => $this->app_id,
-            // 'app_secret' => $this->app_secret
-        ] );
+        return new Directions( [ 'api_key' => $this->api_key, 'debug' => $this->debug_mode ] );
     }
 
     /** Works. */
     public function getElevation(): Elevation {
-        return new Elevation( [
-            'api_key' => $this->api_key,
-            'debug' => $this->debug_mode
-        ] );
+        return new Elevation( [ 'api_key' => $this->api_key, 'debug' => $this->debug_mode ] );
     }
 
     public function getMatrix(): Matrix {
-        return new Matrix( [
-            'api_key' => $this->api_key,
-            'debug' => $this->debug_mode
-        ] );
+        return new Matrix( [ 'api_key' => $this->api_key, 'debug' => $this->debug_mode ] );
     }
 
     public function getSnapToRoads(): SnapToRoads {
-        return new SnapToRoads( [
-            'api_key' => $this->api_key,
-            'debug' => $this->debug_mode
-        ] );
+        return new SnapToRoads( [ 'api_key' => $this->api_key, 'debug' => $this->debug_mode ] );
     }
 
-    /** Works. */
+    /** Debug must be disabled, else one cannot save the PNG image data. */
     public function getStaticMap(): StaticMap {
-        return new StaticMap( [
-            'api_key' => $this->api_key,
-            'debug' => $this->debug_mode
-        ] );
+        return new StaticMap( [ 'api_key' => $this->api_key, 'debug' => false ] );
     }
 
     /** Works. */
     public function getTile(): Tile {
-        return new Tile( [
-            'api_key' => $this->api_key,
-            'debug' => $this->debug_mode
-        ] );
+        return new Tile( [ 'api_key' => $this->api_key, 'debug' => $this->debug_mode ] );
     }
 }
