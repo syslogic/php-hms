@@ -57,15 +57,15 @@ class MapKitTest extends BaseTestCase {
 
         /* Walking Directions */
         $result = $endpoint->getWalkingDirections(self::$point_a, self::$point_b);
-        // self::assertTrue( property_exists($result, 'routes') && is_array($result->routes) );
+        self::assertTrue( property_exists($result, 'routes') && is_array($result->routes) );
 
         /* Cycling Directions */
         $result = $endpoint->getCyclingDirections(self::$point_a, self::$point_b);
-        // self::assertTrue( property_exists($result, 'routes') && is_array($result->routes) );
+        self::assertTrue( property_exists($result, 'routes') && is_array($result->routes) );
 
         /* Driving Directions */
         $result = $endpoint->getDrivingDirections(self::$point_a, self::$point_b);
-        // self::assertTrue( property_exists($result, 'routes') && is_array($result->routes) );
+        self::assertTrue( property_exists($result, 'routes') && is_array($result->routes) );
 
         self::assertTrue( true );
     }
@@ -78,15 +78,15 @@ class MapKitTest extends BaseTestCase {
 
         /* Walking Distance Matrix */
         $result = $endpoint->getWalkingMatrix([self::$point_a, self::$point_b], [self::$point_c]);
-        // self::assertTrue( property_exists($result, 'rows') && is_array($result->rows) );
+        self::assertTrue( property_exists($result, 'rows') && is_array($result->rows) );
 
         /* Cycling Distance Matrix */
         $result = $endpoint->getCyclingMatrix([self::$point_a, self::$point_b], [self::$point_c]);
-        // self::assertTrue( property_exists($result, 'rows') && is_array($result->rows) );
+        self::assertTrue( property_exists($result, 'rows') && is_array($result->rows) );
 
         /* Driving Distance Matrix */
         $result = $endpoint->getDrivingMatrix([self::$point_a, self::$point_b], [self::$point_c]);
-        // self::assertTrue( property_exists($result, 'rows') && is_array($result->rows) );
+        self::assertTrue( property_exists($result, 'rows') && is_array($result->rows) );
 
         self::assertTrue( true );
     }

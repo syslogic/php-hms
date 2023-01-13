@@ -148,7 +148,7 @@ abstract class Wrapper {
     /** Provide HTTP request headers as array. */
     #[ArrayShape(['Content-Type' => 'string'])]
     protected function request_headers(): array {
-        return [ 'Content-Type' => 'application/json' ];
+        return [ 'Content-Type' => 'application/json;charset=utf-8' ];
     }
 
     /** Perform GuzzleHttp POST request. */

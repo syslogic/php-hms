@@ -49,7 +49,7 @@ class Directions extends MapKit {
     }
 
     /**
-     * Route Planning: Walking
+     * Route Planning: Walking -> HTTP/1.1 405 Method Not Allowed.
      *
      * @param Coordinate $point_a Longitude and latitude of the departure place.
      * @param Coordinate $point_b Longitude and latitude of the destination.
@@ -70,12 +70,12 @@ class Directions extends MapKit {
             'origin' => $point_a->asObject(),
             'destination' => $point_b->asObject(),
             'language' => $language,
-            'avoid' => $policies
+            // 'avoid' => $policies
         ]);
     }
 
     /**
-     * Route Planning: Cycling
+     * Route Planning: Cycling -> HTTP/1.1 405 Method Not Allowed.
      *
      * @param Coordinate $point_a Longitude and latitude of the departure place.
      * @param Coordinate $point_b Longitude and latitude of the destination.
@@ -96,12 +96,12 @@ class Directions extends MapKit {
             'origin' => $point_a->asObject(),
             'destination' => $point_b->asObject(),
             'language' => $language,
-            'avoid' => $policies
+            // 'avoid' => $policies
         ]);
     }
 
     /**
-     * Route Planning: Driving
+     * Route Planning: Driving -> HTTP/1.1 405 Method Not Allowed.
      *
      * TODO: the driving endpoint has more options than the others.
      *
@@ -124,8 +124,7 @@ class Directions extends MapKit {
             'origin' => $point_a->asObject(),
             'destination' => $point_b->asObject(),
             'language' => $language,
-            'avoid' => $policies
-
+            // 'avoid' => $policies
         ]);
     }
 }
