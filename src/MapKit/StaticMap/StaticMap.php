@@ -19,7 +19,7 @@ class StaticMap extends MapKit {
 
     public function __construct( array $config ) {
         parent::__construct( $config );
-        $this->setStaticUrl(Constants::MAPKIT_BASE_URL . Constants::MAPKIT_STATIC_MAP_URL );
+        $this->setStaticUrl(Constants::MAPKIT_STATIC_MAP_URL );
     }
 
     private function setStaticUrl(string $value): void {

@@ -32,6 +32,8 @@ class MapKitTest extends BaseTestCase {
         self::$client = new MapKit( self::get_config() );
         self::assertTrue( self::$client->is_ready(), self::CLIENT_NOT_READY );
 
+        // self::$point_a = new Coordinate(['lat' => 54.216608, 'lng' => -4.66529]);
+        // self::$point_b = new Coordinate(['lat' => 54.2166, 'lng' => -4.66552]);
         self::$point_a = new Coordinate(['lat' => 48.142910, 'lng' => 11.579340]); // Munich @ Dianatempel
         self::$point_b = new Coordinate(['lat' => 48.152463, 'lng' => 11.593503]); // Munich @ Chinesischer Turm
         self::$point_c = new Coordinate(['lat' => 48.153022, 'lng' => 11.582501]); // Munich @ Leopoldstraße

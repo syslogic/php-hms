@@ -20,9 +20,9 @@ class Matrix extends MapKit {
 
     public function __construct( array $config ) {
         parent::__construct( $config );
-        $this->setWalkingUrl(Constants::MAPKIT_BASE_URL . Constants::MAPKIT_WALKING_MATRIX_URL . urlencode($this->api_key));
-        $this->setCyclingUrl(Constants::MAPKIT_BASE_URL . Constants::MAPKIT_CYCLING_MATRIX_URL . urlencode($this->api_key));
-        $this->setDrivingUrl(Constants::MAPKIT_BASE_URL . Constants::MAPKIT_DRIVING_MATRIX_URL . urlencode($this->api_key));
+        $this->setWalkingUrl(Constants::MAPKIT_WALKING_MATRIX_URL . urlencode($this->api_key));
+        $this->setCyclingUrl(Constants::MAPKIT_CYCLING_MATRIX_URL . urlencode($this->api_key));
+        $this->setDrivingUrl(Constants::MAPKIT_DRIVING_MATRIX_URL . urlencode($this->api_key));
     }
 
     private function setWalkingUrl(string $value): void {

@@ -18,7 +18,7 @@ class Elevation extends MapKit {
 
     public function __construct( array $config ) {
         parent::__construct( $config );
-        $this->setElevationUrl(Constants::MAPKIT_BASE_URL . Constants::MAPKIT_ELEVATION_URL . urlencode($this->api_key));
+        $this->setElevationUrl(Constants::MAPKIT_ELEVATION_URL . urlencode($this->api_key));
     }
 
     private function setElevationUrl(string $value): void {
