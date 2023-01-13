@@ -44,6 +44,7 @@ class MapKit extends Wrapper {
         return new Directions( ['api_key' => $this->api_key] );
     }
 
+    /** Works. */
     public function getElevation(): Elevation {
         return new Elevation( ['api_key' => $this->api_key] );
     }
@@ -61,6 +62,7 @@ class MapKit extends Wrapper {
         return new StaticMap( ['api_key' => $this->api_key]);
     }
 
+    /** Works. */
     public function getTile(): Tile {
         return new Tile( ['api_key' => $this->api_key] );
     }
