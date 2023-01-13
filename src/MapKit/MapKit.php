@@ -56,8 +56,9 @@ class MapKit extends Wrapper {
         return new SnapToRoads( ['api_key' => $this->api_key] );
     }
 
+    /** Works. */
     public function getStaticMap(): StaticMap {
-        return new StaticMap( ['api_key' => $this->api_key] );
+        return new StaticMap( ['api_key' => $this->api_key]);
     }
 
     public function getTile(): Tile {
