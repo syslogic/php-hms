@@ -64,9 +64,7 @@ class Directions extends MapKit {
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/directions-walking-0000001050161494">Route Planning: Walking</a>
      */
     public function getWalkingDirections(Coordinate $point_a, Coordinate $point_b, string $language='en', array $policies=[0]): bool|stdClass {
-        return $this->guzzle_post($this->getWalkingUrl(), [
-            'Content-Type' => 'application/json;charset=utf-8'
-        ], [
+        return $this->guzzle_post($this->getWalkingUrl(), $this->request_headers(), [
             'origin' => $point_a->asObject(),
             'destination' => $point_b->asObject(),
             'language' => $language,

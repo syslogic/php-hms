@@ -3,9 +3,13 @@ namespace HMS\Core;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\MessageFormatter;
+use GuzzleHttp\Middleware;
 use GuzzleHttp\RequestOptions;
 use JetBrains\PhpStorm\ArrayShape;
 use Psr\Http\Message\ResponseInterface;
+use Monolog\Logger;
 use stdClass;
 
 /**
@@ -59,9 +63,18 @@ abstract class Wrapper {
     /** Initialize the client; either by array or by environmental variables. */
     private function init( array|null $config = null ): void {
         $this->result = new stdClass();
+        $stack = HandlerStack::create();
+        $stack->push(
+            Middleware::log(
+                new Logger('Logger'),
+                new MessageFormatter('{req_body} - {res_body}')
+            )
+        );
+
         $this->client = new Client( [
             RequestOptions::VERIFY => !$this->is_windows(),
-            RequestOptions::DEBUG => true
+            RequestOptions::DEBUG => false,
+            'handler' => $stack
         ] );
         if ( is_array( $config ) ) {
             $this->init_by_array( $config );

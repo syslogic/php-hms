@@ -41,7 +41,11 @@ class MapKit extends Wrapper {
     }
 
     public function getDirections(): Directions {
-        return new Directions( ['api_key' => $this->api_key] );
+        return new Directions( [
+            'api_key' => $this->api_key,
+            // 'app_id' => $this->app_id,
+            // 'app_secret' => $this->app_secret
+        ] );
     }
 
     /** Works. */
