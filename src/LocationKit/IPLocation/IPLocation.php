@@ -1,6 +1,8 @@
 <?php /** @noinspection PhpUnused */
-namespace HMS\LocationKit;
+namespace HMS\LocationKit\IPLocation;
 
+use HMS\LocationKit\Constants;
+use HMS\LocationKit\LocationKit;
 use stdClass;
 
 /**

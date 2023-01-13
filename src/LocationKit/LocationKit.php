@@ -3,6 +3,8 @@ namespace HMS\LocationKit;
 
 use HMS\AccountKit\AccountKit;
 use HMS\Core\Wrapper;
+use HMS\LocationKit\GeoLocation\GeoLocation;
+use HMS\LocationKit\IPLocation\IPLocation;
 
 /**
  * Class HMS LocationKit Wrapper
