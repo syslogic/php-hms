@@ -22,6 +22,7 @@ class Directions extends MapKit {
         $this->setWalkingUrl(Constants::MAPKIT_WALKING_DIRECTIONS_URL . urlencode($this->api_key));
         $this->setCyclingUrl(Constants::MAPKIT_CYCLING_DIRECTIONS_URL . urlencode($this->api_key));
         $this->setDrivingUrl(Constants::MAPKIT_DRIVING_DIRECTIONS_URL . urlencode($this->api_key));
+        unset($this->api_key);
     }
 
     private function setWalkingUrl(string $value): void {

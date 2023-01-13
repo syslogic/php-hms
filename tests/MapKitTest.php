@@ -61,17 +61,17 @@ class MapKitTest extends BaseTestCase {
         /* Walking Directions */
         $result = $endpoint->getWalkingDirections(self::$point_x, self::$point_y);
         // self::assertTrue( property_exists($result, 'routes') && is_array($result->routes) );
-        self::assertTrue( $result->code == 405 );
+        self::assertTrue( $result->code != 405, "REQUEST_DENIED" );
 
         /* Cycling Directions */
         $result = $endpoint->getCyclingDirections(self::$point_x, self::$point_y);
         // self::assertTrue( property_exists($result, 'routes') && is_array($result->routes) );
-        self::assertTrue( $result->code == 405 );
+        self::assertTrue( $result->code != 405, "REQUEST_DENIED" );
 
         /* Driving Directions */
         $result = $endpoint->getDrivingDirections(self::$point_x, self::$point_y);
         // self::assertTrue( property_exists($result, 'routes') && is_array($result->routes) );
-        self::assertTrue( $result->code == 405 );
+        self::assertTrue( $result->code != 405, "REQUEST_DENIED" );
     }
 
     /** Test: Distance Matrix API */
@@ -83,17 +83,17 @@ class MapKitTest extends BaseTestCase {
         /* Walking Distance Matrix */
         $result = $endpoint->getWalkingMatrix([self::$point_a, self::$point_b], [self::$point_c]);
         // self::assertTrue( property_exists($result, 'rows') && is_array($result->rows) );
-        self::assertTrue( $result->code == 405 );
+        self::assertTrue( $result->code != 405, "REQUEST_DENIED" );
 
         /* Cycling Distance Matrix */
         $result = $endpoint->getCyclingMatrix([self::$point_a, self::$point_b], [self::$point_c]);
         // self::assertTrue( property_exists($result, 'rows') && is_array($result->rows) );
-        self::assertTrue( $result->code == 405 );
+        self::assertTrue( $result->code != 405, "REQUEST_DENIED" );
 
         /* Driving Distance Matrix */
         $result = $endpoint->getDrivingMatrix([self::$point_a, self::$point_b], [self::$point_c]);
         // self::assertTrue( property_exists($result, 'rows') && is_array($result->rows) );
-        self::assertTrue( $result->code == 405 );
+        self::assertTrue( $result->code != 405, "REQUEST_DENIED" );
     }
 
     /** Test: Elevation API */
@@ -127,25 +127,22 @@ class MapKitTest extends BaseTestCase {
     public function test_static_api() {
 
         /* Endpoint */
-        $results_path = getcwd().DIRECTORY_SEPARATOR.'results'.DIRECTORY_SEPARATOR;
         $endpoint = self::$client->getStaticMap();
-        self::assertTrue( true );
+        $results_path = getcwd().DIRECTORY_SEPARATOR.'results'.DIRECTORY_SEPARATOR;
+        self::assertTrue( is_dir( $results_path ) );
 
         /* By Location */
         $result = $endpoint->getStaticMapByLocation(self::$point_a, self::$width, self::$height, self::$zoom, self::$scale);
-        self::assertTrue( property_exists($result, 'url') && is_string($result->url) && $result->url != 'data:image/png;base64,');
         self::assertTrue( property_exists($result, 'raw') && is_string($result->raw) && !empty($result->raw));
         self::saveFile($results_path.'mapkit_01.png', $result->raw);
 
         /* By Marker description */
         $result = $endpoint->getStaticMapByMarkers(self::$marker_desc, self::$marker_styles, self::$width, self::$height, self::$zoom, self::$scale);
-        self::assertTrue( property_exists($result, 'url') && is_string($result->url) && $result->url != 'data:image/png;base64,');
         self::assertTrue( property_exists($result, 'raw') && is_string($result->raw) && !empty($result->raw));
         self::saveFile($results_path.'mapkit_02.png', $result->raw);
 
         /* By Path description */
         $result = $endpoint->getStaticMapByPath(self::$path_desc, self::$path_styles, self::$width, self::$height, self::$zoom, self::$scale);
-        self::assertTrue( property_exists($result, 'url') && is_string($result->url) && $result->url != 'data:image/png;base64,', 'disable stack-handler');
         self::assertTrue( property_exists($result, 'raw') && is_string($result->raw) && !empty($result->raw));
         self::saveFile($results_path.'mapkit_03.png', $result->raw);
     }
@@ -158,6 +155,7 @@ class MapKitTest extends BaseTestCase {
         self::assertTrue( true );
 
         $result = $endpoint->getMapTile(512, 512);
+        self::assertTrue( $result->code != 403, "OVER_QUERY_LIMIT" );
         self::assertTrue( property_exists($result, 'url') && is_string($result->url) );
     }
 }

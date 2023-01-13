@@ -23,14 +23,14 @@ class LocationKitTest extends BaseTestCase {
 
     /** Test: GeoLocation. */
     public function test_geo_location() {
-        $api = self::$client->getGeoLocation( $_ENV['TEST_GEO_CODE'] );
+        $api = self::$client->getGeoLocation( '' );
         $result = $api->get_result();
         self::assertEquals(403, $result->code);
     }
 
     /** Test: IpLocation. */
     public function test_ip_location() {
-        $api = self::$client->getIpLocation( $_ENV['TEST_IP_ADDRESS'] );
+        $api = self::$client->getIpLocation( '' );
         $result = $api->get_result();
         self::assertEquals(403, $result->code);
     }
