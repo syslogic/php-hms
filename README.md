@@ -11,21 +11,21 @@ This project aims to abstract Huawei REST API, according to the official API doc
 
 ### Project Status
 
-|                                                                                                Class |    Status     |
-|-----------------------------------------------------------------------------------------------------:|:-------------:|
-|                           [`Core\Wrapper`](https://github.com/syslogic/php-hms/blob/master/src/Core) |    working    |
-|                       [`AccountKit`](https://github.com/syslogic/php-hms/blob/master/src/AccountKit) |    working    |
-|                             [`PushKit`](https://github.com/syslogic/php-hms/blob/master/src/PushKit) |    working    |
-|                               [`MapKit`](https://github.com/syslogic/php-hms/blob/master/src/MapKit) |    working    |
+|                                                                                                Class |    Status    |
+|-----------------------------------------------------------------------------------------------------:|:------------:|
+|                           [`Core\Wrapper`](https://github.com/syslogic/php-hms/blob/master/src/Core) |   working    |
+|                       [`AccountKit`](https://github.com/syslogic/php-hms/blob/master/src/AccountKit) |   working    |
+|                             [`PushKit`](https://github.com/syslogic/php-hms/blob/master/src/PushKit) |   working    |
+|                               [`MapKit`](https://github.com/syslogic/php-hms/blob/master/src/MapKit) |  partially   |
 |                     [`LocationKit`](https://github.com/syslogic/php-hms/blob/master/src/LocationKit) | inapplicable |
-|                               [`AdsKit`](https://github.com/syslogic/php-hms/blob/master/src/AdsKit) |               |
-|                   [`AnalyticsKit`](https://github.com/syslogic/php-hms/blob/master/src/AnalyticsKit) |               |
-|       [`AppGallery\Connect`](https://github.com/syslogic/php-hms/tree/master/src/AppGallery/Connect) |               |
-| [`AppGallery\Publishing`](https://github.com/syslogic/php-hms/tree/master/src/AppGallery/Publishing) |               |
-|                           [`DriveKit`](https://github.com/syslogic/php-hms/tree/master/src/DriveKit) |               |
-|                     [`GameService`](https://github.com/syslogic/php-hms/tree/master/src/GameService) |               |
-|                         [`SearchKit`](https://github.com/syslogic/php-hms/blob/master/src/SearchKit) |               |
-|                         [`WalletKit`](https://github.com/syslogic/php-hms/blob/master/src/WalletKit) |               |
+|                               [`AdsKit`](https://github.com/syslogic/php-hms/blob/master/src/AdsKit) |              |
+|                   [`AnalyticsKit`](https://github.com/syslogic/php-hms/blob/master/src/AnalyticsKit) |              |
+|       [`AppGallery\Connect`](https://github.com/syslogic/php-hms/tree/master/src/AppGallery/Connect) |              |
+| [`AppGallery\Publishing`](https://github.com/syslogic/php-hms/tree/master/src/AppGallery/Publishing) |              |
+|                           [`DriveKit`](https://github.com/syslogic/php-hms/tree/master/src/DriveKit) |              |
+|                     [`GameService`](https://github.com/syslogic/php-hms/tree/master/src/GameService) |              |
+|                         [`SearchKit`](https://github.com/syslogic/php-hms/blob/master/src/SearchKit) |              |
+|                         [`WalletKit`](https://github.com/syslogic/php-hms/blob/master/src/WalletKit) |              |
 
 [![PHP Composer](https://github.com/syslogic/php-hms/actions/workflows/ci-php.yml/badge.svg)](https://github.com/syslogic/php-hms/actions/workflows/ci-php.yml)
 
