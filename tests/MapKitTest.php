@@ -130,6 +130,8 @@ class MapKitTest extends BaseTestCase {
 
         $result = $endpoint->snapToRoad(self::$coordinates_to_snap);
         self::assertTrue( $result->code == 200 );
+        self::assertTrue( property_exists($result, 'returnCode') && $result->returnCode == 0 );
+        self::assertTrue( property_exists($result, 'snappedPoints') && is_array($result->snappedPoints) );
     }
 
     /** Test: Static Map API; works */
