@@ -36,8 +36,11 @@ class SnapToRoads extends MapKit {
      * @return bool|stdClass The result of the API call.
      */
     public function snapToRoad( array $points ): bool|stdClass {
-        if (sizeof($points) == 0 || sizeof($points) > 100) {
-            throw new InvalidArgumentException();
+        if (sizeof($points) == 0) {
+            throw new InvalidArgumentException('no coordinate points were provided');
+        }
+        if (sizeof($points) > 100) {
+            throw new InvalidArgumentException('number of coordinate points cannot exceed 100');
         }
         foreach ($points as $key => $value) {$points[$key] = $value->asObject();}
         return $this->guzzle_post($this->getSnapUrl(), $this->request_headers(), [

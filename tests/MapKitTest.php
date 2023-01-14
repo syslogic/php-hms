@@ -17,6 +17,7 @@ class MapKitTest extends BaseTestCase {
     private static Coordinate $point_c;
     private static Coordinate $point_x;
     private static Coordinate $point_y;
+    private static array $coordinates_to_snap;
     private static string $marker_desc;
     private static string $path_desc;
     private static string $marker_styles = 'size:tiny|color:blue|label:p';
@@ -41,6 +42,9 @@ class MapKitTest extends BaseTestCase {
         self::$point_x = new Coordinate(['lat' => 54.216608, 'lng' => -4.66529]);
         self::$point_y = new Coordinate(['lat' => 54.2166, 'lng' => -4.66552]);
 
+        /* TODO: this would require better sample data; the coordinates must be at most 500m apart. */
+        self::$coordinates_to_snap = [ self::$point_x ];
+
         self::$marker_desc = '{'.self::$point_a->asString().'}|{'.self::$point_b->asString().'}|{'.self::$point_c->asString().'}';
         self::$path_desc = '{'.self::$point_a->asString().'}|{'.self::$point_b->asString().'}|{'.self::$point_c->asString().'}';
     }
@@ -61,17 +65,17 @@ class MapKitTest extends BaseTestCase {
         /* Walking Directions */
         $result = $endpoint->getWalkingDirections(self::$point_x, self::$point_y);
         // self::assertTrue( property_exists($result, 'routes') && is_array($result->routes) );
-        self::assertTrue( $result->code != 405, "REQUEST_DENIED" );
+        self::assertTrue( $result->code != 405 );
 
         /* Cycling Directions */
         $result = $endpoint->getCyclingDirections(self::$point_x, self::$point_y);
         // self::assertTrue( property_exists($result, 'routes') && is_array($result->routes) );
-        self::assertTrue( $result->code != 405, "REQUEST_DENIED" );
+        self::assertTrue( $result->code != 405 );
 
         /* Driving Directions */
         $result = $endpoint->getDrivingDirections(self::$point_x, self::$point_y);
         // self::assertTrue( property_exists($result, 'routes') && is_array($result->routes) );
-        self::assertTrue( $result->code != 405, "REQUEST_DENIED" );
+        self::assertTrue( $result->code != 405 );
     }
 
     /** Test: Distance Matrix API */
@@ -83,17 +87,17 @@ class MapKitTest extends BaseTestCase {
         /* Walking Distance Matrix */
         $result = $endpoint->getWalkingMatrix([self::$point_a, self::$point_b], [self::$point_c]);
         // self::assertTrue( property_exists($result, 'rows') && is_array($result->rows) );
-        self::assertTrue( $result->code != 405, "REQUEST_DENIED" );
+        self::assertTrue( $result->code != 405 );
 
         /* Cycling Distance Matrix */
         $result = $endpoint->getCyclingMatrix([self::$point_a, self::$point_b], [self::$point_c]);
         // self::assertTrue( property_exists($result, 'rows') && is_array($result->rows) );
-        self::assertTrue( $result->code != 405, "REQUEST_DENIED" );
+        self::assertTrue( $result->code != 405 );
 
         /* Driving Distance Matrix */
         $result = $endpoint->getDrivingMatrix([self::$point_a, self::$point_b], [self::$point_c]);
         // self::assertTrue( property_exists($result, 'rows') && is_array($result->rows) );
-        self::assertTrue( $result->code != 405, "REQUEST_DENIED" );
+        self::assertTrue( $result->code != 405 );
     }
 
     /** Test: Elevation API */
@@ -118,9 +122,8 @@ class MapKitTest extends BaseTestCase {
 
         /* Endpoint */
         $endpoint = self::$client->getSnapToRoads();
-        self::assertTrue( true );
-
-        /* TODO: testing this endpoint would require sample data. */
+        $result = $endpoint->snapToRoad(self::$coordinates_to_snap);
+        self::assertTrue( $result->code != 405 );
     }
 
     /** Test: Static Map API */
@@ -152,10 +155,7 @@ class MapKitTest extends BaseTestCase {
 
         /* Endpoint */
         $endpoint = self::$client->getTile();
-        self::assertTrue( true );
-
         $result = $endpoint->getMapTile(512, 512);
-        self::assertTrue( $result->code != 403, "OVER_QUERY_LIMIT" );
         self::assertTrue( property_exists($result, 'url') && is_string($result->url) );
     }
 }

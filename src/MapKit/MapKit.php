@@ -18,6 +18,10 @@ use HMS\MapKit\Tile\Tile;
  *
  * HTTP 403 / 010027, OVER_QUERY_LIMIT:
  * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-Guides/about-charging-0000001051637068#section7921102111484">Subscribing to a Pay-As-You-Go Plan</a>
+ *
+ * HTTP 405 / 403, REQUEST_DENIED:
+ * @see <a href="https://stackoverflow.com/questions/75114598/huawei-map-kit-api-the-app-id-does-not-have-the-service-call-permission">Cause Unknown</a>
+ *
  * @author Martin Zeitler
  */
 class MapKit extends Wrapper {
