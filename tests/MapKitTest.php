@@ -61,57 +61,57 @@ class MapKitTest extends BaseTestCase {
         }
     }
 
-    /** Test: Directions API */
-    public function test_directions_api() {
-
-        /* Endpoint */
+    /** Test: Directions API: Walking Directions */
+    public function test_directions_api_walking() {
         $endpoint = self::$client->getDirections();
-
-        /* Walking Directions */
         $result = $endpoint->getWalkingDirections(self::$point_x, self::$point_y);
-        self::assertTrue( $result->code == 200 );
-        // self::assertTrue( property_exists($result, 'routes') && is_array($result->routes) );
-
-        /* Cycling Directions */
-        $result = $endpoint->getCyclingDirections(self::$point_x, self::$point_y);
-        self::assertTrue( $result->code == 200 );
-        // self::assertTrue( property_exists($result, 'routes') && is_array($result->routes) );
-
-        /* Driving Directions */
-        $result = $endpoint->getDrivingDirections(self::$point_x, self::$point_y);
-        self::assertTrue( $result->code == 200 );
-        // self::assertTrue( property_exists($result, 'routes') && is_array($result->routes) );
+        self::assertTrue( $result->code == 200, 'Not HTTP 200 OK' );
+        self::assertTrue( property_exists($result, 'routes') && is_array($result->routes) );
     }
 
-    /** Test: Distance Matrix API */
-    public function test_matrix_api() {
+    /** Test: Directions API: Cycling Directions */
+    public function test_directions_api_cycling() {
+        $endpoint = self::$client->getDirections();
+        $result = $endpoint->getCyclingDirections(self::$point_x, self::$point_y);
+        self::assertTrue( $result->code == 200, 'Not HTTP 200 OK' );
+        self::assertTrue( property_exists($result, 'routes') && is_array($result->routes) );
+    }
 
-        /* Endpoint */
+    /** Test: Directions API: Driving Directions */
+    public function test_directions_api_driving() {
+        $endpoint = self::$client->getDirections();
+        $result = $endpoint->getDrivingDirections(self::$point_x, self::$point_y);
+        self::assertTrue( $result->code == 200, 'Not HTTP 200 OK' );
+        self::assertTrue( property_exists($result, 'routes') && is_array($result->routes) );
+    }
+
+    /** Test: Distance Matrix API: Walking Distance Matrix */
+    public function test_matrix_api_walking() {
         $endpoint = self::$client->getMatrix();
-
-        /* Walking Distance Matrix */
         $result = $endpoint->getWalkingMatrix([self::$point_a, self::$point_b], [self::$point_c]);
-        self::assertTrue( $result->code == 200 );
-        // self::assertTrue( property_exists($result, 'rows') && is_array($result->rows) );
+        self::assertTrue( $result->code == 200, 'Not HTTP 200 OK' );
+        self::assertTrue( property_exists($result, 'rows') && is_array($result->rows) );
+    }
 
-        /* Cycling Distance Matrix */
+    /** Test: Distance Matrix API: Cycling Distance Matrix */
+    public function test_matrix_api_cycling() {
+        $endpoint = self::$client->getMatrix();
         $result = $endpoint->getCyclingMatrix([self::$point_a, self::$point_b], [self::$point_c]);
-        self::assertTrue( $result->code == 200 );
-        // self::assertTrue( property_exists($result, 'rows') && is_array($result->rows) );
+        self::assertTrue( $result->code == 200, 'Not HTTP 200 OK' );
+        self::assertTrue( property_exists($result, 'rows') && is_array($result->rows) );
+    }
 
-        /* Driving Distance Matrix */
+    /** Test: Distance Matrix API: Driving Distance Matrix */
+    public function test_matrix_api_driving() {
+        $endpoint = self::$client->getMatrix();
         $result = $endpoint->getDrivingMatrix([self::$point_a, self::$point_b], [self::$point_c]);
-        self::assertTrue( $result->code == 200 );
-        // self::assertTrue( property_exists($result, 'rows') && is_array($result->rows) );
+        self::assertTrue( $result->code == 200, 'Not HTTP 200 OK' );
+        self::assertTrue( property_exists($result, 'rows') && is_array($result->rows) );
     }
 
     /** Test: Elevation API; works */
     public function test_elevation_api() {
-
-        /* Endpoint */
         $endpoint = self::$client->getElevation();
-
-        /* By Locations */
         $result = $endpoint->getElevationByLocations([self::$point_a, self::$point_b, self::$point_c]);
         self::assertTrue( property_exists($result, 'returnCode') && $result->returnCode == 0 );
         self::assertTrue( property_exists($result, 'results') && is_array($result->results) );
@@ -124,18 +124,15 @@ class MapKitTest extends BaseTestCase {
 
     /** Test: Snap To Roads API */
     public function test_snap_to_roads_api() {
-
-        /* Endpoint */
         $endpoint = self::$client->getSnapToRoads();
-
         $result = $endpoint->snapToRoad(self::$coordinates_to_snap);
-        self::assertTrue( $result->code == 200 );
+        self::assertTrue( $result->code == 200, 'Not HTTP 200 OK' );
         self::assertTrue( property_exists($result, 'returnCode') && $result->returnCode == 0 );
         self::assertTrue( property_exists($result, 'snappedPoints') && is_array($result->snappedPoints) );
     }
 
     /** Test: Static Map API; works */
-    public function test_static_api() {
+    public function test_map_static_api() {
 
         /* Endpoint */
         $endpoint = self::$client->getStaticMap();
@@ -157,11 +154,8 @@ class MapKitTest extends BaseTestCase {
     }
 
     /** Test: Map Tile API; works */
-    public function test_tile_api() {
-
-        /* Endpoint */
+    public function test_map_tile_api() {
         $endpoint = self::$client->getTile();
-
         $result = $endpoint->getMapTile(5, 1, 3, 'en', 2);
         self::assertTrue( property_exists($result, 'raw') && is_string($result->raw) && !empty($result->raw));
         self::saveFile(self::$results_path.'mapkit_tile.png', $result->raw);
