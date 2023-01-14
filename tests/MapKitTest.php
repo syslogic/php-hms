@@ -51,7 +51,7 @@ class MapKitTest extends BaseTestCase {
         self::$path_desc = '{'.self::$point_a->asString().'}|{'.self::$point_b->asString().'}|{'.self::$point_c->asString().'}';
 
         /* TODO: this would require better sample data; the coordinates must be at most 500m apart. */
-        self::$coordinates_to_snap = [ self::$point_x ];
+        self::$coordinates_to_snap = [ new Coordinate(['lat' => 52.88005648589605, 'lng' => 9.056670927077944]) ];
     }
 
     private function saveFile(string $filename, string $raw_data) : void {
