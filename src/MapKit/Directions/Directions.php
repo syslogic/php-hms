@@ -68,8 +68,8 @@ class Directions extends MapKit {
         return $this->guzzle_post($this->getWalkingUrl(), $this->request_headers(), [
             'origin' => $point_a->asObject(),
             'destination' => $point_b->asObject(),
-            // 'language' => $language,
-            // 'avoid' => $policies
+            'language' => $language,
+            'avoid' => $policies
         ]);
     }
 
@@ -89,13 +89,11 @@ class Directions extends MapKit {
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/directions-bicycling-0000001050163449">Route Planning: Cycling</a>
      */
     public function getCyclingDirections(Coordinate $point_a, Coordinate $point_b, string $language='en', array $policies=[0]): bool|stdClass {
-        return $this->guzzle_post($this->getCyclingUrl(), [
-            'Content-Type' => 'application/json;charset=utf-8'
-        ], [
+        return $this->guzzle_post($this->getCyclingUrl(), $this->request_headers(), [
             'origin' => $point_a->asObject(),
             'destination' => $point_b->asObject(),
-            // 'language' => $language,
-            // 'avoid' => $policies
+            'language' => $language,
+            'avoid' => $policies
         ]);
     }
 
@@ -117,13 +115,11 @@ class Directions extends MapKit {
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/directions-driving-0000001050161496">Route Planning: Driving</a>
      */
     public function getDrivingDirections(Coordinate $point_a, Coordinate $point_b, string $language='en', array $policies=[0]): bool|stdClass {
-        return $this->guzzle_post($this->getDrivingUrl(), [
-            'Content-Type' => 'application/json;charset=utf-8'
-        ], [
+        return $this->guzzle_post($this->getDrivingUrl(), $this->request_headers(), [
             'origin' => $point_a->asObject(),
             'destination' => $point_b->asObject(),
-            // 'language' => $language,
-            // 'avoid' => $policies
+            'language' => $language,
+            'avoid' => $policies
         ]);
     }
 }
