@@ -61,13 +61,13 @@ class MapKit extends Wrapper {
         return new SnapToRoads( [ 'api_key' => $this->api_key, 'debug' => $this->debug_mode ] );
     }
 
-    /** Debug must be disabled, else one cannot save the PNG image data. */
+    /** Works. Debug must be disabled, else one cannot save the PNG image data. */
     public function getStaticMap(): StaticMap {
         return new StaticMap( [ 'api_key' => $this->api_key, 'debug' => false ] );
     }
 
-    /** Works. */
+    /** Works. Debug must be disabled, else one cannot save the PNG image data. */
     public function getTile(): Tile {
-        return new Tile( [ 'api_key' => $this->api_key, 'debug' => $this->debug_mode ] );
+        return new Tile( [ 'api_key' => $this->api_key, 'debug' => false ] );
     }
 }

@@ -22,6 +22,7 @@ class MapKitTest extends BaseTestCase {
     private static string $path_desc;
     private static string $marker_styles = 'size:tiny|color:blue|label:p';
     private static string $path_styles = 'weight:1|color:0x0000ff80|fillcolor:0x0000ff80';
+    private static string $results_path;
     private static int $width = 512;
     private static int $height = 256;
     private static int $zoom = 12;
@@ -35,6 +36,10 @@ class MapKitTest extends BaseTestCase {
         self::$client = new MapKit( self::get_config() );
         self::assertTrue( self::$client->is_ready(), self::CLIENT_NOT_READY );
 
+        self::$results_path = getcwd().DIRECTORY_SEPARATOR.'results'.DIRECTORY_SEPARATOR;
+        if (! is_dir( self::$results_path )) {mkdir( self::$results_path );}
+        self::assertTrue( is_dir( self::$results_path ) );
+
         self::$point_a = new Coordinate(['lat' => 48.142910, 'lng' => 11.579340]); // Munich @ Dianatempel
         self::$point_b = new Coordinate(['lat' => 48.152463, 'lng' => 11.593503]); // Munich @ Chinesischer Turm
         self::$point_c = new Coordinate(['lat' => 48.153022, 'lng' => 11.582501]); // Munich @ Leopoldstraße
@@ -42,11 +47,11 @@ class MapKitTest extends BaseTestCase {
         self::$point_x = new Coordinate(['lat' => 54.216608, 'lng' => -4.66529]);
         self::$point_y = new Coordinate(['lat' => 54.2166, 'lng' => -4.66552]);
 
-        /* TODO: this would require better sample data; the coordinates must be at most 500m apart. */
-        self::$coordinates_to_snap = [ self::$point_x ];
-
         self::$marker_desc = '{'.self::$point_a->asString().'}|{'.self::$point_b->asString().'}|{'.self::$point_c->asString().'}';
         self::$path_desc = '{'.self::$point_a->asString().'}|{'.self::$point_b->asString().'}|{'.self::$point_c->asString().'}';
+
+        /* TODO: this would require better sample data; the coordinates must be at most 500m apart. */
+        self::$coordinates_to_snap = [ self::$point_x ];
     }
 
     private function saveFile(string $filename, string $raw_data) : void {
@@ -100,7 +105,7 @@ class MapKitTest extends BaseTestCase {
         self::assertTrue( $result->code != 405 );
     }
 
-    /** Test: Elevation API */
+    /** Test: Elevation API; works */
     public function test_elevation_api() {
 
         /* Endpoint */
@@ -109,10 +114,11 @@ class MapKitTest extends BaseTestCase {
 
         /* By Locations */
         $result = $endpoint->getElevationByLocations([self::$point_a, self::$point_b, self::$point_c]);
+        self::assertTrue( property_exists($result, 'returnCode') && $result->returnCode == 0 );
         self::assertTrue( property_exists($result, 'results') && is_array($result->results) );
         self::assertTrue( sizeof($result->results) > 0 );
+        // testing if we're still 500 meters above sea level.
         foreach ($result->results as $item) {
-            // testing if we're still 500 meters above sea level.
             self::assertTrue( $item->elevation > 500 );
         }
     }
@@ -126,36 +132,35 @@ class MapKitTest extends BaseTestCase {
         self::assertTrue( $result->code != 405 );
     }
 
-    /** Test: Static Map API */
+    /** Test: Static Map API; works */
     public function test_static_api() {
 
         /* Endpoint */
         $endpoint = self::$client->getStaticMap();
-        $results_path = getcwd().DIRECTORY_SEPARATOR.'results'.DIRECTORY_SEPARATOR;
-        self::assertTrue( is_dir( $results_path ) );
 
         /* By Location */
         $result = $endpoint->getStaticMapByLocation(self::$point_a, self::$width, self::$height, self::$zoom, self::$scale);
         self::assertTrue( property_exists($result, 'raw') && is_string($result->raw) && !empty($result->raw));
-        self::saveFile($results_path.'mapkit_01.png', $result->raw);
+        self::saveFile(self::$results_path.'mapkit_01.png', $result->raw);
 
         /* By Marker description */
         $result = $endpoint->getStaticMapByMarkers(self::$marker_desc, self::$marker_styles, self::$width, self::$height, self::$zoom, self::$scale);
         self::assertTrue( property_exists($result, 'raw') && is_string($result->raw) && !empty($result->raw));
-        self::saveFile($results_path.'mapkit_02.png', $result->raw);
+        self::saveFile(self::$results_path.'mapkit_02.png', $result->raw);
 
         /* By Path description */
         $result = $endpoint->getStaticMapByPath(self::$path_desc, self::$path_styles, self::$width, self::$height, self::$zoom, self::$scale);
         self::assertTrue( property_exists($result, 'raw') && is_string($result->raw) && !empty($result->raw));
-        self::saveFile($results_path.'mapkit_03.png', $result->raw);
+        self::saveFile(self::$results_path.'mapkit_03.png', $result->raw);
     }
 
-    /** Test: Map Tile API */
+    /** Test: Map Tile API; works */
     public function test_tile_api() {
 
         /* Endpoint */
         $endpoint = self::$client->getTile();
-        $result = $endpoint->getMapTile(512, 512);
-        self::assertTrue( property_exists($result, 'url') && is_string($result->url) );
+        $result = $endpoint->getMapTile(5, 1, 3, 'en', 2);
+        self::assertTrue( property_exists($result, 'raw') && is_string($result->raw) && !empty($result->raw));
+        self::saveFile(self::$results_path.'mapkit_tile.png', $result->raw);
     }
 }
