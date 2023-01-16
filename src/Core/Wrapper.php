@@ -193,6 +193,7 @@ abstract class Wrapper {
             ] );
             if ($this->response->getStatusCode() == 200) {
                 $this->result = json_decode( $this->response->getBody() );
+                $this->result->code = 200;
             }
         } catch (GuzzleException $e) {
             $this->result->code = $e->getCode();
@@ -210,6 +211,7 @@ abstract class Wrapper {
             ] );
             if ($this->response->getStatusCode() == 200) {
                 $this->result = json_decode( $this->response->getBody() );
+                $this->result->code = 200;
             }
         } catch (GuzzleException $e) {
             $this->result->code = $e->getCode();
@@ -225,9 +227,9 @@ abstract class Wrapper {
                 RequestOptions::HEADERS => $headers,
                 RequestOptions::QUERY => $query
             ] );
+            $this->result->code = $this->response->getStatusCode();
             $content_type = $this->response->getHeader('Content-Type')[0];
-            $status_code = $this->response->getStatusCode();
-            if ($status_code == 200) {
+            if ($this->result->code == 200) {
                 switch ($content_type) {
                     case 'application/json':
                         $this->result = json_decode( $this->response->getBody() );

@@ -52,7 +52,7 @@ class StaticMap extends MapKit {
      */
     public function getStaticMapByLocation( Coordinate $location, int $width=256, int $height=256, int $zoom=10, int $scale=1,
                                             string $pattern='PNG', string $mapType='roadmap', string $language='en' ): bool|stdClass {
-        $result = $this->guzzle_get($this->getStaticUrl(), $this->request_headers(), [
+        return $this->guzzle_get($this->getStaticUrl(), $this->request_headers(), [
             'key' => $this->api_key,
             'signature' => $this->api_signature,
             'location' => $location->asString(),
@@ -64,8 +64,6 @@ class StaticMap extends MapKit {
             'mapType' => $mapType,
             'language' => $language
         ]);
-        if (! property_exists($result, 'code')) {$result->code = 200;}
-        return $result;
     }
 
     /**
@@ -93,7 +91,7 @@ class StaticMap extends MapKit {
      */
     public function getStaticMapByMarkers( string $markers, string|null $markerStyles=null, int $width=256, int $height=256,
                                            int $zoom=10, int $scale=1, string $pattern='PNG', string $mapType='roadmap', string $language='en' ): bool|stdClass {
-        $result = $this->guzzle_get($this->getStaticUrl(), $this->request_headers(), [
+        return $this->guzzle_get($this->getStaticUrl(), $this->request_headers(), [
             'key' => $this->api_key,
             'signature' => $this->api_signature,
             'markers' => $markers,
@@ -106,8 +104,6 @@ class StaticMap extends MapKit {
             'mapType' => $mapType,
             'language' => $language
         ]);
-        if (! property_exists($result, 'code')) {$result->code = 200;}
-        return $result;
     }
 
     /**
@@ -136,7 +132,7 @@ class StaticMap extends MapKit {
      */
     public function getStaticMapByPath( string $path, string|null $pathStyles=null, int $width=256, int $height=256,
                                         int $zoom=10, int $scale=1, string $pattern='PNG', string $mapType='roadmap', string $language='en' ): bool|stdClass {
-        $result = $this->guzzle_get($this->getStaticUrl(), $this->request_headers(), [
+        return $this->guzzle_get($this->getStaticUrl(), $this->request_headers(), [
             'key' => $this->api_key,
             'signature' => $this->api_signature,
             'path' => $path,
@@ -149,7 +145,5 @@ class StaticMap extends MapKit {
             'mapType' => $mapType,
             'language' => $language
         ]);
-        if (! property_exists($result, 'code')) {$result->code = 200;}
-        return $result;
     }
 }
