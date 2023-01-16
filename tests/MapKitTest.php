@@ -132,7 +132,7 @@ class MapKitTest extends BaseTestCase {
     }
 
     /** Test: Static Map API; works */
-    public function test_map_static_api() {
+    public function test_static_map_api() {
 
         /* Endpoint */
         $endpoint = self::$client->getStaticMap();
