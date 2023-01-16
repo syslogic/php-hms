@@ -23,10 +23,10 @@ class MapKitTest extends BaseTestCase {
     private static string $marker_styles = 'size:tiny|color:blue|label:p';
     private static string $path_styles = 'weight:1|color:0x0000ff80|fillcolor:0x0000ff80';
     private static string $results_path;
-    private static int $width = 512;
-    private static int $height = 256;
-    private static int $zoom = 12;
-    private static int $scale = 2;
+    private static int $map_width = 512;
+    private static int $map_height = 256;
+    private static int $map_zoom = 12;
+    private static int $map_scale = 2;
 
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {
@@ -138,17 +138,20 @@ class MapKitTest extends BaseTestCase {
         $endpoint = self::$client->getStaticMap();
 
         /* By Location */
-        $result = $endpoint->getStaticMapByLocation(self::$point_a, self::$width, self::$height, self::$zoom, self::$scale);
+        $result = $endpoint->getStaticMapByLocation(self::$point_a, self::$map_width, self::$map_height, self::$map_zoom, self::$map_scale);
+        self::assertTrue( $result->code == 200, 'Not HTTP 200 OK' );
         self::assertTrue( property_exists($result, 'raw') && is_string($result->raw) && !empty($result->raw));
         self::saveFile(self::$results_path.'mapkit_01.png', $result->raw);
 
         /* By Marker description */
-        $result = $endpoint->getStaticMapByMarkers(self::$marker_desc, self::$marker_styles, self::$width, self::$height, self::$zoom, self::$scale);
+        $result = $endpoint->getStaticMapByMarkers(self::$marker_desc, self::$marker_styles, self::$map_width, self::$map_height, self::$map_zoom, self::$map_scale);
+        self::assertTrue( $result->code == 200, 'Not HTTP 200 OK' );
         self::assertTrue( property_exists($result, 'raw') && is_string($result->raw) && !empty($result->raw));
         self::saveFile(self::$results_path.'mapkit_02.png', $result->raw);
 
         /* By Path description */
-        $result = $endpoint->getStaticMapByPath(self::$path_desc, self::$path_styles, self::$width, self::$height, self::$zoom, self::$scale);
+        $result = $endpoint->getStaticMapByPath(self::$path_desc, self::$path_styles, self::$map_width, self::$map_height, self::$map_zoom, self::$map_scale);
+        self::assertTrue( $result->code == 200, 'Not HTTP 200 OK' );
         self::assertTrue( property_exists($result, 'raw') && is_string($result->raw) && !empty($result->raw));
         self::saveFile(self::$results_path.'mapkit_03.png', $result->raw);
     }
@@ -157,6 +160,7 @@ class MapKitTest extends BaseTestCase {
     public function test_map_tile_api() {
         $endpoint = self::$client->getTile();
         $result = $endpoint->getMapTile(5, 1, 3, 'en', 2);
+        self::assertTrue( $result->code == 200, 'Not HTTP 200 OK' );
         self::assertTrue( property_exists($result, 'raw') && is_string($result->raw) && !empty($result->raw));
         self::saveFile(self::$results_path.'mapkit_tile.png', $result->raw);
     }
