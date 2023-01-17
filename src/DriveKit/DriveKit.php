@@ -3,6 +3,8 @@ namespace HMS\DriveKit;
 
 use HMS\AccountKit\AccountKit;
 use HMS\Core\Wrapper;
+use HMS\DriveKit\About\About;
+use stdClass;
 
 /**
  * Class HMS DriveKit Wrapper
@@ -14,17 +16,19 @@ class DriveKit extends Wrapper {
 
     /** Constructor */
     public function __construct( array|string $config ) {
-
         parent::__construct( $config );
         $this->post_init();
-
-        /* Obtain an access-token. */
-        $account_kit = new AccountKit( $config );
-        $this->access_token = $account_kit->get_access_token();
     }
 
     /** Unset properties irrelevant to the child class. */
     protected function post_init(): void {
         unset($this->api_key, $this->api_signature);
+    }
+
+    public function getAbout(): About {
+        return new About( ['app_id' => $this->app_id, 'app_secret' => $this->app_secret, 'debug' => $this->debug_mode] );
+    }
+    public function getFiles(): About {
+        return new Files( ['app_id' => $this->app_id, 'app_secret' => $this->app_secret, 'debug' => $this->debug_mode] );
     }
 }
