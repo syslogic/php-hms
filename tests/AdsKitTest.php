@@ -2,6 +2,7 @@
 namespace Tests;
 
 use HMS\AdsKit\AdsKit;
+use stdClass;
 
 /**
  * HMS AdsKit Test
@@ -20,7 +21,12 @@ class AdsKitTest extends BaseTestCase {
     }
 
     /** Test: Dummy. */
-    public function test_dummy() {
+    public function test_publisher_report() {
+        $start_date = '2022-01-01';
+        $end_date = '2022-12-31';
+        $filtering = new stdClass();
+        $filtering->currency = 'EUR';
+        $result = self::$client->publisher_report( $start_date, $end_date, $filtering, 'STAT_BREAK_DOWNS_APP_ID', 'STAT_TIME_GRANULARITY_DAILY' );
         self::assertTrue( true );
     }
 }
