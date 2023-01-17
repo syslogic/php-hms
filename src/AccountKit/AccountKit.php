@@ -55,7 +55,7 @@ class AccountKit extends Wrapper {
         return $this->parse_result($result);
     }
 
-    public function get_access_token_by_auth_code( string $authorization_code ) {
+    public function get_access_token_by_auth_code( string $authorization_code ): null|string {
         $result = $this->guzzle_urlencoded($this->url_token, [
             'Content-Type' => 'application/x-www-form-urlencoded; charset=utf-8'
         ], [
@@ -150,7 +150,7 @@ class AccountKit extends Wrapper {
 
     /**
      * @param bool|stdClass $result
-     * @return string|void|null
+     * @return string|null
      */
     public function parse_result(bool|stdClass $result): string|null {
         if (is_object($result)) {
@@ -160,11 +160,14 @@ class AccountKit extends Wrapper {
                 if (property_exists($result, 'access_token')) {
                     $this->access_token = $result->access_token;
                 }
-                if (property_exists($result, 'expires_in')) {
-                    $this->token_expiry = time() + $result->expires_in;
+                if (property_exists($result, 'refresh_token')) {
+                    $this->refresh_token = $result->refresh_token;
                 }
                 if (property_exists($result, 'id_token')) {
                     $this->id_token = $result->id_token;
+                }
+                if (property_exists($result, 'expires_in')) {
+                    $this->token_expiry = time() + $result->expires_in;
                 }
                 if (property_exists($result, 'scope')) {
                     $this->token_scope = $result->scope;

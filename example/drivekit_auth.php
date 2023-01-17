@@ -1,6 +1,7 @@
 <?php
 
 use HMS\AccountKit\AccountKit;
+use HMS\DriveKit\DriveKit;
 
 /* https://developer.huawei.com/consumer/en/doc/development/HMSCore-Guides/web-get-access-token-0000001050048946#section151118514311 */
 if (isset($_GET['code'])) {
@@ -9,8 +10,13 @@ if (isset($_GET['code'])) {
         'client_secret' => $_SERVER['HUAWEI_OAUTH2_CLIENT_SECRET'],
         'redirect_uri' => $_SERVER['HUAWEI_OAUTH2_REDIRECT_URL']
     ]);
-    $result = $api->get_access_token_by_auth_code( $_GET['code'] );
-    die('<pre>' . print_r($result, true) . '</pre>');
+    $access_token = $api->get_access_token_by_auth_code( $_GET['code'] );
+    if ($access_token != null) {
+        /* TODO: save token to session ? */
+        $api2 = new DriveKit( ['access_token' => $access_token] );
+        $result = $api2->getAbout()->get();
+        die('<pre>' . print_r($result, true) . '</pre>');
+    }
 }
 ?>
 <html lang="en">
