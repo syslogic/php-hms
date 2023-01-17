@@ -206,12 +206,15 @@ abstract class Wrapper {
     }
 
     /** Perform GuzzleHttp POST request. */
-    protected function guzzle_post( string $url=null, array $headers=[], array|object $post_fields=[] ): stdClass|bool {
+    protected function guzzle_post( string $url=null, array $headers=[], array|object $post_data=[], $urlencoded = false ): stdClass|bool {
+        $request = [ RequestOptions::HEADERS => $headers ];
+        if ($urlencoded) {
+            $request[RequestOptions::FORM_PARAMS] = $post_data;
+        } else {
+            $request[RequestOptions::JSON] = $post_data;
+        }
         try {
-            $this->response = $this->client->post( $url, [
-                RequestOptions::HEADERS => $headers,
-                RequestOptions::JSON => $post_fields
-            ] );
+            $this->response = $this->client->post( $url, $request );
             if ($this->response->getStatusCode() == 200) {
                 $this->result = json_decode( $this->response->getBody() );
                 $this->result->code = 200;

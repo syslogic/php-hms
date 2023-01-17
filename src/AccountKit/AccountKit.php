@@ -45,18 +45,18 @@ class AccountKit extends Wrapper {
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/account-obtain-token_hms_reference-0000001050048618">Obtaining Access Token</a>
      */
     public function get_access_token(): string|null {
-        $result = $this->guzzle_urlencoded($this->url_token, [
+        $result = $this->guzzle_post($this->url_token, [
             'Content-Type' => 'application/x-www-form-urlencoded; charset=utf-8'
         ], [
             'grant_type'    => 'client_credentials',
             'client_id'     => $this->app_id,
             'client_secret' => $this->app_secret
-        ]);
+        ], true);
         return $this->parse_result($result);
     }
 
     public function get_access_token_by_auth_code( string $authorization_code ): null|string {
-        $result = $this->guzzle_urlencoded($this->url_token, [
+        $result = $this->guzzle_post($this->url_token, [
             'Content-Type' => 'application/x-www-form-urlencoded; charset=utf-8'
         ], [
             'grant_type'    => 'authorization_code',
@@ -64,7 +64,7 @@ class AccountKit extends Wrapper {
             'client_secret' => $this->app_secret,
             'redirect_uri'  => $this->oauth2_redirect_url,
             'code'          => $authorization_code
-        ]);
+        ], true);
         return $this->parse_result($result);
     }
 
@@ -78,13 +78,13 @@ class AccountKit extends Wrapper {
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/account-gettokeninfo-0000001050050585">Parsing an Access Token</a>
      */
     public function parse_access_token( string|null $access_token ): TokenInfo|null {
-        $result = $this->guzzle_urlencoded(Constants::ACCOUNT_KIT_TOKEN_INFO, [
+        $result = $this->guzzle_post(Constants::ACCOUNT_KIT_TOKEN_INFO, [
             'Content-Type' => 'application/x-www-form-urlencoded;charset=utf-8',
             'Authorization' => 'Bearer '.$this->access_token
         ], [
             'access_token' => $access_token,
             'getNickName' => 1
-        ]);
+        ], true);
         if ( is_object( $result ) ) {
             if ( property_exists( $result, 'error' ) && property_exists( $result, 'sub_error' )) {
                 die( 'TokenInfo Error '.$result->error.' / '.$result->sub_error.' -> '.$result->error_description );
@@ -103,13 +103,13 @@ class AccountKit extends Wrapper {
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/get-user-info-0000001060261938">Obtaining User Information</a>
      */
     public function get_user_info( string|null $user_access_token ): UserInfo|stdClass {
-        $result = $this->guzzle_urlencoded($this->url_user_info, [
+        $result = $this->guzzle_post($this->url_user_info, [
             'Content-Type: application/x-www-form-urlencoded;charset=utf-8',
             "Authorization: Bearer $this->access_token" // OK
         ], [
             'access_token' => $user_access_token,
             'getNickName' => 1
-        ]);
+        ], true);
         if (! is_object( $result ) ) {return new stdClass();}
         if ( property_exists( $result, 'error' ) && property_exists( $result, 'sub_error' )) {
             // die( 'oAuth2 Error '.$result->error.' / '.$result->sub_error.' -> '.$result->error_description );
@@ -130,12 +130,12 @@ class AccountKit extends Wrapper {
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/account-verify-id-token_hms_reference-0000001050050577">Verifying an ID Token</a>
      */
     public function verify_id_token( string|null $id_token ): IdTokenInfo|stdClass {
-        $result = $this->guzzle_urlencoded($this->url_token_info, [
+        $result = $this->guzzle_post($this->url_token_info, [
             'Content-Type: application/x-www-form-urlencoded;charset=utf-8',
             "Authorization: Bearer $this->access_token" // OK
         ], [
             'id_token' => $id_token
-        ]);
+        ], true);
         if (! is_object( $result ) ) {return new stdClass();}
         if ( property_exists( $result, 'error' ) && property_exists( $result, 'sub_error' )) {
             // die( 'oAuth2 Error '.$result->error.' / '.$result->sub_error.' -> '.$result->error_description );
