@@ -123,7 +123,7 @@ abstract class Wrapper {
     }
 
     /** Try to initialize the client from array. */
-    private function init_by_array( array $config ) {
+    private function init_by_array( array $config ): void {
         if ( isset( $config['app_id'] ) ) {
             $this->app_id = (int) $config['app_id'];
         }
@@ -148,7 +148,7 @@ abstract class Wrapper {
     }
 
     /** Try to initialize the client from environment. */
-    private function init_by_environment() {
+    private function init_by_environment(): void {
         if ( is_string( getenv('HUAWEI_OAUTH2_CLIENT_ID' ) ) ) {
             $this->app_id = (int) getenv( 'HUAWEI_OAUTH2_CLIENT_ID' );
         }
