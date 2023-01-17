@@ -52,25 +52,20 @@ class AccountKit extends Wrapper {
             'client_id'     => $this->app_id,
             'client_secret' => $this->app_secret
         ]);
-        if ( is_object( $result ) ) {
-            if ( property_exists( $result, 'error' ) && property_exists( $result, 'sub_error' )) {
-                die( 'oAuth2 Error '.$result->error.' / '.$result->sub_error.' -> '.$result->error_description );
-            } else {
-                if ( property_exists( $result, 'access_token' ) ) {
-                    $this->access_token = $result->access_token;
-                }
-                if ( property_exists( $result, 'expires_in' ) ) {
-                    $this->token_expiry = time() + $result->expires_in;
-                }
-                if ( property_exists( $result, 'id_token' ) ) {
-                    $this->id_token = $result->id_token;
-                }
-                if ( property_exists( $result, 'scope' ) ) {
-                    $this->token_scope = $result->scope;
-                }
-            }
-        }
-        return $this->access_token;
+        return $this->parse_result($result);
+    }
+
+    public function get_access_token_by_auth_code( string $authorization_code ) {
+        $result = $this->guzzle_urlencoded($this->url_token, [
+            'Content-Type' => 'application/x-www-form-urlencoded; charset=utf-8'
+        ], [
+            'grant_type'    => 'authorization_code',
+            'client_id'     => $this->app_id,
+            'client_secret' => $this->app_secret,
+            'redirect_uri'  => $this->oauth2_redirect_url,
+            'code'          => $authorization_code
+        ]);
+        return $this->parse_result($result);
     }
 
     /**
@@ -151,5 +146,31 @@ class AccountKit extends Wrapper {
         } else {
             return new IdTokenInfo( $result );
         }
+    }
+
+    /**
+     * @param bool|stdClass $result
+     * @return string|void|null
+     */
+    public function parse_result(bool|stdClass $result): string|null {
+        if (is_object($result)) {
+            if (property_exists($result, 'error') && property_exists($result, 'sub_error')) {
+                die('oAuth2 Error ' . $result->error . ' / ' . $result->sub_error . ' -> ' . $result->error_description);
+            } else {
+                if (property_exists($result, 'access_token')) {
+                    $this->access_token = $result->access_token;
+                }
+                if (property_exists($result, 'expires_in')) {
+                    $this->token_expiry = time() + $result->expires_in;
+                }
+                if (property_exists($result, 'id_token')) {
+                    $this->id_token = $result->id_token;
+                }
+                if (property_exists($result, 'scope')) {
+                    $this->token_scope = $result->scope;
+                }
+            }
+        }
+        return $this->access_token;
     }
 }

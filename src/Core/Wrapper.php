@@ -15,23 +15,25 @@ use stdClass;
 /**
  * Class HMS Core Wrapper
  *
- * @property int $client_id                 AGConnect client ID.
- * @property string|null $client_secret     AGConnect client secret.
- * @property int $app_id                    OAuth2 client ID.
- * @property string|null $app_secret        OAuth2 client secret
- * @property string|null $access_token      OAuth2 (app) access token.
- * @property string|null $refresh_token     OAuth2 refresh token.
- * @property int $token_expiry              OAuth2 access token expiry.
- * @property string|null $api_key           MapKit API key.
- * @property string|null $api_signature     MapKit Static API signature key.
- * @property string|null $package_name      AnalyticsKit related; for PushKit click_action?
- * @property int $product_id                AnalyticsKit related.
- * @property int $project_id                AnalyticsKit related.
- * @property int $agc_client_id             AGConnect API client ID.
- * @property string|null $agc_client_secret AGConnect API client secret.
- * @property ResponseInterface $response    Default response.
- * @property stdClass $result               Default API result.
- * @property array $headers                 Default request headers.
+ * @property int $client_id                   AGConnect client ID.
+ * @property string|null $client_secret       AGConnect client secret.
+ * @property int $app_id                      OAuth2 client ID.
+ * @property string|null $app_secret          OAuth2 client secret
+ * @property string|null $oauth2_api_scope    OAuth2 client side flow
+ * @property string|null $oauth2_redirect_url OAuth2 client side flow
+ * @property string|null $access_token        OAuth2 (app) access token.
+ * @property string|null $refresh_token       OAuth2 refresh token.
+ * @property int $token_expiry                OAuth2 access token expiry. *
+ * @property string|null $api_key             MapKit API key.
+ * @property string|null $api_signature       MapKit Static API signature key.
+ * @property string|null $package_name        AnalyticsKit related; for PushKit click_action?
+ * @property int $product_id                  AnalyticsKit related.
+ * @property int $project_id                  AnalyticsKit related.
+ * @property int $agc_client_id               AGConnect API client ID.
+ * @property string|null $agc_client_secret   AGConnect API client secret.
+ * @property ResponseInterface $response      Default response.
+ * @property stdClass $result                 Default API result.
+ * @property array $headers                   Default request headers.
  * @author Martin Zeitler
  */
 abstract class Wrapper {
@@ -40,6 +42,13 @@ abstract class Wrapper {
     protected string|null $client_secret = null;
     protected int $app_id = 0;
     protected string|null $app_secret = null;
+
+    /** client-side flow */
+    private string $oauth2_api_scope = 'openid+profile';
+
+    /** client-side flow */
+    protected string $oauth2_redirect_url;
+
     protected string|null $api_key = null;
     protected string|null $api_signature = null;
     protected string|null $access_token = null;
@@ -130,6 +139,12 @@ abstract class Wrapper {
         if ( isset( $config['app_secret'] ) ) {
             $this->app_secret = (string) $config['app_secret'];
         }
+        if ( isset( $config['oauth2_api_scope'] ) ) {
+            $this->oauth2_api_scope = (string) $config['oauth2_api_scope'];
+        }
+        if ( isset( $config['api_signature'] ) ) {
+            $this->oauth2_redirect_url = (string) $config['oauth2_redirect_url'];
+        }
         if ( isset( $config['agc_client_id'] ) ) {
             $this->agc_client_id = (int) $config['agc_client_id'];
         }
@@ -154,6 +169,12 @@ abstract class Wrapper {
         }
         if ( is_string( getenv('HUAWEI_OAUTH2_CLIENT_SECRET' ) ) ) {
             $this->app_secret = (string) getenv( 'HUAWEI_OAUTH2_CLIENT_SECRET' );
+        }
+        if ( is_string( getenv('HUAWEI_OAUTH2_API_SCOPE' ) ) ) {
+            $this->oauth2_api_scope = (string) getenv( 'HUAWEI_OAUTH2_API_SCOPE' );
+        }
+        if ( is_string( getenv('HUAWEI_OAUTH2_REDIRECT_URL' ) ) ) {
+            $this->oauth2_redirect_url = (string) getenv( 'HUAWEI_OAUTH2_REDIRECT_URL' );
         }
         if ( is_string( getenv('HUAWEI_CONNECT_API_CLIENT_ID' ) ) ) {
             $this->agc_client_id = (int) getenv( 'HUAWEI_CONNECT_API_CLIENT_ID' );
