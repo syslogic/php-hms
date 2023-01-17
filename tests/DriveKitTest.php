@@ -19,9 +19,15 @@ class DriveKitTest extends BaseTestCase {
         // self::assertTrue( self::$client->is_ready(), self::CLIENT_NOT_READY );
     }
 
-    /** Test: Dummy. */
+    /** Test: About */
     public function test_about_get() {
         $result = self::$client->getAbout()->get('*');
+        self::assertTrue( $result->code == 200, 'Not HTTP 200 OK' );
+    }
+
+    /** Test: Files */
+    public function test_files_get() {
+        $result = self::$client->getFiles()->get('*');
         self::assertTrue( $result->code == 200, 'Not HTTP 200 OK' );
     }
 }

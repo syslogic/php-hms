@@ -79,7 +79,7 @@ class AccountKit extends Wrapper {
      * TokenInfo Error 1500 / 15007 -> id_token is empty
      *
      * @param string|null $access_token
-     * @return TokenInfo
+     * @return TokenInfo|null
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/account-gettokeninfo-0000001050050585">Parsing an Access Token</a>
      */
     public function parse_access_token( string|null $access_token ): TokenInfo|null {
