@@ -3,6 +3,7 @@ namespace HMS\AdsKit;
 
 use HMS\AccountKit\AccountKit;
 use HMS\Core\Wrapper;
+use http\Exception\InvalidArgumentException;
 use stdClass;
 
 /**
@@ -28,7 +29,26 @@ class AdsKit extends Wrapper {
         unset($this->api_key, $this->api_signature);
     }
 
-    public function publisher_report( string $start_date, string $end_date, stdClass $filtering, string $group_by, string $time_granularity, int $page=1, int $page_size=10, string|null $order_field=null, string|null $order_type=null ): stdClass {
+    public function publisher_report( string $start_date, string $end_date, stdClass $filtering, string|null $group_by, string|null $time_granularity, int $page=1, int $page_size=10, string|null $order_field=null, string|null $order_type=null ): stdClass {
+        if (! property_exists($filtering, 'currency')) {
+            throw new InvalidArgumentException('filtering by currency is mandatory');
+        }
+        if (property_exists($filtering, 'ad_types')) {
+            if (! is_array($filtering->ad_types)) {
+                throw new InvalidArgumentException('filtering by ad format requires an array');
+            }
+            foreach ($filtering->ad_types as $ad_format) {
+                if (!in_array($ad_format, Constants::ADS_KIT_FORMATS)) {
+                    throw new InvalidArgumentException('invalid ad format value: ' . $ad_format);
+                }
+            }
+        }
+        if ($group_by != null && !in_array($group_by, Constants::ADS_KIT_GROUPING)) {
+            throw new InvalidArgumentException('invalid grouping value: ' . $group_by);
+        }
+        if ($time_granularity != null && !in_array($time_granularity, Constants::ADS_KIT_GRANULARITY)) {
+            throw new InvalidArgumentException('invalid granularity value: ' . $group_by);
+        }
         return $this->guzzle_post(Constants::ADS_KIT_BASE_URL, $this->auth_headers(), [
             'start_date' => $start_date, // mandatory
             'end_date' => $end_date,     // mandatory
