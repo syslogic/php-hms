@@ -5,6 +5,7 @@ use HMS\AccountKit\AccountKit;
 use HMS\Core\Wrapper;
 use HMS\DriveKit\About\About;
 use HMS\DriveKit\Changes\Changes;
+use HMS\DriveKit\Comments\Comments;
 use HMS\DriveKit\Files\Files;
 use stdClass;
 
@@ -31,11 +32,16 @@ class DriveKit extends Wrapper {
     public function getAbout(): About {
         return new About( ['app_id' => $this->app_id, 'app_secret' => $this->app_secret, 'debug' => $this->debug_mode] );
     }
+
     public function getFiles(): Files {
         return new Files( ['app_id' => $this->app_id, 'app_secret' => $this->app_secret, 'debug' => $this->debug_mode] );
     }
 
     public function getChanges(): Changes {
         return new Changes( ['app_id' => $this->app_id, 'app_secret' => $this->app_secret, 'debug' => $this->debug_mode] );
+    }
+
+    public function getComments(): Comments {
+        return new Comments( ['app_id' => $this->app_id, 'app_secret' => $this->app_secret, 'debug' => $this->debug_mode] );
     }
 }

@@ -26,7 +26,7 @@ class Config {
     private string|null $app_secret = null;
     protected string|null $package_name = null;
 
-    /** Possibly for MapKit / LocationKit related. */
+    /** MapKit related. */
     protected string|null $api_key = null;
 
     /** AnalyticsKit related. */
@@ -52,7 +52,7 @@ class Config {
     }
 
     /** Load agconnect-services.json. */
-    private function load_config_file( string $config_file ) {
+    private function load_config_file( string $config_file ): void {
         $config = json_decode(file_get_contents( $config_file ));
         if ( is_object( $config )) {
             if ( property_exists( $config,'configuration_version' )) {
