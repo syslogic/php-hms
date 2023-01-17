@@ -30,4 +30,10 @@ class DriveKitTest extends BaseTestCase {
         $result = self::$client->getFiles()->get('*');
         self::assertTrue( $result->code == 200, 'Not HTTP 200 OK' );
     }
+
+    /** Test: Changes */
+    public function test_changes_start_cursor() {
+        $result = self::$client->getChanges()->getStartCursor();
+        self::assertTrue( $result->code == 200, 'Not HTTP 200 OK' );
+    }
 }

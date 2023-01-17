@@ -1,5 +1,5 @@
 <?php /** @noinspection PhpUnused */
-namespace HMS\DriveKit\About;
+namespace HMS\DriveKit\Changes;
 
 use HMS\AccountKit\AccountKit;
 use HMS\DriveKit\DriveKit;
@@ -8,12 +8,12 @@ use HMS\DriveKit\Constants;
 use stdClass;
 
 /**
- * Class HMS DriveKit API: About
+ * Class HMS DriveKit API: Changes
  *
- * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/server-api-aboutget-0000001050151684">About</a>
+ * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/server-api-aboutget-0000001050151684">Changes</a>
  * @author Martin Zeitler
  */
-class About extends DriveKit {
+class Changes extends DriveKit {
 
     public function __construct( array $config ) {
 
@@ -25,10 +25,9 @@ class About extends DriveKit {
     }
 
     /**
-     * @param string $fields The field names to return.
      * @return bool|stdClass The result of the API call.
      */
-    public function get( string $fields='*' ): stdClass|bool {
-        return $this->guzzle_get(Constants::DRIVE_KIT_ABOUT_URL . $fields, $this->auth_headers(), []);
+    public function getStartCursor(): stdClass|bool {
+        return $this->guzzle_get(Constants::DRIVE_KIT_CHANGES_URL . '/getStartCursor', $this->auth_headers(), []);
     }
 }

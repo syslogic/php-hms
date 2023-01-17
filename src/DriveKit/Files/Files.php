@@ -19,7 +19,7 @@ class Files extends DriveKit {
 
         parent::__construct( $config );
 
-        /* Obtain an access-token. */
+        /* TODO: Authorization Code. */
         $account_kit = new AccountKit( $config );
         $this->access_token = $account_kit->get_access_token();
     }
