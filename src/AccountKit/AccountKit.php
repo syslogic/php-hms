@@ -13,9 +13,14 @@ use stdClass;
 class AccountKit extends Wrapper {
 
     /** oAuth2 Token related. */
-    private string|null $url_token = Constants::URL_OAUTH2_TOKEN;
-    private string|null $url_token_info = Constants::ACCOUNT_KIT_TOKEN_INFO;
-    private string|null $url_user_info  = Constants::ACCOUNT_KIT_USER_INFO;
+    private string $url_token = Constants::URL_OAUTH2_TOKEN;
+    private string $url_token_info = Constants::ACCOUNT_KIT_TOKEN_INFO;
+    private string $url_user_info  = Constants::ACCOUNT_KIT_USER_INFO;
+
+    /** value `client_credentials` isn't documented, but it's working. */
+    private array $grant_types = [
+        'authorization_code', 'client_credentials', 'refresh_token'
+    ];
 
     /** ID Token related. */
     private string|null $id_token = null;
@@ -23,19 +28,15 @@ class AccountKit extends Wrapper {
     private string|null $union_id = null;
     private string|null $open_id = null;
 
-    /** value `client_credentials` isn't documented, but it's working. */
-    private array $grant_types = [
-        'authorization_code', 'client_credentials', 'refresh_token'
-    ];
-
     public function __construct( array $config ) {
         parent::__construct( $config );
-        $this->post_init();
+        // $this->post_init();
     }
 
     /** Unset properties irrelevant to the child class. */
     protected function post_init(): void {
-        unset($this->api_key, $this->api_signature);
+        if (property_exists($this, 'api_key')) {unset($this->api_key, $this->api_signature);}
+        if (property_exists($this, 'api_signature')) {unset($this->api_key, $this->api_signature);}
     }
 
     /**
@@ -175,5 +176,18 @@ class AccountKit extends Wrapper {
             }
         }
         return $this->access_token;
+    }
+
+    /**
+     * @return string the URL to redirect the browser to.
+     */
+    public function get_login_url(): string {
+        return 'https://oauth-login.cloud.huawei.com/oauth2/v3/authorize'.
+        '?response_type=code' .
+        '&access_type=offline' .
+        '&state=state_parameter_passthrough_value'.
+        '&client_id=' . $this->app_id .
+        '&redirect_uri=' . $this->oauth2_redirect_url .
+        '&scope=' . $this->oauth2_api_scope;
     }
 }

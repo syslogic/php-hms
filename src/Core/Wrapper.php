@@ -44,10 +44,10 @@ abstract class Wrapper {
     protected string|null $app_secret = null;
 
     /** client-side flow */
-    private string $oauth2_api_scope = 'openid+profile';
+    protected string $oauth2_api_scope = 'openid+profile';
 
     /** client-side flow */
-    protected string $oauth2_redirect_url;
+    protected string|null $oauth2_redirect_url = null;
 
     protected string|null $api_key = null;
     protected string|null $api_signature = null;
@@ -142,7 +142,7 @@ abstract class Wrapper {
         if ( isset( $config['oauth2_api_scope'] ) ) {
             $this->oauth2_api_scope = (string) $config['oauth2_api_scope'];
         }
-        if ( isset( $config['api_signature'] ) ) {
+        if ( isset( $config['oauth2_redirect_url'] ) ) {
             $this->oauth2_redirect_url = (string) $config['oauth2_redirect_url'];
         }
         if ( isset( $config['agc_client_id'] ) ) {
