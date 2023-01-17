@@ -3,13 +3,15 @@ namespace HMS\AdsKit;
 
 use HMS\AccountKit\AccountKit;
 use HMS\Core\Wrapper;
-use http\Exception\InvalidArgumentException;
+use InvalidArgumentException;
 use stdClass;
 
 /**
  * Class HMS AdsKit Wrapper
  *
  * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/query-publisher-service-reports-0000001050933546">Publisher Service Reporting API</a>
+ * @see <a href="https://developer.huawei.com/consumer/en/service/ads/publisher/html/#/mainContent/reportData">Petal Publisher Center</a>
+ *
  * @author Martin Zeitler
  */
 class AdsKit extends Wrapper {
@@ -29,7 +31,7 @@ class AdsKit extends Wrapper {
         unset($this->api_key, $this->api_signature);
     }
 
-    public function publisher_report( string $start_date, string $end_date, stdClass $filtering, string|null $group_by, string|null $time_granularity, int $page=1, int $page_size=10, string|null $order_field=null, string|null $order_type=null ): stdClass {
+    public function publisher_report( string $start_date, string $end_date, stdClass $filtering, string|null $group_by, string|null $time_granularity, int $page=1, int $page_size=10, string|null $order_field='earnings', string|null $order_type='DESC' ): stdClass {
         if (! property_exists($filtering, 'currency')) {
             throw new InvalidArgumentException('filtering by currency is mandatory');
         }
@@ -49,6 +51,13 @@ class AdsKit extends Wrapper {
         if ($time_granularity != null && !in_array($time_granularity, Constants::ADS_KIT_GRANULARITY)) {
             throw new InvalidArgumentException('invalid granularity value: ' . $group_by);
         }
+        if ($order_field != null && !in_array($order_field, Constants::ADS_KIT_ORDER_FIELDS)) {
+            throw new InvalidArgumentException('invalid order-field value: ' . $order_field);
+        }
+        if ($order_type != null && !in_array($order_type, Constants::ADS_KIT_ORDER_TYPES)) {
+            throw new InvalidArgumentException('invalid order-type value: ' . $order_type);
+        }
+
         return $this->guzzle_post(Constants::ADS_KIT_BASE_URL, $this->auth_headers(), [
             'start_date' => $start_date, // mandatory
             'end_date' => $end_date,     // mandatory

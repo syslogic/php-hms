@@ -35,4 +35,20 @@ class Constants {
         'STAT_BREAK_DOWNS_PLACEMENT_ID',
         'STAT_BREAK_DOWNS_AD_TYPE'
     ];
+    public const ADS_KIT_ORDER_FIELDS = [
+        'stat_datetime',
+        'earnings',
+        'reached_ad_requests',
+        'matched_reached_ad_requests',
+        'show_count',
+        'click_count',
+        'ad_requests_match_rate',
+        'ad_requests_show_rate',
+        'click_through_rate'
+    ];
+
+    public const ADS_KIT_ORDER_TYPES = [
+        'DESC',
+        'ASC'
+    ];
 }
