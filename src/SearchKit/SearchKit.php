@@ -41,7 +41,7 @@ class SearchKit extends Wrapper {
         return [
             "Content-Type: application/json; charset=utf-8",
             "Authorization: Bearer $this->access_token",
-            "X-Kit-AppID: $this->app_id",
+            "X-Kit-AppID: $this->oauth2_client_id",
             "X-Kit-ClientIP: $this->client_ip",
             "X-Kit-RequestID: $this->request_id"
         ];

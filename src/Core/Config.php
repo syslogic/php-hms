@@ -22,8 +22,6 @@ class Config {
         'storage'   => "https://ops-dre.agcstorage.link" // these have a protocol, the others have a comma.
     ];
 
-    private string|null $client_secret = null;
-    private string|null $app_secret = null;
     protected string|null $package_name = null;
 
     /** MapKit related. */
@@ -32,8 +30,12 @@ class Config {
     /** AnalyticsKit related. */
     protected int $project_id = 0;
     protected int $product_id = 0;
+
     protected int $client_id = 0;
-    protected int $app_id = 0;
+    private string|null $client_secret = null;
+
+    protected int $oauth2_client_id = 0;
+    private string|null $oauth2_client_secret = null;
 
     private stdClass $client;
     private stdClass $oauth_client;
@@ -76,8 +78,8 @@ class Config {
                 }
             }
             if ( property_exists( $config, 'client' )) {
-                $this->app_id        =    (int) $config->client->app_id;
-                $this->app_secret    = (string) getenv('HUAWEI_OAUTH2_CLIENT_SECRET'); // not contained in the JSON.
+                $this->oauth2_client_id = (int) $config->client->app_id;
+                $this->oauth2_client_secret = (string) getenv('HUAWEI_OAUTH2_CLIENT_SECRET'); // not contained in the JSON.
                 $this->package_name  = (string) $config->client->package_name;
                 $this->project_id    =    (int) $config->client->project_id;
                 $this->product_id    =    (int) $config->client->product_id;
@@ -97,7 +99,7 @@ class Config {
     public function get_client_id(): int {
         return $this->client_id;
     }
-    public function get_app_id(): int {
-        return $this->app_id;
+    public function get_oauth2_client_id(): int {
+        return $this->oauth2_client_id;
     }
 }

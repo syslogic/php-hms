@@ -15,33 +15,35 @@ use stdClass;
 /**
  * Class HMS Core Wrapper
  *
- * @property int $client_id                   AGConnect client ID.
- * @property string|null $client_secret       AGConnect client secret.
- * @property int $app_id                      OAuth2 client ID.
- * @property string|null $app_secret          OAuth2 client secret
- * @property string|null $oauth2_api_scope    OAuth2 client side flow
- * @property string|null $oauth2_redirect_url OAuth2 client side flow
- * @property string|null $access_token        OAuth2 (app) access token.
- * @property string|null $refresh_token       OAuth2 refresh token.
- * @property int $token_expiry                OAuth2 access token expiry. *
- * @property string|null $api_key             MapKit API key.
- * @property string|null $api_signature       MapKit Static API signature key.
- * @property string|null $package_name        AnalyticsKit related; for PushKit click_action?
- * @property int $product_id                  AnalyticsKit related.
- * @property int $project_id                  AnalyticsKit related.
- * @property int $agc_client_id               AGConnect API client ID.
- * @property string|null $agc_client_secret   AGConnect API client secret.
- * @property ResponseInterface $response      Default response.
- * @property stdClass $result                 Default API result.
- * @property array $headers                   Default request headers.
+ * @property int $client_id                    AGConnect client ID.
+ * @property string|null $client_secret        AGConnect client secret.
+ *
+ * @property int $oauth2_client_id             OAuth2 client ID (app_id).
+ * @property string|null $oauth2_client_secret OAuth2 client secret (app_secret).
+ * @property string|null $oauth2_api_scope     OAuth2 client side flow
+ * @property string|null $oauth2_redirect_url  OAuth2 client side flow
+ * @property string|null $access_token         OAuth2 (app) access token.
+ * @property string|null $refresh_token        OAuth2 refresh token.
+ * @property int $token_expiry                 OAuth2 access token expiry.
+ * @property string|null $api_key              MapKit API key.
+ * @property string|null $api_signature        MapKit Static API signature key.
+ * @property string|null $package_name         AnalyticsKit related; for PushKit click_action?
+ * @property int $product_id                   AnalyticsKit related.
+ * @property int $project_id                   AnalyticsKit related.
+ * @property int $agc_client_id                AGConnect API client ID.
+ * @property string|null $agc_client_secret    AGConnect API client secret.
+ * @property ResponseInterface $response       Default response.
+ * @property stdClass $result                  Default API result.
+ * @property array $headers                    Default request headers.
  * @author Martin Zeitler
  */
 abstract class Wrapper {
 
     protected int $client_id = 0;
     protected string|null $client_secret = null;
-    protected int $app_id = 0;
-    protected string|null $app_secret = null;
+
+    protected int $oauth2_client_id = 0;
+    protected string|null $oauth2_client_secret = null;
 
     /** client-side flow */
     protected string $oauth2_api_scope = 'openid+profile';
@@ -133,11 +135,11 @@ abstract class Wrapper {
 
     /** Try to initialize the client from array. */
     private function init_by_array( array $config ): void {
-        if ( isset( $config['app_id'] ) ) {
-            $this->app_id = (int) $config['app_id'];
+        if ( isset( $config['oauth2_client_id'] ) ) {
+            $this->oauth2_client_id = (int) $config['oauth2_client_id'];
         }
-        if ( isset( $config['app_secret'] ) ) {
-            $this->app_secret = (string) $config['app_secret'];
+        if ( isset( $config['oauth2_client_secret'] ) ) {
+            $this->oauth2_client_secret = (string) $config['oauth2_client_secret'];
         }
         if ( isset( $config['oauth2_api_scope'] ) ) {
             $this->oauth2_api_scope = (string) $config['oauth2_api_scope'];
@@ -165,10 +167,10 @@ abstract class Wrapper {
     /** Try to initialize the client from environment. */
     private function init_by_environment(): void {
         if ( is_string( getenv('HUAWEI_OAUTH2_CLIENT_ID' ) ) ) {
-            $this->app_id = (int) getenv( 'HUAWEI_OAUTH2_CLIENT_ID' );
+            $this->oauth2_client_id = (int) getenv( 'HUAWEI_OAUTH2_CLIENT_ID' );
         }
         if ( is_string( getenv('HUAWEI_OAUTH2_CLIENT_SECRET' ) ) ) {
-            $this->app_secret = (string) getenv( 'HUAWEI_OAUTH2_CLIENT_SECRET' );
+            $this->oauth2_client_secret = (string) getenv( 'HUAWEI_OAUTH2_CLIENT_SECRET' );
         }
         if ( is_string( getenv('HUAWEI_OAUTH2_API_SCOPE' ) ) ) {
             $this->oauth2_api_scope = (string) getenv( 'HUAWEI_OAUTH2_API_SCOPE' );

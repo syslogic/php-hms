@@ -26,7 +26,7 @@ class Connect extends Wrapper {
 
     /** Unset properties irrelevant to the child class. */
     protected function post_init(): void {
-        unset($this->app_id, $this->app_secret, $this->client_id, $this->client_secret);
+        unset($this->oauth2_client_id, $this->oauth2_client_secret, $this->client_id, $this->client_secret);
         unset($this->package_name, $this->project_id, $this->refresh_token);
         unset($this->api_key, $this->api_signature);
     }

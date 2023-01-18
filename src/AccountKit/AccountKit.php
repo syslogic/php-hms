@@ -50,8 +50,8 @@ class AccountKit extends Wrapper {
             'Content-Type' => 'application/x-www-form-urlencoded; charset=utf-8'
         ], [
             'grant_type'    => 'client_credentials',
-            'client_id'     => $this->app_id,
-            'client_secret' => $this->app_secret
+            'client_id'     => $this->oauth2_client_id,
+            'client_secret' => $this->oauth2_client_secret
         ], true);
         return $this->parse_result($result);
     }
@@ -62,14 +62,19 @@ class AccountKit extends Wrapper {
             'Content-Type' => 'application/x-www-form-urlencoded; charset=utf-8'
         ], [
             'grant_type'    => 'authorization_code',
-            'client_id'     => $this->app_id,
-            'client_secret' => $this->app_secret,
+            'client_id'     => $this->oauth2_client_id,
+            'client_secret' => $this->oauth2_client_secret,
             'redirect_uri'  => $this->oauth2_redirect_url,
             'code'          => $authorization_code
         ], true);
 
         $this->parse_result($result);
         return $result;
+    }
+    
+    /** TODO: obtain a refresh token ... */
+    public function get_access_token_by_refresh_token(): stdClass|bool {
+        return false;
     }
 
     /**
@@ -189,7 +194,7 @@ class AccountKit extends Wrapper {
         '?response_type=code' .
         '&access_type=offline' .
         '&state=state_parameter_passthrough_value'.
-        '&client_id=' . $this->app_id .
+        '&client_id=' . $this->oauth2_client_id .
         '&redirect_uri=' . $this->oauth2_redirect_url .
         '&scope=' . $this->oauth2_api_scope;
     }

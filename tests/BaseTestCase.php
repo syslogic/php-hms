@@ -11,14 +11,14 @@ use PHPUnit\Framework\TestCase;
  */
 abstract class BaseTestCase extends TestCase {
 
-    protected static int $app_id = 0;                   // OAuth2 client.
-    protected static string|null $app_secret = null;    // OAuth2 client.
+    protected static int $oauth2_client_id = 0;                // OAuth2 client.
+    protected static string|null $oauth2_client_secret = null; // OAuth2 client.
 
-    protected static int $agc_client_id = 0;                // AGConnect API.
-    protected static string|null $agc_client_secret = null; // AGConnect API.
+    protected static int $agc_client_id = 0;                   // AGConnect API.
+    protected static string|null $agc_client_secret = null;    // AGConnect API.
 
-    protected static string|null $api_key = null;       // MapKit in general.
-    protected static string|null $signature_key = null; // Maps Static API.
+    protected static string|null $api_key = null;              // MapKit in general.
+    protected static string|null $signature_key = null;        // Maps Static API.
     protected static string|null $package_name = null;
     protected static int $project_id = 0;
     protected static int $product_id = 0;
@@ -38,11 +38,11 @@ abstract class BaseTestCase extends TestCase {
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {
 
-        self::$app_id = getenv('HUAWEI_OAUTH2_CLIENT_ID');
-        self::assertTrue( is_int(self::$app_id) && self::$app_id > 0, self::ENV_VAR_OAUTH2_CLIENT_ID );
+        self::$oauth2_client_id = getenv('HUAWEI_OAUTH2_CLIENT_ID');
+        self::assertTrue( is_int(self::$oauth2_client_id) && self::$oauth2_client_id > 0, self::ENV_VAR_OAUTH2_CLIENT_ID );
 
-        self::$app_secret = getenv('HUAWEI_OAUTH2_CLIENT_SECRET');
-        self::assertNotEmpty( self::$app_secret, self::ENV_VAR_OAUTH2_CLIENT_SECRET );
+        self::$oauth2_client_secret = getenv('HUAWEI_OAUTH2_CLIENT_SECRET');
+        self::assertNotEmpty( self::$oauth2_client_secret, self::ENV_VAR_OAUTH2_CLIENT_SECRET );
 
         self::$api_key = getenv('HUAWEI_MAPKIT_API_KEY');
         self::assertNotEmpty( self::$api_key, self::ENV_VAR_MAPKIT_API_KEY );
@@ -59,23 +59,23 @@ abstract class BaseTestCase extends TestCase {
 
     /** It provides the configuration array. */
     #[ArrayShape([
-        'agc_client_id'     => 'integer',
-        'agc_client_secret' => 'string',
-        'product_id'        => 'integer',
-        'app_id'            => 'integer',
-        'app_secret'        => 'string',
-        'api_key'           => 'string',
-        'debug'             => 'bool'
+        'oauth2_client_id'     => 'integer',
+        'oauth2_client_secret' => 'string',
+        'api_key'              => 'string',
+        'agc_client_id'        => 'integer',
+        'agc_client_secret'    => 'string',
+        'product_id'           => 'integer',
+        'debug_mode'           => 'bool'
     ])]
     protected static function get_config(): array {
         return [
-            'agc_client_id'     => self::$agc_client_id,
-            'agc_client_secret' => self::$agc_client_secret,
-            'product_id'        => self::$product_id,
-            'app_id'            => self::$app_id,
-            'app_secret'        => self::$app_secret,
-            'api_key'           => self::$api_key,
-            'debug'             => true
+            'oauth2_client_id'     => self::$oauth2_client_id,
+            'oauth2_client_secret' => self::$oauth2_client_secret,
+            'api_key'              => self::$api_key,
+            'agc_client_id'        => self::$agc_client_id,
+            'agc_client_secret'    => self::$agc_client_secret,
+            'product_id'           => self::$product_id,
+            'debug_mode'           => true
         ];
     }
 }

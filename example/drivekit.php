@@ -13,8 +13,8 @@ if (! isset($_SERVER['HUAWEI_OAUTH2_REDIRECT_URL'])) {die( 'missing variable: HU
 if (! isset($_SERVER['HUAWEI_OAUTH2_API_SCOPE'])) {die( 'missing variable: HUAWEI_OAUTH2_API_SCOPE' );}
 
 $api = new AccountKit( [
-    'app_id' => $_SERVER['HUAWEI_OAUTH2_CLIENT_ID'],
-    'app_secret' => $_SERVER['HUAWEI_OAUTH2_CLIENT_SECRET'],
+    'oauth2_client_id' => $_SERVER['HUAWEI_OAUTH2_CLIENT_ID'],
+    'oauth2_client_secret' => $_SERVER['HUAWEI_OAUTH2_CLIENT_SECRET'],
     'oauth2_redirect_url' => $_SERVER['HUAWEI_OAUTH2_REDIRECT_URL'],
     'oauth2_api_scope' => $_SERVER['HUAWEI_OAUTH2_API_SCOPE'],
     'debug_mode' => true
@@ -23,13 +23,23 @@ $api = new AccountKit( [
 // https://developer.huawei.com/consumer/en/doc/development/HMSCore-Guides/web-get-access-token-0000001050048946#section151118514311
 if (isset($_GET['code'])) {
     $token_response = $api->get_access_token_by_auth_code( $_GET['code'] );
-    if ($token_response != null) {file_put_contents($token_path, $token_response);}
+    if ($token_response != null) {
+        // convert the expiry timestamp from relative to absolute value.
+        if (property_exists($token_response, 'expires_in')) {
+            $token_response->expiry = time() + $token_response->expires_in;
+            unset($token_response->expires_in);
+        }
+        file_put_contents($token_path, $token_response);
+    }
 } else if (file_exists($token_path) && filesize($token_path) > 2) {
 
     // load previously authorized token from a file, if it exists.
     $token_response = json_decode(file_get_contents($token_path), true);
 
     /* TODO: determine token expiry, perform token refresh. */
+    if ($token_response->expiry >= time()) {
+        $token_response = $api->get_access_token_by_refresh_token( $_GET['code'] );
+    }
 }
 
 if (isset($token_response)) {

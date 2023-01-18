@@ -28,12 +28,12 @@ class PushKit extends Wrapper {
         parent::__construct( $config );
         $this->post_init();
 
-        $this->url_message_send      = str_replace('{appId}', $this->app_id, Constants::PUSHKIT_MESSAGE_SEND);
-        $this->url_topics_list       = str_replace('{appId}', $this->app_id, Constants::PUSHKIT_TOPICS_LIST);
-        $this->url_topic_subscribe   = str_replace('{appId}', $this->app_id, Constants::PUSHKIT_TOPIC_SUBSCRIBE);
-        $this->url_topic_unsubscribe = str_replace('{appId}', $this->app_id, Constants::PUSHKIT_TOPIC_UNSUBSCRIBE);
-        $this->url_token_data_query  = str_replace('{appId}', $this->app_id, Constants::PUSHKIT_TOKEN_DATA_QUERY);
-        $this->url_token_data_delete = str_replace('{appId}', $this->app_id, Constants::PUSHKIT_TOKEN_DATA_DELETE);
+        $this->url_message_send      = str_replace('{appId}', $this->oauth2_client_id, Constants::PUSHKIT_MESSAGE_SEND);
+        $this->url_topics_list       = str_replace('{appId}', $this->oauth2_client_id, Constants::PUSHKIT_TOPICS_LIST);
+        $this->url_topic_subscribe   = str_replace('{appId}', $this->oauth2_client_id, Constants::PUSHKIT_TOPIC_SUBSCRIBE);
+        $this->url_topic_unsubscribe = str_replace('{appId}', $this->oauth2_client_id, Constants::PUSHKIT_TOPIC_UNSUBSCRIBE);
+        $this->url_token_data_query  = str_replace('{appId}', $this->oauth2_client_id, Constants::PUSHKIT_TOKEN_DATA_QUERY);
+        $this->url_token_data_delete = str_replace('{appId}', $this->oauth2_client_id, Constants::PUSHKIT_TOKEN_DATA_DELETE);
 
         /* Obtain an access-token. */
         $account_kit = new AccountKit( $config );

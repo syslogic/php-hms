@@ -30,18 +30,30 @@ class DriveKit extends Wrapper {
     }
 
     public function getAbout(): About {
-        return new About( ['app_id' => $this->app_id, 'app_secret' => $this->app_secret, 'debug' => $this->debug_mode] );
+        return new About( [
+            'oauth2_client_id' => $this->oauth2_client_id,
+            'auth2_client_secret' => $this->oauth2_client_secret,
+            'debug_mode' => $this->debug_mode
+        ] );
     }
 
     public function getFiles(): Files {
-        return new Files( ['app_id' => $this->app_id, 'app_secret' => $this->app_secret, 'debug' => $this->debug_mode] );
+        return new Files( [
+            'oauth2_client_id' => $this->oauth2_client_id,
+            'oauth2_client_secret' => $this->oauth2_client_secret,
+            'debug' => $this->debug_mode
+        ] );
     }
 
     public function getChanges(): Changes {
-        return new Changes( ['app_id' => $this->app_id, 'app_secret' => $this->app_secret, 'debug' => $this->debug_mode] );
+        return new Changes( [
+            'oauth2_client_id' => $this->oauth2_client_id,
+            'oauth2_client_secret' => $this->oauth2_client_secret,
+            'debug' => $this->debug_mode
+        ] );
     }
 
     public function getComments(): Comments {
-        return new Comments( ['app_id' => $this->app_id, 'app_secret' => $this->app_secret, 'debug' => $this->debug_mode] );
+        return new Comments( ['oauth2_client_id' => $this->oauth2_client_id, 'app_secret' => $this->app_secret, 'debug' => $this->debug_mode] );
     }
 }

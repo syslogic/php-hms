@@ -60,7 +60,7 @@ class AnalyticsKit extends Wrapper {
             "Content-Type: application/json; charset=utf-8",
             "Authorization: Bearer $this->access_token",
             "x-product-id: $this->product_id",
-            "x-app-id: $this->app_id"
+            "x-app-id: $this->oauth2_client_id"
         ];
     }
 
@@ -185,7 +185,7 @@ class AnalyticsKit extends Wrapper {
         $payload = [
             'data_type'        => 3,
             "protocol_version" => 1,
-            "appid"            => $this->app_id,
+            "appid"            => $this->oauth2_client_id,
             "productid"        => $this->product_id,
             'package_name'     => $this->package_name,
             'event_set'        => $data
