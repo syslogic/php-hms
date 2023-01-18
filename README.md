@@ -22,7 +22,7 @@ This project aims to abstract Huawei REST API, according to the official API doc
 |                   [`AnalyticsKit`](https://github.com/syslogic/php-hms/blob/master/src/AnalyticsKit) |                                partially                                 |
 |       [`AppGallery\Connect`](https://github.com/syslogic/php-hms/tree/master/src/AppGallery/Connect) |                                                                          |
 | [`AppGallery\Publishing`](https://github.com/syslogic/php-hms/tree/master/src/AppGallery/Publishing) | [plugin](https://github.com/syslogic/agconnect-publishing-gradle-plugin) |
-|                           [`DriveKit`](https://github.com/syslogic/php-hms/tree/master/src/DriveKit) |                                                                          |
+|                           [`DriveKit`](https://github.com/syslogic/php-hms/tree/master/src/DriveKit) |                                partially                                 |
 |                     [`GameService`](https://github.com/syslogic/php-hms/tree/master/src/GameService) |                                                                          |
 |                         [`SearchKit`](https://github.com/syslogic/php-hms/blob/master/src/SearchKit) |                                                                          |
 |                         [`WalletKit`](https://github.com/syslogic/php-hms/blob/master/src/WalletKit) |                                                                          |
@@ -47,7 +47,7 @@ When creating the API client, project should be set to value "N/A".
 
 - `HUAWEI_MAPKIT_API_KEY`<br/>
 
-- `HUAWEI_MAPKIT_SIGNATURE_KEY`<br/>
+- `HUAWEI_MAPKIT_SIGNATURE_KEY` (optional)<br/>
 
 #### PushKit API Client
 - `HUAWEI_OAUTH2_CLIENT_ID` The "App ID" is being passed as the Oauth2 `client_id`.
@@ -59,6 +59,12 @@ Please refer to the documentation, which explains how to obtain these values: <b
 
  - `HUAWEI_HMAC_VERIFICATION_KEY` (optional)<br/>
    The HMAC verification key is unique to each upstream message webhook. <br/>The value can be obtained from each such webhook configuration form.
+
+#### DriveKit API:
+
+- `HUAWEI_OAUTH2_REDIRECT_URL`<br/>
+
+- `HUAWEI_OAUTH2_API_SCOPE`<br/>
 
 #### AnalyticsKit API:
 
@@ -89,14 +95,21 @@ And then map namespace `HMS` in `composer.json` PSR-4 `autoload` block:
 To set up the environment, for example `nano ~/.bashrc`:
 
 ````bash
-# PHP SDK for Huawei REST API
+# General server-side oAuth2 flow.
 export HUAWEI_OAUTH2_CLIENT_ID=...
 export HUAWEI_OAUTH2_CLIENT_SECRET=...
+
+# DriveKit client-side oAuth2 flow.
+export HUAWEI_OAUTH2_REDIRECT_URL=...
+export HUAWEI_OAUTH2_API_SCOPE=...
+
+# MapKit API key.
+export HUAWEI_MAPKIT_API_KEY=...
+
 export HUAWEI_CONNECT_API_CLIENT_ID=...
 export HUAWEI_CONNECT_API_CLIENT_SECRET=...
 export HUAWEI_CONNECT_PRODUCT_ID=...
 export HUAWEI_HMAC_VERIFICATION_KEY=...
-export HUAWEI_MAPKIT_API_KEY=...
 ````
 </p>
 </details>
@@ -137,8 +150,10 @@ composer run-script coverage
 
 
 ### Known Issues
-When receiving an `Error 10021: Invalid clientId` this may suggest,<br/>that the API which one tries to access is not enabled for the project.<br/>
+ - When receiving an `Error 10021: Invalid clientId` this may suggest,<br/>that the API which one tries to access is not enabled for the project.<br/>
 Enabling the desired API on the [AppGallery Connect](https://developer.huawei.com/consumer/en/service/josp/agc/index.html) console should help.
+
+ - `MapKit` endpoint `routeService` doesn't work, at least not in Europe.
 
 ### License
 The PHP SDK for Huawei REST API (the library) is licensed under the [MIT License](LICENSE).<br/>
