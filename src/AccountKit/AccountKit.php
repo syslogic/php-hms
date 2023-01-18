@@ -58,7 +58,8 @@ class AccountKit extends Wrapper {
     }
 
     /**
-     * Intentionally returning the raw response, but nevertheless parsing it.
+     * Obtaining an access token by trading an authorization code.
+     * Intentionally returning the raw response, because the expiry timestamp is relevant.
      * @return stdClass|null the whole retrieved token object.
      */
     public function get_access_token_by_auth_code( string $authorization_code ): stdClass|bool {
@@ -80,10 +81,27 @@ class AccountKit extends Wrapper {
         return $result;
     }
 
-    /** TODO: obtain a refresh token ... */
+    /**
+     * Obtaining an access token by trading a refresh token.
+     * Intentionally returning the raw response, because the expiry timestamp is relevant.
+     * @return stdClass|null the whole retrieved token object.
+     */
     public function get_access_token_by_refresh_token( string $refresh_token ): stdClass|bool {
+        $result = $this->guzzle_post($this->url_token, [
+            'Content-Type' => 'application/x-www-form-urlencoded; charset=utf-8'
+        ], [
+            'grant_type'    => 'refresh_token',
+            'client_id'     => $this->oauth2_client_id,
+            'client_secret' => $this->oauth2_client_secret,
+            'code'          => $refresh_token
+        ], true);
 
-        return false;
+        /* provide an absolute value as the expiry timestamp. */
+        if (property_exists($result, 'expires_in')) {
+            $result->token_expiry = time() + $result->expires_in;
+            unset($result->expires_in);
+        }
+        return $result;
     }
 
     /**
