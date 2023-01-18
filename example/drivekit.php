@@ -3,7 +3,6 @@ require_once '../vendor/autoload.php';
 
 use HMS\AccountKit\AccountKit;
 use HMS\DriveKit\DriveKit;
-// error_reporting(-1);
 
 $token_path = '../../.credentials/huawei_token.json';
 if (! is_writeable($token_path)) {die( 'unable to cache the token: '.$token_path );}
@@ -13,11 +12,11 @@ if (! isset($_SERVER['HUAWEI_OAUTH2_REDIRECT_URL'])) {die( 'missing variable: HU
 if (! isset($_SERVER['HUAWEI_OAUTH2_API_SCOPE'])) {die( 'missing variable: HUAWEI_OAUTH2_API_SCOPE' );}
 
 $api = new AccountKit( [
-    'oauth2_client_id' => $_SERVER['HUAWEI_OAUTH2_CLIENT_ID'],
+    'oauth2_client_id'     => $_SERVER['HUAWEI_OAUTH2_CLIENT_ID'],
     'oauth2_client_secret' => $_SERVER['HUAWEI_OAUTH2_CLIENT_SECRET'],
-    'oauth2_redirect_url' => $_SERVER['HUAWEI_OAUTH2_REDIRECT_URL'],
-    'oauth2_api_scope' => $_SERVER['HUAWEI_OAUTH2_API_SCOPE'],
-    'debug_mode' => true
+    'oauth2_redirect_url'  => $_SERVER['HUAWEI_OAUTH2_REDIRECT_URL'],
+    'oauth2_api_scope'     => $_SERVER['HUAWEI_OAUTH2_API_SCOPE'],
+    'debug_mode'           => true
 ]);
 
 // https://developer.huawei.com/consumer/en/doc/development/HMSCore-Guides/web-get-access-token-0000001050048946#section151118514311
