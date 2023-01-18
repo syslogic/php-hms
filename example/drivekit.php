@@ -31,15 +31,10 @@ if (isset($_GET['code'])) {
     // load previously authorized token from a file, if it exists.
     $token_response = json_decode(file_get_contents($token_path), true);
 
-    /* TODO: determine token expiry, perform token refresh. */
+    // determine token expiry and perform a refresh, when required.
     if ($token_response->expiry >= time() && property_exists($token_response, 'refresh_token')) {
         $token_response = $api->get_access_token_by_refresh_token( $token_response->refresh_token );
     }
-}
-
-if (isset($token_response)) {
-    $drive = new DriveKit( ['access_token' => $token_response->access_token] );
-    $result = $drive->getAbout()->get();
 }
 ?>
 <html lang="en">
@@ -52,15 +47,13 @@ if (isset($token_response)) {
         </script>
     </head>
     <body>
-        <p>
-            <button onclick=redirect()>Login with HUAWEI ID</button>
-        </p>
-        <p>
-            <?php
-                if (isset($result) && is_object($result)) {
-                    die('<pre>' . print_r($result, true) . '</pre>');
-                }
-            ?>
-        </p>
+    <?php
+        if (isset( $token_response )) {
+            $drive = new DriveKit( ['access_token' => $token_response->access_token] );
+            $result = $drive->getAbout()->get();
+            die('<pre>' . print_r($result, true) . '</pre>');
+        } else { ?>
+            <p><button onclick=redirect()>Login with HUAWEI ID</button></p>
+        <?php } ?>
     </body>
 </html>
