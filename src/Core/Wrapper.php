@@ -73,8 +73,8 @@ abstract class Wrapper {
     /** Initialize the client; either by array or by environmental variables. */
     private function init( array|null $config = null): void {
         $this->result = new stdClass();
-        if ( is_array( $config ) && isset( $config['debug'] ) && is_bool($config['debug']) ) {
-            $this->debug_mode = $config['debug'];
+        if ( is_array( $config ) && isset( $config['debug_mode'] ) && is_bool($config['debug_mode']) ) {
+            $this->debug_mode = $config['debug_mode'];
         }
         if ( $this->debug_mode ) {
 

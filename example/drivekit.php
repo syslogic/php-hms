@@ -17,36 +17,45 @@ $api = new AccountKit( [
     'app_secret' => $_SERVER['HUAWEI_OAUTH2_CLIENT_SECRET'],
     'oauth2_redirect_url' => $_SERVER['HUAWEI_OAUTH2_REDIRECT_URL'],
     'oauth2_api_scope' => $_SERVER['HUAWEI_OAUTH2_API_SCOPE'],
-    'debug' => true
+    'debug_mode' => true
 ]);
 
 // https://developer.huawei.com/consumer/en/doc/development/HMSCore-Guides/web-get-access-token-0000001050048946#section151118514311
 if (isset($_GET['code'])) {
-    $access_token = $api->get_access_token_by_auth_code( $_GET['code'] );
-    if ($access_token != null) {
-        file_put_contents($token_path, $access_token);
-        $drive = new DriveKit( ['access_token' => $access_token] );
-        $result = $drive->getAbout()->get();
-        die('<pre>' . print_r($result, true) . '</pre>');
-    }
+    $token_response = $api->get_access_token_by_auth_code( $_GET['code'] );
+    if ($token_response != null) {file_put_contents($token_path, $token_response);}
 } else if (file_exists($token_path) && filesize($token_path) > 2) {
+
     // load previously authorized token from a file, if it exists.
-    $access_token = json_decode(file_get_contents($token_path), true);
+    $token_response = json_decode(file_get_contents($token_path), true);
+
+    /* TODO: determine token expiry, perform token refresh. */
+}
+
+if (isset($token_response)) {
+    $drive = new DriveKit( ['access_token' => $token_response->access_token] );
+    $result = $drive->getAbout()->get();
 }
 ?>
 <html lang="en">
     <head>
         <title>DriveKit Example</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-        <script type="text/javascript">
-            function redirect() {
-                window.location.href = '<?= $api->get_login_url(); ?>';
-            }
+        <script type="text/javascript">function redirect() {
+            window.location.href = '<?= $api->get_login_url(); ?>';
+        }
         </script>
     </head>
     <body>
         <p>
             <button onclick=redirect()>Login with HUAWEI ID</button>
+        </p>
+        <p>
+            <?php
+                if (isset($result) && is_object($result)) {
+                    die('<pre>' . print_r($result, true) . '</pre>');
+                }
+            ?>
         </p>
     </body>
 </html>

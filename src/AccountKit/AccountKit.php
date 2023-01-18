@@ -30,7 +30,7 @@ class AccountKit extends Wrapper {
 
     public function __construct( array $config ) {
         parent::__construct( $config );
-        // $this->post_init();
+        $this->post_init();
     }
 
     /** Unset properties irrelevant to the child class. */
@@ -56,7 +56,8 @@ class AccountKit extends Wrapper {
         return $this->parse_result($result);
     }
 
-    public function get_access_token_by_auth_code( string $authorization_code ): null|string {
+    /** Intentionally returning the raw response, but nevertheless parsing it. */
+    public function get_access_token_by_auth_code( string $authorization_code ): stdClass|bool {
         $result = $this->guzzle_post($this->url_token, [
             'Content-Type' => 'application/x-www-form-urlencoded; charset=utf-8'
         ], [
@@ -66,7 +67,9 @@ class AccountKit extends Wrapper {
             'redirect_uri'  => $this->oauth2_redirect_url,
             'code'          => $authorization_code
         ], true);
-        return $this->parse_result($result);
+
+        $this->parse_result($result);
+        return $result;
     }
 
     /**
