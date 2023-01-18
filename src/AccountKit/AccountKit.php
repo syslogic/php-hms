@@ -42,7 +42,7 @@ class AccountKit extends Wrapper {
     /**
      * Obtaining an Access Token.
      *
-     * @return string|null
+     * @return string|null the token string only.
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/account-obtain-token_hms_reference-0000001050048618">Obtaining Access Token</a>
      */
     public function get_access_token(): string|null {
@@ -53,10 +53,14 @@ class AccountKit extends Wrapper {
             'client_id'     => $this->oauth2_client_id,
             'client_secret' => $this->oauth2_client_secret
         ], true);
+
         return $this->parse_result($result);
     }
 
-    /** Intentionally returning the raw response, but nevertheless parsing it. */
+    /**
+     * Intentionally returning the raw response, but nevertheless parsing it.
+     * @return stdClass|null the whole retrieved token object.
+     */
     public function get_access_token_by_auth_code( string $authorization_code ): stdClass|bool {
         $result = $this->guzzle_post($this->url_token, [
             'Content-Type' => 'application/x-www-form-urlencoded; charset=utf-8'
@@ -68,12 +72,17 @@ class AccountKit extends Wrapper {
             'code'          => $authorization_code
         ], true);
 
-        $this->parse_result($result);
+        /* provide an absolute value as the expiry timestamp. */
+        if (property_exists($result, 'expires_in')) {
+            $result->token_expiry = time() + $result->expires_in;
+            unset($result->expires_in);
+        }
         return $result;
     }
 
     /** TODO: obtain a refresh token ... */
     public function get_access_token_by_refresh_token( string $refresh_token ): stdClass|bool {
+
         return false;
     }
 
@@ -177,6 +186,7 @@ class AccountKit extends Wrapper {
                 }
                 if (property_exists($result, 'expires_in')) {
                     $this->token_expiry = time() + $result->expires_in;
+                    unset($result->expires_in);
                 }
                 if (property_exists($result, 'scope')) {
                     $this->token_scope = $result->scope;

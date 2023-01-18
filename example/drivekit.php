@@ -24,10 +24,6 @@ if (isset($_GET['code'])) {
     $token_response = $api->get_access_token_by_auth_code( $_GET['code'] );
     if ($token_response != null) {
         // convert the expiry timestamp from relative to absolute value.
-        if (property_exists($token_response, 'expires_in')) {
-            $token_response->expiry = time() + $token_response->expires_in;
-            unset($token_response->expires_in);
-        }
         file_put_contents($token_path, $token_response);
     }
 } else if (file_exists($token_path) && filesize($token_path) > 2) {
