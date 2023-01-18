@@ -1,10 +1,10 @@
 <?php /** @noinspection PhpUnused */
 namespace HMS\DriveKit\Comments;
 
-use HMS\AccountKit\AccountKit;
 use HMS\DriveKit\DriveKit;
 use HMS\DriveKit\Constants;
 
+use InvalidArgumentException;
 use stdClass;
 
 /**
@@ -17,11 +17,14 @@ class Comments extends DriveKit {
 
     public function __construct( array $config ) {
 
+        // unsure if this call is even required.
         parent::__construct( $config );
 
-        /* TODO: Authorization Code. */
-        $account_kit = new AccountKit( $config );
-        $this->access_token = $account_kit->get_access_token();
+        if (isset( $config['access_token'] )) {
+            $this->access_token = $config['access_token'];
+        } else {
+            throw new InvalidArgumentException('DriveKit requires an access token.');
+        }
     }
 
     /**
