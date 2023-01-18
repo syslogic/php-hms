@@ -71,9 +71,9 @@ class AccountKit extends Wrapper {
         $this->parse_result($result);
         return $result;
     }
-    
+
     /** TODO: obtain a refresh token ... */
-    public function get_access_token_by_refresh_token(): stdClass|bool {
+    public function get_access_token_by_refresh_token( string $refresh_token ): stdClass|bool {
         return false;
     }
 

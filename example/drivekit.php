@@ -38,7 +38,7 @@ if (isset($_GET['code'])) {
 
     /* TODO: determine token expiry, perform token refresh. */
     if ($token_response->expiry >= time()) {
-        $token_response = $api->get_access_token_by_refresh_token( $_GET['code'] );
+        $token_response = $api->get_access_token_by_refresh_token( $token_response->refresh_token );
     }
 }
 
