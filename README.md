@@ -153,7 +153,7 @@ composer run-script coverage
  - When receiving an `Error 10021: Invalid clientId` this may suggest,<br/>that the API which one tries to access is not enabled for the project.<br/>
 Enabling the desired API on the [AppGallery Connect](https://developer.huawei.com/consumer/en/service/josp/agc/index.html) console should help.
 
- - `MapKit` endpoint `routeService` is actually the NaviKit API.
+ - `MapKit` endpoint `routeService` is not Map Kit API, but [Navi Kit API](https://developer.huawei.com/consumer/en/hms/huawei-navikit/).
 
 ### License
 The PHP SDK for Huawei REST API (the library) is licensed under the [MIT License](LICENSE).<br/>
