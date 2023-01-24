@@ -16,8 +16,8 @@ This project aims to abstract Huawei REST API, according to the official API doc
 |                           [`Core\Wrapper`](https://github.com/syslogic/php-hms/blob/master/src/Core) |                                 working                                  |
 |                       [`AccountKit`](https://github.com/syslogic/php-hms/blob/master/src/AccountKit) |                                 working                                  |
 |                             [`PushKit`](https://github.com/syslogic/php-hms/blob/master/src/PushKit) |                                 working                                  |
-|                               [`MapKit`](https://github.com/syslogic/php-hms/blob/master/src/MapKit) |                                partially                                 |
-|                     [`LocationKit`](https://github.com/syslogic/php-hms/blob/master/src/LocationKit) |                               inapplicable                               |
+|                               [`MapKit`](https://github.com/syslogic/php-hms/blob/master/src/MapKit) |                                 working                                  |
+|                     [`LocationKit`](https://github.com/syslogic/php-hms/blob/master/src/LocationKit) |                                   N/A                                    |
 |                               [`AdsKit`](https://github.com/syslogic/php-hms/blob/master/src/AdsKit) |                                 working                                  |
 |                   [`AnalyticsKit`](https://github.com/syslogic/php-hms/blob/master/src/AnalyticsKit) |                                partially                                 |
 |       [`AppGallery\Connect`](https://github.com/syslogic/php-hms/tree/master/src/AppGallery/Connect) |                                                                          |
