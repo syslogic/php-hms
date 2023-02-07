@@ -10,7 +10,7 @@ use HMS\SearchKit\SearchKit;
  */
 class SearchKitTest extends BaseTestCase {
 
-    private static SearchKit|null $client;
+    private static ?SearchKit $client;
 
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {

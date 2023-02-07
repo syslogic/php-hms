@@ -11,7 +11,7 @@ use stdClass;
  */
 class AdsKitTest extends BaseTestCase {
 
-    private static AdsKit|null $client;
+    private static ?AdsKit $client;
 
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {

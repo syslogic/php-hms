@@ -10,7 +10,7 @@ use HMS\WalletKit\WalletKit;
  */
 class WalletKitTest extends BaseTestCase {
 
-    private static WalletKit|null $client;
+    private static ?WalletKit $client;
 
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {

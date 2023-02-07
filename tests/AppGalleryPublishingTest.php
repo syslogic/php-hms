@@ -14,8 +14,8 @@ use InvalidArgumentException;
  */
 class AppGalleryPublishingTest extends BaseTestCase {
 
-    private static Connect|null $connect;
-    private static Publishing|null $client;
+    private static ?Connect $connect;
+    private static ?Publishing $client;
 
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {

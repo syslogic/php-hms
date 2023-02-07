@@ -11,7 +11,7 @@ use HMS\AnalyticsKit\ResultCodes;
  */
 class AnalyticsKitTest extends BaseTestCase {
 
-    private static AnalyticsKit|null $client;
+    private static ?AnalyticsKit $client;
     private static string $test_aaid = 'test';
 
     /** This method is called before the first test of this test class is run. */
@@ -26,7 +26,7 @@ class AnalyticsKitTest extends BaseTestCase {
     /** Test: Exporting Personal Data. */
     public function test_user_data_export() {
         $result = self::$client->request_user_data_export( self::$test_aaid );
-        self::assertObjectHasAttribute('code', $result);
+        self::assertTrue(property_exists($result, 'code'));
         //Error 10031: user data exported in two month
         self::assertTrue( $result->code === ResultCodes::DATA_EXPORT_REQUEST_INTERVAL, "Error $result->code -> $result->message" ); // user data exported in two month
     }
@@ -34,14 +34,14 @@ class AnalyticsKitTest extends BaseTestCase {
     /** Test: Querying the Export Task Status. */
     public function test_user_data_export_status() {
         $result = self::$client->request_user_data_export_status( self::$test_aaid );
-        self::assertObjectHasAttribute('code', $result);
+        self::assertTrue(property_exists($result, 'code'));
         self::assertTrue( $result->code === ResultCodes::REQUEST_SUCCESSFUL, "Error $result->code -> $result->message" );
     }
 
     /** Test: Deleting Personal Data. */
     public function test_user_data_deletion() {
         $result = self::$client->request_user_data_deletion( self::$test_aaid );
-        self::assertObjectHasAttribute('code', $result);
+        self::assertTrue(property_exists($result, 'code'));
         // Error 10002: Request frequency exceeds system limit!
         self::assertTrue( $result->code === ResultCodes::REQUEST_SUCCESSFUL, "Error $result->code -> $result->message" );
     }
@@ -49,7 +49,7 @@ class AnalyticsKitTest extends BaseTestCase {
     /** Test: Querying the Deletion Task Status. */
     public function test_user_data_deletion_status() {
         $result = self::$client->request_user_data_deletion_status( self::$test_aaid );
-        self::assertObjectHasAttribute('code', $result);
+        self::assertTrue(property_exists($result, 'code'));
         // Error 10002: Request frequency exceeds system limit!
         self::assertTrue( $result->code === ResultCodes::REQUEST_SUCCESSFUL, "Error $result->code -> $result->message" );
     }
@@ -57,7 +57,7 @@ class AnalyticsKitTest extends BaseTestCase {
     /** Test: Creating a Data Export Task. */
     public function test_raw_data_export() {
         $result = self::$client->request_raw_data_export( self::$test_aaid );
-        self::assertObjectHasAttribute('code', $result);
+        self::assertTrue(property_exists($result, 'code'));
         // Error 10031: user data exported in two month
         self::assertTrue( $result->code === ResultCodes::DATA_EXPORT_REQUEST_INTERVAL, "Error $result->code -> $result->message" );
     }
@@ -89,7 +89,7 @@ class AnalyticsKitTest extends BaseTestCase {
     /** Test: Querying Open Metrics and Dimensions. */
     public function test_query_metrics_and_dimensions() {
         $result = self::$client->query_metrics_and_dimensions( 'en', 10,  1 );
-        self::assertObjectHasAttribute('code', $result);
+        self::assertTrue(property_exists($result, 'code'));
         // Error 10020: importItem4DataCollection.importItem.itemSet: must not be null, importItem4DataCollection.importItem.dataType: must not be null
         self::assertTrue( $result->code === ResultCodes::REQUEST_SUCCESSFUL, "Error $result->code: $result->message" );
     }

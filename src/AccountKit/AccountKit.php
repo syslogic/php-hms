@@ -29,7 +29,7 @@ class AccountKit extends Wrapper {
      * @return string|null the token string only.
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/account-obtain-token_hms_reference-0000001050048618">Obtaining Access Token</a>
      */
-    public function get_access_token(): string|null {
+    public function get_access_token(): ?string {
         $result = $this->guzzle_post(Constants::URL_OAUTH2_TOKEN, [
             'Content-Type' => 'application/x-www-form-urlencoded; charset=utf-8'
         ], [

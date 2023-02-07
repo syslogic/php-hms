@@ -10,7 +10,7 @@ use HMS\DriveKit\DriveKit;
  */
 class DriveKitTest extends BaseTestCase {
 
-    private static DriveKit|null $client;
+    private static ?DriveKit $client;
     private static $fileId = '';
 
     /** This method is called before the first test of this test class is run. */

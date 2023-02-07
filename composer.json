@@ -31,7 +31,7 @@
     "coverage_windows": "Run PHPUnit tests with code coverage on Windows"
   },
   "require": {
-    "php": ">=7.4",
+    "php": ">=8.0",
     "ext-json": "*",
     "ext-curl": "*",
     "phpseclib/phpseclib": "^3.0.18",

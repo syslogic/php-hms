@@ -11,7 +11,7 @@ use HMS\MapKit\MapKit;
  */
 class MapKitTest extends BaseTestCase {
 
-    private static MapKit|null $client;
+    private static ?MapKit $client;
     private static Coordinate $point_a;
     private static Coordinate $point_b;
     private static Coordinate $point_c;
@@ -22,7 +22,7 @@ class MapKitTest extends BaseTestCase {
     private static string $path_desc;
     private static string $marker_styles = 'size:tiny|color:blue|label:p';
     private static string $path_styles = 'weight:1|color:0x0000ff80|fillcolor:0x0000ff80';
-    private static string $results_path;
+    private static string $build_path;
     private static int $map_width = 512;
     private static int $map_height = 256;
     private static int $map_zoom = 12;
@@ -36,9 +36,9 @@ class MapKitTest extends BaseTestCase {
         self::$client = new MapKit( self::get_config() );
         self::assertTrue( self::$client->is_ready(), self::CLIENT_NOT_READY );
 
-        self::$results_path = getcwd().DIRECTORY_SEPARATOR.'results'.DIRECTORY_SEPARATOR;
-        if (! is_dir( self::$results_path )) {mkdir( self::$results_path );}
-        self::assertTrue( is_dir( self::$results_path ) );
+        self::$build_path = getcwd().DIRECTORY_SEPARATOR.'build'.DIRECTORY_SEPARATOR;
+        if (! is_dir( self::$build_path )) {mkdir( self::$build_path );}
+        self::assertTrue( is_dir( self::$build_path ) );
 
         self::$point_a = new Coordinate(['lat' => 48.142910, 'lng' => 11.579340]); // Munich @ Dianatempel
         self::$point_b = new Coordinate(['lat' => 48.152463, 'lng' => 11.593503]); // Munich @ Chinesischer Turm
@@ -141,19 +141,19 @@ class MapKitTest extends BaseTestCase {
         $result = $endpoint->getStaticMapByLocation(self::$point_a, self::$map_width, self::$map_height, self::$map_zoom, self::$map_scale);
         self::assertTrue( $result->code == 200, 'Not HTTP 200 OK' );
         self::assertTrue( property_exists($result, 'raw') && is_string($result->raw) && !empty($result->raw));
-        self::saveFile(self::$results_path.'mapkit_01.png', $result->raw);
+        self::saveFile(self::$build_path.'mapkit_01.png', $result->raw);
 
         /* By Marker description */
         $result = $endpoint->getStaticMapByMarkers(self::$marker_desc, self::$marker_styles, self::$map_width, self::$map_height, self::$map_zoom, self::$map_scale);
         self::assertTrue( $result->code == 200, 'Not HTTP 200 OK' );
         self::assertTrue( property_exists($result, 'raw') && is_string($result->raw) && !empty($result->raw));
-        self::saveFile(self::$results_path.'mapkit_02.png', $result->raw);
+        self::saveFile(self::$build_path.'mapkit_02.png', $result->raw);
 
         /* By Path description */
         $result = $endpoint->getStaticMapByPath(self::$path_desc, self::$path_styles, self::$map_width, self::$map_height, self::$map_zoom, self::$map_scale);
         self::assertTrue( $result->code == 200, 'Not HTTP 200 OK' );
         self::assertTrue( property_exists($result, 'raw') && is_string($result->raw) && !empty($result->raw));
-        self::saveFile(self::$results_path.'mapkit_03.png', $result->raw);
+        self::saveFile(self::$build_path.'mapkit_03.png', $result->raw);
     }
 
     /** Test: Map Tile API; works */
@@ -162,6 +162,6 @@ class MapKitTest extends BaseTestCase {
         $result = $endpoint->getMapTile(5, 1, 3, 'en', 2);
         self::assertTrue( $result->code == 200, 'Not HTTP 200 OK' );
         self::assertTrue( property_exists($result, 'raw') && is_string($result->raw) && !empty($result->raw));
-        self::saveFile(self::$results_path.'mapkit_tile.png', $result->raw);
+        self::saveFile(self::$build_path.'mapkit_tile.png', $result->raw);
     }
 }

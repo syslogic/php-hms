@@ -13,10 +13,10 @@ use HMS\AccountKit\UserInfo;
  */
 class AccountKitTest extends BaseTestCase {
 
-    private static AccountKit|null $client;
-    private static string|null $app_access_token;
-    private static string|null $user_access_token;
-    private static string|null $id_token = '';
+    private static ?AccountKit $client;
+    private static ?string $app_access_token;
+    private static ?string $user_access_token;
+    private static ?string $id_token = '';
 
     private const PARSE_ACCESS_TOKEN = 'PARSE_ACCESS_TOKEN has failed.';
 

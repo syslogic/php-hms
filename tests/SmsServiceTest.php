@@ -11,10 +11,10 @@ use JetBrains\PhpStorm\ArrayShape;
  */
 class SmsServiceTest extends BaseTestCase {
 
-    private static SmsService|null $client;
+    private static ?SmsService $client;
 
-    protected static string|null $business_sms_account = null;
-    protected static string|null $business_sms_password = null;
+    protected static ?string $business_sms_account = null;
+    protected static ?string $business_sms_password = null;
 
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {

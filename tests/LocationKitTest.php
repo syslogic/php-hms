@@ -12,7 +12,7 @@ use HMS\LocationKit\LocationKit;
  */
 class LocationKitTest extends BaseTestCase {
 
-    private static LocationKit|null $client;
+    private static ?LocationKit $client;
 
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {

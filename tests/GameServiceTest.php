@@ -10,7 +10,7 @@ use HMS\GameService\GameService;
  */
 class GameServiceTest extends BaseTestCase {
 
-    private static GameService|null $client;
+    private static ?GameService $client;
 
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {

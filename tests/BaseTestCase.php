@@ -11,21 +11,20 @@ use PHPUnit\Framework\TestCase;
  */
 abstract class BaseTestCase extends TestCase {
 
-    protected static int $oauth2_client_id = 0;                // OAuth2 client.
-    protected static string|null $oauth2_client_secret = null; // OAuth2 client.
+    protected static int $oauth2_client_id = 0;            // OAuth2 client.
+    protected static ?string $oauth2_client_secret = null; // OAuth2 client.
+    protected static int $agc_client_id = 0;               // AGConnect API.
+    protected static ?string $agc_client_secret = null;    // AGConnect API.
 
-    protected static int $agc_client_id = 0;                   // AGConnect API.
-    protected static string|null $agc_client_secret = null;    // AGConnect API.
-
-    protected static string|null $api_key = null;              // MapKit in general.
-    protected static string|null $signature_key = null;        // Maps Static API.
-    protected static string|null $package_name = null;
+    protected static ?string $api_key = null;              // MapKit in general.
+    protected static ?string $signature_key = null;        // Maps Static API.
+    protected static ?string $package_name = null;
     protected static int $project_id = 0;
     protected static int $product_id = 0;
     protected static int $cp_id = 0;
 
     /** AppGallery Connect Gateway URL */
-    protected static string|null $agc_gateway         = 'https://connect-drcn.dbankcloud.cn/';
+    protected static ?string $agc_gateway             = 'https://connect-drcn.dbankcloud.cn/';
     private const ENV_VAR_OAUTH2_CLIENT_ID            = 'Variable HUAWEI_OAUTH2_CLIENT_ID is not set.';
     private const ENV_VAR_OAUTH2_CLIENT_SECRET        = 'Variable HUAWEI_OAUTH2_CLIENT_SECRET is not set.';
     protected const ENV_VAR_CONNECT_API_CLIENT_ID     = 'Variable HUAWEI_CONNECT_API_CLIENT_ID is not set.';

@@ -13,8 +13,8 @@ use HMS\AppGallery\Connect\ResultCodes;
  */
 class AppGalleryConnectTest extends BaseTestCase {
 
-    private static Connect|null $connect;
-    private static AuthService|null $client;
+    private static ?Connect $connect;
+    private static ?AuthService $client;
 
     private static string $test_token = 'xyz';
 
