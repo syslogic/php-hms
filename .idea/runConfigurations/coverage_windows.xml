@@ -1,8 +1,8 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="coverage" type="ComposerRunConfigurationType" factoryName="Composer Script">
+  <configuration default="false" name="coverage windows" type="ComposerRunConfigurationType" factoryName="Composer Script">
     <option name="commandLineParameters" value="" />
     <option name="pathToComposerJson" value="$PROJECT_DIR$/composer.json" />
-    <option name="script" value="coverage" />
+    <option name="script" value="coverage_windows" />
     <method v="2" />
   </configuration>
 </component>
