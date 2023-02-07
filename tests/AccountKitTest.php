@@ -17,8 +17,8 @@ class AccountKitTest extends BaseTestCase {
     private static ?string $app_access_token;
     private static ?string $user_access_token;
     private static ?string $id_token = '';
-    private static string $user_access_token_path = '../../.credentials/huawei_token.json';
-    private static string $id_token_path = '../../.credentials/id_token.json';
+    private static string $user_access_token_path = '../.credentials/huawei_token.json';
+    private static string $id_token_path = '../.credentials/id_token.json';
 
     private const PARSE_ACCESS_TOKEN = 'PARSE_ACCESS_TOKEN has failed.';
 
@@ -50,11 +50,11 @@ class AccountKitTest extends BaseTestCase {
 
     /**
      * TODO: Obtain User Information.
-     * oAuth2 Error -> Not rights for this app token,Pls use user token.
+     * oAuth2 Error -> Not rights for this app token, Pls use user token.
      */
     public function test_get_user_info() {
         if (file_exists(self::$user_access_token_path)) {
-            self::$user_access_token = json_decode(file_get_contents(self::$user_access_token_path));
+            self::$user_access_token = file_get_contents(self::$user_access_token_path);
             $result = self::$client->get_user_info( self::$user_access_token );
             self::assertTrue( $result instanceof UserInfo, 'UserInfo: '.$result->error );
         } else {
@@ -65,7 +65,7 @@ class AccountKitTest extends BaseTestCase {
     /** TODO: Verify an ID Token. */
     public function test_verify_id_token() {
         if (file_exists(self::$id_token_path)) {
-            self::$id_token = json_decode(file_get_contents(self::$id_token_path));
+            self::$id_token = file_get_contents(self::$id_token_path);
             $result = self::$client->verify_id_token( self::$id_token );
             self::assertTrue( $result instanceof IdTokenInfo, 'IdTokenInfo: '.$result->error );
         } else {
