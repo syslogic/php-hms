@@ -87,7 +87,7 @@ class AnalyticsKit extends Wrapper {
     public function request_user_data_export_status( ?string $aaid ): stdClass {
         $payload = [];
         if ($aaid != null) {$payload = ['aaid' => $aaid];}
-        return $this->guzzle_post($this->url_user_data_export_status, $this->auth_headers(), $payload);
+        return $this->guzzle_post($this->url_user_data_export_status, parent::auth_headers(), $payload);
     }
 
     /**
@@ -100,7 +100,7 @@ class AnalyticsKit extends Wrapper {
     public function request_user_data_deletion( ?string $aaid ): stdClass {
         $payload = [];
         if ($aaid != null) {$payload = ['aaid' => $aaid];}
-        return $this->guzzle_post($this->url_user_data_deletion, $this->auth_headers(), $payload);
+        return $this->guzzle_post($this->url_user_data_deletion, parent::auth_headers(), $payload);
     }
 
     /**
@@ -113,7 +113,7 @@ class AnalyticsKit extends Wrapper {
     public function request_user_data_deletion_status( ?string $aaid ): stdClass {
         $payload = [];
         if ($aaid != null) {$payload = ['aaid' => $aaid];}
-        return $this->guzzle_post($this->url_user_data_deletion_status, $this->auth_headers(), $payload);
+        return $this->guzzle_post($this->url_user_data_deletion_status, parent::auth_headers(), $payload);
     }
 
     /**
@@ -126,17 +126,16 @@ class AnalyticsKit extends Wrapper {
     public function request_raw_data_export( ?string $aaid ): stdClass {
         $payload = [];
         if ($aaid != null) {$payload = ['aaid' => $aaid];}
-        return $this->guzzle_post($this->url_user_data_export, $this->auth_headers(), $payload);
+        return $this->guzzle_post($this->url_user_data_export, parent::auth_headers(), $payload);
     }
 
     /**
-     * TODO: Receiving the Execution Status of a Data Export Task.
-     *
+     * Receiving the Execution Status of a Data Export Task.
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/android-api-create-data-export-task-0000001050987231#section195846692412">Receiving the Execution Status of a Data Export Task</a>
      * @return stdClass
      */
     public function receive_raw_data_export_status( ): stdClass {
-        return new stdClass();
+        return $this->guzzle_post($this->url_user_data_export_status, parent::auth_headers(), []);
     }
 
     /**
@@ -154,7 +153,7 @@ class AnalyticsKit extends Wrapper {
             'data_type' => 1,
             'userdata_set' => $data
         ];
-        return $this->guzzle_post($this->url_data_collection_import_user, $this->auth_headers(), $payload);
+        return $this->guzzle_post($this->url_data_collection_import_user, parent::auth_headers(), $payload);
     }
 
     /**
@@ -206,7 +205,7 @@ class AnalyticsKit extends Wrapper {
      * @return stdClass
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/querying-open-indicators-and-dimensions-0000001152958663">Querying Open Metrics and Dimensions</a>
      */
-    public function query_metrics_and_dimensions( string $lang='en', int $size=10, int $curr_page = 1 ): stdClass {
+    public function query_metrics_and_dimensions( string $lang='en', int $size=10, int $curr_page=1 ): stdClass {
         if (! in_array($lang, ['en', 'cn', 'ru'])) {
             throw new InvalidArgumentException('lang must must be one of: en, cn, ru');
         }

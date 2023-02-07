@@ -13,7 +13,7 @@ class AdsKitTest extends BaseTestCase {
 
     private static ?AdsKit $client;
     private const CURRENCIES = ['EUR', 'CNY', 'USD'];
-    private const START_DATE = '2020-01-01';
+    private const START_DATE = '2022-01-01';
     private const END_DATE = '2022-12-31';
 
     /** This method is called before the first test of this test class is run. */
