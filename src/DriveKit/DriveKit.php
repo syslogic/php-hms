@@ -18,9 +18,15 @@ use stdClass;
  */
 class DriveKit extends Wrapper {
 
-    /** Constructor */
+    /**
+     * Constructor
+     * Obtain user access-token from the config passed (www/drivekit.php).
+     */
     public function __construct( array|string $config ) {
         parent::__construct( $config );
+        if (is_array($config) && isset($config['access_token'])) {
+            $this->access_token = $config['access_token'];
+        }
         $this->post_init();
     }
 
@@ -29,31 +35,28 @@ class DriveKit extends Wrapper {
         unset($this->api_key, $this->api_signature);
     }
 
-    public function getAbout(): About {
-        return new About( [
+    private function config(): array {
+        return [
+            'access_token' => $this->access_token,
             'oauth2_client_id' => $this->oauth2_client_id,
-            'auth2_client_secret' => $this->oauth2_client_secret,
+            'oauth2_client_secret' => $this->oauth2_client_secret,
             'debug_mode' => $this->debug_mode
-        ] );
+        ];
+    }
+
+    public function getAbout(): About {
+        return new About( $this->config() );
     }
 
     public function getFiles(): Files {
-        return new Files( [
-            'oauth2_client_id' => $this->oauth2_client_id,
-            'oauth2_client_secret' => $this->oauth2_client_secret,
-            'debug' => $this->debug_mode
-        ] );
+        return new Files( $this->config() );
     }
 
     public function getChanges(): Changes {
-        return new Changes( [
-            'oauth2_client_id' => $this->oauth2_client_id,
-            'oauth2_client_secret' => $this->oauth2_client_secret,
-            'debug' => $this->debug_mode
-        ] );
+        return new Changes( $this->config() );
     }
 
     public function getComments(): Comments {
-        return new Comments( ['oauth2_client_id' => $this->oauth2_client_id, 'app_secret' => $this->app_secret, 'debug' => $this->debug_mode] );
+        return new Comments( $this->config() );
     }
 }

@@ -21,11 +21,12 @@ class IPLocation extends LocationKit {
         return $this;
     }
 
-    private function get_ip_location( string $value ): void {
+    private function get_ip_location( string $value ): IPLocation {
         $payload = ['ip' => $value ];
         $headers = $this->auth_headers();
         $headers['x-forwarded-for'] = $value;
-        $this->result = $this->guzzle_post(Constants::IP_LOCATION_BASE_URL, $headers, $payload);
+        $this->result = $this->guzzle_post(Constants::IP_LOCATION_URL, $headers, $payload);
+        return $this;
     }
 
     public function get_result(): stdClass {
