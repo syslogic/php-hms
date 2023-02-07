@@ -12,7 +12,7 @@ use HMS\AnalyticsKit\ResultCodes;
 class AnalyticsKitTest extends BaseTestCase {
 
     private static ?AnalyticsKit $client;
-    private static string $test_aaid = 'test';
+    private static ?string $test_aaid = null;
 
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {

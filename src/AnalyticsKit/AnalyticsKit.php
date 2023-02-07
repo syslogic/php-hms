@@ -74,18 +74,19 @@ class AnalyticsKit extends Wrapper {
     public function request_user_data_export( string|null $aaid ): stdClass {
         $payload = [];
         if ($aaid != null) {$payload = ['aaid' => $aaid];}
-        return $this->guzzle_post($this->url_user_data_export, $this->auth_headers(), $payload);
+        return $this->guzzle_post($this->url_user_data_export, parent::auth_headers(), $payload);
     }
 
     /**
      * Querying the Export Task Status.
      *
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/android-api-query-export-task-status-new-0000001135560119">Querying the Export Task Status</a>
-     * @param string $aaid
+     * @param ?string $aaid
      * @return stdClass
      */
-    public function request_user_data_export_status( string $aaid ): stdClass {
-        $payload = ['aaid' => $aaid];
+    public function request_user_data_export_status( ?string $aaid ): stdClass {
+        $payload = [];
+        if ($aaid != null) {$payload = ['aaid' => $aaid];}
         return $this->guzzle_post($this->url_user_data_export_status, $this->auth_headers(), $payload);
     }
 
@@ -93,11 +94,12 @@ class AnalyticsKit extends Wrapper {
      * Deleting Personal Data.
      *
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/android-api-delete-personal-data-0000001050747213">Deleting Personal Data</a>
-     * @param string $aaid
+     * @param ?string $aaid
      * @return stdClass
      */
-    public function request_user_data_deletion( string $aaid ): stdClass {
-        $payload = ['aaid' => $aaid];
+    public function request_user_data_deletion( ?string $aaid ): stdClass {
+        $payload = [];
+        if ($aaid != null) {$payload = ['aaid' => $aaid];}
         return $this->guzzle_post($this->url_user_data_deletion, $this->auth_headers(), $payload);
     }
 
@@ -105,11 +107,12 @@ class AnalyticsKit extends Wrapper {
      * Querying the Deletion Task Status.
      *
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/android-api-query-deletion-task-status-new-0000001088418298">Querying the Deletion Task Status</a>
-     * @param string $aaid
+     * @param ?string $aaid
      * @return stdClass
      */
-    public function request_user_data_deletion_status( string $aaid ): stdClass {
-        $payload = ['aaid' => $aaid];
+    public function request_user_data_deletion_status( ?string $aaid ): stdClass {
+        $payload = [];
+        if ($aaid != null) {$payload = ['aaid' => $aaid];}
         return $this->guzzle_post($this->url_user_data_deletion_status, $this->auth_headers(), $payload);
     }
 
@@ -117,11 +120,12 @@ class AnalyticsKit extends Wrapper {
      * Creating a Data Export Task.
      *
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/android-api-create-data-export-task-0000001050987231#section195846692412">Creating a Data Export Task</a>
-     * @param string $aaid
+     * @param ?string $aaid
      * @return stdClass
      */
-    public function request_raw_data_export( string $aaid ): stdClass {
-        $payload = ['aaid' => $aaid];
+    public function request_raw_data_export( ?string $aaid ): stdClass {
+        $payload = [];
+        if ($aaid != null) {$payload = ['aaid' => $aaid];}
         return $this->guzzle_post($this->url_user_data_export, $this->auth_headers(), $payload);
     }
 

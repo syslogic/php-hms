@@ -12,6 +12,9 @@ use stdClass;
 class AdsKitTest extends BaseTestCase {
 
     private static ?AdsKit $client;
+    private const CURRENCIES = ['EUR', 'CNY', 'USD'];
+    private const START_DATE = '2020-01-01';
+    private const END_DATE = '2022-12-31';
 
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {
@@ -20,14 +23,16 @@ class AdsKitTest extends BaseTestCase {
         self::assertTrue( self::$client->is_ready(), self::CLIENT_NOT_READY );
     }
 
-    /** Test: Dummy. */
+    /** Test: Publisher Report  */
     public function test_publisher_report() {
         $filtering = new stdClass();
-        $filtering->currency = 'EUR';
-        $result = self::$client->publisher_report( '2020-01-01','2022-12-31', $filtering );
-        self::assertTrue( $result->code == 200, 'Not HTTP 200 OK' );
-        self::assertTrue( property_exists($result, 'data') && is_object($result->data) );
-        self::assertTrue( property_exists($result->data, 'page_info') && is_object($result->data->page_info) );
-        self::assertTrue( property_exists($result->data, 'list') && is_array($result->data->list) );
+        foreach (self::CURRENCIES as $currency) {
+            $filtering->currency = $currency;
+            $result = self::$client->publisher_report( self::START_DATE,self::END_DATE, $filtering );
+            self::assertTrue( $result->code == 200, 'Not HTTP 200 OK' );
+            self::assertTrue( property_exists($result, 'data') && is_object($result->data) );
+            self::assertTrue( property_exists($result->data, 'page_info') && is_object($result->data->page_info) );
+            self::assertTrue( property_exists($result->data, 'list') && is_array($result->data->list) );
+        }
     }
 }
