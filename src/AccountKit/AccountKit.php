@@ -174,6 +174,8 @@ class AccountKit extends Wrapper {
         } else if ( property_exists( $result, 'error' ) ) {
             // die( 'oAuth2 Error -> '.$result->error );
             return $result;
+        } else if ( property_exists( $result, 'code' ) && $result->code != 200 ) {
+            return $result;
         } else {
             return new IdTokenInfo( $result );
         }
