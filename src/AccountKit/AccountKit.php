@@ -213,12 +213,14 @@ class AccountKit extends Wrapper {
      * @return string the URL to redirect the browser to.
      */
     public function get_login_url(): string {
-        return 'https://oauth-login.cloud.huawei.com/oauth2/v3/authorize'.
-        '?response_type=code' .
-        '&access_type=offline' .
-        '&state=state_parameter_passthrough_value'.
-        '&client_id=' . $this->oauth2_client_id .
-        '&redirect_uri=' . $this->oauth2_redirect_url .
-        '&scope=' . $this->oauth2_api_scope;
+        return Constants::URL_OAUTH2_TOKEN_AUTHORIZATION . '?' .
+            http_build_query([
+                'response_type' => 'code',
+                'access_type' => 'offline',
+                'state' => 'state_parameter_passthrough_value',
+                'redirect_uri' => $this->oauth2_redirect_url,
+                'client_id' => $this->oauth2_client_id,
+                'scope' => $this->oauth2_api_scope
+            ]);
     }
 }
