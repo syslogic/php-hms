@@ -2,6 +2,8 @@
 
 namespace HMS\WalletKit;
 
+use stdClass;
+
 /**
  * Class HMS Wallet Object
  *
@@ -9,5 +11,12 @@ namespace HMS\WalletKit;
  * @author Martin Zeitler
  */
 class HwWalletObject {
-
+    private string $passVersion = "1.0";
+    private string $passTypeIdentifier;
+    private string $passStyleIdentifier;
+    private string $organizationName;
+    private string $organizationPassId;
+    private string $serialNumber;
+    private stdClass $fields;
+    private LinkDevicePass $linkDevicePass;
 }

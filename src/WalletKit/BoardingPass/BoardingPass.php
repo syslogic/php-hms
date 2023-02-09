@@ -1,6 +1,8 @@
 <?php /** @noinspection PhpUnused */
 namespace HMS\WalletKit\BoardingPass;
 
+use HMS\WalletKit\Constants;
+use HMS\WalletKit\HwWalletObject;
 use HMS\WalletKit\WalletKit;
 
 /**
@@ -13,6 +15,17 @@ class BoardingPass extends WalletKit {
 
     public function __construct( array|string $config ) {
         parent::__construct( $config );
+    }
 
+    public function create(HwWalletObject $value) {
+        $url = $this->base_url . Constants::WALLET_BOARDING_PASS_MODEL;
+        return $this->guzzle_post($url, $this->auth_headers(), $value);
+    }
+
+    public function query(string $model_id): bool|\stdClass {
+        $url = $this->base_url . Constants::WALLET_BOARDING_PASS_MODEL . '/' . $model_id;
+        return $this->guzzle_get($url, $this->auth_headers(), [
+
+        ]);
     }
 }

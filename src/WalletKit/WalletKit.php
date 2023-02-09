@@ -1,7 +1,6 @@
 <?php
 namespace HMS\WalletKit;
 
-use HMS\AccountKit\AccountKit;
 use HMS\Core\Wrapper;
 use HMS\WalletKit\BoardingPass\BoardingPass;
 use HMS\WalletKit\EventTicket\EventTicket;
@@ -9,6 +8,7 @@ use HMS\WalletKit\GiftCard\GiftCard;
 use HMS\WalletKit\LoyaltyCard\LoyaltyCard;
 use HMS\WalletKit\Offer\Offer;
 use HMS\WalletKit\TransitPass\TransitPass;
+use InvalidArgumentException;
 
 /**
  * Class HMS WalletKit Wrapper
@@ -18,7 +18,7 @@ use HMS\WalletKit\TransitPass\TransitPass;
  */
 class WalletKit extends Wrapper {
 
-    private string $base_url;
+    protected string $base_url;
 
     public function __construct( array|string $config ) {
 
@@ -28,9 +28,11 @@ class WalletKit extends Wrapper {
         // $this->base_url = Constants::WALLET_SERVER_CN;
         $this->base_url = Constants::WALLET_SERVER_EU;
 
-        /* Obtain an access-token. */
-        $account_kit = new AccountKit( $config );
-        $this->access_token = $account_kit->get_access_token();
+        if (is_array($config) && isset($config['access_token'])) {
+            $this->access_token = $config['access_token'];
+        } else {
+            throw new InvalidArgumentException('WalletKit requires an user access token.');
+        }
     }
 
     /** Unset properties irrelevant to the child class. */
