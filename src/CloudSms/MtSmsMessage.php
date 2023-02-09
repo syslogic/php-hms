@@ -1,13 +1,13 @@
 <?php
-namespace HMS\SmsService;
+namespace HMS\CloudSms;
 
 use HMS\Core\Model;
 use InvalidArgumentException;
 
 /**
  * Class HMS SmsService MtSmsMessage
- *
  * @author Martin Zeitler
+ * @deprecated
  */
 class MtSmsMessage extends Model {
 
@@ -74,7 +74,7 @@ class MtSmsMessage extends Model {
 
     // TODO: Implement validate() method.
     function validate(): bool {
-        if (!is_array($this->mobiles) || sizeof($this->mobiles) == 0 || sizeof($this->mobiles) > 100) {
+        if (sizeof($this->mobiles) == 0 || sizeof($this->mobiles) > 100) {
             throw new InvalidArgumentException('mobiles must be an array of 1-100 items');
         }
         return true;

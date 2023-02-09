@@ -1,5 +1,5 @@
 <?php /** @noinspection PhpUnused */
-namespace HMS\SmsService;
+namespace HMS\CloudSms;
 
 /**
  * Class HMS SmsService Result Codes

@@ -25,7 +25,7 @@ This project aims to abstract Huawei REST API, according to the official API doc
 |                           [`DriveKit`](https://github.com/syslogic/php-hms/tree/master/src/DriveKit) |                                partially                                 |
 |                     [`GameService`](https://github.com/syslogic/php-hms/tree/master/src/GameService) |                                                                          |
 |                         [`SearchKit`](https://github.com/syslogic/php-hms/blob/master/src/SearchKit) |                                                                          |
-|                       [`SmsService`](https://github.com/syslogic/php-hms/blob/master/src/SmsService) |                                 working                                  |
+|                           [`CloudSms`](https://github.com/syslogic/php-hms/blob/master/src/CloudSms) |                                 working                                  |
 |                         [`WalletKit`](https://github.com/syslogic/php-hms/blob/master/src/WalletKit) |                                                                          |
 
 [![PHP Composer](https://github.com/syslogic/php-hms/actions/workflows/ci-php.yml/badge.svg)](https://github.com/syslogic/php-hms/actions/workflows/ci-php.yml)
@@ -152,7 +152,7 @@ composer run-script coverage
  - When receiving an `Error 10021: Invalid clientId` this may suggest,<br/>that the API which one tries to access is not enabled for the project.<br/>
 Enabling the desired API on the [AppGallery Connect](https://developer.huawei.com/consumer/en/service/josp/agc/index.html) console should help.
  - `MapKit` endpoint `routeService` is not Map Kit API, but [Navi Kit API](https://developer.huawei.com/consumer/en/hms/huawei-navikit/).
- - The `SmsService` doesn't seem to be availble in Europe and Russia.
+ - Huawei Cloud SMS doesn't seem to be available in Europe and Russia.
 
 ### License
 The PHP SDK for Huawei REST API (the library) is licensed under the [MIT License](LICENSE).<br/>

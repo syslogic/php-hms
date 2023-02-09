@@ -1,23 +1,20 @@
 <?php
 namespace Tests;
 
-use HMS\SmsService\SmsService;
+use HMS\CloudSms\CloudSms;
 
 /**
  * HMS SmsService Test
  *
  * @author Martin Zeitler
  */
-class SmsServiceTest extends BaseTestCase {
+class CloudSmsTest extends BaseTestCase {
 
-    private static ?SmsService $client;
-
+    private static ?CloudSms $client;
     private static string $sender_channel_id = 'csms12345678';
-
     private static string $status_report_success = 'sequence=1&total=1&updateTime=2018-10-31T08%3A43%3A41Z&source=2&smsMsgId=2ea20735-f856-4376-afbf-570bd70a46ee_11840135&status=DELIVRD';
     private static string $status_report_failure = 'orgCode=E200027&sequence=1&total=1&updateTime=2018-10-31T08%3A43%3A41Z&source=2&smsMsgId=2ea20735-f856-4376-afbf-570bd70a46ee_11840135&status=RTE_ERR';
     private static string $upstream_sms_message = 'from=%2B8615123456789&to=10691002019&body=********&smsMsgId=9692b5be-c427-4525-8e73-cf4a6ac5b3f7';
-
     private static string $receivers = '+8615123456789,+8615234567890';
     private static string $template_id = '8ff55eac1d0b478ab3c06c3c6a492300';
     private static array $template_params_01 = ['123456'];
@@ -26,7 +23,7 @@ class SmsServiceTest extends BaseTestCase {
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {
         parent::setUpBeforeClass();
-        self::$client = new SmsService( self::get_config() );
+        self::$client = new CloudSms( self::get_config() );
         self::assertTrue( self::$client->is_ready(), self::CLIENT_NOT_READY );
     }
 

@@ -1,13 +1,13 @@
 <?php
-namespace HMS\SmsService;
+namespace HMS\CloudSms;
 
 use HMS\Core\Model;
 use InvalidArgumentException;
 
 /**
  * Class HMS SmsService SendRequest
- *
  * @author Martin Zeitler
+ * @deprecated
  */
 class SendRequest extends Model {
 
@@ -66,13 +66,13 @@ class SendRequest extends Model {
     }
 
     function validate(): bool {
-        if ($this->account == null || empty($this->account) || strlen($this->account) > 30) {
+        if (empty($this->account) || strlen($this->account) > 30) {
             throw new InvalidArgumentException('account must not be null or longer than 30 chars');
         }
-        if ($this->password == null || empty($this->password) || strlen($this->password) > 100) {
+        if (empty($this->password) || strlen($this->password) > 100) {
             throw new InvalidArgumentException('password must not be null or longer than 100 chars');
         }
-        if (!is_array($this->requestLists) || sizeof($this->requestLists) == 0 || sizeof($this->requestLists) > 20) {
+        if (sizeof($this->requestLists) == 0 || sizeof($this->requestLists) > 20) {
             throw new InvalidArgumentException('requestLists must be an array of 1-20 items');
         }
         if ($this->requestId != null && strlen($this->requestId) > 20) {

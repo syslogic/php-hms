@@ -1,11 +1,11 @@
 <?php
-namespace HMS\SmsService;
+namespace HMS\CloudSms;
 
 use HMS\AccountKit\AccountKit;
 use HMS\Core\Wrapper;
 
 /**
- * Class HMS SmsService Wrapper
+ * Class Huawei Cloud SMS Wrapper
  *
  * Your current account is registered in [Europe or Russia].
  * HUAWEI CLOUD does not support accounts in the above regions for the time being.
@@ -13,11 +13,9 @@ use HMS\Core\Wrapper;
  *
  * @see <a href="https://console-intl.huaweicloud.com/msgsms/">Message & SMS console</a>
  * @see <a href="https://support.huaweicloud.com/intl/en-us/usermanual-msgsms/sms_03_0001.html">Creating an SMS Application</a>
- * @see <a href="https://developer.huawei.com/consumer/cn/doc/development/AppGallery-connect-Guides/agc-sms-introduction-0000001072322171">SMS Service</a>
  * @author Martin Zeitler
  */
-class SmsService extends Wrapper {
-
+class CloudSms extends Wrapper {
     public function __construct( array|null $config = null ) {
         parent::__construct( $config );
         $this->post_init();
