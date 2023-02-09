@@ -15,12 +15,11 @@ class SearchKitTest extends BaseTestCase {
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {
         parent::setUpBeforeClass();
-        self::$client = new SearchKit( self::get_config() );
-        self::assertTrue( self::$client->is_ready(), self::CLIENT_NOT_READY );
+        self::$client = new SearchKit( [ 'access_token' => '' ] );
     }
 
-    /** Test: Dummy. */
-    public function test_dummy() {
-        self::assertTrue( true );
+    /** Test: Skipped. */
+    public function test_skipped() {
+        self::markTestSkipped( "Huawei SearchKit uses OAuth2 flow -> www/searchkit.php." );
     }
 }

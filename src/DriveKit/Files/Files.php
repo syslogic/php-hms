@@ -4,7 +4,6 @@ namespace HMS\DriveKit\Files;
 use HMS\DriveKit\DriveKit;
 use HMS\DriveKit\Constants;
 
-use InvalidArgumentException;
 use stdClass;
 
 /**
@@ -14,18 +13,6 @@ use stdClass;
  * @author Martin Zeitler
  */
 class Files extends DriveKit {
-
-    public function __construct( array $config ) {
-
-        // unsure if this call is even required.
-        parent::__construct( $config );
-
-        if (isset( $config['access_token'] )) {
-            $this->access_token = $config['access_token'];
-        } else {
-            throw new InvalidArgumentException('DriveKit requires an access token.');
-        }
-    }
 
     /**
      * @param string $fileId The file ID.

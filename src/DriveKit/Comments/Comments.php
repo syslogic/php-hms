@@ -4,7 +4,6 @@ namespace HMS\DriveKit\Comments;
 use HMS\DriveKit\DriveKit;
 use HMS\DriveKit\Constants;
 
-use InvalidArgumentException;
 use stdClass;
 
 /**
@@ -14,18 +13,6 @@ use stdClass;
  * @author Martin Zeitler
  */
 class Comments extends DriveKit {
-
-    public function __construct( array $config ) {
-
-        // unsure if this call is even required.
-        parent::__construct( $config );
-
-        if (isset( $config['access_token'] )) {
-            $this->access_token = $config['access_token'];
-        } else {
-            throw new InvalidArgumentException('DriveKit requires an access token.');
-        }
-    }
 
     /**
      * @return bool|stdClass The result of the API call.

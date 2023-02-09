@@ -41,20 +41,6 @@ class GameService extends Wrapper {
         ];
     }
 
-    /**
-     * uses method PUT.
-     */
-    public function send_delivery_success_notification( string $order_id, string $product_no, string $open_id, int $status=0 ): \stdClass|bool
-    {
-        return $this->guzzle_put(Constants::CONNECT_DELIVERY_SUCCESS_URL, $this->auth_headers(), [
-            "orderId" => $order_id,
-            "productNo" => $product_no,
-            "openId" => $open_id,
-            "status" => $status,
-            "ts" => time()
-        ]);
-    }
-
     /*
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/appgallerykit-notifysendproduct-0000001050121556#section715461210577">Request Parameters</>
      * {
@@ -73,7 +59,22 @@ class GameService extends Wrapper {
      *   }
      * }
      */
+    #[ArrayShape(['data' => 'object', 'sign' => 'string', 'extInfos' => 'object'])]
     public function parse_delivery_notification( string $payload ): \stdClass {
         return json_decode($payload);
+    }
+
+    /**
+     * uses method PUT.
+     */
+    public function send_delivery_success_notification( string $order_id, string $product_no, string $open_id, int $status=0 ): \stdClass|bool
+    {
+        return $this->guzzle_put(Constants::CONNECT_DELIVERY_SUCCESS_URL, $this->auth_headers(), [
+            "orderId" => $order_id,
+            "productNo" => $product_no,
+            "openId" => $open_id,
+            "status" => $status,
+            "ts" => time()
+        ]);
     }
 }

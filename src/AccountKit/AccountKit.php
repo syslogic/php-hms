@@ -76,7 +76,7 @@ class AccountKit extends Wrapper {
             'grant_type'    => 'refresh_token',
             'client_id'     => $this->oauth2_client_id,
             'client_secret' => $this->oauth2_client_secret,
-            'code'          => $refresh_token
+            'refresh_token' => $refresh_token
         ], true);
 
         /* provide an absolute value as token expiry timestamp. */

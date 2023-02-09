@@ -7,6 +7,7 @@ use HMS\DriveKit\About\About;
 use HMS\DriveKit\Changes\Changes;
 use HMS\DriveKit\Comments\Comments;
 use HMS\DriveKit\Files\Files;
+use InvalidArgumentException;
 use stdClass;
 
 /**
@@ -26,6 +27,8 @@ class DriveKit extends Wrapper {
         parent::__construct( $config );
         if (is_array($config) && isset($config['access_token'])) {
             $this->access_token = $config['access_token'];
+        } else {
+            throw new InvalidArgumentException('DriveKit requires an user access token.');
         }
         $this->post_init();
     }
