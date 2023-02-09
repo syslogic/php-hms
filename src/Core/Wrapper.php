@@ -41,9 +41,6 @@ use stdClass;
  */
 abstract class Wrapper {
 
-    protected int $client_id = 0;
-    protected string|null $client_secret = null;
-
     protected int $oauth2_client_id = 0;
     protected string|null $oauth2_client_secret = null;
 
@@ -62,6 +59,7 @@ abstract class Wrapper {
     protected int $token_expiry = 0;
 
     protected string|null $package_name = null;
+    protected int $developer_id = 0;
     protected int $product_id = 0;
     protected int $project_id = 0;
     protected int $agc_client_id = 0;
@@ -164,6 +162,12 @@ abstract class Wrapper {
         if ( isset( $config['api_signature'] ) ) {
             $this->api_signature = (string) $config['api_signature'];
         }
+        if ( isset($config['developer_id']) && is_int($config['developer_id'])) {
+            $this->developer_id = $config['developer_id'];
+        }
+        if ( isset($config['project_id']) && is_int($config['project_id'])) {
+            $this->project_id = $config['project_id'];
+        }
         if ( isset($config['product_id']) && is_int($config['product_id'])) {
             $this->product_id = $config['product_id'];
         }
@@ -191,6 +195,12 @@ abstract class Wrapper {
         }
         if ( is_string( getenv('HUAWEI_MAPKIT_API_KEY' ) ) ) {
             $this->api_key = (string) getenv( 'HUAWEI_MAPKIT_API_KEY' );
+        }
+        if ( is_string( getenv('HUAWEI_CONNECT_DEVELOPER_ID' ) ) ) {
+            $this->developer_id = (int) getenv( 'HUAWEI_CONNECT_DEVELOPER_ID' );
+        }
+        if ( is_string( getenv('HUAWEI_CONNECT_PROJECT_ID' ) ) ) {
+            $this->project_id = (int) getenv( 'HUAWEI_CONNECT_PROJECT_ID' );
         }
         if ( is_string( getenv('HUAWEI_CONNECT_PRODUCT_ID' ) ) ) {
             $this->product_id = (int) getenv( 'HUAWEI_CONNECT_PRODUCT_ID' );
@@ -222,6 +232,23 @@ abstract class Wrapper {
         }
         try {
             $this->response = $this->client->post( $url, $request );
+            if ($this->response->getStatusCode() == 200) {
+                $this->result = json_decode( $this->response->getBody() );
+                $this->result->code = 200;
+            }
+        } catch (GuzzleException $e) {
+            $this->result->code = $e->getCode();
+            $this->result->message = $e->getMessage();
+        }
+        return $this->sanitize( $this->result );
+    }
+
+    /** Perform GuzzleHttp POST request. */
+    protected function guzzle_put( string $url=null, array $headers=[], array|object $put_data=[] ): stdClass|bool {
+        $request = [ RequestOptions::HEADERS => $headers ];
+        $request[RequestOptions::JSON] = $put_data;
+        try {
+            $this->response = $this->client->put( $url, $request );
             if ($this->response->getStatusCode() == 200) {
                 $this->result = json_decode( $this->response->getBody() );
                 $this->result->code = 200;

@@ -20,7 +20,14 @@ class GameServiceTest extends BaseTestCase {
     }
 
     /** Test: Dummy. */
-    public function test_dummy() {
-        self::assertTrue( true );
+    public function test_parse_delivery_notification() {
+        $result = self::$client->parse_delivery_notification("{}");
+        self::assertTrue( is_object($result) );
+    }
+
+    /** Test: Dummy. */
+    public function test_send_delivery_success_notification() {
+        $result = self::$client->send_delivery_success_notification("", "", "", 0);
+        self::assertTrue( $result->code == 200 );
     }
 }
