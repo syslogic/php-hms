@@ -18,10 +18,15 @@ use HMS\WalletKit\TransitPass\TransitPass;
  */
 class WalletKit extends Wrapper {
 
+    private string $base_url;
+
     public function __construct( array|string $config ) {
 
         parent::__construct( $config );
         $this->post_init();
+
+        // $this->base_url = Constants::WALLET_SERVER_CN;
+        $this->base_url = Constants::WALLET_SERVER_EU;
 
         /* Obtain an access-token. */
         $account_kit = new AccountKit( $config );
@@ -38,7 +43,8 @@ class WalletKit extends Wrapper {
             'access_token' => $this->access_token,
             'oauth2_client_id' => $this->oauth2_client_id,
             'oauth2_client_secret' => $this->oauth2_client_secret,
-            'debug_mode' => $this->debug_mode
+            'debug_mode' => $this->debug_mode,
+            'base_url' => $this->base_url
         ];
     }
 
