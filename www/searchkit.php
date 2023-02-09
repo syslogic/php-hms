@@ -13,17 +13,41 @@ include './oauth2.php';
         </script>
     </head>
     <body>
-    <?php
-        if (isset( $token_response ) && property_exists($token_response, 'access_token')) {
-            $search = new SearchKit( ['access_token' => $token_response->access_token] );
-            $result = $search->web_search('test search');
-            echo '<pre>' . print_r($result, true) . '</pre>';
-            if ($result->code == 401) {
-                echo '<p><button onclick=redirect()>Login with HUAWEI ID</button></p>';
+        <div>
+            <form method="post">
+                <label>
+                    Query:
+                    <input type="text" name="query">
+                </label>
+                <input type="submit">
+            </form>
+        </div>
+        <div>
+        <?php
+        if (isset($_POST) && isset($_POST['query'])) {
+            if (isset( $token_response ) && property_exists($token_response, 'access_token')) {
+                $search = new SearchKit( ['access_token' => $token_response->access_token] );
+
+                $result1 = $search->web_search('test search');
+                echo '<pre>' . print_r($result1, true) . '</pre>';
+
+                $result2 = $search->image_search('test search');
+                echo '<pre>' . print_r($result2, true) . '</pre>';
+
+                $result3 = $search->video_search('test search');
+                echo '<pre>' . print_r($result3, true) . '</pre>';
+
+                $result4 = $search->news_search('test search');
+                echo '<pre>' . print_r($result4, true) . '</pre>';
+
+                if ($result1->code == 401 || $result2->code == 401 || $result3->code == 401 || $result4->code == 401) {
+                    echo '<p><button onclick=redirect()>Login with HUAWEI ID</button></p>';
+                }
             }
         } else {
             echo '<p><button onclick=redirect()>Login with HUAWEI ID</button></p>';
         }
-    ?>
+        ?>
+        </div>
     </body>
 </html>

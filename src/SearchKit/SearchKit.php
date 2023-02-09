@@ -23,10 +23,7 @@ class SearchKit extends Wrapper {
     /** @var string|null $request_id .Unique ID of a request. */
     private ?string $request_id = null;
 
-    private string $url_web_search;
-    private string $url_image_search;
-    private string $url_video_search;
-    private string $url_news_search;
+    private string $base_url;
 
     public function __construct( array|string $config ) {
 
@@ -37,12 +34,8 @@ class SearchKit extends Wrapper {
             throw new InvalidArgumentException('SearchKit requires an user access token.');
         }
 
-        // $base_url = Constants::SEARCH_KIT_BASE_URL;
-        $base_url = Constants::SEARCH_KIT_BASE_URL_EU;
-        $this->url_web_search = $base_url . Constants::SEARCH_KIT_WEB_SEARCH_URL;
-        $this->url_image_search = $base_url . Constants::SEARCH_KIT_IMAGE_SEARCH_URL;
-        $this->url_video_search = $base_url . Constants::SEARCH_KIT_VIDEO_SEARCH_URL;
-        $this->url_news_search = $base_url . Constants::SEARCH_KIT_NEWS_SEARCH_URL;
+        // $this->base_url = Constants::SEARCH_KIT_BASE_URL;
+        $this->base_url = Constants::SEARCH_KIT_BASE_URL_EU;
         $this->post_init();
     }
 
@@ -64,19 +57,19 @@ class SearchKit extends Wrapper {
     }
 
     public function web_search( string $value ): stdClass {
-        $url = $this->url_web_search.'?'.http_build_query(['q' => $value]);
+        $url = $this->base_url . Constants::SEARCH_KIT_WEB_SEARCH_URL.'?'.http_build_query(['q' => $value]);
         return $this->guzzle_get($url, $this->auth_header(), []);
     }
     public function image_search( string $value ): stdClass {
-        $url = $this->url_image_search.'?'.http_build_query(['q' => $value]);
-        return $this->guzzle_get($this->url_image_search, $this->auth_header(), []);
+        $url = $this->base_url . Constants::SEARCH_KIT_IMAGE_SEARCH_URL.'?'.http_build_query(['q' => $value]);
+        return $this->guzzle_get($url, $this->auth_header(), []);
     }
     public function video_search( string $value ): stdClass {
-        $url = $this->url_video_search.'?'.http_build_query(['q' => $value]);
-        return $this->guzzle_get($this->url_video_search, $this->auth_header(), []);
+        $url = $this->base_url . Constants::SEARCH_KIT_VIDEO_SEARCH_URL.'?'.http_build_query(['q' => $value]);
+        return $this->guzzle_get($url, $this->auth_header(), []);
     }
     public function news_search( string $value ): stdClass {
-        $url = $this->url_news_search.'?'.http_build_query(['q' => $value]);
-        return $this->guzzle_get($this->url_news_search, $this->auth_header(), []);
+        $url = $this->base_url . Constants::SEARCH_KIT_NEWS_SEARCH_URL.'?'.http_build_query(['q' => $value]);
+        return $this->guzzle_get($url, $this->auth_header(), []);
     }
 }
