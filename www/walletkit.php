@@ -1,7 +1,14 @@
 <?php
 require_once '../vendor/autoload.php';
-use HMS\WalletKit\HwWalletObject;
+
+use HMS\AccountKit\AccountKit;
+use HMS\WalletKit\Model\Wallet;
 use HMS\WalletKit\WalletKit;
+
+// appending '/walletkit' to $oauth2_redirect_url.
+if (isset($_SERVER['HUAWEI_OAUTH2_REDIRECT_URL'])) {
+    $_SERVER['HUAWEI_OAUTH2_REDIRECT_URL'] = $_SERVER['HUAWEI_OAUTH2_REDIRECT_URL'] . '/walletkit';
+}
 include './oauth2.php';
 ?>
 <html lang="en">
@@ -9,8 +16,10 @@ include './oauth2.php';
         <title>WalletKit Example</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <script type="text/javascript">function redirect() {
-            window.location.href = '<?= /** @var \HMS\AccountKit\ $api */ $api->get_login_url(); ?>';
-        }
+                window.location.href = '<?= /** @var AccountKit $api
+                 * @noinspection PhpRedundantVariableDocTypeInspection
+                 */ $api->get_login_url(); ?>';
+            }
         </script>
     </head>
     <body>
@@ -20,7 +29,7 @@ include './oauth2.php';
             if (isset( $token_response ) && property_exists($token_response, 'access_token')) {
                 $wallet = new WalletKit( ['access_token' => $token_response->access_token] );
 
-                $result = $wallet->getEventTicket()->create(new HwWalletObject([
+                $result = $wallet->getEventTicket()->create(new Wallet([
 
 
                 ]));

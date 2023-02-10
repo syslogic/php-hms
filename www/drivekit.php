@@ -1,6 +1,13 @@
 <?php
 require_once '../vendor/autoload.php';
+
+use HMS\AccountKit\AccountKit;
 use HMS\DriveKit\DriveKit;
+
+// appending '/drivekit' to $oauth2_redirect_url.
+if (isset($_SERVER['HUAWEI_OAUTH2_REDIRECT_URL'])) {
+    $_SERVER['HUAWEI_OAUTH2_REDIRECT_URL'] = $_SERVER['HUAWEI_OAUTH2_REDIRECT_URL'] . '/drivekit';
+}
 include './oauth2.php';
 ?>
 <html lang="en">
@@ -8,7 +15,9 @@ include './oauth2.php';
         <title>DriveKit Example</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <script type="text/javascript">function redirect() {
-            window.location.href = '<?= /** @var \HMS\AccountKit\ $api */ $api->get_login_url(); ?>';
+            window.location.href = '<?= /** @var AccountKit $api
+             * @noinspection PhpRedundantVariableDocTypeInspection
+             */ $api->get_login_url(); ?>';
         }
         </script>
     </head>

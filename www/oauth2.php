@@ -1,6 +1,5 @@
 <?php
 require_once '../vendor/autoload.php';
-
 use HMS\AccountKit\AccountKit;
 
 $token_path = '../../.credentials/huawei_token.json';
