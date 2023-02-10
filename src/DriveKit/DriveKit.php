@@ -3,6 +3,7 @@ namespace HMS\DriveKit;
 
 use HMS\Core\Wrapper;
 use HMS\DriveKit\About\About;
+use HMS\DriveKit\Batch\BatchCallback;
 use HMS\DriveKit\Changes\Changes;
 use HMS\DriveKit\Channels\Channels;
 use HMS\DriveKit\HistoryVersions\HistoryVersions;
@@ -50,6 +51,10 @@ class DriveKit extends Wrapper {
 
     public function getAbout(): About {
         return new About( $this->config() );
+    }
+
+    public function getBatchCallback(): BatchCallback {
+        return new BatchCallback( $this->config() );
     }
 
     public function getChanges(): Changes {

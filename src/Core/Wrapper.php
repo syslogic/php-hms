@@ -15,9 +15,6 @@ use stdClass;
 /**
  * Class HMS Core Wrapper
  *
- * @property int $client_id                    AGConnect client ID.
- * @property string|null $client_secret        AGConnect client secret.
- *
  * @property int $oauth2_client_id             OAuth2 client ID (app_id).
  * @property string|null $oauth2_client_secret OAuth2 client secret (app_secret).
  * @property string|null $oauth2_api_scope     OAuth2 client side flow
@@ -45,7 +42,7 @@ abstract class Wrapper {
     protected string|null $oauth2_client_secret = null;
 
     /** client-side flow */
-    protected string $oauth2_api_scope = 'openid+profile';
+    protected string $oauth2_api_scope = 'openid profile';
 
     /** client-side flow */
     protected string|null $oauth2_redirect_url = null;
@@ -208,18 +205,18 @@ abstract class Wrapper {
     }
 
     /** Provide HTTP request headers as array. */
+    #[ArrayShape(['Content-Type' => 'string'])]
+    protected function request_headers(): array {
+        return [ 'Content-Type' => 'application/json;charset=utf-8' ];
+    }
+
+    /** Provide HTTP request headers as array. */
     #[ArrayShape(['Content-Type' => 'string', 'Authorization' => 'string'])]
     protected function auth_headers(): array {
         return [
             'Content-Type' => 'application/json;charset=utf-8',
             'Authorization' => ' Bearer ' . $this->access_token
         ];
-    }
-
-    /** Provide HTTP request headers as array. */
-    #[ArrayShape(['Content-Type' => 'string'])]
-    protected function request_headers(): array {
-        return [ 'Content-Type' => 'application/json;charset=utf-8' ];
     }
 
     /** Perform GuzzleHttp POST request. */
@@ -243,7 +240,7 @@ abstract class Wrapper {
         return $this->sanitize( $this->result );
     }
 
-    /** Perform GuzzleHttp POST request. */
+    /** Perform GuzzleHttp PUT request. */
     protected function guzzle_put( string $url=null, array $headers=[], array|object $put_data=[] ): stdClass|bool {
         $request = [ RequestOptions::HEADERS => $headers ];
         $request[RequestOptions::JSON] = $put_data;
