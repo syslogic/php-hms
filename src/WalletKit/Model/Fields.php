@@ -101,4 +101,72 @@ class Fields {
      * through the corresponding key when the fields need to be displayed in the local language.
      */
     private array $localized;
+
+    public function __construct( array $config ) {
+        if (isset($config['countryCode'])) {
+            $this->countryCode = $config['countryCode'];
+        }
+        if (isset($config['currencyCode'])) {
+            $this->currencyCode = $config['currencyCode'];
+        }
+        if (isset($config['allowMultiUser'])) {
+            $this->allowMultiUser = $config['allowMultiUser'];
+        }
+        if (isset($config['status'])) {
+            $this->status = new Status($config['status']);
+        }
+        if (isset($config['relatedPassIds'])) {
+            $this->relatedPassIds = $config['relatedPassIds'];
+        }
+        if (isset($config['locationList'])) {
+            $this->locationList = $config['locationList'];
+        }
+        if (isset($config['barCode'])) {
+            $this->barCode = new BarCode($config['barCode']);
+        }
+        if (isset($config['commonFields'])) {
+            $this->commonFields = $config['commonFields'];
+        }
+        if (isset($config['appendFields'])) {
+            $this->appendFields = $config['appendFields'];
+        }
+        if (isset($config['messageList'])) {
+            $this->messageList = $config['messageList'];
+        }
+        if (isset($config['timeList'])) {
+            $this->timeList = $config['timeList'];
+        }
+        if (isset($config['imageList'])) {
+            $this->imageList = $config['imageList'];
+        }
+        if (isset($config['ticketInfoList'])) {
+            $this->ticketInfoList = $config['ticketInfoList'];
+        }
+        if (isset($config['urlList'])) {
+            $this->urlList = $config['urlList'];
+        }
+        if (isset($config['localized'])) {
+            $this->localized = $config['localized'];
+        }
+    }
+
+    public function toObject() {
+        return (object) [
+            'countryCode'    => $this->countryCode,
+            'currencyCode'   => $this->currencyCode,
+            'allowMultiUser' => $this->allowMultiUser,
+            'status'         => $this->status->toObject(),
+            'relatedPassIds' => $this->relatedPassIds,
+            'locationList'   => $this->locationList,
+            'barCode'        => $this->barCode,
+            'commonFields'   => $this->commonFields,
+            'appendFields'   => $this->appendFields,
+            'messageList'    => $this->messageList,
+            'timeList'       => $this->timeList,
+            'imageList'      => $this->imageList,
+            'ticketInfoList' => $this->ticketInfoList,
+            'urlList'        => $this->urlList,
+            'localized'      => $this->localized
+        ];
+    }
 }

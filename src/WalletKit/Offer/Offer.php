@@ -19,7 +19,7 @@ class Offer extends WalletKit {
 
     public function create(WalletObject $value) {
         $url = $this->base_url . Constants::WALLET_OFFER_MODEL;
-        return $this->guzzle_post($url, $this->auth_headers(), $value);
+        return $this->guzzle_post($url, $this->auth_headers(), $value->toObject());
     }
 
     public function query(string $model_id): bool|\stdClass {

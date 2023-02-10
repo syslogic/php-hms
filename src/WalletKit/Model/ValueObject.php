@@ -9,4 +9,13 @@ namespace HMS\WalletKit\Model;
  */
 class ValueObject {
 
+    public function __construct( array $config ) {
+
+    }
+
+    public function toObject() {
+        return (object) [
+
+        ];
+    }
 }

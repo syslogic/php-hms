@@ -35,4 +35,14 @@ class LinkDevicePass {
      * If the value is not 1, the NFC capabilities will be unavailable for a pass instance.
      */
     private string $nfcType = '1'; // NFC enabled.
+
+    public function __construct( array $config ) {
+
+    }
+
+    public function toObject() {
+        return (object) [
+
+        ];
+    }
 }

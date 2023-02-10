@@ -19,7 +19,7 @@ class BoardingPass extends WalletKit {
 
     public function create(WalletObject $value) {
         $url = $this->base_url . Constants::WALLET_BOARDING_PASS_MODEL;
-        return $this->guzzle_post($url, $this->auth_headers(), $value);
+        return $this->guzzle_post($url, $this->auth_headers(), $value->toObject());
     }
 
     public function query(string $model_id): bool|\stdClass {

@@ -28,7 +28,6 @@ include './oauth2.php';
         if (isset($_POST) && isset($_POST['query'])) {
             if (isset( $token_response ) && property_exists($token_response, 'access_token')) {
                 $wallet = new WalletKit( ['access_token' => $token_response->access_token] );
-
                 $result = $wallet->getEventTicket()->create(new WalletObject([
 
 
