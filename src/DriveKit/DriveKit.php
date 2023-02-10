@@ -19,7 +19,7 @@ use HMS\DriveKit\Thumbnail\Thumbnail;
  * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-Guides/open-platform-oauth-0000001053629189#section1022911426469">Authorization Code</a>
  * @author Martin Zeitler
  */
-class DriveKit extends Wrapper {
+class DriveKit extends Wrapper implements IDriveKit {
 
     /**
      * Constructor
@@ -38,15 +38,6 @@ class DriveKit extends Wrapper {
     /** Unset properties irrelevant to the child class. */
     protected function post_init(): void {
         unset($this->api_key, $this->api_signature);
-    }
-
-    private function config(): array {
-        return [
-            'access_token' => $this->access_token,
-            'oauth2_client_id' => $this->oauth2_client_id,
-            'oauth2_client_secret' => $this->oauth2_client_secret,
-            'debug_mode' => $this->debug_mode
-        ];
     }
 
     public function getAbout(): About {
@@ -87,5 +78,14 @@ class DriveKit extends Wrapper {
 
     public function getSmallThumbnail(): SmallThumbnail {
         return new SmallThumbnail( $this->config() );
+    }
+
+    private function config(): array {
+        return [
+            'access_token' => $this->access_token,
+            'oauth2_client_id' => $this->oauth2_client_id,
+            'oauth2_client_secret' => $this->oauth2_client_secret,
+            'debug_mode' => $this->debug_mode
+        ];
     }
 }
