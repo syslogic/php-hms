@@ -2,7 +2,7 @@
 namespace HMS\WalletKit\TransitPass;
 
 use HMS\WalletKit\Constants;
-use HMS\WalletKit\HwWalletObject;
+use HMS\WalletKit\Model\Wallet;
 use HMS\WalletKit\WalletKit;
 
 /**
@@ -17,7 +17,7 @@ class TransitPass extends WalletKit {
         parent::__construct( $config );
     }
 
-    public function create(HwWalletObject $value) {
+    public function create(Wallet $value) {
         $url = $this->base_url . Constants::WALLET_TRANSIT_PASS_MODEL;
         return $this->guzzle_post($url, $this->auth_headers(), $value);
     }

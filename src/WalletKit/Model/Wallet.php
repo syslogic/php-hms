@@ -1,8 +1,6 @@
 <?php
 
-namespace HMS\WalletKit;
-
-use stdClass;
+namespace HMS\WalletKit\Model;
 
 /**
  * Class HMS Wallet Object
@@ -10,13 +8,13 @@ use stdClass;
  * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/def-0000001050160319">HwWalletObject</a>
  * @author Martin Zeitler
  */
-class HwWalletObject {
+class Wallet {
     private string $passVersion = "1.0";
     private string $passTypeIdentifier;
     private string $passStyleIdentifier;
     private string $organizationName;
     private string $organizationPassId;
     private string $serialNumber;
-    private stdClass $fields;
+    private Fields $fields;
     private LinkDevicePass $linkDevicePass;
 }

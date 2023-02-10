@@ -1,6 +1,6 @@
 <?php
 
-namespace HMS\WalletKit;
+namespace HMS\WalletKit\Model;
 
 /**
  * Class HMS WalletKit Link Device Pass
