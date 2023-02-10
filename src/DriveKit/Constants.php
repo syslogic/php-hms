@@ -37,5 +37,6 @@ class Constants {
     public const DRIVE_KIT_COMMENTS_URL = self::DRIVE_KIT_BASE_URL . "/drive/v1/files/{fileId}/comments";
     public const DRIVE_KIT_REPLIES_URL = self::DRIVE_KIT_BASE_URL . "/drive/v1/files/{fileId}/comments/{commentId}/replies";
     public const DRIVE_KIT_HISTORY_VERSIONS_URL = self::DRIVE_KIT_BASE_URL . "/drive/v1/files/{fileId}/historyVersions";
+    public const DRIVE_KIT_HISTORY_VERSION_URL = self::DRIVE_KIT_BASE_URL . "/drive/v1/files/{fileId}/historyVersions/{historyVersionId}";
     public const DRIVE_KIT_BATCH_URL = self::DRIVE_KIT_BASE_URL . "/batch/drive/v3";
 }

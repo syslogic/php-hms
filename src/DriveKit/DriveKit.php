@@ -5,10 +5,11 @@ use HMS\Core\Wrapper;
 use HMS\DriveKit\About\About;
 use HMS\DriveKit\Changes\Changes;
 use HMS\DriveKit\Channels\Channels;
-use HMS\DriveKit\Comments\Comments;
+use HMS\DriveKit\HistoryVersions\HistoryVersions;
+use HMS\DriveKit\Replies\Replies;
 use HMS\DriveKit\Files\Files;
+use HMS\DriveKit\SmallThumbnail\SmallThumbnail;
 use HMS\DriveKit\Thumbnail\Thumbnail;
-use InvalidArgumentException;
 
 /**
  * Class HMS DriveKit Wrapper
@@ -28,7 +29,7 @@ class DriveKit extends Wrapper {
         if (is_array($config) && isset($config['access_token'])) {
             $this->access_token = $config['access_token'];
         } else {
-            throw new InvalidArgumentException('DriveKit requires an user access token.');
+            throw new \InvalidArgumentException('DriveKit requires an user access token.');
         }
         $this->post_init();
     }
@@ -51,21 +52,35 @@ class DriveKit extends Wrapper {
         return new About( $this->config() );
     }
 
-    public function getFiles(): Files {
-        return new Files( $this->config() );
-    }
-    public function getChannels(): Channels {
-        return new Channels( $this->config() );
-    }
-    public function getThumbnail(): Thumbnail {
-        return new Thumbnail( $this->config() );
-    }
-
     public function getChanges(): Changes {
         return new Changes( $this->config() );
     }
 
-    public function getComments(): Comments {
-        return new Comments( $this->config() );
+    public function getChannels(): Channels {
+        return new Channels( $this->config() );
+    }
+
+    public function getComments(): Replies {
+        return new Replies( $this->config() );
+    }
+
+    public function getFiles(): Files {
+        return new Files( $this->config() );
+    }
+
+    public function getHistoryVersions(): HistoryVersions {
+        return new HistoryVersions( $this->config() );
+    }
+
+    public function getReplies(): Replies {
+        return new Replies( $this->config() );
+    }
+
+    public function getThumbnail(): Thumbnail {
+        return new Thumbnail( $this->config() );
+    }
+
+    public function getSmallThumbnail(): SmallThumbnail {
+        return new SmallThumbnail( $this->config() );
     }
 }
