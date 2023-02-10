@@ -10,7 +10,8 @@ if (isset($_SERVER['HUAWEI_OAUTH2_REDIRECT_URL'])) {
 }
 // appending 'drive.readonly' to $oauth2_api_scope.
 if (isset($_SERVER['HUAWEI_OAUTH2_API_SCOPE'])) {
-    $_SERVER['HUAWEI_OAUTH2_API_SCOPE'] = $_SERVER['HUAWEI_OAUTH2_API_SCOPE'] . ' https://www.huawei.com/auth/drive.readonly';
+    // $_SERVER['HUAWEI_OAUTH2_API_SCOPE'] = $_SERVER['HUAWEI_OAUTH2_API_SCOPE'] . ' https://www.huawei.com/auth/drive.readonly';
+    $_SERVER['HUAWEI_OAUTH2_API_SCOPE'] = $_SERVER['HUAWEI_OAUTH2_API_SCOPE'] . ' https://www.huawei.com/auth/drive';
 }
 include './oauth2.php';
 ?>
@@ -36,6 +37,10 @@ include './oauth2.php';
                     echo '<p><button onclick=redirect()>Login with HUAWEI ID</button></p>';
                 } else {
                     echo '<pre>' . print_r($result, true) . '</pre>';
+
+                    $result = $drive->getFiles()->create_folder("PHP-HMS");
+                    echo '<pre>' . print_r($result, true) . '</pre>';
+
                     $result = $drive->getFiles()->list();
                     echo '<pre>' . print_r($result, true) . '</pre>';
                 }
