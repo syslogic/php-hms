@@ -36,7 +36,7 @@ class Fields {
     private array $relatedPassIds;
 
     /**
-     * @var array<LocationList> $locationList Geographical location.
+     * @var array<Location> $locationList Geographical location.
      * This parameter can be used if the pass supports geofence notifications.
      */
     private array $locationList;
@@ -123,7 +123,9 @@ class Fields {
             $this->relatedPassIds = $config['relatedPassIds'];
         }
         if (isset($config['locationList'])) {
-            $this->locationList = $config['locationList'];
+            $this->locationList = [
+                new Location( $config['locationList'] )
+            ];
         }
         if (isset($config['barCode'])) {
             $this->barCode = new BarCode($config['barCode']);

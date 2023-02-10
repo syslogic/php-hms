@@ -38,7 +38,7 @@ class BarCode {
         if (isset($config['encoding'])) {$this->text = $config['encoding'];}
         return $this;
     }
-    
+
     public function toObject(): object {
         return (object) [
             'value' => $this->value,
