@@ -43,7 +43,7 @@ class SnapToRoads extends MapKit {
             throw new InvalidArgumentException('number of coordinate points cannot exceed 100');
         }
         foreach ($points as $key => $value) {$points[$key] = $value->asObject();}
-        return $this->guzzle_post($this->getSnapUrl(), $this->request_headers(), [
+        return $this->request('POST', $this->getSnapUrl(), $this->request_headers(), [
             'points' => $points
         ]);
     }

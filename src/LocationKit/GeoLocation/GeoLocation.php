@@ -24,7 +24,7 @@ class GeoLocation extends LocationKit {
 
     private function get_geo_location( string $value ): GeoLocation {
         $payload = ['geocode' => $value ];
-        $this->result = $this->guzzle_post(Constants::GEO_LOCATION_URL, $this->auth_headers(), $payload);
+        $this->result = $this->request('POST', Constants::GEO_LOCATION_URL, $this->auth_headers(), $payload);
         return $this;
     }
 

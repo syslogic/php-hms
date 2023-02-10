@@ -219,56 +219,43 @@ abstract class Wrapper {
         ];
     }
 
-    /** Perform GuzzleHttp POST request. */
-    protected function guzzle_post( string $url=null, array $headers=[], array|object $post_data=[], $urlencoded=false ): stdClass|bool {
+    /** Perform GuzzleHttp GET/POST/PATCH/PUT/DELETE request. */
+    protected function request( string $method='POST', ?string $url=null, array $headers=[], array|object $post_data=[], $urlencoded=false ): stdClass|bool {
         $request = [ RequestOptions::HEADERS => $headers ];
-        if ($urlencoded) {
-            $request[RequestOptions::FORM_PARAMS] = $post_data;
-        } else {
-            $request[RequestOptions::JSON] = $post_data;
-        }
         try {
-            $this->response = $this->client->post( $url, $request );
-            if ($this->response->getStatusCode() == 200) {
-                $this->result = json_decode( $this->response->getBody() );
-                $this->result->code = 200;
+            switch ($method) {
+                case 'GET':
+                    $request[RequestOptions::QUERY] = $post_data; // as query string.
+                    $this->response = $this->client->get( $url, $request );
+                    break;
+                case 'POST':
+                    if ($urlencoded) {
+                        $request[RequestOptions::FORM_PARAMS] = $post_data;
+                    } else {
+                        $request[RequestOptions::JSON] = $post_data;
+                    }
+                    $this->response = $this->client->post( $url, $request );
+                    break;
+                case 'PATCH':
+                    $request[RequestOptions::JSON] = $post_data;
+                    $this->response = $this->client->patch( $url, $request );
+                    break;
+                case 'PUT':
+                    $request[RequestOptions::JSON] = $post_data;
+                    $this->response = $this->client->put( $url, $request );
+                    break;
+                case 'DELETE':
+                    $request[RequestOptions::JSON] = $post_data;
+                    $this->response = $this->client->delete( $url, $request );
+                    break;
             }
-        } catch (GuzzleException $e) {
-            $this->result->code = $e->getCode();
-            $this->result->message = $e->getMessage();
-        }
-        return $this->sanitize( $this->result );
-    }
 
-    /** Perform GuzzleHttp PUT request. */
-    protected function guzzle_put( string $url=null, array $headers=[], array|object $put_data=[] ): stdClass|bool {
-        $request = [ RequestOptions::HEADERS => $headers ];
-        $request[RequestOptions::JSON] = $put_data;
-        try {
-            $this->response = $this->client->put( $url, $request );
-            if ($this->response->getStatusCode() == 200) {
-                $this->result = json_decode( $this->response->getBody() );
-                $this->result->code = 200;
-            }
-        } catch (GuzzleException $e) {
-            $this->result->code = $e->getCode();
-            $this->result->message = $e->getMessage();
-        }
-        return $this->sanitize( $this->result );
-    }
-
-    /** Perform GuzzleHttp GET request. */
-    protected function guzzle_get( string $url=null, array $headers=[], array $query=[] ): stdClass|bool {
-        try {
-            $this->response = $this->client->get( $url, [
-                RequestOptions::HEADERS => $headers,
-                RequestOptions::QUERY => $query
-            ] );
             $this->result->code = $this->response->getStatusCode();
-            $content_type = $this->response->getHeader('Content-Type')[0];
             if ($this->result->code == 200) {
+                $content_type = $this->response->getHeader('Content-Type')[0];
                 switch ($content_type) {
                     case 'application/json':
+                    case 'application/json;charset=utf-8':
                         $this->result = json_decode( $this->response->getBody() );
                         break;
                     case 'image/png':
@@ -330,7 +317,6 @@ abstract class Wrapper {
             }
             unset( $data->ret );
         }
-
         return $data;
     }
 }

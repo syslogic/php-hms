@@ -69,7 +69,7 @@ class GameService extends Wrapper {
      */
     public function send_delivery_success_notification( string $order_id, string $product_no, string $open_id, int $status=0 ): \stdClass|bool
     {
-        return $this->guzzle_put(Constants::CONNECT_DELIVERY_SUCCESS_URL, $this->auth_headers(), [
+        return $this->request('PUT', Constants::CONNECT_DELIVERY_SUCCESS_URL, $this->auth_headers(), [
             "orderId" => $order_id,
             "productNo" => $product_no,
             "openId" => $open_id,

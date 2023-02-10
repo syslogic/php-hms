@@ -34,7 +34,7 @@ class CloudSms extends Wrapper {
      */
     public function send_sms(string $channel_id, string $receivers, string $template_id, array $template_params, string $status_callback_url='', string $signature=''): bool|\stdClass
     {
-        return $this->guzzle_post(Constants::SMS_SEND_MESSAGE_URL,  [
+        return $this->request('POST', Constants::SMS_SEND_MESSAGE_URL,  [
             'Authorization' => 'WSSE realm="SDP",profile="UsernameToken",type="Appkey"',
             'X-WSSE' => $this->buildWsseHeader()
             ], [
@@ -54,7 +54,7 @@ class CloudSms extends Wrapper {
      */
     public function send_batch_sms(string $channel_id, array $sms_content, string $status_callback_url='', string $signature=''): bool|\stdClass
     {
-        return $this->guzzle_post(Constants::SMS_BATCH_SEND_MESSAGE_URL,  [
+        return $this->request('POST', Constants::SMS_BATCH_SEND_MESSAGE_URL,  [
             'Authorization' => 'WSSE realm="SDP",profile="UsernameToken",type="Appkey"',
             'X-WSSE' => $this->buildWsseHeader()
         ], [

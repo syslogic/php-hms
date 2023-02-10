@@ -52,7 +52,7 @@ class StaticMap extends MapKit {
      */
     public function getStaticMapByLocation( Coordinate $location, int $width=256, int $height=256, int $zoom=10, int $scale=1,
                                             string $pattern='PNG', string $mapType='roadmap', string $language='en' ): bool|stdClass {
-        return $this->guzzle_get($this->getStaticUrl(), $this->request_headers(), [
+        return $this->request( 'GET', $this->getStaticUrl(), $this->request_headers(), [
             'key' => $this->api_key,
             'signature' => $this->api_signature,
             'location' => $location->asString(),
@@ -91,7 +91,7 @@ class StaticMap extends MapKit {
      */
     public function getStaticMapByMarkers( string $markers, string|null $markerStyles=null, int $width=256, int $height=256,
                                            int $zoom=10, int $scale=1, string $pattern='PNG', string $mapType='roadmap', string $language='en' ): bool|stdClass {
-        return $this->guzzle_get($this->getStaticUrl(), $this->request_headers(), [
+        return $this->request( 'GET', $this->getStaticUrl(), $this->request_headers(), [
             'key' => $this->api_key,
             'signature' => $this->api_signature,
             'markers' => $markers,
@@ -132,7 +132,7 @@ class StaticMap extends MapKit {
      */
     public function getStaticMapByPath( string $path, string|null $pathStyles=null, int $width=256, int $height=256,
                                         int $zoom=10, int $scale=1, string $pattern='PNG', string $mapType='roadmap', string $language='en' ): bool|stdClass {
-        return $this->guzzle_get($this->getStaticUrl(), $this->request_headers(), [
+        return $this->request( 'GET', $this->getStaticUrl(), $this->request_headers(), [
             'key' => $this->api_key,
             'signature' => $this->api_signature,
             'path' => $path,

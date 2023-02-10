@@ -25,7 +25,7 @@ class IPLocation extends LocationKit {
         $payload = ['ip' => $value ];
         $headers = $this->auth_headers();
         $headers['x-forwarded-for'] = $value;
-        $this->result = $this->guzzle_post(Constants::IP_LOCATION_URL, $headers, $payload);
+        $this->result = $this->request('POST', Constants::IP_LOCATION_URL, $headers, $payload);
         return $this;
     }
 

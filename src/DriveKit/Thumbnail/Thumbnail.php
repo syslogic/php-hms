@@ -19,6 +19,6 @@ class Thumbnail extends DriveKit {
      */
     public function get( string $fileId ): stdClass|bool {
         $url = str_replace('{fileId}', $fileId, Constants::DRIVE_KIT_THUMBNAILS_URL);
-        return $this->guzzle_get($url, $this->auth_headers(), []);
+        return $this->request( 'GET', $url, $this->auth_headers(), []);
     }
 }

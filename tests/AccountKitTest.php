@@ -57,7 +57,7 @@ class AccountKitTest extends BaseTestCase {
     }
 
     /**
-     * TODO: Obtain User Information.
+     * Obtain User Information.
      * oAuth2 Error -> Not rights for this app token, Pls use user token.
      */
     public function test_get_user_info() {
@@ -65,16 +65,21 @@ class AccountKitTest extends BaseTestCase {
             $data = json_decode(file_get_contents(self::$user_access_token_path));
             self::$user_access_token = $data->access_token;
             $result = self::$client->get_user_info( self::$user_access_token );
-            self::assertTrue(! property_exists($result, 'error'), 'get_user_info: '.$result->error );
-
+            self::assertTrue( property_exists($result, 'access_token') );
         } else {
             $this->markTestSkipped('File not found: ' . self::$user_access_token_path);
         }
     }
 
-    /** TODO: Verify an ID Token. */
+    /** Verify an ID Token. */
     public function test_verify_id_token() {
-        $result = self::$client->verify_id_token( self::$id_token );
-        self::assertTrue( $result->code == 200, 'verify_id_token: '.$result->message );
+        if (file_exists(self::$user_access_token_path)) {
+            $data = json_decode(file_get_contents(self::$user_access_token_path));
+            self::$id_token = $data->id_token;
+            $result = self::$client->verify_id_token( self::$id_token );
+            self::assertTrue( $result->code == 200, 'verify_id_token: '.$result->message );
+        } else {
+            $this->markTestSkipped('File not found: ' . self::$user_access_token_path);
+        }
     }
 }

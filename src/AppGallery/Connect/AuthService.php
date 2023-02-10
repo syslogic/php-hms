@@ -38,7 +38,7 @@ class AuthService extends Connect {
      */
     public function import_users( array $users ): bool|stdClass {
         $payload = ['users' => $users];
-        return $this->guzzle_post($this->url_user_import, $this->auth_headers(), $payload);
+        return $this->request('POST', $this->url_user_import, $this->auth_headers(), $payload);
     }
 
     /**
@@ -49,7 +49,7 @@ class AuthService extends Connect {
      */
     public function export_users(): bool|stdClass {
         $payload = [];
-        return $this->guzzle_post($this->url_user_export, $this->auth_headers(), $payload);
+        return $this->request('POST', $this->url_user_export, $this->auth_headers(), $payload);
     }
 
     /**
@@ -62,7 +62,7 @@ class AuthService extends Connect {
      */
     public function verify_access_token( string $user_access_token ): bool|stdClass {
         $payload = [ 'token' => $user_access_token ];
-        return $this->guzzle_post($this->url_token_verify, $this->auth_headers(), $payload);
+        return $this->request('POST', $this->url_token_verify, $this->auth_headers(), $payload);
     }
 
     /**
@@ -75,6 +75,6 @@ class AuthService extends Connect {
      */
     public function revoke_access_token( string $user_access_token ): bool|stdClass {
         $payload = [ 'token' => $user_access_token ];
-        return $this->guzzle_post($this->url_token_revoke, $this->auth_headers(), $payload);
+        return $this->request('POST', $this->url_token_revoke, $this->auth_headers(), $payload);
     }
 }

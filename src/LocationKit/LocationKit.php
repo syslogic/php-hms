@@ -1,14 +1,12 @@
 <?php
 namespace HMS\LocationKit;
 
-use HMS\AccountKit\AccountKit;
 use HMS\Core\Wrapper;
 use HMS\LocationKit\GeoLocation\GeoLocation;
 use HMS\LocationKit\IPLocation\IPLocation;
 
 /**
  * Class HMS LocationKit Wrapper
- * Note: Not being implemented.
  *
  * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/web-overview-0000001052619173">LocationKit</a>
  * @see <a href="https://developer.huawei.com/consumer/en/console#/myApi/">HMS API</a>
@@ -17,13 +15,13 @@ use HMS\LocationKit\IPLocation\IPLocation;
 class LocationKit extends Wrapper {
 
     public function __construct( array|string $config ) {
-
         parent::__construct( $config );
+        if (is_array($config) && isset($config['access_token'])) {
+            $this->access_token = $config['access_token'];
+        } else {
+            throw new \InvalidArgumentException('LocationKit requires an user access token.');
+        }
         $this->post_init();
-
-        /* Obtain an access-token. */
-        $account_kit = new AccountKit( $config );
-        $this->access_token = $account_kit->get_access_token();
     }
 
     /** Unset properties irrelevant to the child class. */

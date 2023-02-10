@@ -17,8 +17,32 @@ class Replies extends DriveKit {
     /**
      * @return bool|stdClass The result of the API call.
      */
-    public function list( string $fileId ): stdClass|bool {
-        $url = str_replace('{fileId}', $fileId, Constants::DRIVE_KIT_REPLIES_URL);
-        return $this->guzzle_get($url, $this->auth_headers(), []);
+    public function list( string $fileId, string $commentId, string $fields='' ): stdClass|bool {
+        $url = str_replace(['{$fileId}', '{commentId}'], [$fileId, $commentId], Constants::DRIVE_KIT_REPLIES_URL);
+        return $this->request( 'GET', $url, $this->auth_headers(), [
+            'fields' => $fields
+        ]);
+    }
+
+    /**
+     * @return bool|stdClass The result of the API call.
+     */
+    public function get( string $fileId, string $commentId ): stdClass|bool {
+        return false;
+    }
+
+    /**
+     * HTTP PATCH
+     * @return bool|stdClass The result of the API call.
+     */
+    public function update( string $fileId, string $commentId ): stdClass|bool {
+        return false;
+    }
+
+    /**
+     * @return bool|stdClass The result of the API call.
+     */
+    public function delete( string $fileId, string $commentId ): stdClass|bool {
+        return false;
     }
 }

@@ -58,18 +58,18 @@ class SearchKit extends Wrapper {
 
     public function web_search( string $value ): stdClass {
         $url = $this->base_url . Constants::SEARCH_KIT_WEB_SEARCH_URL.'?'.http_build_query(['q' => $value]);
-        return $this->guzzle_get($url, $this->auth_header(), []);
+        return $this->request( 'GET', $url, $this->auth_header(), []);
     }
     public function image_search( string $value ): stdClass {
         $url = $this->base_url . Constants::SEARCH_KIT_IMAGE_SEARCH_URL.'?'.http_build_query(['q' => $value]);
-        return $this->guzzle_get($url, $this->auth_header(), []);
+        return $this->request( 'GET', $url, $this->auth_header(), []);
     }
     public function video_search( string $value ): stdClass {
         $url = $this->base_url . Constants::SEARCH_KIT_VIDEO_SEARCH_URL.'?'.http_build_query(['q' => $value]);
-        return $this->guzzle_get($url, $this->auth_header(), []);
+        return $this->request( 'GET', $url, $this->auth_header(), []);
     }
     public function news_search( string $value ): stdClass {
         $url = $this->base_url . Constants::SEARCH_KIT_NEWS_SEARCH_URL.'?'.http_build_query(['q' => $value]);
-        return $this->guzzle_get($url, $this->auth_header(), []);
+        return $this->request( 'GET', $url, $this->auth_header(), []);
     }
 }

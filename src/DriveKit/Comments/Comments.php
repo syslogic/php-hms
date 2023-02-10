@@ -19,6 +19,6 @@ class Comments extends DriveKit {
      */
     public function list( string $fileId ): stdClass|bool {
         $url = str_replace('{fileId}', $fileId, Constants::DRIVE_KIT_COMMENTS_URL);
-        return $this->guzzle_get($url, $this->auth_headers(), []);
+        return $this->request( 'GET', $url, $this->auth_headers(), []);
     }
 }

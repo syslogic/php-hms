@@ -54,7 +54,7 @@ class PushKit extends Wrapper {
      */
     public function topics_list( string $token ): stdClass {
         $payload = ['token' => $token];
-        return $this->guzzle_post($this->url_topics_list, $this->auth_headers(), $payload);
+        return $this->request( 'POST', $this->url_topics_list, $this->auth_headers(), $payload);
     }
 
     /**
@@ -68,7 +68,7 @@ class PushKit extends Wrapper {
     public function topic_subscribe( string $topic_name, string|array $tokens ): stdClass {
         if (is_string($tokens)) {$tokens = [ $tokens ];}
         $payload = ['topic' => $topic_name, 'tokenArray' => $tokens];
-        return $this->guzzle_post($this->url_topic_subscribe, $this->auth_headers(), $payload);
+        return $this->request('POST', $this->url_topic_subscribe, $this->auth_headers(), $payload);
     }
 
     /**
@@ -82,7 +82,7 @@ class PushKit extends Wrapper {
     public function topic_unsubscribe( string $topic_name, string|array $tokens ): stdClass {
         if (is_string($tokens)) {$tokens = [ $tokens ];}
         $payload = ['topic' => $topic_name, 'tokenArray' => $tokens];
-        return $this->guzzle_post($this->url_topic_unsubscribe, $this->auth_headers(), $payload);
+        return $this->request('POST', $this->url_topic_unsubscribe, $this->auth_headers(), $payload);
     }
 
     /**
@@ -98,7 +98,7 @@ class PushKit extends Wrapper {
     public function send_message_to_token( string|array $token, string $title, string $body, string|null $image=null ): stdClass {
         if (is_string($token)) {$token = [ $token ];}
         $payload = $this->get_payload_by_mode( 'token', $token, $title, $body, $image );
-        return $this->guzzle_post($this->url_message_send, $this->auth_headers(), $payload);
+        return $this->request('POST', $this->url_message_send, $this->auth_headers(), $payload);
     }
 
     /**
@@ -113,7 +113,7 @@ class PushKit extends Wrapper {
      */
     public function send_message_to_topic( string $topic, string $title, string $body, string|null $image=null ): stdClass {
         $payload = $this->get_payload_by_mode( 'topic', $topic, $title, $body, $image );
-        return $this->guzzle_post($this->url_message_send, $this->auth_headers(), $payload);
+        return $this->request('POST', $this->url_message_send, $this->auth_headers(), $payload);
     }
 
     /**
@@ -128,7 +128,7 @@ class PushKit extends Wrapper {
      */
     public function send_message_to_condition( string $condition, string $title, string $body, string|null $image=null ): stdClass {
         $payload = $this->get_payload_by_mode( 'condition', $condition, $title, $body, $image );
-        return $this->guzzle_post($this->url_message_send, $this->auth_headers(), $payload);
+        return $this->request('POST', $this->url_message_send, $this->auth_headers(), $payload);
     }
 
     #[ArrayShape(['validate_only' => "bool", 'message' => "object"])]
@@ -167,7 +167,7 @@ class PushKit extends Wrapper {
      */
     public function token_data_query( string $token ): stdClass {
         $payload =['token' => $token];
-        return $this->guzzle_post($this->url_token_data_query, $this->auth_headers(), $payload);
+        return $this->request('POST', $this->url_token_data_query, $this->auth_headers(), $payload);
     }
 
     /**
@@ -179,6 +179,6 @@ class PushKit extends Wrapper {
      */
     public function token_data_delete( string $token ): stdClass {
         $payload = ['token' => $token];
-        return $this->guzzle_post($this->url_token_data_delete, $this->auth_headers(), $payload);
+        return $this->request('POST', $this->url_token_data_delete, $this->auth_headers(), $payload);
     }
 }

@@ -37,7 +37,7 @@ class Tile extends MapKit {
      * @return bool|stdClass The result of the API call.
      */
     public function getMapTile( int $x, int $y, int $z=0, string $language='en', int $scale=1 ): bool|stdClass {
-        return $this->guzzle_get($this->getTileUrl(), $this->request_headers(), [
+        return $this->request( 'GET', $this->getTileUrl(), $this->request_headers(), [
             'key' => $this->api_key,
             'x' => $x,
             'y' => $y,

@@ -65,48 +65,48 @@ class MapKitTest extends BaseTestCase {
     public function test_directions_api_walking() {
         $endpoint = self::$client->getDirections();
         $result = $endpoint->getWalkingDirections(self::$point_x, self::$point_y);
-        self::assertTrue( $result->code == 200, 'Not HTTP 200 OK' );
         self::assertTrue( property_exists($result, 'routes') && is_array($result->routes) );
+        self::assertTrue( sizeof($result->routes) > 0 );
     }
 
     /** Test: Directions API: Cycling Directions */
     public function test_directions_api_cycling() {
         $endpoint = self::$client->getDirections();
         $result = $endpoint->getCyclingDirections(self::$point_x, self::$point_y);
-        self::assertTrue( $result->code == 200, 'Not HTTP 200 OK' );
         self::assertTrue( property_exists($result, 'routes') && is_array($result->routes) );
+        self::assertTrue( sizeof($result->routes) > 0 );
     }
 
     /** Test: Directions API: Driving Directions */
     public function test_directions_api_driving() {
         $endpoint = self::$client->getDirections();
         $result = $endpoint->getDrivingDirections(self::$point_x, self::$point_y);
-        self::assertTrue( $result->code == 200, 'Not HTTP 200 OK' );
         self::assertTrue( property_exists($result, 'routes') && is_array($result->routes) );
+        self::assertTrue( sizeof($result->routes) > 0 );
     }
 
     /** Test: Distance Matrix API: Walking Distance Matrix */
     public function test_matrix_api_walking() {
         $endpoint = self::$client->getMatrix();
         $result = $endpoint->getWalkingMatrix([self::$point_a, self::$point_b], [self::$point_c]);
-        self::assertTrue( $result->code == 200, 'Not HTTP 200 OK' );
         self::assertTrue( property_exists($result, 'rows') && is_array($result->rows) );
+        self::assertTrue( sizeof($result->rows) > 0 );
     }
 
     /** Test: Distance Matrix API: Cycling Distance Matrix */
     public function test_matrix_api_cycling() {
         $endpoint = self::$client->getMatrix();
         $result = $endpoint->getCyclingMatrix([self::$point_a, self::$point_b], [self::$point_c]);
-        self::assertTrue( $result->code == 200, 'Not HTTP 200 OK' );
         self::assertTrue( property_exists($result, 'rows') && is_array($result->rows) );
+        self::assertTrue( sizeof($result->rows) > 0 );
     }
 
     /** Test: Distance Matrix API: Driving Distance Matrix */
     public function test_matrix_api_driving() {
         $endpoint = self::$client->getMatrix();
         $result = $endpoint->getDrivingMatrix([self::$point_a, self::$point_b], [self::$point_c]);
-        self::assertTrue( $result->code == 200, 'Not HTTP 200 OK' );
         self::assertTrue( property_exists($result, 'rows') && is_array($result->rows) );
+        self::assertTrue( sizeof($result->rows) > 0 );
     }
 
     /** Test: Elevation API; works */
@@ -126,7 +126,6 @@ class MapKitTest extends BaseTestCase {
     public function test_snap_to_roads_api() {
         $endpoint = self::$client->getSnapToRoads();
         $result = $endpoint->snapToRoad(self::$coordinates_to_snap);
-        self::assertTrue( $result->code == 200, 'Not HTTP 200 OK' );
         self::assertTrue( property_exists($result, 'returnCode') && $result->returnCode == 0 );
         self::assertTrue( property_exists($result, 'snappedPoints') && is_array($result->snappedPoints) );
     }
@@ -139,19 +138,16 @@ class MapKitTest extends BaseTestCase {
 
         /* By Location */
         $result = $endpoint->getStaticMapByLocation(self::$point_a, self::$map_width, self::$map_height, self::$map_zoom, self::$map_scale);
-        self::assertTrue( $result->code == 200, 'Not HTTP 200 OK' );
         self::assertTrue( property_exists($result, 'raw') && is_string($result->raw) && !empty($result->raw));
         self::saveFile(self::$build_path.'mapkit_01.png', $result->raw);
 
         /* By Marker description */
         $result = $endpoint->getStaticMapByMarkers(self::$marker_desc, self::$marker_styles, self::$map_width, self::$map_height, self::$map_zoom, self::$map_scale);
-        self::assertTrue( $result->code == 200, 'Not HTTP 200 OK' );
         self::assertTrue( property_exists($result, 'raw') && is_string($result->raw) && !empty($result->raw));
         self::saveFile(self::$build_path.'mapkit_02.png', $result->raw);
 
         /* By Path description */
         $result = $endpoint->getStaticMapByPath(self::$path_desc, self::$path_styles, self::$map_width, self::$map_height, self::$map_zoom, self::$map_scale);
-        self::assertTrue( $result->code == 200, 'Not HTTP 200 OK' );
         self::assertTrue( property_exists($result, 'raw') && is_string($result->raw) && !empty($result->raw));
         self::saveFile(self::$build_path.'mapkit_03.png', $result->raw);
     }
@@ -160,7 +156,6 @@ class MapKitTest extends BaseTestCase {
     public function test_map_tile_api() {
         $endpoint = self::$client->getTile();
         $result = $endpoint->getMapTile(5, 1, 3, 'en', 2);
-        self::assertTrue( $result->code == 200, 'Not HTTP 200 OK' );
         self::assertTrue( property_exists($result, 'raw') && is_string($result->raw) && !empty($result->raw));
         self::saveFile(self::$build_path.'mapkit_tile.png', $result->raw);
     }

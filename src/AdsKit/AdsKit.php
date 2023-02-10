@@ -84,6 +84,6 @@ class AdsKit extends Wrapper {
         } else if (!in_array($order_type, Constants::ADS_KIT_ORDER_TYPES)) {
             throw new InvalidArgumentException('invalid order-type value: ' . $order_type);
         }
-        return $this->guzzle_post(Constants::ADS_KIT_BASE_URL, $this->auth_headers(), $post_fields);
+        return $this->request('POST', Constants::ADS_KIT_BASE_URL, $this->auth_headers(), $post_fields);
     }
 }

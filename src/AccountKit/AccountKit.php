@@ -30,7 +30,7 @@ class AccountKit extends Wrapper {
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/account-obtain-token_hms_reference-0000001050048618">Obtaining Access Token</a>
      */
     public function get_access_token(): ?string {
-        $result = $this->guzzle_post(Constants::URL_OAUTH2_TOKEN, [
+        $result = $this->request( 'POST',Constants::URL_OAUTH2_TOKEN, [
             'Content-Type' => 'application/x-www-form-urlencoded; charset=utf-8'
         ], [
             'grant_type'    => 'client_credentials',
@@ -49,7 +49,7 @@ class AccountKit extends Wrapper {
      */
     public function get_access_token_by_auth_code( string $authorization_code, ?string $oauth2_redirect_url=null ): stdClass|bool {
         $redirect_uri = is_string($oauth2_redirect_url) ? $oauth2_redirect_url : $this->oauth2_redirect_url;
-        $result = $this->guzzle_post(Constants::URL_OAUTH2_TOKEN, [
+        $result = $this->request( 'POST', Constants::URL_OAUTH2_TOKEN, [
             'Content-Type' => 'application/x-www-form-urlencoded; charset=utf-8'
         ], [
             'grant_type'    => 'authorization_code',
@@ -74,7 +74,7 @@ class AccountKit extends Wrapper {
      * @return stdClass|null the retrieved token object.
      */
     public function get_access_token_by_refresh_token( string $refresh_token ): stdClass|bool {
-        $result = $this->guzzle_post(Constants::URL_OAUTH2_TOKEN, [
+        $result = $this->request( 'POST', Constants::URL_OAUTH2_TOKEN, [
             'Content-Type' => 'application/x-www-form-urlencoded; charset=utf-8'
         ], [
             'grant_type'    => 'refresh_token',
@@ -97,7 +97,7 @@ class AccountKit extends Wrapper {
      * @return stdClass|bool an empty response.
      */
     public function revoke_token( string $access_or_refresh_token ): stdClass|bool {
-        return $this->guzzle_post(Constants::URL_OAUTH2_TOKEN_REVOCATION, [
+        return $this->request( 'POST', Constants::URL_OAUTH2_TOKEN_REVOCATION, [
             'Content-Type' => 'application/x-www-form-urlencoded; charset=utf-8'
         ], [
             'token' => $access_or_refresh_token
@@ -106,15 +106,12 @@ class AccountKit extends Wrapper {
 
     /**
      * Parse an Access Token.
-     *
-     * TokenInfo Error 1500 / 15007 -> id_token is empty
-     *
      * @param string $access_token
      * @return TokenInfo|null
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/account-gettokeninfo-0000001050050585">Parsing an Access Token</a>
      */
     public function parse_access_token( string $access_token ): TokenInfo|null {
-        $result = $this->guzzle_post(Constants::URL_ACCOUNT_KIT_TOKEN_INFO, [
+        $result = $this->request( 'POST', Constants::URL_ACCOUNT_KIT_TOKEN_INFO, [
             'Content-Type' => 'application/x-www-form-urlencoded;charset=utf-8',
             'Authorization' => 'Bearer '.$this->access_token
         ], [
@@ -132,47 +129,34 @@ class AccountKit extends Wrapper {
     }
 
     /**
-     * TODO: Obtain User Information.
-     *
-     * @param string|null $user_access_token
+     * Obtain User Information.
+     * @param string $user_access_token
      * @return UserInfo|null
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/get-user-info-0000001060261938">Obtaining User Information</a>
      */
-    public function get_user_info( string|null $user_access_token ): UserInfo|stdClass {
-        $result = $this->guzzle_post(Constants::URL_ACCOUNT_KIT_USER_INFO, [
+    public function get_user_info( string $user_access_token ): UserInfo|stdClass {
+        return $this->request( 'POST', Constants::URL_ACCOUNT_KIT_USER_INFO, [
             'Content-Type: application/x-www-form-urlencoded;charset=utf-8',
-            "Authorization: Bearer $this->access_token" // OK
+            "Authorization: Bearer $this->access_token"
         ], [
-            'access_token' => $user_access_token,
-            'getNickName' => 1
+            'access_token' => $user_access_token
         ], true);
-        if (! is_object( $result ) ) {return new stdClass();}
-        if ( property_exists( $result, 'error' ) && property_exists( $result, 'sub_error' )) {
-            // die( 'oAuth2 Error '.$result->error.' / '.$result->sub_error.' -> '.$result->error_description );
-            return $result;
-        } else if ( property_exists( $result, 'error' ) ) {
-            // die( 'oAuth2 Error -> '.$result->error );
-            return $result;
-        } else {
-            return new UserInfo( $result );
-        }
     }
 
     /**
-     * TODO: Verify an ID Token.
-     *
-     * @param string|null $id_token
+     * Verify an ID Token.
+     * @param string $id_token
      * @return IdTokenInfo|null
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/account-verify-id-token_hms_reference-0000001050050577">Verifying an ID Token</a>
      */
-    public function verify_id_token( string|null $id_token ): IdTokenInfo|stdClass {
-        $result = $this->guzzle_post(Constants::URL_OAUTH2_TOKEN_INFO, [
-            'Content-Type: application/x-www-form-urlencoded;charset=utf-8',
-            "Authorization: Bearer $this->access_token" // OK
+    public function verify_id_token( string $id_token ): IdTokenInfo|stdClass {
+        $result = $this->request( 'POST', Constants::URL_OAUTH2_TOKEN_INFO, [
+            'Content-Type: application/x-www-form-urlencoded',
+            "Authorization: Bearer $this->access_token"
         ], [
             'id_token' => $id_token
-        ], true);
-        if (! is_object( $result ) ) {return new stdClass();}
+        ], false);
+
         if ( property_exists( $result, 'error' ) && property_exists( $result, 'sub_error' )) {
             // die( 'oAuth2 Error '.$result->error.' / '.$result->sub_error.' -> '.$result->error_description );
             return $result;

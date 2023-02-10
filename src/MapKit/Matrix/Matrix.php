@@ -70,7 +70,7 @@ class Matrix extends MapKit {
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/matrix-walking-0000001050161506">Batch Route Planning: Walking</a>
      */
     public function getWalkingMatrix( array $origins, array $destinations, string $language='en' ): bool|stdClass {
-        return $this->guzzle_post($this->getWalkingUrl(),
+        return $this->request('POST', $this->getWalkingUrl(),
             $this->request_headers(),
             $this->getSimplePayload( $origins, $destinations, $language )
         );
@@ -82,7 +82,7 @@ class Matrix extends MapKit {
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/matrix-bicycling-0000001050163459">Batch Route Planning: Cycling</a>
      */
     public function getCyclingMatrix( array $origins, array $destinations, string $language='en' ): bool|stdClass {
-        return $this->guzzle_post($this->getCyclingUrl(),
+        return $this->request('POST', $this->getCyclingUrl(),
             $this->request_headers(),
             $this->getSimplePayload( $origins, $destinations, $language )
         );
@@ -96,7 +96,7 @@ class Matrix extends MapKit {
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/matrix-driving-0000001050161508">Batch Route Planning: Driving</a>
      */
     public function getDrivingMatrix( array $origins, array $destinations, string $language='en' ): bool|stdClass {
-        return $this->guzzle_post($this->getDrivingUrl(),
+        return $this->request('POST', $this->getDrivingUrl(),
             $this->request_headers(),
             $this->getSimplePayload( $origins, $destinations, $language /* , ... */ )
         );

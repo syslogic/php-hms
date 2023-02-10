@@ -21,6 +21,6 @@ class Channels extends DriveKit {
         $query = [];
         if ($quotaId != null) {$query['quotaId'] = $quotaId;}
         if ($callback != null) {$query['callback'] = $callback;}
-        return $this->guzzle_post(Constants::DRIVE_KIT_CHANNELS_URL, $this->auth_headers(), $query);
+        return $this->request('POST', Constants::DRIVE_KIT_CHANNELS_URL, $this->auth_headers(), $query);
     }
 }

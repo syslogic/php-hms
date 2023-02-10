@@ -43,7 +43,7 @@ class Files extends DriveKit {
         if ($quotaId != null) {$query['quotaId'] = $quotaId;}
         if ($callback != null) {$query['callback'] = $callback;}
 
-        return $this->guzzle_get(Constants::DRIVE_KIT_FILES_URL, $this->auth_headers(), $query);
+        return $this->request( 'GET', Constants::DRIVE_KIT_FILES_URL, $this->auth_headers(), $query);
     }
 
     /**
@@ -81,11 +81,11 @@ class Files extends DriveKit {
         if ($appSettings != null) {$query['appSettings'] = $appSettings;}
         if ($writerHasCopyPermission) {$query['writerHasCopyPermission'] = $writerHasCopyPermission;}
         if ($writersHasSharePermission) {$query['writersHasSharePermission'] = $writersHasSharePermission;}
-        return $this->guzzle_post(Constants::DRIVE_KIT_FILES_URL, $this->auth_headers(), $query);
+        return $this->request('POST', Constants::DRIVE_KIT_FILES_URL, $this->auth_headers(), $query);
     }
 
     public function create_folder( string $fileName ): stdClass|bool {
-        return $this->guzzle_post(Constants::DRIVE_KIT_FILES_URL, $this->auth_headers(), [
+        return $this->request('POST', Constants::DRIVE_KIT_FILES_URL, $this->auth_headers(), [
             'fileName' => $fileName,
             'mimeType' => 'application/vnd.huawei-apps.folder'
         ]);
@@ -96,7 +96,7 @@ class Files extends DriveKit {
      * @return bool|stdClass The result of the API call.
      */
     public function get( string $file_id ): stdClass|bool {
-        return $this->guzzle_get(Constants::DRIVE_KIT_FILES_URL . '/' . $file_id, $this->auth_headers(), [
+        return $this->request( 'GET', Constants::DRIVE_KIT_FILES_URL . '/' . $file_id, $this->auth_headers(), [
             'fileId' => $file_id
         ]);
     }
