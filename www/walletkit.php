@@ -2,7 +2,7 @@
 require_once '../vendor/autoload.php';
 
 use HMS\AccountKit\AccountKit;
-use HMS\WalletKit\Model\Wallet;
+use HMS\WalletKit\Model\WalletObject;
 use HMS\WalletKit\WalletKit;
 
 // appending '/walletkit' to $oauth2_redirect_url.
@@ -29,7 +29,7 @@ include './oauth2.php';
             if (isset( $token_response ) && property_exists($token_response, 'access_token')) {
                 $wallet = new WalletKit( ['access_token' => $token_response->access_token] );
 
-                $result = $wallet->getEventTicket()->create(new Wallet([
+                $result = $wallet->getEventTicket()->create(new WalletObject([
 
 
                 ]));

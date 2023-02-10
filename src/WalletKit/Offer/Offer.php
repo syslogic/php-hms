@@ -2,7 +2,7 @@
 namespace HMS\WalletKit\Offer;
 
 use HMS\WalletKit\Constants;
-use HMS\WalletKit\Model\Wallet;
+use HMS\WalletKit\Model\WalletObject;
 use HMS\WalletKit\WalletKit;
 
 /**
@@ -17,7 +17,7 @@ class Offer extends WalletKit {
         parent::__construct( $config );
     }
 
-    public function create(Wallet $value) {
+    public function create(WalletObject $value) {
         $url = $this->base_url . Constants::WALLET_OFFER_MODEL;
         return $this->guzzle_post($url, $this->auth_headers(), $value);
     }

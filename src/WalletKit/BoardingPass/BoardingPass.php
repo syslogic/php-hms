@@ -2,7 +2,7 @@
 namespace HMS\WalletKit\BoardingPass;
 
 use HMS\WalletKit\Constants;
-use HMS\WalletKit\Model\Wallet;
+use HMS\WalletKit\Model\WalletObject;
 use HMS\WalletKit\WalletKit;
 
 /**
@@ -17,7 +17,7 @@ class BoardingPass extends WalletKit {
         parent::__construct( $config );
     }
 
-    public function create(Wallet $value) {
+    public function create(WalletObject $value) {
         $url = $this->base_url . Constants::WALLET_BOARDING_PASS_MODEL;
         return $this->guzzle_post($url, $this->auth_headers(), $value);
     }

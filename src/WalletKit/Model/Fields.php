@@ -16,8 +16,89 @@ class Fields {
     /** @var string $currencyCode Currency unit. */
     private string $currencyCode;
 
-    /** @var string $allowMultiUser Whether a pass can be claimed by multiple users. The options are true and false.
-     * If this field does not exist or is set to false, a pass can be claimed by one user only.
+    /**
+     * @var bool $allowMultiUser Whether a pass can be claimed by multiple users. The options are true
+     * and false. If this field does not exist or is set to false, a pass can be claimed by one user only.
      */
-    private string $allowMultiUser = 'false';
+    private bool $allowMultiUser = false;
+
+    /**
+     * @var Status $status Status information that you have defined,
+     * including the status of a pass and the time when the pass expires.
+     */
+    private Status $status;
+
+    /**
+     * @var array<RelatedPassIds> $relatedPassIds ID of a linked pass, if any.
+     * This object is only available for a loyalty card instance and is used to associate with a
+     * coupon instance under the same user account. Do not set this object in the loyalty card model.
+     */
+    private array $relatedPassIds;
+
+    /**
+     * @var array<LocationList> $locationList Geographical location.
+     * This parameter can be used if the pass supports geofence notifications.
+     */
+    private array $locationList;
+
+    /**
+     * @var BarCode $barCode
+     * Barcode or QR code, which is displayed when a pass is used.
+     * Leave this parameter empty if the barcode or QR code need not be displayed.
+     */
+    private BarCode $barCode;
+
+    /**
+     * @var array<ValueObject> $commonFields
+     * List of common displayable fields, namely, common attributes of a type of pass.
+     * For details about the fields used by each type of pass, please refer to:
+     * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-Guides/access_membership-0000001050044329#section1811873155314">UI Design</a>
+     */
+    private array $commonFields;
+
+    /**
+     * @var array<ValueObject> $appendFields
+     * List of additional displayable fields, which are defined by the issuer to distinguish the same type of passes in different scenarios.
+     * For details about the fields used by each type of pass, please refer to:
+     * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-Guides/access_membership-0000001050044329#section1811873155314">UI Design</a>
+     */
+    private array $appendFields;
+
+    /**
+     * @var array<ValueObject> $messageList
+     * Notification for a pass, which is irrelevant with the common displayable fields of the pass.
+     * It is used to notify users, for example, of using the pass in a given period of time.
+     * The parameter label is mandatory.
+     */
+    private array $messageList;
+
+    /**
+     * @var array<ValueObject> $timeList List of time information.
+     */
+    private array $timeList;
+
+    /**
+     * @var array<ValueObject> $imageList
+     * List of images that are displayed in a succession on the pass details page, for example,
+     * hotel pictures and services that are displayed successively on the hotel loyalty card.
+     */
+    private array $imageList;
+
+    /**
+     * @var array<ValueObject> $ticketInfoList
+     * Description of a ticket stub that you have defined.
+     * This parameter is available only for transit passes.
+     */
+    private array $ticketInfoList;
+
+    /**
+     * @var array<ValueObject> $urlList Links to be shown on a pass. The label field is mandatory.
+     */
+    private array $urlList;
+
+    /**
+     * @var array<Localized> $localized Local language, which is defined here and referenced by other fields
+     * through the corresponding key when the fields need to be displayed in the local language.
+     */
+    private array $localized;
 }
