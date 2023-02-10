@@ -30,7 +30,6 @@ include './oauth2.php';
                 $wallet = new WalletKit( ['access_token' => $token_response->access_token] );
                 $result = $wallet->getEventTicket()->create(new WalletObject([
 
-
                 ]));
                 echo '<pre>' . print_r($result, true) . '</pre>';
 

@@ -103,6 +103,10 @@ class Fields {
     private array $localized;
 
     public function __construct( array $config ) {
+        return $this->fromArray( $config );
+    }
+
+    private function fromArray( array $config ): Fields {
         if (isset($config['countryCode'])) {
             $this->countryCode = $config['countryCode'];
         }
@@ -148,9 +152,10 @@ class Fields {
         if (isset($config['localized'])) {
             $this->localized = $config['localized'];
         }
+        return $this;
     }
 
-    public function toObject() {
+    public function toObject(): object {
         return (object) [
             'countryCode'    => $this->countryCode,
             'currencyCode'   => $this->currencyCode,

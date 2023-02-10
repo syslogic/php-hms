@@ -10,10 +10,14 @@ namespace HMS\WalletKit\Model;
 class Localized {
 
     public function __construct( array $config ) {
-
+        return $this->fromArray( $config );
     }
 
-    public function toObject() {
+    private function fromArray( array $config ): Localized {
+        return $this;
+    }
+
+    public function toObject(): object {
         return (object) [
 
         ];

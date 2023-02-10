@@ -10,10 +10,14 @@ namespace HMS\WalletKit\Model;
 class RelatedPassIds {
 
     public function __construct( array $config ) {
-
+        return $this->fromArray( $config );
     }
 
-    public function toObject() {
+    private function fromArray( array $config ): RelatedPassIds {
+        return $this;
+    }
+
+    public function toObject(): object {
         return (object) [
 
         ];

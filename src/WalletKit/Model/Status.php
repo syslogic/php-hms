@@ -10,10 +10,14 @@ namespace HMS\WalletKit\Model;
 class Status {
 
     public function __construct( array $config ) {
-
+        return $this->fromArray( $config );
     }
 
-    public function toObject() {
+    private function fromArray( array $config ): Status {
+        return $this;
+    }
+
+    public function toObject(): object {
         return (object) [
 
         ];

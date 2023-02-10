@@ -37,12 +37,20 @@ class LinkDevicePass {
     private string $nfcType = '1'; // NFC enabled.
 
     public function __construct( array $config ) {
-
+        return $this->fromArray( $config );
     }
 
-    public function toObject() {
-        return (object) [
+    private function fromArray( array $config ): LinkDevicePass {
+        return $this;
+    }
 
+    public function toObject(): object {
+        return (object) [
+            'webServiceURL' => $this->webServiceURL,
+            'token' => $this->token,
+            'serialNumber' => $this->serialNumber,
+            'spPublickey' => $this->spPublickey,
+            'nfcType' => $this->nfcType
         ];
     }
 }

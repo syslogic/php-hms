@@ -19,6 +19,10 @@ class WalletObject {
     private LinkDevicePass $linkDevicePass;
 
     public function __construct( array $config ) {
+        return $this->fromArray( $config );
+    }
+
+    private function fromArray( array $config ): WalletObject {
         if (isset($config['passVersion'])) {$this->passVersion = $config['passVersion'];}
         if (isset($config['passTypeIdentifier'])) {$this->passTypeIdentifier = $config['passTypeIdentifier'];}
         if (isset($config['passStyleIdentifier'])) {$this->passStyleIdentifier = $config['passStyleIdentifier'];}
@@ -27,9 +31,10 @@ class WalletObject {
         if (isset($config['serialNumber'])) {$this->serialNumber = $config['serialNumber'];}
         if (isset($config['fields'])) {$this->fields = new Fields($config['fields']);}
         if (isset($config['linkDevicePass'])) {$this->linkDevicePass = new LinkDevicePass($config['linkDevicePass']);}
+        return $this;
     }
 
-    public function toObject() {
+    public function toObject(): object {
         return (object) [
             'passVersion'         => $this->passVersion,
             'passTypeIdentifier'  => $this->passTypeIdentifier,

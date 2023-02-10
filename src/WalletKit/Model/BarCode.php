@@ -24,6 +24,10 @@ class BarCode {
     private string $encoding = 'UTF-8';
 
     public function __construct( array $config ) {
+        return $this->fromArray( $config );
+    }
+
+    private function fromArray( array $config ): BarCode {
         if (!isset($config['value']) || !isset($config['text'])) {
             throw new InvalidArgumentException('BarCode requires at least "value" and "text".');
         } else {
@@ -32,9 +36,10 @@ class BarCode {
         }
         if (isset($config['type'])) {$this->type = $config['type'];}
         if (isset($config['encoding'])) {$this->text = $config['encoding'];}
+        return $this;
     }
-
-    public function toObject() {
+    
+    public function toObject(): object {
         return (object) [
             'value' => $this->value,
             'text' => $this->text,
