@@ -1,14 +1,14 @@
 <?php
 namespace HMS\DriveKit;
 
-use HMS\AccountKit\AccountKit;
 use HMS\Core\Wrapper;
 use HMS\DriveKit\About\About;
 use HMS\DriveKit\Changes\Changes;
+use HMS\DriveKit\Channels\Channels;
 use HMS\DriveKit\Comments\Comments;
 use HMS\DriveKit\Files\Files;
+use HMS\DriveKit\Thumbnail\Thumbnail;
 use InvalidArgumentException;
-use stdClass;
 
 /**
  * Class HMS DriveKit Wrapper
@@ -53,6 +53,12 @@ class DriveKit extends Wrapper {
 
     public function getFiles(): Files {
         return new Files( $this->config() );
+    }
+    public function getChannels(): Channels {
+        return new Channels( $this->config() );
+    }
+    public function getThumbnail(): Thumbnail {
+        return new Thumbnail( $this->config() );
     }
 
     public function getChanges(): Changes {
