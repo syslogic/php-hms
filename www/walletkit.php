@@ -18,9 +18,10 @@ include './oauth2.php';
         <?php
         if (isset($_POST) && isset($_POST['query'])) {
             if (isset( $token_response ) && property_exists($token_response, 'access_token')) {
-                $search = new WalletKit( ['access_token' => $token_response->access_token] );
+                $wallet = new WalletKit( ['access_token' => $token_response->access_token] );
 
-                $result = $search->getEventTicket()->create(new HwWalletObject([
+                $result = $wallet->getEventTicket()->create(new HwWalletObject([
+
 
                 ]));
                 echo '<pre>' . print_r($result, true) . '</pre>';

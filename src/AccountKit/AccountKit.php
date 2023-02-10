@@ -19,13 +19,13 @@ class AccountKit extends Wrapper {
 
     /** Unset properties irrelevant to the child class. */
     protected function post_init(): void {
-        if (property_exists($this, 'api_key')) {unset($this->api_key, $this->api_signature);}
-        if (property_exists($this, 'api_signature')) {unset($this->api_key, $this->api_signature);}
+        if (property_exists($this, 'api_key') && property_exists($this, 'api_signature')) {
+            unset($this->api_key, $this->api_signature);
+        }
     }
 
     /**
      * Obtaining an Access Token.
-     *
      * @return string|null the token string only.
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/account-obtain-token_hms_reference-0000001050048618">Obtaining Access Token</a>
      */
@@ -43,16 +43,19 @@ class AccountKit extends Wrapper {
     /**
      * Obtaining an access token by trading an authorization code.
      * Intentionally returning the raw response, because the expiry timestamp is relevant.
-     * @return stdClass|null the whole retrieved token object.
+     * @param string $authorization_code
+     * @param string|null $oauth2_redirect_url
+     * @return stdClass|null the retrieved token object.
      */
-    public function get_access_token_by_auth_code( string $authorization_code ): stdClass|bool {
+    public function get_access_token_by_auth_code( string $authorization_code, ?string $oauth2_redirect_url ): stdClass|bool {
+        $redirect_uri = is_string($oauth2_redirect_url)? $oauth2_redirect_url : $this->oauth2_redirect_url;
         $result = $this->guzzle_post(Constants::URL_OAUTH2_TOKEN, [
             'Content-Type' => 'application/x-www-form-urlencoded; charset=utf-8'
         ], [
             'grant_type'    => 'authorization_code',
             'client_id'     => $this->oauth2_client_id,
             'client_secret' => $this->oauth2_client_secret,
-            'redirect_uri'  => $this->oauth2_redirect_url,
+            'redirect_uri'  => $redirect_uri,
             'code'          => $authorization_code
         ], true);
 
@@ -67,7 +70,8 @@ class AccountKit extends Wrapper {
     /**
      * Obtaining an access token by trading a refresh token.
      * Intentionally returning the raw response, because the expiry timestamp is relevant.
-     * @return stdClass|null the whole retrieved token object.
+     * @param string $refresh_token
+     * @return stdClass|null the retrieved token object.
      */
     public function get_access_token_by_refresh_token( string $refresh_token ): stdClass|bool {
         $result = $this->guzzle_post(Constants::URL_OAUTH2_TOKEN, [
@@ -89,13 +93,14 @@ class AccountKit extends Wrapper {
 
     /**
      * Revoke an access or refresh token.
+     * @param string $access_or_refresh_token
      * @return stdClass|bool an empty response.
      */
-    public function revoke_token( string $token ): stdClass|bool {
+    public function revoke_token( string $access_or_refresh_token ): stdClass|bool {
         return $this->guzzle_post(Constants::URL_OAUTH2_TOKEN_REVOCATION, [
             'Content-Type' => 'application/x-www-form-urlencoded; charset=utf-8'
         ], [
-            'token' => $token
+            'token' => $access_or_refresh_token
         ], true);
     }
 
@@ -104,11 +109,11 @@ class AccountKit extends Wrapper {
      *
      * TokenInfo Error 1500 / 15007 -> id_token is empty
      *
-     * @param string|null $access_token
+     * @param string $access_token
      * @return TokenInfo|null
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/account-gettokeninfo-0000001050050585">Parsing an Access Token</a>
      */
-    public function parse_access_token( string|null $access_token ): TokenInfo|null {
+    public function parse_access_token( string $access_token ): TokenInfo|null {
         $result = $this->guzzle_post(Constants::URL_ACCOUNT_KIT_TOKEN_INFO, [
             'Content-Type' => 'application/x-www-form-urlencoded;charset=utf-8',
             'Authorization' => 'Bearer '.$this->access_token
@@ -214,13 +219,14 @@ class AccountKit extends Wrapper {
     /**
      * @return string the URL to redirect the browser to.
      */
-    public function get_login_url(): string {
+    public function get_login_url( ?string $oauth2_redirect_url=null ): string {
+        $redirect_uri = is_string($oauth2_redirect_url)? $oauth2_redirect_url : $this->oauth2_redirect_url;
         return Constants::URL_OAUTH2_TOKEN_AUTHORIZATION . '?' .
             http_build_query([
                 'response_type' => 'code',
                 'access_type' => 'offline',
                 'state' => 'state_parameter_passthrough_value',
-                'redirect_uri' => $this->oauth2_redirect_url,
+                'redirect_uri' => $redirect_uri,
                 'client_id' => $this->oauth2_client_id,
                 'scope' => $this->oauth2_api_scope
             ]);
