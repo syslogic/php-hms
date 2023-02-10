@@ -48,7 +48,7 @@ class AccountKit extends Wrapper {
      * @return stdClass|null the retrieved token object.
      */
     public function get_access_token_by_auth_code( string $authorization_code, ?string $oauth2_redirect_url ): stdClass|bool {
-        $redirect_uri = is_string($oauth2_redirect_url)? $oauth2_redirect_url : $this->oauth2_redirect_url;
+        $redirect_uri = is_string($oauth2_redirect_url) ? $oauth2_redirect_url : $this->oauth2_redirect_url;
         $result = $this->guzzle_post(Constants::URL_OAUTH2_TOKEN, [
             'Content-Type' => 'application/x-www-form-urlencoded; charset=utf-8'
         ], [
@@ -220,7 +220,7 @@ class AccountKit extends Wrapper {
      * @return string the URL to redirect the browser to.
      */
     public function get_login_url( ?string $oauth2_redirect_url=null ): string {
-        $redirect_uri = is_string($oauth2_redirect_url)? $oauth2_redirect_url : $this->oauth2_redirect_url;
+        $redirect_uri = is_string($oauth2_redirect_url) ? $oauth2_redirect_url : $this->oauth2_redirect_url;
         return Constants::URL_OAUTH2_TOKEN_AUTHORIZATION . '?' .
             http_build_query([
                 'response_type' => 'code',
