@@ -4,7 +4,7 @@ require_once '../vendor/autoload.php';
 use HMS\AccountKit\AccountKit;
 use HMS\SearchKit\SearchKit;
 
-// appending '/searchkit' to $oauth2_redirect_url.
+// appending '/searchkit' to the $oauth2_redirect_url.
 if (isset($_SERVER['HUAWEI_OAUTH2_REDIRECT_URL'])) {
     $_SERVER['HUAWEI_OAUTH2_REDIRECT_URL'] = $_SERVER['HUAWEI_OAUTH2_REDIRECT_URL'] . '/searchkit';
 }

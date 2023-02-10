@@ -4,13 +4,12 @@ require_once '../vendor/autoload.php';
 use HMS\AccountKit\AccountKit;
 use HMS\DriveKit\DriveKit;
 
-// appending '/drivekit' to $oauth2_redirect_url.
+// appending '/drivekit' to the $oauth2_redirect_url.
 if (isset($_SERVER['HUAWEI_OAUTH2_REDIRECT_URL'])) {
     $_SERVER['HUAWEI_OAUTH2_REDIRECT_URL'] = $_SERVER['HUAWEI_OAUTH2_REDIRECT_URL'] . '/drivekit';
 }
-// appending 'drive.readonly' to $oauth2_api_scope.
+// appending 'drive' (read/write) to $oauth2_api_scope.
 if (isset($_SERVER['HUAWEI_OAUTH2_API_SCOPE'])) {
-    // $_SERVER['HUAWEI_OAUTH2_API_SCOPE'] = $_SERVER['HUAWEI_OAUTH2_API_SCOPE'] . ' https://www.huawei.com/auth/drive.readonly';
     $_SERVER['HUAWEI_OAUTH2_API_SCOPE'] = $_SERVER['HUAWEI_OAUTH2_API_SCOPE'] . ' https://www.huawei.com/auth/drive';
 }
 include './oauth2.php';
