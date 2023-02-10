@@ -2,7 +2,6 @@
 namespace Tests;
 
 use HMS\AdsKit\AdsKit;
-use stdClass;
 
 /**
  * HMS AdsKit Test
@@ -25,7 +24,7 @@ class AdsKitTest extends BaseTestCase {
 
     /** Test: Publisher Report  */
     public function test_publisher_report() {
-        $filtering = new stdClass();
+        $filtering = new \stdClass();
         foreach (self::CURRENCIES as $currency) {
             $filtering->currency = $currency;
             $result = self::$client->publisher_report( self::START_DATE,self::END_DATE, $filtering );

@@ -5,7 +5,7 @@ use HMS\AnalyticsKit\AnalyticsKit;
 use HMS\AnalyticsKit\ResultCodes;
 
 /**
- * TODO: HMS AnalyticsKit Test
+ * HMS AnalyticsKit Test
  *
  * @author Martin Zeitler
  */

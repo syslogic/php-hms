@@ -4,7 +4,7 @@ namespace Tests;
 use HMS\CloudSms\CloudSms;
 
 /**
- * HMS SmsService Test
+ * HMS CloudSms Test
  *
  * @author Martin Zeitler
  */

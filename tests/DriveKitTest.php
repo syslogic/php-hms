@@ -4,14 +4,14 @@ namespace Tests;
 use HMS\DriveKit\DriveKit;
 
 /**
- * HMS DriveKit Test
+ * HMS DriveKit Test: Skipped.
  *
  * @author Martin Zeitler
  */
 class DriveKitTest extends BaseTestCase {
 
+    /** @var DriveKit|null */
     private static ?DriveKit $client;
-    private static $fileId = '';
 
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {

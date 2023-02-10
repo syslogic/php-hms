@@ -2,9 +2,7 @@
 namespace Tests;
 
 use HMS\AccountKit\AccountKit;
-use HMS\AccountKit\IdTokenInfo;
 use HMS\AccountKit\TokenInfo;
-use HMS\AccountKit\UserInfo;
 
 /**
  * HMS AccountKit Test

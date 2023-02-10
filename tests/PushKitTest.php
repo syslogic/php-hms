@@ -296,17 +296,11 @@ class PushKitTest extends BaseTestCase {
 
     /** Test: Model UpstreamMessage. */
     public function test_upstream_message() {
-
         $item = new UpstreamMessage( self::$hmac_verification_key );
-        self::assertTrue( is_null( $item->getRawBody() ) );
-
         $data_str = '{"key": "value"}';
         $raw_body = '{"message_id": "1", "from": "'.self::$test_token.'", "category": "'.self::$package_name.'", "data": "'.base64_encode($data_str).'"}';
-        $signature = 'timestamp=1563105451261; nonce=:; value=E4YeOsnMtHZ6592U8B9S37238E+Hwtjfrmpf8AQXF+c=';
-
-        // TODO: instead test this with an actual upstream message $_POST.
-        // self::assertTrue( $item->hmac_verify( $raw_body, $secret_key, $signature ) );
-        self::assertFalse( $item->hmac_verify( $raw_body, $signature ) );
+        $signature = 'timestamp=1563105451261; nonce=:; value=NzliODAzYTAxNWE2NjA2ZGFmMGNkZWIyY2E0ZTQzYWQ4YWI1ZmI4NjgxNzA1ODY0NzBmMmQ4MTZhNTEyNDY3Ng==';
+        self::assertTrue( $item->hmac_verify( $raw_body, $signature ) );
     }
 
     /** Test: Model ReceiptStatus. */

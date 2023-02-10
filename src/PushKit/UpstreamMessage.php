@@ -27,7 +27,7 @@ class UpstreamMessage {
             throw new InvalidArgumentException(self::ENV_VAR_HUAWEI_HMAC_VERIFICATION_KEY );
         }
         $this->hmac_verification_key = $key;
-        $this->parse_request_body();
+        // $this->parse_request_body();
     }
 
     public function getRawBody(): string|null {
