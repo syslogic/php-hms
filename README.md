@@ -28,7 +28,7 @@ This project aims to abstract Huawei REST API, according to the official API doc
 |                           [`CloudSms`](https://github.com/syslogic/php-hms/blob/master/src/CloudSms) |                                                                                                                                                                  untested                                                                                                                                                                  |
 |                       [`WalletKit`](https://github.com/syslogic/php-hms/blob/master/src/WalletKit) * |                                                                                                                                                                                                                                                                                                                                            |
 
-The endpoint marked with `*` require two-legged auth flow; see the examples in directory `www`.
+The endpoint marked with `*` require two-legged auth flow; see the examples in directory [`www`](https://github.com/syslogic/php-hms/blob/master/www).
 
 [![PHP Composer](https://github.com/syslogic/php-hms/actions/workflows/ci-php.yml/badge.svg)](https://github.com/syslogic/php-hms/actions/workflows/ci-php.yml)
 
