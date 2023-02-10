@@ -20,7 +20,6 @@ This project aims to abstract Huawei REST API, according to the official API doc
 |                     [`LocationKit`](https://github.com/syslogic/php-hms/blob/master/src/LocationKit) |                                 untested                                 |
 |                               [`AdsKit`](https://github.com/syslogic/php-hms/blob/master/src/AdsKit) |                                 working                                  |
 |                   [`AnalyticsKit`](https://github.com/syslogic/php-hms/blob/master/src/AnalyticsKit) |                                 working                                  |
-|       [`AppGallery\Connect`](https://github.com/syslogic/php-hms/tree/master/src/AppGallery/Connect) |                                                                          |
 | [`AppGallery\Publishing`](https://github.com/syslogic/php-hms/tree/master/src/AppGallery/Publishing) | [plugin](https://github.com/syslogic/agconnect-publishing-gradle-plugin) |
 |                         [`DriveKit`](https://github.com/syslogic/php-hms/tree/master/src/DriveKit) * |                                partially                                 |
 |                     [`GameService`](https://github.com/syslogic/php-hms/tree/master/src/GameService) |                                 untested                                 |
