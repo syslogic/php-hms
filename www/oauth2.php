@@ -21,8 +21,12 @@ $api = new AccountKit( [
 if (isset($_GET['code'])) {
     $token_response = $api->get_access_token_by_auth_code( $_GET['code'] );
     if ($token_response != null) {
-        // convert the expiry timestamp from relative to absolute value.
-        file_put_contents($token_path, $token_response);
+        if (property_exists($token_response, 'code') && property_exists($token_response, 'message')) {
+            $error = 'Error ' . $token_response->code .' / '. $token_response->message;
+        } else {
+            // convert the expiry timestamp from relative to absolute value.
+            file_put_contents($token_path, $token_response);
+        }
     }
 } else if (file_exists($token_path) && filesize($token_path) > 2) {
 
@@ -35,4 +39,8 @@ if (isset($_GET['code'])) {
             $token_response = $api->get_access_token_by_refresh_token( $token_response->refresh_token );
         }
     }
+}
+
+if (isset($_GET['error']) && isset($_GET['sub_error']) && $_GET['error_description']) {
+    $error = 'Error ' . $_GET['error'] .' / '. $_GET['sub_error'] . ' ' . $_GET['error_description'];
 }

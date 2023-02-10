@@ -1,0 +1,5 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="walletkit.php" type="PhpWebAppRunConfigurationType" factoryName="PHP Web Application" server_name="huawei.local" start_url="/walletkit.php">
+    <method v="2" />
+  </configuration>
+</component>

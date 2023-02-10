@@ -8,6 +8,10 @@ use HMS\DriveKit\DriveKit;
 if (isset($_SERVER['HUAWEI_OAUTH2_REDIRECT_URL'])) {
     $_SERVER['HUAWEI_OAUTH2_REDIRECT_URL'] = $_SERVER['HUAWEI_OAUTH2_REDIRECT_URL'] . '/drivekit';
 }
+// appending 'drive.readonly' to $oauth2_api_scope.
+if (isset($_SERVER['HUAWEI_OAUTH2_API_SCOPE'])) {
+    $_SERVER['HUAWEI_OAUTH2_API_SCOPE'] = $_SERVER['HUAWEI_OAUTH2_API_SCOPE'] . ' https://www.huawei.com/auth/drive.readonly';
+}
 include './oauth2.php';
 ?>
 <html lang="en">
@@ -22,17 +26,23 @@ include './oauth2.php';
         </script>
     </head>
     <body>
-    <?php
-    if (isset( $token_response ) && property_exists($token_response, 'access_token')) {
-            $drive = new DriveKit( ['access_token' => $token_response->access_token] );
-            $result = $drive->getAbout()->get();
-            echo '<pre>' . print_r($result, true) . '</pre>';
-            if ($result->code == 401) {
+        <div>
+        <?php
+        if (isset($error)) {echo '' . $error . '';}
+        if (isset( $token_response ) && property_exists($token_response, 'access_token')) {
+                $drive = new DriveKit( ['access_token' => $token_response->access_token] );
+                $result = $drive->getAbout()->get();
+                if (property_exists($result, 'code') && $result->code == 401) {
+                    echo '<p><button onclick=redirect()>Login with HUAWEI ID</button></p>';
+                } else {
+                    echo '<pre>' . print_r($result, true) . '</pre>';
+                    $result = $drive->getFiles()->list();
+                    echo '<pre>' . print_r($result, true) . '</pre>';
+                }
+            } else {
                 echo '<p><button onclick=redirect()>Login with HUAWEI ID</button></p>';
             }
-        } else {
-            echo '<p><button onclick=redirect()>Login with HUAWEI ID</button></p>';
-        }
-    ?>
+        ?>
+        </div>
     </body>
 </html>
