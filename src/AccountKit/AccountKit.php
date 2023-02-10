@@ -47,7 +47,7 @@ class AccountKit extends Wrapper {
      * @param string|null $oauth2_redirect_url
      * @return stdClass|null the retrieved token object.
      */
-    public function get_access_token_by_auth_code( string $authorization_code, ?string $oauth2_redirect_url ): stdClass|bool {
+    public function get_access_token_by_auth_code( string $authorization_code, ?string $oauth2_redirect_url=null ): stdClass|bool {
         $redirect_uri = is_string($oauth2_redirect_url) ? $oauth2_redirect_url : $this->oauth2_redirect_url;
         $result = $this->guzzle_post(Constants::URL_OAUTH2_TOKEN, [
             'Content-Type' => 'application/x-www-form-urlencoded; charset=utf-8'

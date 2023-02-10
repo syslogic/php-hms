@@ -91,22 +91,4 @@ class WalletKit extends Wrapper {
     public function getTransitPass(): TransitPass {
         return new TransitPass( $this->config() );
     }
-
-    /**
-     * Callback Notification API of Wallet Pass Events
-     *
-     * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/callback-0000001050160427">Callback Notification API of Wallet Pass Events</a>
-     */
-    public function onWalletPassEvent( string $payload ): void {
-
-    }
-
-    /**
-     * Callback Notification API of NFC Events
-     *
-     * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/callback-0000001050160427">Callback Notification API of NFC Events</a>
-     */
-    public function onNfcEvent( string $payload ): void {
-
-    }
 }

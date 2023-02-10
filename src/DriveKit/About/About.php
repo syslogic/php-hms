@@ -19,6 +19,8 @@ class About extends DriveKit {
      * @return bool|stdClass The result of the API call.
      */
     public function get( string $fields='*' ): stdClass|bool {
-        return $this->guzzle_get(Constants::DRIVE_KIT_ABOUT_URL . $fields, $this->auth_headers(), []);
+        return $this->guzzle_get(Constants::DRIVE_KIT_ABOUT_URL . $fields, $this->auth_headers(), [
+            'fields' => $fields
+        ]);
     }
 }
