@@ -21,6 +21,7 @@
     "url": "https://www.paypal.me/syslogic"
   }],
   "scripts": {
+    "docs": "phpDocumentor.phar",
     "test": "vendor/bin/phpunit --bootstrap vendor/autoload.php --configuration phpunit.xml --testsuite main",
     "coverage_linux": "export XDEBUG_MODE=coverage && vendor/bin/phpunit --bootstrap vendor/autoload.php --configuration coverage.xml --testsuite main",
     "coverage_windows": "setlocal xdebug.mode=coverage && %cd%/vendor/bin/phpunit --bootstrap vendor/autoload.php --configuration coverage.xml --testsuite main"
