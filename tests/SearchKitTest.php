@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpPropertyOnlyWrittenInspection */
 namespace Tests;
 
 use HMS\SearchKit\SearchKit;
@@ -10,6 +10,7 @@ use HMS\SearchKit\SearchKit;
  */
 class SearchKitTest extends BaseTestCase {
 
+    /** @var SearchKit|null $client */
     private static ?SearchKit $client;
 
     /** This method is called before the first test of this test class is run. */
@@ -20,6 +21,6 @@ class SearchKitTest extends BaseTestCase {
 
     /** Test: Skipped. */
     public function test_skipped() {
-        self::markTestSkipped( "Huawei SearchKit uses OAuth2 flow -> www/searchkit.php." );
+        self::markTestSkipped( "SearchKit uses interactive OAuth2 flow -> www/searchkit.php." );
     }
 }

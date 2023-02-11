@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpPropertyOnlyWrittenInspection */
 namespace Tests;
 
 use HMS\DriveKit\DriveKit;
@@ -10,7 +10,7 @@ use HMS\DriveKit\DriveKit;
  */
 class DriveKitTest extends BaseTestCase {
 
-    /** @var DriveKit|null */
+    /** @var DriveKit|null $client */
     private static ?DriveKit $client;
 
     /** This method is called before the first test of this test class is run. */
@@ -21,6 +21,6 @@ class DriveKitTest extends BaseTestCase {
 
     /** Test: Skipped. */
     public function test_skipped() {
-        self::markTestSkipped( "Huawei DriveKit uses OAuth2 flow -> www/drivekit.php." );
+        self::markTestSkipped( "DriveKit uses interactive OAuth2 flow -> www/drivekit.php." );
     }
 }

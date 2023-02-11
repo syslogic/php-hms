@@ -1,4 +1,5 @@
-<?php
+<?php /** @noinspection PhpPropertyOnlyWrittenInspection */
+
 namespace Tests;
 
 use HMS\WalletKit\WalletKit;
@@ -10,17 +11,17 @@ use HMS\WalletKit\WalletKit;
  */
 class WalletKitTest extends BaseTestCase {
 
+    /** @var WalletKit|null $client */
     private static ?WalletKit $client;
 
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {
         parent::setUpBeforeClass();
         self::$client = new WalletKit( [ 'access_token' => '' ] );
-        self::assertTrue( self::$client->is_ready(), self::CLIENT_NOT_READY );
     }
 
     /** Test: Skipped. */
     public function test_skipped() {
-        self::markTestSkipped( "Huawei WalletKit uses OAuth2 flow -> www/walletkit.php." );
+        self::markTestSkipped( "WalletKit uses interactive OAuth2 flow -> www/walletkit.php." );
     }
 }

@@ -9,17 +9,37 @@ namespace HMS\WalletKit\Model;
  */
 class Status {
 
-    public function __construct( array $config ) {
-        return $this->fromArray( $config );
-    }
+    /** @var string|null $state Status of the pass. Values: active, inactive, completed, and expired. */
+    private ?string $state;
 
-    private function fromArray( array $config ): Status {
+    /** @var string|null $effectTime UTC time when the pass takes effect. */
+    private ?string $effectTime;
+
+    /** @var string|null $expireTime UTC time when the pass expires. The pass will automatically expire if the set expiration time is earlier than the current time. */
+    private ?string $expireTime;
+
+    public function __construct( array $config ) {
+        if (! isset($config['state']) || ! in_array($config['state'], ['active', 'inactive', 'completed', 'expired'])) {
+            throw new \InvalidArgumentException('Status requires at least a "state".');
+        }
+        if (isset($config['effectTime'])) {$this->effectTime = $config['effectTime'];}
+        if (isset($config['expireTime'])) {$this->value = $config['expireTime'];}
         return $this;
     }
 
-    public function toObject(): object {
-        return (object) [
+    public static function fromArray(array $model ): Status {
+        return new Status( $model );
+    }
 
+    public function asObject(): object {
+        return (object) [
+            'state' => $this->state,
+            'effectTime' => $this->effectTime,
+            'expireTime' => $this->expireTime
         ];
+    }
+
+    function validate(): bool {
+        return true;
     }
 }

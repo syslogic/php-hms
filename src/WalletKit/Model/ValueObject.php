@@ -1,37 +1,52 @@
 <?php
 namespace HMS\WalletKit\Model;
 
+use HMS\Core\Model;
+
 /**
  * Class HMS WalletKit Value Object
  *
  * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/valueobject-0000001050160327">ValueObject</a>
  * @author Martin Zeitler
  */
-class ValueObject {
+class ValueObject extends Model {
 
+    /** @var string $key Field ID. This ID must be unique across all pass objects. */
     private string $key;
 
+    /** @var string $value Default field value. */
     private string $value;
+
+    /**
+     * @var string|null $label Default field label.
+     * Whether label is mandatory or optional is determined each specific pass.
+     */
     private ?string $label;
+
+    /**
+     * @var string|null $localizedValue
+     * If the value is localized, this parameter should correspond to the key in Localized.
+     * If this parameter is not set, the default value will be used in all languages.
+     */
     private ?string $localizedValue;
+
+    /**
+     * @var string|null $localizedLabel
+     * If the label is localized, this parameter should correspond to the key in Localized.
+     * If this parameter is not set, the default value will be used in all languages.
+     */
     private ?string $localizedLabel;
+
+    /** @var string|null $redirectUrl Redirection link. */
     private ?string $redirectUrl;
+
+    /** @var string|null $type
+     * Type of the destination page of a redirection link, which will be used for urlList and imageList.
+     * The options are URL, APP, and FASTAPP.
+     */
     private ?string $type;
 
     public function __construct(array $config ) {
-        return $this->fromArray( $config );
-    }
-
-    /**
-     * key Field ID. This ID must be unique across all pass objects.
-     * value Default field value.
-     * label Default field label. Whether label is mandatory or optional is determined eacg specific pass.
-     * localizedValue If the value is localized, this parameter should correspond to the key in Localized. If this parameter is not set, the default value will be used in all languages.
-     * localizedLabel If the label is localized, this parameter should correspond to the key in Localized. If this parameter is not set, the default value will be used in all languages.
-     * redirectUrl Redirection link,
-     * type Type of the destination page of a redirection link, which will be used for urlList and imageList. The options are URL, APP, and FASTAPP.
-    */
-    private function fromArray( array $config ): ValueObject {
         if (! isset($config['key']) || ! isset($config['value'])) {
             throw new \InvalidArgumentException('ValueObject requires at least "key" and "value".');
         }
@@ -45,7 +60,11 @@ class ValueObject {
         return $this;
     }
 
-    public function toObject(): object {
+    public static function fromArray( array $model ): ValueObject {
+        return new ValueObject( $model );
+    }
+
+    public function asObject(): object {
         return (object) [
             'key' => $this->key,
             'value' => $this->value,
@@ -55,5 +74,9 @@ class ValueObject {
             'redirectUrl' => $this->redirectUrl,
             'type' => $this->type
         ];
+    }
+
+    function validate(): bool {
+        return true;
     }
 }

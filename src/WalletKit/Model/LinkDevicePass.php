@@ -2,13 +2,15 @@
 
 namespace HMS\WalletKit\Model;
 
+use HMS\Core\Model;
+
 /**
  * Class HMS WalletKit Link Device Pass
  *
  * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/linkdevicepass-0000001050160329">LinkDevicePass</a>
  * @author Martin Zeitler
  */
-class LinkDevicePass {
+class LinkDevicePass extends Model {
 
     /** @var string $webServiceURL NFC API URL that you provided. */
     private string $webServiceURL;
@@ -37,14 +39,19 @@ class LinkDevicePass {
     private string $nfcType = '1'; // NFC enabled.
 
     public function __construct( array $config ) {
-        return $this->fromArray( $config );
-    }
-
-    private function fromArray( array $config ): LinkDevicePass {
+        if (isset($config['webServiceURL'])) {$this->webServiceURL = $config['webServiceURL'];}
+        if (isset($config['token'])) {$this->token = $config['token'];}
+        if (isset($config['serialNumber'])) {$this->serialNumber = $config['serialNumber'];}
+        if (isset($config['passVersion'])) {$this->passVersion = $config['passVersion'];}
+        if (isset($config['spPublickey'])) {$this->token = $config['spPublickey'];}
         return $this;
     }
 
-    public function toObject(): object {
+    public static function fromArray(array $model ): LinkDevicePass {
+        return new LinkDevicePass( $model );
+    }
+
+    public function asObject(): object {
         return (object) [
             'webServiceURL' => $this->webServiceURL,
             'token' => $this->token,
@@ -52,5 +59,9 @@ class LinkDevicePass {
             'spPublickey' => $this->spPublickey,
             'nfcType' => $this->nfcType
         ];
+    }
+
+    function validate(): bool {
+        return true;
     }
 }

@@ -17,9 +17,9 @@ class EventTicket extends WalletKit {
         parent::__construct( $config );
     }
 
-    public function create(WalletObject $value) {
+    public function create(WalletObject $value): bool|\stdClass {
         $url = $this->base_url . Constants::WALLET_EVENT_TICKET_MODEL;
-        return $this->request('POST', $url, $this->auth_headers(), $value->toObject());
+        return $this->request('POST', $url, $this->auth_headers(), $value->asObject());
     }
 
     public function query(string $model_id): bool|\stdClass {

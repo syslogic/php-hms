@@ -2,27 +2,26 @@
 
 namespace HMS\WalletKit\Model;
 
+use HMS\Core\Model;
+
 /**
  * Class HMS Wallet Object
  *
  * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/def-0000001050160319">HwWalletObject</a>
  * @author Martin Zeitler
  */
-class WalletObject {
-    private string $passVersion = "1.0";
-    private string $passTypeIdentifier;
-    private string $passStyleIdentifier;
-    private string $organizationName;
-    private string $organizationPassId;
-    private string $serialNumber;
-    private Fields $fields;
-    private LinkDevicePass $linkDevicePass;
+class WalletObject extends Model {
+
+    private ?string $passVersion = "1.0";
+    private ?string $passTypeIdentifier = null;
+    private ?string $passStyleIdentifier = null;
+    private ?string $organizationName = null;
+    private ?string $organizationPassId = null;
+    private ?string $serialNumber = null;
+    private ?Fields $fields = null;
+    private ?LinkDevicePass $linkDevicePass = null;
 
     public function __construct( array $config ) {
-        return $this->fromArray( $config );
-    }
-
-    private function fromArray( array $config ): WalletObject {
         if (isset($config['passVersion'])) {$this->passVersion = $config['passVersion'];}
         if (isset($config['passTypeIdentifier'])) {$this->passTypeIdentifier = $config['passTypeIdentifier'];}
         if (isset($config['passStyleIdentifier'])) {$this->passStyleIdentifier = $config['passStyleIdentifier'];}
@@ -34,7 +33,11 @@ class WalletObject {
         return $this;
     }
 
-    public function toObject(): object {
+    public static function fromArray( array $model ): WalletObject {
+        return new WalletObject( $model );
+    }
+
+    public function asObject(): object {
         return (object) [
             'passVersion'         => $this->passVersion,
             'passTypeIdentifier'  => $this->passTypeIdentifier,
@@ -42,8 +45,12 @@ class WalletObject {
             'organizationName'    => $this->organizationName,
             'organizationPassId'  => $this->organizationPassId,
             'serialNumber'        => $this->serialNumber,
-            'fields'              => $this->fields->toObject(),
-            'linkDevicePass'      => $this->linkDevicePass->toObject()
+            'fields'              => $this->fields->asObject(),
+            'linkDevicePass'      => $this->linkDevicePass->asObject()
         ];
+    }
+
+    function validate(): bool {
+        return true;
     }
 }

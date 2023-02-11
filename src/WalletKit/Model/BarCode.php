@@ -1,7 +1,7 @@
 <?php
 namespace HMS\WalletKit\Model;
 
-use InvalidArgumentException;
+use HMS\Core\Model;
 
 /**
  * Class HMS WalletKit Barcode
@@ -9,7 +9,7 @@ use InvalidArgumentException;
  * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/barcode-0000001050158372">BarCode</a>
  * @author Martin Zeitler
  */
-class BarCode {
+class BarCode extends Model {
 
     /** @var string $value Barcode content. */
     private string $value;
@@ -24,27 +24,34 @@ class BarCode {
     private string $encoding = 'UTF-8';
 
     public function __construct( array $config ) {
-        return $this->fromArray( $config );
-    }
-
-    private function fromArray( array $config ): BarCode {
-        if (!isset($config['value']) || !isset($config['text'])) {
-            throw new InvalidArgumentException('BarCode requires at least "value" and "text".');
+        if (! isset($model['value']) || ! isset($model['text'])) {
+            throw new \InvalidArgumentException('BarCode requires at least "value" and "text".');
         } else {
-            $this->value = $config['value'];
-            $this->text = $config['text'];
+            $this->value = $model['value'];
+            $this->text = $model['text'];
         }
         if (isset($config['type'])) {$this->type = $config['type'];}
         if (isset($config['encoding'])) {$this->text = $config['encoding'];}
         return $this;
     }
 
-    public function toObject(): object {
+    public static function fromArray(array $model ): BarCode {
+        return new BarCode( $model );
+    }
+
+    public function asObject(): object {
         return (object) [
             'value' => $this->value,
             'text' => $this->text,
             'type' => $this->type,
             'encoding' => $this->encoding
         ];
+    }
+
+    function validate(): bool {
+        if ($this->value == null) {return false;}
+        if ($this->text == null) {return false;}
+        if (! in_array($this->type, ['codabar', 'qrCode'])) {return false;}
+        return true;
     }
 }

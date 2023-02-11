@@ -1,25 +1,24 @@
 <?php
 namespace HMS\WalletKit\Model;
 
+use HMS\Core\Model;
+
 /**
  * Class HMS WalletKit Location
  *
  * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/locationlist-0000001050160325">LocationList</a>
  * @author Martin Zeitler
  */
-class Location {
+class Location extends Model {
 
+    /** @var string $latitude */
     private string $latitude;
 
+    /** @var string $longitude */
     private string $longitude;
 
-
     public function __construct( array $config ) {
-        return $this->fromArray( $config );
-    }
-
-    private function fromArray( array $config ): Location {
-        if (! isset($config['$longitude']) || ! isset($config['longitude'])) {
+        if (! isset($config['latitude']) || ! isset($config['longitude'])) {
             throw new \InvalidArgumentException('Location requires at least "latitude" and "longitude".');
         }
         $this->latitude = $config['latitude'];
@@ -27,10 +26,18 @@ class Location {
         return $this;
     }
 
-    public function toObject(): object {
+    public static function fromArray(array $model ): Location {
+        return new Location( $model );
+    }
+
+    public function asObject(): object {
         return (object) [
             'latitude' => $this->latitude,
             'longitude' => $this->longitude
         ];
+    }
+
+    function validate(): bool {
+        return true;
     }
 }

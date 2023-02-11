@@ -8,7 +8,6 @@ use HMS\WalletKit\GiftCard\GiftCard;
 use HMS\WalletKit\LoyaltyCard\LoyaltyCard;
 use HMS\WalletKit\Offer\Offer;
 use HMS\WalletKit\TransitPass\TransitPass;
-use InvalidArgumentException;
 
 /**
  * Class HMS WalletKit Wrapper
@@ -31,7 +30,7 @@ class WalletKit extends Wrapper {
         if (is_array($config) && isset($config['access_token'])) {
             $this->access_token = $config['access_token'];
         } else {
-            throw new InvalidArgumentException('WalletKit requires an user access token.');
+            throw new \InvalidArgumentException('WalletKit requires an user access token.');
         }
     }
 
@@ -48,6 +47,16 @@ class WalletKit extends Wrapper {
             'debug_mode' => $this->debug_mode,
             'base_url' => $this->base_url
         ];
+    }
+
+    public function withDebugEnabled(): WalletKit {
+        $this->debug_mode = true;
+        return $this;
+    }
+
+    public function withBaseUrl( string $base_url ): WalletKit {
+        $this->base_url = $base_url;
+        return $this;
     }
 
     /**
