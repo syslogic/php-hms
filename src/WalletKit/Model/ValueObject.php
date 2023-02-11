@@ -21,30 +21,30 @@ class ValueObject extends Model {
      * @var string|null $label Default field label.
      * Whether label is mandatory or optional is determined each specific pass.
      */
-    private ?string $label;
+    private ?string $label = null;
 
     /**
      * @var string|null $localizedValue
      * If the value is localized, this parameter should correspond to the key in Localized.
      * If this parameter is not set, the default value will be used in all languages.
      */
-    private ?string $localizedValue;
+    private ?string $localizedValue = null;
 
     /**
      * @var string|null $localizedLabel
      * If the label is localized, this parameter should correspond to the key in Localized.
      * If this parameter is not set, the default value will be used in all languages.
      */
-    private ?string $localizedLabel;
+    private ?string $localizedLabel = null;
 
     /** @var string|null $redirectUrl Redirection link. */
-    private ?string $redirectUrl;
+    private ?string $redirectUrl = null;
 
     /** @var string|null $type
      * Type of the destination page of a redirection link, which will be used for urlList and imageList.
      * The options are URL, APP, and FASTAPP.
      */
-    private ?string $type;
+    private ?string $type = null;
 
     public function __construct(array $config ) {
         if (! isset($config['key']) || ! isset($config['value'])) {
@@ -65,15 +65,15 @@ class ValueObject extends Model {
     }
 
     public function asObject(): object {
-        return (object) [
-            'key' => $this->key,
-            'value' => $this->value,
-            'label' => $this->label,
-            'localizedValue' => $this->localizedValue,
-            'localizedLabel' => $this->localizedLabel,
-            'redirectUrl' => $this->redirectUrl,
-            'type' => $this->type
-        ];
+        $data = new \stdClass();
+        $data->key = $this->key;
+        $data->value = $this->value;
+        if ($this->label != null) {$data->label = $this->label;}
+        if ($this->localizedValue != null) {$data->localizedValue = $this->localizedValue;}
+        if ($this->localizedLabel != null) {$data->localizedLabel = $this->localizedLabel;}
+        if ($this->redirectUrl != null) {$data->redirectUrl = $this->redirectUrl;}
+        if ($this->type != null) {$data->type = $this->type;}
+        return $data;
     }
 
     function validate(): bool {
