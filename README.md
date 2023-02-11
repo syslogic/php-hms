@@ -145,6 +145,11 @@ Running tests with code coverage on Linux:
 composer run-script coverage_linux
 ````
 
+Generate documentation with `phpDocumentor.phar`:
+````shell
+composer run-script docs
+````
+
 </details>
 
 ### Known Issues
