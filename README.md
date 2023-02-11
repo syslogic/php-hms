@@ -23,11 +23,11 @@ This project aims to abstract Huawei REST API, according to the official API doc
 | [`AppGallery\Publishing`](https://github.com/syslogic/php-hms/tree/master/src/AppGallery/Publishing) | [plugin](https://github.com/syslogic/agconnect-publishing-gradle-plugin) |
 |                         [`DriveKit`](https://github.com/syslogic/php-hms/tree/master/src/DriveKit) * |                                partially                                 |
 |                     [`GameService`](https://github.com/syslogic/php-hms/tree/master/src/GameService) |                                 untested                                 |
-|                       [`SearchKit`](https://github.com/syslogic/php-hms/blob/master/src/SearchKit) * |                                                                          |
+|                       [`SearchKit`](https://github.com/syslogic/php-hms/blob/master/src/SearchKit) * |                                partially                                 |
 |                           [`CloudSms`](https://github.com/syslogic/php-hms/blob/master/src/CloudSms) |                                 untested                                 |
-|                       [`WalletKit`](https://github.com/syslogic/php-hms/blob/master/src/WalletKit) * |                                                                          |
+|                       [`WalletKit`](https://github.com/syslogic/php-hms/blob/master/src/WalletKit) * |                                partially                                 |
 
-The endpoint marked with `*` require two-legged auth flow; see the examples in directory [`www`](https://github.com/syslogic/php-hms/blob/master/www).
+The endpoints marked with an asterisk require interactive two-legged oAuth2 flow; see [`www`](https://github.com/syslogic/php-hms/blob/master/www).
 
 [![PHP Composer](https://github.com/syslogic/php-hms/actions/workflows/ci-php.yml/badge.svg)](https://github.com/syslogic/php-hms/actions/workflows/ci-php.yml)
 
@@ -116,7 +116,7 @@ export HUAWEI_HMAC_VERIFICATION_KEY=...
 </details>
 
 <details>
-<summary>PHPUnit Test Suite</summary>
+<summary>PHPUnit</summary>
 <p>
 
 The test suite depends on further environmental variables:
@@ -135,18 +135,16 @@ Running tests:
 composer run-script test
 ````
 
-Running tests with code coverage:
+Running tests with code coverage on Windows:
 ````shell
-composer run-script coverage
+composer run-script coverage_windows
 ````
 
-</details>
+Running tests with code coverage on Linux:
+````shell
+composer run-script coverage_linux
+````
 
-<details>
-<summary>Usage</summary>
-<p>
-...
-</p>
 </details>
 
 ### Known Issues
