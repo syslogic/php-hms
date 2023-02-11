@@ -3,7 +3,6 @@ namespace HMS\WalletKit\GiftCard;
 
 use HMS\WalletKit\Constants;
 use HMS\WalletKit\IWalletPass;
-use HMS\WalletKit\Model\WalletObject;
 use HMS\WalletKit\WalletKit;
 
 /**
@@ -18,15 +17,40 @@ class GiftCard extends WalletKit implements IWalletPass {
         parent::__construct( $config );
     }
 
-    public function create_model(WalletObject $value): bool|\stdClass {
+    public function create_model( array $model ): bool|\stdClass {
         $url = $this->base_url . Constants::WALLET_GIFT_CARD_MODEL;
-        return $this->request('POST', $url, $this->auth_headers(), $value->asObject());
+        return $this->request('POST', $url, $this->auth_headers(), (object) $model);
     }
 
-    public function query_model(string $model_id): bool|\stdClass {
+    public function query_model( string $model_id ): bool|\stdClass {
         $url = $this->base_url . Constants::WALLET_GIFT_CARD_MODEL . '/' . $model_id;
         return $this->request( 'GET', $url, $this->auth_headers(), [
 
         ]);
+    }
+
+    public function update_model( string $model_id, array $model, $partial=false ): bool|\stdClass {
+        $url = $this->base_url . Constants::WALLET_GIFT_CARD_MODEL . '/' . $model_id;
+        return $this->request( $partial ? 'PATCH':'POST', $url, $this->auth_headers(), (object) $model);
+    }
+
+    public function add_message_to_model( string $model_id, array $messages ): bool|\stdClass {
+        return false;
+    }
+
+    public function create_instance( array $instance ): bool|\stdClass {
+        return false;
+    }
+
+    public function query_instance( string $instance_id ): bool|\stdClass {
+        return false;
+    }
+
+    public function update_instance( string $instance_id, array $instance, $partial=false ): bool|\stdClass {
+        return false;
+    }
+
+    public function add_message_to_instance( string $instance_id, array $messages ): bool|\stdClass {
+        return false;
     }
 }
