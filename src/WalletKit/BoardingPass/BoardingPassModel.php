@@ -2,7 +2,7 @@
 namespace HMS\WalletKit\BoardingPass;
 
 use HMS\WalletKit\Constants;
-use HMS\WalletKit\IWalletPass;
+use HMS\WalletKit\WalletPass;
 use HMS\WalletKit\WalletKit;
 
 /**
@@ -11,7 +11,7 @@ use HMS\WalletKit\WalletKit;
  * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/create-model-0000001050158436">Creating a Boarding Pass Model</a>
  * @author Martin Zeitler
  */
-class BoardingPassModel extends WalletKit implements IWalletPass {
+class BoardingPassModel extends WalletKit implements WalletPass {
 
     public function __construct( array|string $config ) {
         parent::__construct( $config );

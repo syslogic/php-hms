@@ -2,7 +2,7 @@
 namespace HMS\WalletKit\GiftCard;
 
 use HMS\WalletKit\Constants;
-use HMS\WalletKit\IWalletPass;
+use HMS\WalletKit\WalletPass;
 use HMS\WalletKit\WalletKit;
 
 /**
@@ -11,7 +11,7 @@ use HMS\WalletKit\WalletKit;
  * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/create-model-0000001050158424">Creating a Gift Card Model</a>
  * @author Martin Zeitler
  */
-class GiftCardInstance extends WalletKit implements IWalletPass {
+class GiftCardInstance extends WalletKit implements WalletPass {
 
     public function __construct( array|string $config ) {
         parent::__construct( $config );

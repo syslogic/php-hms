@@ -6,7 +6,7 @@ namespace HMS\WalletKit;
  *
  * @author Martin Zeitler
  */
-interface IWalletPass {
+interface WalletPass {
     public function create( array $model ): bool|\stdClass;
     public function query( string $model_id ): bool|\stdClass;
     public function update( string $model_id, array $model, $partial=false ): bool|\stdClass;
