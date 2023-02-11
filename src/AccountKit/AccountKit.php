@@ -2,6 +2,7 @@
 namespace HMS\AccountKit;
 
 use HMS\Core\Wrapper;
+use JetBrains\PhpStorm\ArrayShape;
 use stdClass;
 
 /**
@@ -24,15 +25,28 @@ class AccountKit extends Wrapper {
         }
     }
 
+    /** Provide HTTP request headers as array. */
+    #[ArrayShape(['Content-Type' => 'string'])]
+    protected function request_headers(): array {
+        return [ 'Content-Type' => 'application/x-www-form-urlencoded; charset=utf-8' ];
+    }
+
+    /** Provide HTTP request headers as array. */
+    #[ArrayShape(['Content-Type' => 'string', 'Authorization' => 'string'])]
+    protected function auth_headers(): array {
+        return [
+            "Content-Type" => "application/x-www-form-urlencoded;charset=utf-8",
+            "Authorization" => "Bearer $this->access_token"
+        ];
+    }
+
     /**
      * Obtaining an Access Token.
      * @return string|null the token string only.
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/account-obtain-token_hms_reference-0000001050048618">Obtaining Access Token</a>
      */
     public function get_access_token(): ?string {
-        $result = $this->request( 'POST',Constants::URL_OAUTH2_TOKEN, [
-            'Content-Type' => 'application/x-www-form-urlencoded; charset=utf-8'
-        ], [
+        $result = $this->request( 'POST',Constants::URL_OAUTH2_TOKEN, $this->request_headers(), [
             'grant_type'    => 'client_credentials',
             'client_id'     => $this->oauth2_client_id,
             'client_secret' => $this->oauth2_client_secret
@@ -49,9 +63,7 @@ class AccountKit extends Wrapper {
      */
     public function get_access_token_by_auth_code( string $authorization_code, ?string $oauth2_redirect_url=null ): stdClass|bool {
         $redirect_uri = is_string($oauth2_redirect_url) ? $oauth2_redirect_url : $this->oauth2_redirect_url;
-        $result = $this->request( 'POST', Constants::URL_OAUTH2_TOKEN, [
-            'Content-Type' => 'application/x-www-form-urlencoded; charset=utf-8'
-        ], [
+        $result = $this->request( 'POST', Constants::URL_OAUTH2_TOKEN, $this->request_headers(), [
             'grant_type'    => 'authorization_code',
             'client_id'     => $this->oauth2_client_id,
             'client_secret' => $this->oauth2_client_secret,
@@ -74,9 +86,7 @@ class AccountKit extends Wrapper {
      * @return stdClass|null the retrieved token object.
      */
     public function get_access_token_by_refresh_token( string $refresh_token ): stdClass|bool {
-        $result = $this->request( 'POST', Constants::URL_OAUTH2_TOKEN, [
-            'Content-Type' => 'application/x-www-form-urlencoded; charset=utf-8'
-        ], [
+        $result = $this->request( 'POST', Constants::URL_OAUTH2_TOKEN, $this->request_headers(), [
             'grant_type'    => 'refresh_token',
             'client_id'     => $this->oauth2_client_id,
             'client_secret' => $this->oauth2_client_secret,
@@ -97,9 +107,7 @@ class AccountKit extends Wrapper {
      * @return stdClass|bool an empty response.
      */
     public function revoke_token( string $access_or_refresh_token ): stdClass|bool {
-        return $this->request( 'POST', Constants::URL_OAUTH2_TOKEN_REVOCATION, [
-            'Content-Type' => 'application/x-www-form-urlencoded; charset=utf-8'
-        ], [
+        return $this->request( 'POST', Constants::URL_OAUTH2_TOKEN_REVOCATION, $this->request_headers(), [
             'token' => $access_or_refresh_token
         ], true);
     }
@@ -111,10 +119,7 @@ class AccountKit extends Wrapper {
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/account-gettokeninfo-0000001050050585">Parsing an Access Token</a>
      */
     public function parse_access_token( string $access_token ): TokenInfo|null {
-        $result = $this->request( 'POST', Constants::URL_ACCOUNT_KIT_TOKEN_INFO, [
-            'Content-Type' => 'application/x-www-form-urlencoded;charset=utf-8',
-            'Authorization' => 'Bearer '.$this->access_token
-        ], [
+        $result = $this->request( 'POST', Constants::URL_ACCOUNT_KIT_TOKEN_INFO, $this->auth_headers(), [
             'access_token' => $access_token,
             'getNickName' => 1
         ], true);
@@ -135,10 +140,7 @@ class AccountKit extends Wrapper {
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/get-user-info-0000001060261938">Obtaining User Information</a>
      */
     public function get_user_info( string $user_access_token ): UserInfo|stdClass {
-        return $this->request( 'POST', Constants::URL_ACCOUNT_KIT_USER_INFO, [
-            'Content-Type: application/x-www-form-urlencoded;charset=utf-8',
-            "Authorization: Bearer $this->access_token"
-        ], [
+        return $this->request( 'POST', Constants::URL_ACCOUNT_KIT_USER_INFO, $this->auth_headers(), [
             'access_token' => $user_access_token
         ], true);
     }
@@ -150,12 +152,9 @@ class AccountKit extends Wrapper {
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/account-verify-id-token_hms_reference-0000001050050577">Verifying an ID Token</a>
      */
     public function verify_id_token( string $id_token ): IdTokenInfo|stdClass {
-        $result = $this->request( 'POST', Constants::URL_OAUTH2_TOKEN_INFO, [
-            'Content-Type: application/x-www-form-urlencoded',
-            "Authorization: Bearer $this->access_token"
-        ], [
+        $result = $this->request( 'POST', Constants::URL_OAUTH2_TOKEN_INFO, $this->auth_headers(), [
             'id_token' => $id_token
-        ], false);
+        ], true);
 
         if ( property_exists( $result, 'error' ) && property_exists( $result, 'sub_error' )) {
             // die( 'oAuth2 Error '.$result->error.' / '.$result->sub_error.' -> '.$result->error_description );
