@@ -44,6 +44,11 @@ class SearchKit extends Wrapper {
         unset($this->api_key, $this->api_signature);
     }
 
+    public function withBaseUrl( string $base_url ): SearchKit {
+        $this->base_url = $base_url;
+        return $this;
+    }
+
     /** Provide HTTP request headers as array. */
     protected function auth_header(): array {
         return [
