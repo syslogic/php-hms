@@ -2,6 +2,7 @@
 namespace HMS\WalletKit\TransitPass;
 
 use HMS\WalletKit\Constants;
+use HMS\WalletKit\IWalletPass;
 use HMS\WalletKit\Model\WalletObject;
 use HMS\WalletKit\WalletKit;
 
@@ -11,18 +12,18 @@ use HMS\WalletKit\WalletKit;
  * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/create-model-0000001050158448">Creating a Transit Pass Model</a>
  * @author Martin Zeitler
  */
-class TransitPass extends WalletKit {
+class TransitPass extends WalletKit implements IWalletPass {
 
     public function __construct( array|string $config ) {
         parent::__construct( $config );
     }
 
-    public function create(WalletObject $value): bool|\stdClass {
+    public function create_model(WalletObject $value): bool|\stdClass {
         $url = $this->base_url . Constants::WALLET_TRANSIT_PASS_MODEL;
         return $this->request('POST', $url, $this->auth_headers(), $value->asObject());
     }
 
-    public function query(string $model_id): bool|\stdClass {
+    public function query_model(string $model_id): bool|\stdClass {
         $url = $this->base_url . Constants::WALLET_TRANSIT_PASS_MODEL . '/' . $model_id;
         return $this->request( 'GET', $url, $this->auth_headers(), [
 
