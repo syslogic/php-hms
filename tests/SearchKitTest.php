@@ -21,6 +21,6 @@ class SearchKitTest extends BaseTestCase {
 
     /** Test: Skipped. */
     public function test_skipped() {
-        self::markTestSkipped( "SearchKit uses interactive OAuth2 flow -> www/searchkit.php." );
+        self::markTestSkipped( "SearchKit uses an interactive OAuth2 flow -> www/searchkit.php." );
     }
 }

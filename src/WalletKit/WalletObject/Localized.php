@@ -1,5 +1,5 @@
 <?php
-namespace HMS\WalletKit\Model;
+namespace HMS\WalletKit\WalletObject;
 
 use HMS\Core\Model;
 

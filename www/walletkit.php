@@ -2,7 +2,7 @@
 require_once '../vendor/autoload.php';
 
 use HMS\AccountKit\AccountKit;
-use HMS\WalletKit\Model\WalletObject;
+use HMS\WalletKit\WalletObject\WalletObject;
 use HMS\WalletKit\WalletKit;
 
 // appending '/walletkit' to the $oauth2_redirect_url.

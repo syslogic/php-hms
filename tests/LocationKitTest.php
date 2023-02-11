@@ -21,6 +21,6 @@ class LocationKitTest extends BaseTestCase {
 
     /** Test: Skipped. */
     public function test_skipped() {
-        self::markTestSkipped( "LocationKit uses interactive OAuth2 flow -> www/locationkit.php." );
+        self::markTestSkipped( "LocationKit uses an interactive OAuth2 flow -> www/locationkit.php." );
     }
 }
