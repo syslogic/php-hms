@@ -27,6 +27,7 @@
     "coverage_windows": "setlocal xdebug.mode=coverage && %cd%/vendor/bin/phpunit --bootstrap vendor/autoload.php --configuration coverage.xml --testsuite main"
   },
   "scripts-descriptions": {
+    "docs": "Generate docs",
     "test": "Run PHPUnit tests",
     "coverage_linux": "Run PHPUnit tests with code coverage on Linux",
     "coverage_windows": "Run PHPUnit tests with code coverage on Windows"
