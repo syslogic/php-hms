@@ -39,9 +39,15 @@ class Constants {
     public const WALLET_GATEWAY_SERVER_RU = "https://wallet-gateway-drru.cloud.huawei.ru";
 
     public const WALLET_EVENT_TICKET_MODEL = "/hmspass/v1/eventticket/model";
+    public const WALLET_EVENT_TICKET_INSTANCE = "/hmspass/v1/eventticket/instance";
     public const WALLET_BOARDING_PASS_MODEL = "/hmspass/v1/flight/model";
+    public const WALLET_BOARDING_PASS_INSTANCE = "/hmspass/v1/flight/instance";
     public const WALLET_GIFT_CARD_MODEL = "/hmspass/v1/giftcard/model";
+    public const WALLET_GIFT_CARD_INSTANCE = "/hmspass/v1/giftcard/instance";
     public const WALLET_LOYALTY_CARD_MODEL = "/hmspass/v1/loyalty/model";
+    public const WALLET_LOYALTY_CARD_INSTANCE = "/hmspass/v1/loyalty/instance";
     public const WALLET_OFFER_MODEL = "/hmspass/v1/offer/model";
+    public const WALLET_OFFER_INSTANCE = "/hmspass/v1/offer/instance";
     public const WALLET_TRANSIT_PASS_MODEL = "/hmspass/v1/transit/model";
+    public const WALLET_TRANSIT_PASS_INSTANCE = "/hmspass/v1/transit/instance";
 }

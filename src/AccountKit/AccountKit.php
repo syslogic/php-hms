@@ -193,7 +193,7 @@ class AccountKit extends Wrapper {
                     unset($result->expires_in);
                 }
                 if (property_exists($result, 'scope')) {
-                    $this->token_scope = $result->scope;
+                    $this->oauth2_api_scope = $result->scope;
                 }
             }
         }
@@ -203,8 +203,8 @@ class AccountKit extends Wrapper {
     /**
      * @return string the URL to redirect the browser to.
      */
-    public function get_login_url( ?string $oauth2_redirect_url=null ): string {
-        $redirect_uri = is_string($oauth2_redirect_url) ? $oauth2_redirect_url : $this->oauth2_redirect_url;
+    public function get_login_url( ?string $redirect_url=null ): string {
+        $redirect_uri = is_string($redirect_url) ? $redirect_url : $this->oauth2_redirect_url;
         return Constants::URL_OAUTH2_TOKEN_AUTHORIZATION . '?' .
             http_build_query([
                 'response_type' => 'code',

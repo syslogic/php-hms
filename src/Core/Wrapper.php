@@ -52,7 +52,6 @@ abstract class Wrapper {
     protected string|null $access_token = null;
     protected string|null $refresh_token = null;
     protected string|null $id_token = null;
-    protected string|null $token_scope = null;
     protected int $token_expiry = 0;
 
     protected string|null $package_name = null;
