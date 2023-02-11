@@ -24,11 +24,11 @@ class BarCode extends Model {
     private string $encoding = 'UTF-8';
 
     public function __construct( array $config ) {
-        if (! isset($model['value']) || ! isset($model['text'])) {
+        if (! isset($config['value']) || ! isset($config['text'])) {
             throw new \InvalidArgumentException('BarCode requires at least "value" and "text".');
         } else {
-            $this->value = $model['value'];
-            $this->text = $model['text'];
+            $this->value = $config['value'];
+            $this->text = $config['text'];
         }
         if (isset($config['type'])) {$this->type = $config['type'];}
         if (isset($config['encoding'])) {$this->text = $config['encoding'];}

@@ -38,16 +38,16 @@ class WalletObject extends Model {
     }
 
     public function asObject(): object {
-        return (object) [
-            'passVersion'         => $this->passVersion,
-            'passTypeIdentifier'  => $this->passTypeIdentifier,
-            'passStyleIdentifier' => $this->passStyleIdentifier,
-            'organizationName'    => $this->organizationName,
-            'organizationPassId'  => $this->organizationPassId,
-            'serialNumber'        => $this->serialNumber,
-            'fields'              => $this->fields->asObject(),
-            'linkDevicePass'      => $this->linkDevicePass->asObject()
-        ];
+        $data = new \stdClass();
+        if ($this->passVersion != null) {$data->passVersion = $this->passVersion;}
+        if ($this->passTypeIdentifier != null) {$data->passTypeIdentifier = $this->passTypeIdentifier;}
+        if ($this->passStyleIdentifier != null) {$data->passStyleIdentifier = $this->passStyleIdentifier;}
+        if ($this->organizationName != null) {$data->organizationName = $this->organizationName;}
+        if ($this->organizationPassId != null) {$data->organizationPassId = $this->organizationPassId;}
+        if ($this->serialNumber != null) {$data->label = $this->serialNumber;}
+        if ($this->fields != null) {$data->fields = $this->fields->asObject();}
+        if ($this->linkDevicePass != null) {$data->linkDevicePass = $this->linkDevicePass->asObject();}
+        return $data;
     }
 
     function validate(): bool {

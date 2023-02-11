@@ -19,11 +19,12 @@ class Status {
     private ?string $expireTime;
 
     public function __construct( array $config ) {
-        if (! isset($config['state']) || ! in_array($config['state'], ['active', 'inactive', 'completed', 'expired'])) {
+        if (! in_array($config['state'], ['active', 'inactive', 'completed', 'expired'])) {
             throw new \InvalidArgumentException('Status requires at least a "state".');
         }
+        if (isset($config['state'])) {$this->state = $config['state'];}
         if (isset($config['effectTime'])) {$this->effectTime = $config['effectTime'];}
-        if (isset($config['expireTime'])) {$this->value = $config['expireTime'];}
+        if (isset($config['expireTime'])) {$this->expireTime = $config['expireTime'];}
         return $this;
     }
 

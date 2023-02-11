@@ -180,7 +180,7 @@ class Fields extends Model {
     public function asObject(): object {
         return (object) [
             'countryCode'    => $this->countryCode,
-            'currencyCode'   => $this->currencyCode,
+            'currencyCode'   => isset($this->currencyCode) ? $this->currencyCode : null,
             'allowMultiUser' => $this->allowMultiUser,
             'status'         => $this->status->asObject(),
             'barCode'        => $this->barCode->asObject(),
