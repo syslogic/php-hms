@@ -17,7 +17,7 @@ class SearchKitTest extends BaseTestCase {
     public static function setUpBeforeClass(): void {
         parent::setUpBeforeClass();
         parent::load_user_access_token();
-        self::$client = new SearchKit( [ 'access_token' => self::$user_access_token ] );
+        self::$client = new SearchKit( self::get_user_config() );
     }
 
     /** Test: Skipped. */

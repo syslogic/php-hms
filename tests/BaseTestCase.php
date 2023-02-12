@@ -11,6 +11,7 @@ use PHPUnit\Framework\TestCase;
  * @author Martin Zeitler
  */
 abstract class BaseTestCase extends TestCase {
+    protected static bool $debug_mode = false;
 
     protected static int $oauth2_client_id = 0;            // OAuth2 client.
     protected static ?string $oauth2_client_secret = null; // OAuth2 client.
@@ -77,9 +78,16 @@ abstract class BaseTestCase extends TestCase {
             'agc_client_id'        => self::$agc_client_id,
             'agc_client_secret'    => self::$agc_client_secret,
             'product_id'           => self::$product_id,
-            'debug_mode'           => true
+            'debug_mode'           => self::$debug_mode
         ];
     }
+
+    /** It provides the user configuration array. */
+    #[ArrayShape(['access_token' => 'string', 'debug_mode' => 'bool'])]
+    protected static function get_user_config(): array {
+        return [ 'access_token' => self::$user_access_token, 'debug_mode' => self::$debug_mode ];
+    }
+
     protected static function load_user_access_token() {
 
         /* loading a previously cached token */

@@ -2,6 +2,7 @@
 namespace Tests;
 
 use HMS\LocationKit\LocationKit;
+use JetBrains\PhpStorm\ArrayShape;
 
 /**
  * HMS LocationKit Test: Skipped.
@@ -17,7 +18,7 @@ class LocationKitTest extends BaseTestCase {
     public static function setUpBeforeClass(): void {
         parent::setUpBeforeClass();
         parent::load_user_access_token();
-        self::$client = new LocationKit( [ 'access_token' => self::$user_access_token ] );
+        self::$client = new LocationKit( self::get_user_config() );
     }
 
     /** Test: Skipped. */

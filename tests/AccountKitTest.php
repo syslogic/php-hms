@@ -13,10 +13,8 @@ class AccountKitTest extends BaseTestCase {
 
     private static ?AccountKit $client;
     private static ?string $app_access_token = null;
-    private static ?string $user_access_token = null;
     private static ?string $id_token = null;
     private static string $user_access_token_path = '../.credentials/huawei_token.json';
-
     private const PARSE_ACCESS_TOKEN = 'PARSE_ACCESS_TOKEN has failed.';
 
     /** This method is called before the first test of this test class is run. */

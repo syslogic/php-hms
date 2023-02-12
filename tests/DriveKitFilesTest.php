@@ -2,6 +2,7 @@
 namespace Tests;
 
 use HMS\DriveKit\DriveKit;
+use JetBrains\PhpStorm\ArrayShape;
 
 /**
  * HMS DriveKit Test: Skipped.
@@ -21,7 +22,7 @@ class DriveKitFilesTest extends BaseTestCase {
     public static function setUpBeforeClass(): void {
         parent::setUpBeforeClass();
         parent::load_user_access_token();
-        self::$client = new DriveKit( [ 'access_token' => self::$user_access_token ] );
+        self::$client = new DriveKit( self::get_user_config() );
     }
 
     /** Test: Files:about */

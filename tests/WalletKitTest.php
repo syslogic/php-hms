@@ -2,7 +2,6 @@
 
 namespace Tests;
 
-use HMS\WalletKit\EventTicket\EventTicketModel;
 use HMS\WalletKit\WalletObject\WalletObject;
 use HMS\WalletKit\WalletKit;
 
@@ -19,7 +18,8 @@ class WalletKitTest extends BaseTestCase {
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {
         parent::setUpBeforeClass();
-        self::$client = new WalletKit( [ 'access_token' => '' ] );
+        parent::load_user_access_token();
+        self::$client = new WalletKit( self::get_user_config() );
     }
 
     public function test_skipped() {
