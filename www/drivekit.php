@@ -41,15 +41,9 @@ include './oauth2.php';
                     // About
                     echo '<pre>' . print_r($result, true) . '</pre>';
 
-                    $result = $drive->getFiles()->delete([]);
-                    echo '<pre>' . print_r($result, true) . '</pre>';
-
-                    // $result = $drive->getFiles()->create_folder("PHP-HMS");
-                    // echo '<pre>' . print_r($result, true) . '</pre>';
-
+                    // List
                     $result = $drive->getFiles()->list();
                     echo '<pre>' . print_r($result, true) . '</pre>';
-
                 }
             } else {
                 echo '<p><button onclick=redirect()>Login with HUAWEI ID</button></p>';

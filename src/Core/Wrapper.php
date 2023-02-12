@@ -219,8 +219,8 @@ abstract class Wrapper {
     }
 
     /** Perform GuzzleHttp GET/POST/PATCH/PUT/DELETE request. */
-    protected function request( string $method='POST', ?string $url=null, array $headers=[], array|object $post_data=[], $urlencoded=false ): stdClass|bool {
-        $request = [ RequestOptions::HEADERS => $headers ];
+    protected function request( string $method='POST', ?string $url=null, array $headers=[], array|object|string $post_data=[], $urlencoded=false ): stdClass|bool {
+        $request = [ RequestOptions::HEADERS => $headers, RequestOptions::DEBUG => $this->debug_mode ];
         try {
             switch ($method) {
                 case 'GET':
@@ -229,9 +229,13 @@ abstract class Wrapper {
                     break;
                 case 'POST':
                     if ($urlencoded) {
-                        $request[RequestOptions::FORM_PARAMS] = $post_data;
+                        $request[RequestOptions::FORM_PARAMS] = $post_data; // as form.
                     } else {
-                        $request[RequestOptions::JSON] = $post_data;
+                        if (is_array($post_data)) {
+                            $request[RequestOptions::JSON] = $post_data; // as JSON.
+                        } else if (is_string($post_data)) {
+                            $request[RequestOptions::BODY] = $post_data; // as raw string.
+                        }
                     }
                     $this->response = $this->client->post( $url, $request );
                     break;
@@ -251,10 +255,11 @@ abstract class Wrapper {
 
             $this->result->code = $this->response->getStatusCode();
             if ($this->result->code == 200) {
-                $content_type = $this->response->getHeader('Content-Type')[0];
+                $content_type = strtolower($this->response->getHeader('Content-Type')[0]);
                 switch ($content_type) {
                     case 'application/json':
                     case 'application/json;charset=utf-8':
+                    case 'application/json; charset=utf-8':
                         $this->result = json_decode( $this->response->getBody() );
                         break;
                     case 'image/png':

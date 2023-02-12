@@ -15,6 +15,8 @@ class DriveKitFilesTest extends BaseTestCase {
 
     protected static string $folder_name = 'phpunit_test';
 
+    protected static string $upload_file_name = 'build/mapkit_01.png';
+
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {
         parent::setUpBeforeClass();
@@ -40,10 +42,21 @@ class DriveKitFilesTest extends BaseTestCase {
         echo print_r($result, true);
     }
 
+    /** Test: Files:create */
     public function test_create_folder() {
         $result = self::$client ->getFiles()->create_folder( self::$folder_name );
         self::assertTrue( property_exists($result, 'category' ) && $result->category == 'drive#file' );
         self::assertTrue( property_exists($result, 'mimeType' ));
+        self::assertTrue( property_exists($result, 'id' ));
+        echo print_r($result, true);
+    }
+
+    /** Test: Files:create.content */
+    public function test_create_content() {
+        $result = self::$client ->getFiles()->create_content( self::$upload_file_name, 'image/png');
+        self::assertTrue( property_exists($result, 'category' ) && $result->category == 'drive#file' );
+        self::assertTrue( property_exists($result, 'mimeType') && $result->mimeType == 'image/png' );
+        self::assertTrue( property_exists($result, 'riskFile') && !$result->riskFile );
         self::assertTrue( property_exists($result, 'id' ));
         echo print_r($result, true);
     }

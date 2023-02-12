@@ -124,15 +124,15 @@ class Files extends DriveKit {
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/server-api-filescreatecontent-0000001050151688">Files:create.content</a>
      */
     public function create_content( string $file_path, string $mime_type='text/plain', ?string $quota_id=null ): stdClass|bool {
-        $url = Constants::DRIVE_KIT_FILES_URL . '?uploadType=content&fields=*';
+        $url = Constants::DRIVE_KIT_FILES_UPLOAD_URL . '?uploadType=content';
         if ($quota_id != null) {$url .= '&quotaId=' . $quota_id;}
         if (file_exists($file_path) && is_readable($file_path)) {
             $body = file_get_contents($file_path);
             return $this->request( 'POST', $url, [
                 'Authorization' => ' Bearer ' . $this->access_token,
-                'Accept' => 'application/json;charset=utf-8',
+                'Accept' => 'application/json',
                 'Content-Type' => $mime_type
-            ], $body);
+            ], $body );
         } else {
             return false;
         }
