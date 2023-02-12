@@ -85,33 +85,29 @@ abstract class BaseTestCase extends TestCase {
     /** It provides the user configuration array. */
     #[ArrayShape(['access_token' => 'string', 'debug_mode' => 'bool'])]
     protected static function get_user_config(): array {
-        return [ 'access_token' => self::$user_access_token, 'debug_mode' => self::$debug_mode ];
+        self::load_user_access_token();
+        return [
+            'access_token' => self::$user_access_token,
+            'debug_mode' => self::$debug_mode
+        ];
     }
 
+    /** Load previously authorized token from a file. */
     protected static function load_user_access_token() {
-
-        /* loading a previously cached token */
         if (file_exists(self::$oauth2_token_path) && is_readable(self::$oauth2_token_path)) {
-
-            // load previously authorized token from a file, if it exists.
             $token_response = (object) json_decode(file_get_contents(self::$oauth2_token_path), true);
-
-            // determine token expiry and perform a refresh, when required.
-            if (property_exists($token_response, 'expiry')) {
-                if ($token_response->expiry >= time() && property_exists($token_response, 'refresh_token')) {
-                    $api = new AccountKit( self::get_config() );
-                    $token_response = $api->get_access_token_by_refresh_token( $token_response->refresh_token );
-                    file_put_contents(self::$oauth2_token_path, json_encode($token_response));
+            if (property_exists($token_response, 'token_expiry')) {
+                if (property_exists($token_response, 'refresh_token')) {
+                    if ($token_response->token_expiry < time()) {
+                        $api = new AccountKit( self::get_config() );
+                        $token_response = $api->get_access_token_by_refresh_token( $token_response->refresh_token );
+                        file_put_contents(self::$oauth2_token_path, json_encode($token_response));
+                    }
+                    $remaining = $token_response->token_expiry - time();
+                    echo sprintf('The cached token expires in %02d:%02d:%02d.', ($remaining / 3600), ($remaining / 60 % 60), $remaining % 60);
                 }
             }
-            self::$user_access_token=$token_response->access_token;
-            if (property_exists($token_response, 'token_expiry')) {
-                $exp = $token_response->token_expiry - time();
-                echo sprintf('The cached token expires in %02d:%02d:%02d.', ($exp / 3600), ($exp / 60 % 60), $exp % 60);
-            } else if (property_exists($token_response, 'expires_in')) {
-                $exp = $token_response->expires_in;
-                echo sprintf('The cached token is valid for %02d:%02d:%02d.', ($exp / 3600), ($exp / 60 % 60), $exp % 60);
-            }
+            self::$user_access_token = $token_response->access_token;
         } else {
             self::markTestSkipped( "Cannot read cached token: " . self::$oauth2_token_path);
         }

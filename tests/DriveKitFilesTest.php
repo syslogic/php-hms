@@ -21,8 +21,8 @@ class DriveKitFilesTest extends BaseTestCase {
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {
         parent::setUpBeforeClass();
-        parent::load_user_access_token();
         self::$client = new DriveKit( self::get_user_config() );
+        self::assertTrue( self::$client->is_ready(), self::CLIENT_NOT_READY );
     }
 
     /** Test: Files:about */
@@ -46,6 +46,9 @@ class DriveKitFilesTest extends BaseTestCase {
     /** Test: Files:create */
     public function test_create_folder() {
         $result = self::$client ->getFiles()->create_folder( self::$folder_name );
+        if (property_exists($result, 'code' ) && $result->code == 403) {
+            self::markTestSkipped($result->message);
+        }
         self::assertTrue( property_exists($result, 'category' ) && $result->category == 'drive#file' );
         self::assertTrue( property_exists($result, 'mimeType' ));
         self::assertTrue( property_exists($result, 'id' ));

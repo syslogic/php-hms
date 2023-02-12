@@ -18,8 +18,8 @@ class WalletKitTest extends BaseTestCase {
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {
         parent::setUpBeforeClass();
-        parent::load_user_access_token();
         self::$client = new WalletKit( self::get_user_config() );
+        self::assertTrue( self::$client->is_ready(), self::CLIENT_NOT_READY );
     }
 
     public function test_skipped() {
