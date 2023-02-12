@@ -25,10 +25,10 @@ if (isset($_GET['code'])) {
             $error = 'Error ' . $token_response->code .' / '. $token_response->message;
         } else {
             // convert the expiry timestamp from relative to absolute value.
-            file_put_contents($token_path, $token_response);
+            file_put_contents($token_path, json_encode($token_response));
         }
     }
-} else if (file_exists($token_path) && filesize($token_path) > 2) {
+} else if (file_exists($token_path) && filesize($token_path) > 0) {
 
     // load previously authorized token from a file, if it exists.
     $token_response = (object) json_decode(file_get_contents($token_path), true);

@@ -60,7 +60,6 @@ class Files extends DriveKit {
      * @param string|null $appSettings Customized app attribute.
      * @param bool $writerHasCopyPermission Indicates whether the current user (assuming the writer role) has permission to copy the file.
      * @param bool $writersHasSharePermission Indicates whether the current user (assuming the writer role) has permission to share the file.
-     *
      * @param string|null $contentExtras.thumbnail.content Thumbnail data encoded with Base64.
      * @param string|null $contentExtras.thumbnail.mimeType MIME type of the thumbnail.
      * @return bool|stdClass The result of the API call.
@@ -101,11 +100,41 @@ class Files extends DriveKit {
         ]);
     }
 
-    public function copy( ): bool {
-        return false;
+    /**
+     * @param string $file_id
+     * @param string $fields Fields in the request, which are in the partial response format. For details, please refer to Overview.
+     * @param string|null $form Media format.
+     * @param bool $prettyPrint Indicates whether to return a response in a human-readable format.
+     * @param string|null $quotaId User identifier, which can contain a maximum of 40 characters. This parameter is used to restrict the maximum number of API calls for a single user.
+     * @param string|null $callback Callback function used in JSONP requests.
+     * @param bool $autoRename Indicates whether to automatically rename the file. If this parameter is set to true of left empty, the file will be automatically renamed. If this parameter is set to false, the file will not be automatically renamed.
+     *
+     * @return bool
+     * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/server-api-filescopy-0000001050151696">Files:copy</a>
+     */
+    public function copy( string $file_id, string $fields='*', ?string $form=null, bool $prettyPrint=false, ?string $quotaId=null, ?string $callback=null, bool $autoRename=false ): bool {
+        $query = [];
+        $result = $this->request( 'POST', Constants::DRIVE_KIT_FILES_URL . '/' . $file_id. '/copy', $this->auth_headers(), $query);
+        return $result->code == 204; //
     }
 
-    public function delete( ): bool {
-        return false;
+    /**
+     * @param string|array $file_id
+     * @return bool
+     * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/server-api-filesdelete-0000001050153647">Files:delete</a>
+     */
+    public function delete( string|array $file_id  ): bool {
+        if (is_string($file_id)) {
+            $result = $this->request( 'DELETE', Constants::DRIVE_KIT_FILES_URL . '/' . $file_id, $this->auth_headers());
+            return $result->code == 204; // success.
+        } else if (is_array( $file_id ) && sizeof( $file_id ) > 0) {
+            foreach ($file_id as $current_id) {
+                $result = $this->request( 'DELETE', Constants::DRIVE_KIT_FILES_URL . '/' . $current_id, $this->auth_headers());
+                if ($result->code != 204) {return false;}
+            }
+            return true;
+        } else {
+            return false;
+        }
     }
 }

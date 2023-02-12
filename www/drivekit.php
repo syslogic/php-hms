@@ -5,8 +5,9 @@ use HMS\AccountKit\AccountKit;
 use HMS\DriveKit\DriveKit;
 
 // appending 'redirect_drivekit' to the $oauth2_redirect_url.
-if (isset($_SERVER['HUAWEI_OAUTH2_REDIRECT_URL'])) {
-    $_SERVER['HUAWEI_OAUTH2_REDIRECT_URL'] = $_SERVER['HUAWEI_OAUTH2_REDIRECT_URL'] . 'redirect_drivekit';
+$oauth2_redirect = 'redirect_drivekit';
+if (isset($_SERVER['HUAWEI_OAUTH2_REDIRECT_URL']) && ! str_contains($_SERVER['HUAWEI_OAUTH2_REDIRECT_URL'], $oauth2_redirect)) {
+    $_SERVER['HUAWEI_OAUTH2_REDIRECT_URL'] = $_SERVER['HUAWEI_OAUTH2_REDIRECT_URL'] . $oauth2_redirect;
 }
 // appending 'drive' (read/write) to $oauth2_api_scope.
 $oauth2_scope = 'https://www.huawei.com/auth/drive';
@@ -36,13 +37,19 @@ include './oauth2.php';
                 if (property_exists($result, 'code') && $result->code == 401) {
                     echo '<p><button onclick=redirect()>Login with HUAWEI ID</button></p>';
                 } else {
+
+                    // About
                     echo '<pre>' . print_r($result, true) . '</pre>';
 
-                    $result = $drive->getFiles()->create_folder("PHP-HMS");
+                    $result = $drive->getFiles()->delete([]);
                     echo '<pre>' . print_r($result, true) . '</pre>';
+
+                    // $result = $drive->getFiles()->create_folder("PHP-HMS");
+                    // echo '<pre>' . print_r($result, true) . '</pre>';
 
                     $result = $drive->getFiles()->list();
                     echo '<pre>' . print_r($result, true) . '</pre>';
+
                 }
             } else {
                 echo '<p><button onclick=redirect()>Login with HUAWEI ID</button></p>';
