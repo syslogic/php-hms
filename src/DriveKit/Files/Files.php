@@ -101,6 +101,44 @@ class Files extends DriveKit {
     }
 
     /**
+     * @param string $file_id The file ID.
+     * @param string|null $quota_id User identifier, which can contain a maximum of 40 characters.
+     *                              This parameter is used to restrict the maximum number of API calls for a single user.
+     * @return bool|stdClass The result of the API call.
+     * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/server-api-filesgetcontent-0000001050153651">Files:get.content</a>
+     */
+    public function get_content( string $file_id, ?string $quota_id=null ): stdClass|bool {
+        $url = Constants::DRIVE_KIT_FILES_URL . '/' . $file_id . '?form=content';
+        if ($quota_id != null) {$url .= '&quotaId=' . $quota_id;}
+        return $this->request( 'GET', $url, $this->auth_headers(), [
+            'fileId' => $file_id
+        ]);
+    }
+
+    /**
+     * @param string $file_path The file ID.
+     * @param string $mime_type
+     * @param string|null $quota_id User identifier, which can contain a maximum of 40 characters.
+     *                              This parameter is used to restrict the maximum number of API calls for a single user.
+     * @return bool|stdClass The result of the API call.
+     * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/server-api-filescreatecontent-0000001050151688">Files:create.content</a>
+     */
+    public function create_content( string $file_path, string $mime_type='text/plain', ?string $quota_id=null ): stdClass|bool {
+        $url = Constants::DRIVE_KIT_FILES_URL . '?uploadType=content&fields=*';
+        if ($quota_id != null) {$url .= '&quotaId=' . $quota_id;}
+        if (file_exists($file_path) && is_readable($file_path)) {
+            $body = file_get_contents($file_path);
+            return $this->request( 'POST', $url, [
+                'Authorization' => ' Bearer ' . $this->access_token,
+                'Accept' => 'application/json;charset=utf-8',
+                'Content-Type' => $mime_type
+            ], $body);
+        } else {
+            return false;
+        }
+    }
+
+    /**
      * @param string $file_id
      * @param string $fields Fields in the request, which are in the partial response format. For details, please refer to Overview.
      * @param string|null $form Media format.
@@ -136,5 +174,18 @@ class Files extends DriveKit {
         } else {
             return false;
         }
+    }
+    /**
+     * @param string $containers Query scope.
+     * The value can be drive, applicationData, or a combination of the two (separated by a comma).
+     * The default value is drive.
+     * @return bool
+     * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/server-api-filesemptyrecycle-0000001050151698">Files:emptyRecycle</a>
+     */
+    public function emptyRecycle( string $containers='drive'): bool {
+        $result = $this->request( 'DELETE', Constants::DRIVE_KIT_FILES_URL . '/recycle', $this->auth_headers(), [
+            'containers' => $containers
+        ]);
+        return $result->code == 204;
     }
 }

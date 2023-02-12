@@ -1,6 +1,7 @@
 <?php /** @noinspection PhpUnusedPrivateFieldInspection */
 namespace Tests;
 
+use HMS\AccountKit\AccountKit;
 use JetBrains\PhpStorm\ArrayShape;
 use PHPUnit\Framework\TestCase;
 
@@ -13,6 +14,8 @@ abstract class BaseTestCase extends TestCase {
 
     protected static int $oauth2_client_id = 0;            // OAuth2 client.
     protected static ?string $oauth2_client_secret = null; // OAuth2 client.
+    protected static ?string $oauth2_token_path = '../.credentials/huawei_token.json';
+    protected static ?string $user_access_token = null;
     protected static int $agc_client_id = 0;               // AGConnect API.
     protected static ?string $agc_client_secret = null;    // AGConnect API.
 
@@ -76,5 +79,28 @@ abstract class BaseTestCase extends TestCase {
             'product_id'           => self::$product_id,
             'debug_mode'           => true
         ];
+    }
+    protected static function load_user_access_token() {
+
+        /* loading a previously cached token */
+        if (file_exists(self::$oauth2_token_path) && is_readable(self::$oauth2_token_path)) {
+
+            // load previously authorized token from a file, if it exists.
+            $token_response = (object) json_decode(file_get_contents(self::$oauth2_token_path), true);
+
+            // determine token expiry and perform a refresh, when required.
+            if (property_exists($token_response, 'expiry')) {
+                if ($token_response->expiry >= time() && property_exists($token_response, 'refresh_token')) {
+                    $api = new AccountKit( self::get_config() );
+                    $token_response = $api->get_access_token_by_refresh_token( $token_response->refresh_token );
+                    file_put_contents(self::$oauth2_token_path, json_encode($token_response));
+                }
+            }
+            self::$user_access_token=$token_response->access_token;
+            $exp = $token_response->token_expiry-time();
+            echo sprintf('The cached token expires in %02d:%02d:%02d.', ($exp / 3600), ($exp / 60 % 60), $exp % 60);
+        } else {
+            self::markTestSkipped( "Cannot read cached token: " . self::$oauth2_token_path);
+        }
     }
 }
