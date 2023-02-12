@@ -6,7 +6,7 @@ use HMS\SearchKit\SearchKit;
 
 // appending '/searchkit' to the $oauth2_redirect_url.
 if (isset($_SERVER['HUAWEI_OAUTH2_REDIRECT_URL'])) {
-    $_SERVER['HUAWEI_OAUTH2_REDIRECT_URL'] = $_SERVER['HUAWEI_OAUTH2_REDIRECT_URL'] . '/searchkit';
+    $_SERVER['HUAWEI_OAUTH2_REDIRECT_URL'] = $_SERVER['HUAWEI_OAUTH2_REDIRECT_URL'] . 'redirect_seachkit';
 }
 include './oauth2.php';
 ?>

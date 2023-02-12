@@ -6,7 +6,7 @@ use HMS\WalletKit\WalletKit;
 
 // appending '/walletkit' to the $oauth2_redirect_url.
 if (isset($_SERVER['HUAWEI_OAUTH2_REDIRECT_URL'])) {
-    $_SERVER['HUAWEI_OAUTH2_REDIRECT_URL'] = $_SERVER['HUAWEI_OAUTH2_REDIRECT_URL'] . '/walletkit';
+    $_SERVER['HUAWEI_OAUTH2_REDIRECT_URL'] = $_SERVER['HUAWEI_OAUTH2_REDIRECT_URL'] . 'redirect_walletkit';
 }
 include './oauth2.php';
 ?>

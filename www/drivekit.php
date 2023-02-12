@@ -6,7 +6,7 @@ use HMS\DriveKit\DriveKit;
 
 // appending '/drivekit' to the $oauth2_redirect_url.
 if (isset($_SERVER['HUAWEI_OAUTH2_REDIRECT_URL'])) {
-    $_SERVER['HUAWEI_OAUTH2_REDIRECT_URL'] = $_SERVER['HUAWEI_OAUTH2_REDIRECT_URL'] . '/drivekit';
+    $_SERVER['HUAWEI_OAUTH2_REDIRECT_URL'] = $_SERVER['HUAWEI_OAUTH2_REDIRECT_URL'] . 'redirect_drivekit';
 }
 // appending 'drive' (read/write) to $oauth2_api_scope.
 $oauth2_scope = 'https://www.huawei.com/auth/drive';
