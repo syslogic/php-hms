@@ -105,8 +105,13 @@ abstract class BaseTestCase extends TestCase {
                 }
             }
             self::$user_access_token=$token_response->access_token;
-            $exp = $token_response->token_expiry-time();
-            echo sprintf('The cached token expires in %02d:%02d:%02d.', ($exp / 3600), ($exp / 60 % 60), $exp % 60);
+            if (property_exists($token_response, 'token_expiry')) {
+                $exp = $token_response->token_expiry - time();
+                echo sprintf('The cached token expires in %02d:%02d:%02d.', ($exp / 3600), ($exp / 60 % 60), $exp % 60);
+            } else if (property_exists($token_response, 'expires_in')) {
+                $exp = $token_response->expires_in;
+                echo sprintf('The cached token is valid for %02d:%02d:%02d.', ($exp / 3600), ($exp / 60 % 60), $exp % 60);
+            }
         } else {
             self::markTestSkipped( "Cannot read cached token: " . self::$oauth2_token_path);
         }
