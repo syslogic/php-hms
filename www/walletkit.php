@@ -4,7 +4,7 @@ require_once '../vendor/autoload.php';
 use HMS\AccountKit\AccountKit;
 use HMS\WalletKit\WalletKit;
 
-// appending '/walletkit' to the $oauth2_redirect_url.
+// appending 'redirect_walletkit' to the $oauth2_redirect_url.
 if (isset($_SERVER['HUAWEI_OAUTH2_REDIRECT_URL'])) {
     $_SERVER['HUAWEI_OAUTH2_REDIRECT_URL'] = $_SERVER['HUAWEI_OAUTH2_REDIRECT_URL'] . 'redirect_walletkit';
 }

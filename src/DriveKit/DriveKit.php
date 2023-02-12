@@ -32,6 +32,12 @@ class DriveKit extends Wrapper implements IDriveKit {
         } else {
             throw new \InvalidArgumentException('DriveKit requires an user access token.');
         }
+
+        // appending 'drive' (read/write) to $this->oauth2_api_scope.
+        $oauth2_scope = 'https://www.huawei.com/auth/drive';
+        if (! str_contains($this->oauth2_api_scope, $oauth2_scope)) {
+            $this->oauth2_api_scope = $this->oauth2_api_scope . ' ' . $oauth2_scope;
+        }
         $this->post_init();
     }
 

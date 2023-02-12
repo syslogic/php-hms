@@ -4,7 +4,7 @@ require_once '../vendor/autoload.php';
 use HMS\AccountKit\AccountKit;
 use HMS\DriveKit\DriveKit;
 
-// appending '/drivekit' to the $oauth2_redirect_url.
+// appending 'redirect_drivekit' to the $oauth2_redirect_url.
 if (isset($_SERVER['HUAWEI_OAUTH2_REDIRECT_URL'])) {
     $_SERVER['HUAWEI_OAUTH2_REDIRECT_URL'] = $_SERVER['HUAWEI_OAUTH2_REDIRECT_URL'] . 'redirect_drivekit';
 }
