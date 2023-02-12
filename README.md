@@ -93,6 +93,23 @@ And then map namespace `HMS` in `composer.json` PSR-4 `autoload` block:
 }
 ````
 
+One can also add a package repository `composer.json`:
+````json
+{
+  "repositories": [{
+    "type": "package",
+    "package": {
+      "name": "syslogic/php-hms",
+      "version": "master",
+      "source": {
+        "url": "https://github.com/syslogic/php-hms.git",
+        "type": "git",
+        "reference": "master"
+      }
+    }
+  }]
+}
+````
 To set up the environment, for example `nano ~/.bashrc`:
 
 ````bash

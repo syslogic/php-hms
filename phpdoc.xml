@@ -5,7 +5,7 @@
     xmlns="https://www.phpdoc.org"
     xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/phpDocumentor/phpDocumentor/master/data/xsd/phpdoc.xsd">
     <paths>
-        <output>build/docs</output>
+        <output>docs</output>
         <cache>build/cache</cache>
     </paths>
     <version number="3.0.0">
