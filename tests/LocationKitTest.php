@@ -2,7 +2,6 @@
 namespace Tests;
 
 use HMS\LocationKit\LocationKit;
-use JetBrains\PhpStorm\ArrayShape;
 
 /**
  * HMS LocationKit Test: Skipped.

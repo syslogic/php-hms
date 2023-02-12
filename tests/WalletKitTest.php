@@ -1,5 +1,4 @@
 <?php /** @noinspection PhpPropertyOnlyWrittenInspection */
-
 namespace Tests;
 
 use HMS\WalletKit\WalletObject\WalletObject;

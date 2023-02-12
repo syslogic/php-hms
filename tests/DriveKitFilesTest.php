@@ -2,7 +2,6 @@
 namespace Tests;
 
 use HMS\DriveKit\DriveKit;
-use JetBrains\PhpStorm\ArrayShape;
 
 /**
  * HMS DriveKit Test: Skipped.
@@ -14,7 +13,7 @@ class DriveKitFilesTest extends BaseTestCase {
     /** @var DriveKit|null $client */
     private static ?DriveKit $client;
 
-    protected static string $folder_name = 'phpunit_test';
+    protected static string $create_folder_name = 'phpunit_test';
 
     protected static string $upload_file_name = 'build/mapkit_01.png';
 
@@ -45,7 +44,7 @@ class DriveKitFilesTest extends BaseTestCase {
 
     /** Test: Files:create */
     public function test_create_folder() {
-        $result = self::$client ->getFiles()->create_folder( self::$folder_name );
+        $result = self::$client ->getFiles()->create_folder( self::$create_folder_name );
         if (property_exists($result, 'code' ) && $result->code == 403) {
             self::markTestSkipped($result->message);
         }
