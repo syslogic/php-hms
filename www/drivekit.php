@@ -9,8 +9,9 @@ if (isset($_SERVER['HUAWEI_OAUTH2_REDIRECT_URL'])) {
     $_SERVER['HUAWEI_OAUTH2_REDIRECT_URL'] = $_SERVER['HUAWEI_OAUTH2_REDIRECT_URL'] . '/drivekit';
 }
 // appending 'drive' (read/write) to $oauth2_api_scope.
-if (isset($_SERVER['HUAWEI_OAUTH2_API_SCOPE'])) {
-    $_SERVER['HUAWEI_OAUTH2_API_SCOPE'] = $_SERVER['HUAWEI_OAUTH2_API_SCOPE'] . ' https://www.huawei.com/auth/drive';
+$oauth2_scope = 'https://www.huawei.com/auth/drive';
+if (isset($_SERVER['HUAWEI_OAUTH2_API_SCOPE']) && ! str_contains($_SERVER['HUAWEI_OAUTH2_API_SCOPE'], $oauth2_scope)) {
+    $_SERVER['HUAWEI_OAUTH2_API_SCOPE'] = $_SERVER['HUAWEI_OAUTH2_API_SCOPE'] . ' ' . $oauth2_scope;
 }
 include './oauth2.php';
 ?>
