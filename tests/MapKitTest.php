@@ -127,17 +127,17 @@ class MapKitTest extends BaseTestCase {
         /* By Location */
         $result = $endpoint->getStaticMapByLocation(self::$point_a, self::$map_width, self::$map_height, self::$map_zoom, self::$map_scale);
         self::assertTrue( property_exists($result, 'raw') && is_string($result->raw) && !empty($result->raw));
-        self::saveFile(self::$build_path.'mapkit_01.png', $result->raw);
+        self::save_file(self::$build_path.'mapkit_01.png', $result->raw);
 
         /* By Marker description */
         $result = $endpoint->getStaticMapByMarkers(self::$marker_desc, self::$marker_styles, self::$map_width, self::$map_height, self::$map_zoom, self::$map_scale);
         self::assertTrue( property_exists($result, 'raw') && is_string($result->raw) && !empty($result->raw));
-        self::saveFile(self::$build_path.'mapkit_02.png', $result->raw);
+        self::save_file(self::$build_path.'mapkit_02.png', $result->raw);
 
         /* By Path description */
         $result = $endpoint->getStaticMapByPath(self::$path_desc, self::$path_styles, self::$map_width, self::$map_height, self::$map_zoom, self::$map_scale);
         self::assertTrue( property_exists($result, 'raw') && is_string($result->raw) && !empty($result->raw));
-        self::saveFile(self::$build_path.'mapkit_03.png', $result->raw);
+        self::save_file(self::$build_path.'mapkit_03.png', $result->raw);
     }
 
     /** Test: Map Tile API; works */
@@ -145,6 +145,6 @@ class MapKitTest extends BaseTestCase {
         $endpoint = self::$client->getTile();
         $result = $endpoint->getMapTile(5, 1, 3, 'en', 2);
         self::assertTrue( property_exists($result, 'raw') && is_string($result->raw) && !empty($result->raw));
-        self::saveFile(self::$build_path.'mapkit_tile.png', $result->raw);
+        self::save_file(self::$build_path.'mapkit_tile.png', $result->raw);
     }
 }

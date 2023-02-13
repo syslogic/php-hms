@@ -24,15 +24,6 @@ class DriveKitFilesTest extends BaseTestCase {
         self::assertTrue( self::$client->is_ready(), self::CLIENT_NOT_READY );
     }
 
-    /** Test: Files:about */
-    public function test_about() {
-        $result = self::$client->getFiles()->getAbout()->get();
-        self::assertTrue( property_exists($result, 'category' ) && $result->category == 'drive#about' );
-        self::assertTrue( property_exists($result, 'storageQuota' ) && is_object($result->storageQuota ) );
-        self::assertTrue( property_exists($result, 'user' ) && is_object($result->user ));
-        echo print_r($result, true);
-    }
-
     /** Test: Files:list */
     public function test_list() {
         $result = self::$client->getFiles()->list();

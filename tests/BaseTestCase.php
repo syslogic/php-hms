@@ -117,8 +117,13 @@ abstract class BaseTestCase extends TestCase {
             self::markTestSkipped( "Cannot read cached token: " . self::$oauth2_token_path);
         }
     }
+    protected static function format_filesize(int $bytes, int $decimals=2): string {
+        $size = array('B','kB','MB','GB','TB','PB','EB','ZB','YB');
+        $factor = floor((strlen($bytes) - 1) / 3);
+        return sprintf("%.{$decimals}f", $bytes / pow(1024, $factor)) . @$size[$factor];
+    }
 
-    protected function saveFile(string $filename, string $raw_data) : void {
+    protected function save_file(string $filename, string $raw_data) : void {
         $result = file_put_contents($filename, $raw_data);
         if (is_integer($result)) {
             echo "Saved ".$filename.", ".$result." bytes\n";

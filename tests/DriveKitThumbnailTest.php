@@ -29,7 +29,7 @@ class DriveKitThumbnailTest extends BaseTestCase {
         self::assertTrue( property_exists($result, 'code' ) && $result->code == 200 );
         self::assertTrue( property_exists($result, 'base64' ) );
         self::assertTrue( property_exists($result, 'raw' ) );
-        self::saveFile(self::$build_path . self::$file_name_01, $result->raw);
+        self::save_file(self::$build_path . self::$file_name_01, $result->raw);
     }
 
     /** Test: Thumbnail:get */
@@ -38,7 +38,7 @@ class DriveKitThumbnailTest extends BaseTestCase {
         self::assertTrue( property_exists($result, 'code' ) && $result->code == 200 );
         self::assertTrue( property_exists($result, 'base64' ) );
         self::assertTrue( property_exists($result, 'raw' ) );
-        self::saveFile(self::$build_path . self::$file_name_02, $result->raw);
+        self::save_file(self::$build_path . self::$file_name_02, $result->raw);
     }
 
     /** TearDown After Class */
