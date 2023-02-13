@@ -151,7 +151,7 @@ class Files extends DriveKit {
         return $created_files;
     }
 
-    private function get_file_id( string $file_name ):string|null {
+    public function get_file_id(string $file_name ):string|null {
         $result = $this->list('*');
         foreach ($result->files as $file) {
             if ($file->fileName == $file_name) {return $file->id;}
@@ -267,5 +267,11 @@ class Files extends DriveKit {
             'containers' => $containers
         ]);
         return $result->code == 204;
+    }
+
+    public function delete_by_name( string $file_name ): bool {
+        $file_id = $this->getFiles()->get_file_id( $file_name );
+        if ($file_id == null) {return false;}
+        return $this->delete( $file_id );
     }
 }

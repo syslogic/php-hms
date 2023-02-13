@@ -20,6 +20,9 @@ include './oauth2.php';
     <head>
         <title>DriveKit Example</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <style>
+            div.image_png {background-color: #E1E1E1;}
+        </style>
         <script type="text/javascript">function redirect() {
             window.location.href = '<?= /** @var AccountKit $api
              * @noinspection PhpRedundantVariableDocTypeInspection
@@ -39,11 +42,19 @@ include './oauth2.php';
                 } else {
 
                     // About
-                    echo '<pre>' . print_r($result, true) . '</pre>';
+                    echo '<div>Domain: '. $result->domain . '</div>';
+                    echo '<div>Permission ID: '. $result->user->permissionId . '</div>';
+                    echo '<div>User: '. $result->user->displayName . '</div>';
+                    echo '<div>Capacity: '. format_filesize($result->storageQuota->userCapacity) . '</div>';
+                    echo '<div>Used: ' . format_filesize($result->storageQuota->usedSpace) . '</div>';
 
                     // List
                     $result = $drive->getFiles()->list();
-                    echo '<pre>' . print_r($result, true) . '</pre>';
+                    foreach ($result->files as $file) {
+                        echo '<div class="'.str_replace('/','_', $file->mimeType).'">'.$file->mimeType.' '.format_filesize($file->size).' '.$file->fileName.'</div>';
+                    }
+                    if (property_exists($result, 'nextCursor')) {}
+                    // $drive->getFiles()->delete_by_name('');
                 }
             } else {
                 echo '<p><button onclick=redirect()>Login with HUAWEI ID</button></p>';
