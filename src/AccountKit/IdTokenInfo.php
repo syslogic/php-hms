@@ -142,14 +142,6 @@ class IdTokenInfo extends Model {
 
     /**
      * If the scope contains the profile permission:
-     * User language, for example, zh-cn or en-us.
-     *
-     * @var string|null $locale
-     */
-    private string|null $locale = null;
-
-    /**
-     * If the scope contains the profile permission:
      * Last name.
      *
      * @var string|null $family_name
@@ -172,6 +164,14 @@ class IdTokenInfo extends Model {
      */
     private string|null $display_name = null;
 
+    /**
+     * If the scope contains the profile permission:
+     * User language, for example, zh-cn or en-us.
+     *
+     * @var string|null $locale
+     */
+    private string|null $locale = null;
+
     public function __construct(object|array $data) {
         if (is_object($data)) {
             $this->parse_array((array) $data);
@@ -193,7 +193,23 @@ class IdTokenInfo extends Model {
         return [
             'typ' => $this->typ,
             'alg' => $this->alg,
-            'kid' => $this->kid
+            'kid' => $this->kid,
+            'iss' => $this->iss,
+            'sub' => $this->sub,
+            'aud' => $this->aud,
+            'exp' => $this->exp,
+            'iat' => $this->iat,
+            'nonce' => $this->nonce,
+            'at_hash' => $this->at_hash,
+            'azp' => $this->azp,
+            'email_verified' => $this->email_verified,
+            'email' => $this->email,
+            'name' => $this->name,
+            'given_name' => $this->given_name,
+            'family_name' => $this->family_name,
+            'display_name' => $this->display_name,
+            'picture' => $this->picture,
+            'locale' => $this->locale
         ];
     }
 

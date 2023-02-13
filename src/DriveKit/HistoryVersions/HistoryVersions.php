@@ -63,7 +63,9 @@ class HistoryVersions extends DriveKit {
      */
     public function delete( string $file_id, string $version_id ): stdClass|bool {
         $url = str_replace(['{fileId}', '{versionId}'], [$file_id, $version_id], Constants::DRIVE_KIT_HISTORY_VERSION_URL . '?fields=*');
-        $result = $this->request( 'DELETE', $url, $this->auth_headers(), []);
+        $result = $this->request( 'DELETE', $url, $this->auth_headers(), [
+            'historyVersionId' => $version_id
+        ]);
         // code 400 may be: "The resource doesn't allow to be deleted" (the only version there is).
         return $result->code == 204;
     }
