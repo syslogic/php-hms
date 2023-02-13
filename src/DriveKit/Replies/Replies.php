@@ -15,6 +15,9 @@ use stdClass;
 class Replies extends DriveKit {
 
     /**
+     * @param string $file_id    The file ID.
+     * @param string $comment_id The comment ID.
+     * @param string $fields     Fields in the request, which are in the partial response format.
      * @return bool|stdClass The result of the API call.
      */
     public function list( string $file_id, string $comment_id, string $fields='*' ): stdClass|bool {
@@ -25,6 +28,10 @@ class Replies extends DriveKit {
     }
 
     /**
+     * @param string $file_id    The file ID.
+     * @param string $comment_id The comment ID.
+     * @param string $content    Reply content.
+     * @param string $fields     Fields in the request, which are in the partial response format.
      * @return bool|stdClass The result of the API call.
      */
     public function create( string $file_id, string $comment_id, string $content, string $fields='*' ): stdClass|bool {
@@ -35,6 +42,10 @@ class Replies extends DriveKit {
     }
 
     /**
+     * @param string $file_id    The file ID.
+     * @param string $comment_id The comment ID.
+     * @param string $reply_id   The reply ID.
+     * @param string $fields     Fields in the request, which are in the partial response format.
      * @return bool|stdClass The result of the API call.
      */
     public function get( string $file_id, string $comment_id, string $reply_id, string $fields='*' ): stdClass|bool {
@@ -45,7 +56,11 @@ class Replies extends DriveKit {
     }
 
     /**
-     * HTTP PATCH
+     * @param string $file_id    The file ID.
+     * @param string $comment_id The comment ID.
+     * @param string $reply_id   The reply ID.
+     * @param string $content    Reply content.
+     * @param string $fields     Fields in the request, which are in the partial response format.
      * @return bool|stdClass The result of the API call.
      */
     public function update( string $file_id, string $comment_id, string $reply_id, string $content, string $fields='*' ): stdClass|bool {
@@ -56,6 +71,9 @@ class Replies extends DriveKit {
     }
 
     /**
+     * @param string $file_id    The file ID.
+     * @param string $comment_id The comment ID.
+     * @param string $reply_id   The reply ID.
      * @return bool The result of the API call.
      */
     public function delete( string $file_id, string $comment_id, string $reply_id ): bool {

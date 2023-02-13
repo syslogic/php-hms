@@ -128,6 +128,6 @@ class Constants {
     public const DRIVE_KIT_COMMENT_REPLIES_URL = self::DRIVE_KIT_BASE_URL . "drive/v1/files/{fileId}/comments/{commentId}/replies";
     public const DRIVE_KIT_COMMENT_REPLY_URL = self::DRIVE_KIT_BASE_URL . "drive/v1/files/{fileId}/comments/{commentId}/replies/{replyId}";
     public const DRIVE_KIT_HISTORY_VERSIONS_URL = self::DRIVE_KIT_BASE_URL . "drive/v1/files/{fileId}/historyVersions";
-    public const DRIVE_KIT_HISTORY_VERSION_URL = self::DRIVE_KIT_BASE_URL . "drive/v1/files/{fileId}/historyVersions/{historyVersionId}";
+    public const DRIVE_KIT_HISTORY_VERSION_URL = self::DRIVE_KIT_BASE_URL . "drive/v1/files/{fileId}/historyVersions/{versionId}";
     public const DRIVE_KIT_BATCH_URL = self::DRIVE_KIT_BASE_URL . "batch/drive/v3";
 }
