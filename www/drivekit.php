@@ -30,7 +30,7 @@ include './oauth2.php';
     <body>
         <div>
         <?php
-        if (isset($error)) {echo '' . $error . '';}
+        if (isset($error)) {echo $error;}
         if (isset( $token_response ) && property_exists($token_response, 'access_token')) {
                 $drive = new DriveKit( ['access_token' => $token_response->access_token] );
                 $result = $drive->getAbout()->get();

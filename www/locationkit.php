@@ -23,7 +23,7 @@ include './oauth2.php';
 <body>
 <div>
     <?php
-    if (isset($error)) {echo '' . $error . '';}
+    if (isset($error)) {echo $error;}
     if (isset( $token_response ) && property_exists($token_response, 'access_token')) {
         $location = new LocationKit( ['access_token' => $token_response->access_token] );
         $result = $location->getIpLocation( '8.8.8.8' );

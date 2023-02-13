@@ -21,7 +21,7 @@ class DriveKitAboutTest extends BaseTestCase {
     }
 
     /** Test: About:get */
-    public function test_about() {
+    public function test_get() {
         $result = self::$client->getAbout()->get();
         self::assertTrue( property_exists($result, 'category' ) && $result->category == 'drive#about' );
         self::assertTrue( property_exists($result, 'storageQuota' ) && is_object($result->storageQuota ) );

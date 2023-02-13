@@ -34,12 +34,7 @@ class Files extends DriveKit {
      * @return bool|stdClass The result of the API call.
      */
     public function subscribe( string $file_id, string $channel_id, string $url, string $user_token, int $expiration_time=0 ): stdClass|bool {
-        $query = [
-            'type' => 'web_hook',
-            'id' => $channel_id,
-            'url' => $url,
-            'userToken' => $user_token
-        ];
+        $query = ['type' => 'web_hook', 'id' => $channel_id, 'url' => $url, 'userToken' => $user_token];
         if ($expiration_time != 0) {$query['expirationTime'] = $expiration_time;}
         return $this->request( 'POST', Constants::DRIVE_KIT_FILES_URL . '/' . $file_id . '/subscribe', $this->auth_headers(), $query);
     }

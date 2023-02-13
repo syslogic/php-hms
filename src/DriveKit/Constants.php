@@ -121,7 +121,7 @@ class Constants {
     public const DRIVE_KIT_THUMBNAILS_URL = self::DRIVE_KIT_BASE_URL . "drive/v1/thumbnails/{fileId}";
     public const DRIVE_KIT_SMALL_THUMBNAILS_URL = self::DRIVE_KIT_BASE_URL . "drive/v1/smallThumbnails/{fileId}";
     public const DRIVE_KIT_CHANGES_URL = self::DRIVE_KIT_BASE_URL . "drive/v1/changes";
-    public const DRIVE_KIT_CHANGES_SUBSCRIBE_URL = self::DRIVE_KIT_BASE_URL . "drive/v1/changes/subscirbe"; // typo ...
+    public const DRIVE_KIT_CHANGES_SUBSCRIBE_URL = self::DRIVE_KIT_BASE_URL . "drive/v1/changes/subscribe";
     public const DRIVE_KIT_CHANNELS_URL = self::DRIVE_KIT_BASE_URL . "drive/v1/channels/stop";
     public const DRIVE_KIT_COMMENTS_URL = self::DRIVE_KIT_BASE_URL . "drive/v1/files/{fileId}/comments";
     public const DRIVE_KIT_COMMENT_URL = self::DRIVE_KIT_BASE_URL . "drive/v1/files/{fileId}/comments/{commentId}";

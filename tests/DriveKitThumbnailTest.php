@@ -12,7 +12,6 @@ class DriveKitThumbnailTest extends BaseTestCase {
 
     /** @var DriveKit|null $client */
     private static ?DriveKit $client;
-    protected static string $file_id = 'BjDA_0bCctM1xH2A8-N5BcYVCH_afmLXN';
     protected static ?string $file_name_01 = 'thumbnail_01.png';
     protected static ?string $file_name_02 = 'thumbnail_02.png';
 

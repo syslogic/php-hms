@@ -33,6 +33,7 @@ include './oauth2.php';
         </div>
         <div>
         <?php
+        if (isset($error)) {echo $error;}
         if (isset($_POST) && isset($_POST['query'])) {
             if (isset( $token_response ) && property_exists($token_response, 'access_token')) {
                 $search = new SearchKit( ['access_token' => $token_response->access_token] );
