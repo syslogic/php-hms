@@ -18,7 +18,7 @@ abstract class BaseTestCase extends TestCase {
     protected static ?string $oauth2_token_path = '../.credentials/huawei_token.json';
     protected static string $build_path;
 
-    protected static string $file_id = 'BjDA_0bCctM1xH2A8-N5BcYVCH_afmLXN';
+    protected static string $file_id = 'BvxJfT7Kem5FYvkii109M6LZgf2idmpqR';
 
     protected static ?string $user_access_token = null;
     protected static int $agc_client_id = 0;               // AGConnect API.

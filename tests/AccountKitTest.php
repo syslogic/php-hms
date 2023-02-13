@@ -14,9 +14,7 @@ class AccountKitTest extends BaseTestCase {
 
     private static ?AccountKit $client;
     private static ?string $app_access_token = null;
-    private static ?string $id_token = null;
     private static string $user_access_token_path = '../.credentials/huawei_token.json';
-    private const PARSE_ACCESS_TOKEN = 'PARSE_ACCESS_TOKEN has failed.';
 
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {
@@ -28,13 +26,8 @@ class AccountKitTest extends BaseTestCase {
 
         if (file_exists(self::$user_access_token_path)) {
             $data = json_decode(file_get_contents(self::$user_access_token_path));
-
             self::$user_access_token = $data->access_token;
             self::assertNotNull( self::$user_access_token, self::CLIENT_NOT_READY );
-
-            self::$id_token = $data->id_token;
-            self::assertNotNull( self::$id_token, self::CLIENT_NOT_READY );
-
         } else {
             self::markTestSkipped('File not found: ' . self::$user_access_token_path);
         }
@@ -49,8 +42,8 @@ class AccountKitTest extends BaseTestCase {
     /** Parse an Access Token. */
     public function test_parse_access_token() {
         $result = self::$client->parse_access_token( self::$app_access_token );
-        self::assertTrue( $result instanceof TokenInfo, self::PARSE_ACCESS_TOKEN );
-        self::assertTrue( $result->validate(), self::PARSE_ACCESS_TOKEN );
+        self::assertTrue( property_exists($result, 'access_token') );
+        echo print_r($result, true);
     }
 
     /**
@@ -73,11 +66,11 @@ class AccountKitTest extends BaseTestCase {
     public function test_verify_id_token() {
         if (file_exists(self::$user_access_token_path)) {
             $data = json_decode(file_get_contents(self::$user_access_token_path));
-            self::$id_token = $data->id_token;
-            $result = self::$client->verify_id_token( self::$id_token );
-            self::assertTrue( !property_exists($result, 'error'), $result->error );
-            self::assertTrue( property_exists($result, 'typ') && $result->typ == 'JWT' );
-            self::assertTrue( property_exists($result, 'alg') && $result->alg == 'RS256' );
+            $result = self::$client->verify_id_token( $data->id_token );
+            $data = $result->asObject();
+            self::assertTrue( property_exists($data, 'typ') && $data->typ == 'JWT' );
+            self::assertTrue( property_exists($data, 'alg') && $data->alg == 'RS256' );
+            echo print_r($data, true);
         } else {
             $this->markTestSkipped('File not found: ' . self::$user_access_token_path);
         }

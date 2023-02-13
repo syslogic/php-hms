@@ -12,8 +12,6 @@ class DriveKitVersionsTest extends BaseTestCase {
 
     /** @var DriveKit|null $client */
     private static ?DriveKit $client;
-
-    protected static string $file_id = 'BjDA_0bCctM1xH2A8-N5BcYVCH_afmLXN';
     protected static string $version_id = '';
 
     /** This method is called before the first test of this test class is run. */

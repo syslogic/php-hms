@@ -118,7 +118,7 @@ class AccountKit extends Wrapper {
      * @return TokenInfo|null
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/account-gettokeninfo-0000001050050585">Parsing an Access Token</a>
      */
-    public function parse_access_token( string $access_token ): TokenInfo|null {
+    public function parse_access_token( string $access_token ): stdClass|null {
         $result = $this->request( 'POST', Constants::URL_ACCOUNT_KIT_TOKEN_INFO, $this->auth_headers(), [
             'access_token' => $access_token,
             'getNickName' => 1
@@ -127,7 +127,7 @@ class AccountKit extends Wrapper {
             if ( property_exists( $result, 'error' ) && property_exists( $result, 'sub_error' )) {
                 die( 'TokenInfo Error '.$result->error.' / '.$result->sub_error.' -> '.$result->error_description );
             } else {
-                return new TokenInfo( $result );
+                return $result;
             }
         }
         return null;
@@ -151,7 +151,7 @@ class AccountKit extends Wrapper {
      * @return IdTokenInfo|null
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/account-verify-id-token_hms_reference-0000001050050577">Verifying an ID Token</a>
      */
-    public function verify_id_token( string $id_token ): IdTokenInfo|stdClass {
+    public function verify_id_token( string $id_token ): stdClass|IdTokenInfo {
         $result = $this->request( 'POST', Constants::URL_OAUTH2_TOKEN_INFO, $this->auth_headers(), [
             'id_token' => $id_token
         ], true);
