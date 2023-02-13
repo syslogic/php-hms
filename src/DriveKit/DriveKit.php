@@ -40,6 +40,7 @@ class DriveKit extends Wrapper implements IDriveKit {
             $this->oauth2_api_scope = $this->oauth2_api_scope . ' ' . $oauth2_scope;
         }
         $this->post_init();
+        return $this;
     }
 
     /** Unset properties irrelevant to the child class. */

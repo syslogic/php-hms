@@ -1,0 +1,6 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="DriveKit About" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
+    <TestRunner class="Tests\DriveKitAboutTest" configuration_file="$PROJECT_DIR$/phpunit.xml" file="$PROJECT_DIR$/tests/DriveKitAboutTest.php" scope="Class" />
+    <method v="2" />
+  </configuration>
+</component>

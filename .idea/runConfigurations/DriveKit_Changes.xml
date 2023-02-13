@@ -1,0 +1,6 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="DriveKit Changes" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
+    <TestRunner class="Tests\DriveKitChangesTest" configuration_file="$PROJECT_DIR$/phpunit.xml" file="$PROJECT_DIR$/tests/DriveKitChangesTest.php" scope="Class" />
+    <method v="2" />
+  </configuration>
+</component>

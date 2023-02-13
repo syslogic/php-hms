@@ -24,16 +24,16 @@ class DriveKitChangesTest extends BaseTestCase {
 
     /** Test: Changes:getStartCursor */
     public function test_cursor() {
-        // Getting a start cursor
         $result = self::$client->getChanges()->cursor();
         self::assertTrue( property_exists($result, 'category' ) && $result->category == 'drive#startCursor' );
         self::assertTrue( property_exists($result, 'startCursor' ) && is_string($result->startCursor) );
         self::$start_cursor = $result->startCursor;
+        echo 'Cursor: ' . self::$start_cursor;
     }
 
     /** Test: Changes:list */
     public function test_list() {
-        self::assertTrue( is_string(self::$start_cursor) );
+        self::assertTrue( is_string( self::$start_cursor ) );
         $result = self::$client->getChanges()->list( self::$start_cursor );
         self::assertTrue( property_exists($result, 'category' ) && $result->category == 'drive#changeList' );
         self::assertTrue( property_exists($result, 'newStartCursor' ) && is_string($result->newStartCursor) );
@@ -44,12 +44,12 @@ class DriveKitChangesTest extends BaseTestCase {
 
     /** Test: Changes:subscribe */
     public function test_subscribe() {
-        self::assertTrue( is_string(self::$start_cursor) );
+        self::assertTrue( is_string( self::$start_cursor ) );
         $notification_url = $_SERVER['HUAWEI_OAUTH2_REDIRECT_URL'].'notify_drivekit';
         $result = self::$client->getChanges()->subscribe( self::$start_cursor, 'test', $notification_url, 'xyz' );
+        self::assertTrue( !property_exists($result, 'code') && $result->code != 400, $result->message);
         self::assertTrue( property_exists($result, 'category' ) && $result->category == 'api#channel' );
         self::assertTrue( property_exists($result, 'resourceId' ) && is_string($result->resourceId) );
         echo print_r($result, true);
     }
-
 }
