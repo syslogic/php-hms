@@ -14,7 +14,6 @@ class DriveKitCommentsTest extends BaseTestCase {
     private static ?DriveKit $client;
     protected static string $file_id = 'BjDA_0bCctM1xH2A8-N5BcYVCH_afmLXN';
     protected static ?string $comment_id;
-
     protected static string $comment_text_original = 'Test comment.';
     protected static string $comment_text_updated = 'Updated test comment.';
 
@@ -61,7 +60,7 @@ class DriveKitCommentsTest extends BaseTestCase {
         echo print_r($result, true);
     }
 
-    /** Test: Comments:update */
+    /** Test: Comments:delete */
     public function test_delete() {
         $result = self::$client ->getComments()->delete( self::$file_id, self::$comment_id );
         self::assertTrue( $result );
