@@ -162,7 +162,7 @@ Running tests with code coverage on Linux:
 composer run-script coverage_linux
 ````
 
-Generate documentation with `phpDocumentor.phar`:
+Generate documentation with [`phpDocumentor`](https://docs.phpdoc.org):
 ````shell
 composer run-script docs
 ````
