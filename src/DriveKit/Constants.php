@@ -67,7 +67,7 @@ class Constants {
         'mp2' => 'audio/x-mpeg',
         'mp3' => 'audio/x-mpeg',
         'mp4' => 'video/mp4',
-        'mpc' => 'application/vnd.mpohun.certificate',
+        'mpc' => 'audio/x-musepack',
         'mpeg' => 'video/mpeg',
         'mpe' => 'video/mpeg',
         'mpg' => 'video/mpeg',
