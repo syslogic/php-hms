@@ -11,21 +11,21 @@ This project aims to abstract Huawei REST API, according to the official API doc
 
 ### Project Status
 
-|                                                                                                Class |                                  Status                                  |
-|-----------------------------------------------------------------------------------------------------:|:------------------------------------------------------------------------:|
-|                           [`Core\Wrapper`](https://github.com/syslogic/php-hms/blob/master/src/Core) |                                 working                                  |
-|                       [`AccountKit`](https://github.com/syslogic/php-hms/blob/master/src/AccountKit) |                                 working                                  |
-|                             [`PushKit`](https://github.com/syslogic/php-hms/blob/master/src/PushKit) |                                 working                                  |
-|                               [`MapKit`](https://github.com/syslogic/php-hms/blob/master/src/MapKit) |                                 working                                  |
-|                     [`LocationKit`](https://github.com/syslogic/php-hms/blob/master/src/LocationKit) |                                 untested                                 |
-|                               [`AdsKit`](https://github.com/syslogic/php-hms/blob/master/src/AdsKit) |                                 working                                  |
-|                   [`AnalyticsKit`](https://github.com/syslogic/php-hms/blob/master/src/AnalyticsKit) |                                 working                                  |
-| [`AppGallery\Publishing`](https://github.com/syslogic/php-hms/tree/master/src/AppGallery/Publishing) | [plugin](https://github.com/syslogic/agconnect-publishing-gradle-plugin) |
-|                         [`DriveKit`](https://github.com/syslogic/php-hms/tree/master/src/DriveKit) * |                                partially                                 |
-|                     [`GameService`](https://github.com/syslogic/php-hms/tree/master/src/GameService) |                                 untested                                 |
-|                       [`SearchKit`](https://github.com/syslogic/php-hms/blob/master/src/SearchKit) * |                                partially                                 |
-|                           [`CloudSms`](https://github.com/syslogic/php-hms/blob/master/src/CloudSms) |                                 untested                                 |
-|                       [`WalletKit`](https://github.com/syslogic/php-hms/blob/master/src/WalletKit) * |                                partially                                 |
+|                                                                                                Class | OAuth2 |     |  Status   |                                  Gradle                                  |
+|-----------------------------------------------------------------------------------------------------:|:------:|:---:|:---------:|:------------------------------------------------------------------------:|
+|                           [`Core\Wrapper`](https://github.com/syslogic/php-hms/blob/master/src/Core) |        |     |  working  |                                                                          |
+|                       [`AccountKit`](https://github.com/syslogic/php-hms/blob/master/src/AccountKit) |        |     |  working  |                                                                          |
+|                             [`PushKit`](https://github.com/syslogic/php-hms/blob/master/src/PushKit) |        |     |  working  |                                                                          |
+|                               [`MapKit`](https://github.com/syslogic/php-hms/blob/master/src/MapKit) |        |     |  working  |                                                                          |
+|                     [`LocationKit`](https://github.com/syslogic/php-hms/blob/master/src/LocationKit) |        |     | untested  |                                                                          |
+|                               [`AdsKit`](https://github.com/syslogic/php-hms/blob/master/src/AdsKit) |        |     |  working  |                                                                          |
+|                   [`AnalyticsKit`](https://github.com/syslogic/php-hms/blob/master/src/AnalyticsKit) |        |     |  working  |                                                                          |
+| [`AppGallery\Publishing`](https://github.com/syslogic/php-hms/tree/master/src/AppGallery/Publishing) |        |     | partially | [Plugin](https://github.com/syslogic/agconnect-publishing-gradle-plugin) |
+|                           [`DriveKit`](https://github.com/syslogic/php-hms/tree/master/src/DriveKit) |   *    |     | partially |                                                                          |
+|                     [`GameService`](https://github.com/syslogic/php-hms/tree/master/src/GameService) |        |     | untested  |                                                                          |
+|                         [`SearchKit`](https://github.com/syslogic/php-hms/blob/master/src/SearchKit) |   *    |     | partially |                                                                          |
+|                           [`CloudSms`](https://github.com/syslogic/php-hms/blob/master/src/CloudSms) |        |     | untested  |                                                                          |
+|                         [`WalletKit`](https://github.com/syslogic/php-hms/blob/master/src/WalletKit) |   *    |     | partially |                                                                          |
 
 The endpoints marked with an asterisk require interactive two-legged oAuth2 flow; see [`www`](https://github.com/syslogic/php-hms/blob/master/www).
 

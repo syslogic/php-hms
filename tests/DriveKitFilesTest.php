@@ -82,6 +82,28 @@ class DriveKitFilesTest extends BaseTestCase {
         echo print_r($result, true);
     }
 
+    public function test_create_folder_structure() {
+        $result = self::$client ->getFiles()->create_folder_structure( [
+            self::$test_folder_name => [
+                'test1',
+                'test2',
+                'test3',
+                'test4' => [
+                    'test5',
+                    'test6'
+                ]
+            ]
+        ] );
+        self::assertTrue( is_array($result) );
+        foreach ($result as $file) {
+            self::assertTrue( property_exists($file, 'category' ) && $file->category == 'drive#file' );
+            self::assertTrue( property_exists($file, 'mimeType' ));
+            self::assertTrue( property_exists($file, 'id' ));
+            self::$test_created_ids[] = $file->id;
+        }
+        echo print_r($result, true);
+    }
+
     /** Test: Files:create.content */
     public function test_create_content() {
         $result = self::$client ->getFiles()->create_content( self::$upload_file_name );

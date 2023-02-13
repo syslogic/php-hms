@@ -25,16 +25,36 @@ class Files extends DriveKit {
     }
 
     /**
-     * @param string|null $query_param A query for filtering the file results by attribute. For details, please refer to https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/server-public-info-0000001050159641#section166302011174612.
-     * @param string|null $order_by A list of sort keys separated by commas. The value options include createdTime, folder, editedTime, fileName, recycleTime, and size. Each key sorts in ascending order by default, but can be reversed with the desc modifier, for example, orderBy=folder,editedTime desc,fileName. If the number of files exceeds 100,000, orderBy is ignored.
-     * @param         int $page_size Maximum number of results to return per page. The default value is 100. The value ranges from 1 to 100. Note: It is possible that partial or empty result pages are returned before the end of the result list has been reached.
-     * @param string|null $cursor Cursor for the current page, which is obtained from nextCursor in the previous response.
-     * @param string|null $containers Query scope. The value can be drive, applicationData, or a combination of the two (separated by a comma). The default value is drive.
-     * @param string|null $fields Fields in the request, which are in the partial response format. For details, please refer to: https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/server-public-info-0000001050159641#section1550214199147.
-     * @param string|null $form Media format.
+     * @param string $file_id      File ID.
+     * @param string $channel_id   A unique string that identifies this channel..
+     * @param string $url          Address where notifications are sent for this channel.
+     * @param string $user_token   A string that is sent to the target address along with each notification that is sent on this channel.
+     * @param int $expiration_time Date and time when the notification channel expires, expressed as a Unix timestamp, in milliseconds.
+     *                             File resources will expire within one day, while change resources will expire within one week.
+     * @return bool|stdClass The result of the API call.
+     */
+    public function subscribe( string $file_id, string $channel_id, string $url, string $user_token, int $expiration_time=0 ): stdClass|bool {
+        $query = [
+            'type' => 'web_hook',
+            'id' => $channel_id,
+            'url' => $url,
+            'userToken' => $user_token
+        ];
+        if ($expiry != 0) {$query['expirationTime'] = $expiry;}
+        return $this->request( 'POST', Constants::DRIVE_KIT_FILES_URL . '/' . $file_id . '/subscribe', $this->auth_headers(), $query);
+    }
+
+    /**
+     * @param string|null $query_param  A query for filtering the file results by attribute. For details, please refer to https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/server-public-info-0000001050159641#section166302011174612.
+     * @param string|null $order_by     A list of sort keys separated by commas. The value options include createdTime, folder, editedTime, fileName, recycleTime, and size. Each key sorts in ascending order by default, but can be reversed with the desc modifier, for example, orderBy=folder,editedTime desc,fileName. If the number of files exceeds 100,000, orderBy is ignored.
+     * @param         int $page_size    Maximum number of results to return per page. The default value is 100. The value ranges from 1 to 100. Note: It is possible that partial or empty result pages are returned before the end of the result list has been reached.
+     * @param string|null $cursor       Cursor for the current page, which is obtained from nextCursor in the previous response.
+     * @param string|null $containers   Query scope. The value can be drive, applicationData, or a combination of the two (separated by a comma). The default value is drive.
+     * @param string|null $fields       Fields in the request, which are in the partial response format. For details, please refer to: https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/server-public-info-0000001050159641#section1550214199147.
+     * @param string|null $form         Media format.
      * @param string|null $pretty_print Indicates whether to return a response in a human-readable format.
-     * @param string|null $quota_id User identifier, which can contain a maximum of 40 characters. This parameter is used to restrict the maximum number of API calls for a single user.
-     * @param string|null $callback Callback function used in JSONP requests.
+     * @param string|null $quota_id     User identifier, which can contain a maximum of 40 characters. This parameter is used to restrict the maximum number of API calls for a single user.
+     * @param string|null $callback     Callback function used in JSONP requests.
      * @return bool|stdClass The result of the API call.
      */
     public function list(?string $query_param=null, ?string $order_by=null, int $page_size=100, ?string $cursor=null,
@@ -47,7 +67,7 @@ class Files extends DriveKit {
         if ($order_by     != null) {$query['orderBy'] = $order_by;}
         if ($cursor       != null) {$query['cursor'] = $cursor;}
         if ($containers   != null) {$query['containers'] = $containers;}
-        if ($fields       != null) {$query['fields'] = $fields;}
+        if ($fields       != null) {$query['fields'] = $fields;} else {$query['fields'] = '*';}
         if ($form         != null) {$query['form'] = $form;}
         if ($pretty_print != null) {$query['prettyPrint'] = $pretty_print;}
         if ($quota_id     != null) {$query['quotaId'] = $quota_id;}
@@ -57,19 +77,19 @@ class Files extends DriveKit {
     }
 
     /**
-     * @param string $file_name File name.
-     * @param string|null $mime_type File type. For details, please refer to Overview.
-     * @param string|null $file_id File ID.
-     * @param string|null $description Short description of the file.
+     * @param string $file_name               File name.
+     * @param string|null $mime_type          File type. For details, please refer to Overview.
+     * @param string|null $file_id            File ID.
+     * @param string|null $description        Short description of the file.
      * @param array<string> $parent_folders[] Parent folder. The value can be root, applicationData, or the ID of a common folder.
-     * @param bool $favorite Indicates whether the file has been favorited.
-     * @param string|null $properties Custom file properties that are universally visible.
-     * @param string|null $original_filename Original file name.
-     * @param string|null $created_time Time when the file is created.
-     * @param string|null $edited_time Last time when the file was modified.
-     * @param string|null $app_settings Customized app attribute.
-     * @param bool $has_copy_permission Indicates whether the current user (assuming the writer role) has permission to copy the file.
-     * @param bool $has_share_permission Indicates whether the current user (assuming the writer role) has permission to share the file.
+     * @param bool $favorite                  Indicates whether the file has been favorited.
+     * @param string|null $properties         Custom file properties that are universally visible.
+     * @param string|null $original_filename  Original file name.
+     * @param string|null $created_time       Time when the file is created.
+     * @param string|null $edited_time        Last time when the file was modified.
+     * @param string|null $app_settings       Customized app attribute.
+     * @param bool $has_copy_permission       Indicates whether the current user (assuming the writer role) has permission to copy the file.
+     * @param bool $has_share_permission      Indicates whether the current user (assuming the writer role) has permission to share the file.
      * @param string|null $contentExtras.thumbnail.content Thumbnail data encoded with Base64.
      * @param string|null $contentExtras.thumbnail.mimeType MIME type of the thumbnail.
      * @return bool|stdClass The result of the API call.
@@ -96,11 +116,74 @@ class Files extends DriveKit {
         return $this->request('POST', Constants::DRIVE_KIT_FILES_URL, $this->auth_headers(), $query);
     }
 
-    public function create_folder( string $file_name ): stdClass|bool {
+    public function create_folder( string $file_name, string $parent_id='root' ): stdClass|bool {
         return $this->request('POST', Constants::DRIVE_KIT_FILES_URL, $this->auth_headers(), [
             'mimeType' => Constants::DRIVE_KIT_MIME_TYPE_FOLDER,
+            'parentFolder' => [ $parent_id ],
             'fileName' => $file_name
         ]);
+    }
+
+    private function get_file_id( string $file_name ):string|null {
+        $result = $this->list();
+        foreach ($result->files as $file) {
+            if ($file->fileName == $file_name) {return $file->id;}
+        }
+        return null;
+    }
+
+    /** Recursion problem: the incoming value is the filename and not the resulting ID. */
+    public function create_folder_structure( array $structure, string $parent_id='root' ): array|bool {
+        $created_files = [];
+        foreach ($structure as $file_name => $value) {
+            $parent_id = $this->get_file_id( $file_name );
+            if ($parent_id != null) {
+                if (is_array($value)) {
+                    foreach ($value as $file_name1 ) {
+                        if (is_array($file_name1)) {
+                            foreach ($file_name1 as $file_name2 ) {
+                                if (is_string($file_name2)) {
+                                    $file_id = $this->get_file_id($file_name2);
+                                    if ($file_id == null) {
+                                        $result = $this->request('POST', Constants::DRIVE_KIT_FILES_URL, $this->auth_headers(), [
+                                            'mimeType' => Constants::DRIVE_KIT_MIME_TYPE_FOLDER,
+                                            'parentFolder' => [ $parent_id ],
+                                            'fileName' => $file_name2
+                                        ]);
+                                        $created_files[] = $result;
+                                    }
+                                }
+                            }
+                        } else if (is_string($file_name1)) {
+                            $file_id = $this->get_file_id($file_name1);
+                            if ($file_id == null) {
+                                $result = $this->request('POST', Constants::DRIVE_KIT_FILES_URL, $this->auth_headers(), [
+                                    'mimeType' => Constants::DRIVE_KIT_MIME_TYPE_FOLDER,
+                                    'parentFolder' => [ $parent_id ],
+                                    'fileName' => $file_name1
+                                ]);
+                                $created_files[] = $result;
+                            }
+                        }
+                    }
+                } elseif (is_string($value)) {
+                    $result = $this->request('POST', Constants::DRIVE_KIT_FILES_URL, $this->auth_headers(), [
+                        'mimeType' => Constants::DRIVE_KIT_MIME_TYPE_FOLDER,
+                        'parentFolder' => [ $parent_id ],
+                        'fileName' => $file_name
+                    ]);
+                    $created_files[] = $result;
+                }
+            } else {
+                /* create parent directory */
+                $result = $this->request('POST', Constants::DRIVE_KIT_FILES_URL, $this->auth_headers(), [
+                    'mimeType' => Constants::DRIVE_KIT_MIME_TYPE_FOLDER,
+                    'fileName' => $file_name
+                ]);
+                $created_files[] = $result;
+            }
+        }
+        return $created_files;
     }
 
     /**
@@ -123,15 +206,13 @@ class Files extends DriveKit {
     public function get_content( string $file_id, ?string $quota_id=null ): stdClass|bool {
         $url = Constants::DRIVE_KIT_FILES_URL . '/' . $file_id . '?form=content';
         if ($quota_id != null) {$url .= '&quotaId=' . $quota_id;}
-        return $this->request( 'GET', $url, $this->auth_headers(), [
-            'fileId' => $file_id
-        ]);
+        return $this->request( 'GET', $url, $this->auth_headers(), ['fileId' => $file_id] );
     }
 
     /**
-     * @param string $file_path The path to the local file.
+     * @param string $file_path      The path to the local file.
      * @param string|null $mime_type being determined by the filename suffix, when null is being passed.
-     * @param string|null $quota_id User identifier, which can contain a maximum of 40 characters.
+     * @param string|null $quota_id  User identifier, which can contain a maximum of 40 characters.
      *                              This parameter is used to restrict the maximum number of API calls for a single user.
      * @return bool|stdClass The result of the API call.
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/server-api-filescreatecontent-0000001050151688">Files:create.content</a>
@@ -142,9 +223,9 @@ class Files extends DriveKit {
         if (file_exists($file_path) && is_readable($file_path)) {
             $body = file_get_contents($file_path);
             return $this->request( 'POST', $url, [
+                'Content-Type' => $mime_type != null ? $mime_type : $this->get_mime_type($file_path),
                 'Authorization' => ' Bearer ' . $this->access_token,
-                'Accept' => 'application/json',
-                'Content-Type' => $mime_type != null ? $mime_type : $this->get_mime_type($file_path)
+                'Accept' => 'application/json'
             ], $body );
         } else {
             return false;
@@ -152,13 +233,13 @@ class Files extends DriveKit {
     }
 
     /**
-     * @param string $file_id
-     * @param string $fields Fields in the request, which are in the partial response format. For details, please refer to Overview.
-     * @param string|null $form Media format.
-     * @param bool $prettyPrint Indicates whether to return a response in a human-readable format.
-     * @param string|null $quotaId User identifier, which can contain a maximum of 40 characters. This parameter is used to restrict the maximum number of API calls for a single user.
+     * @param string $file_id       The file ID.
+     * @param string $fields        Fields in the request, which are in the partial response format. For details, please refer to Overview.
+     * @param string|null $form     Media format.
+     * @param bool $prettyPrint     Indicates whether to return a response in a human-readable format.
+     * @param string|null $quotaId  User identifier, which can contain a maximum of 40 characters. This parameter is used to restrict the maximum number of API calls for a single user.
      * @param string|null $callback Callback function used in JSONP requests.
-     * @param bool $autoRename Indicates whether to automatically rename the file. If this parameter is set to true of left empty, the file will be automatically renamed. If this parameter is set to false, the file will not be automatically renamed.
+     * @param bool $autoRename      Indicates whether to automatically rename the file. If this parameter is set to true of left empty, the file will be automatically renamed. If this parameter is set to false, the file will not be automatically renamed.
      *
      * @return bool
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/server-api-filescopy-0000001050151696">Files:copy</a>
@@ -188,6 +269,7 @@ class Files extends DriveKit {
             return false;
         }
     }
+
     /**
      * @param string $containers Query scope.
      * The value can be drive, applicationData, or a combination of the two (separated by a comma).
