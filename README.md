@@ -63,9 +63,9 @@ Please refer to the documentation, which explains how to obtain these values: <b
 
 #### DriveKit API:
 
-- `HUAWEI_OAUTH2_REDIRECT_URL`<br/>
+- `HUAWEI_OAUTH2_REDIRECT_URL` A publicly accessible HTTPS URL.<br/>
 
-- `HUAWEI_OAUTH2_API_SCOPE`<br/>
+- `HUAWEI_OAUTH2_API_SCOPE` Default value: `openid profile`.<br/>
 
 #### AnalyticsKit API:
 
