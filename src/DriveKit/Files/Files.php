@@ -40,7 +40,7 @@ class Files extends DriveKit {
             'url' => $url,
             'userToken' => $user_token
         ];
-        if ($expiry != 0) {$query['expirationTime'] = $expiry;}
+        if ($expiration_time != 0) {$query['expirationTime'] = $expiration_time;}
         return $this->request( 'POST', Constants::DRIVE_KIT_FILES_URL . '/' . $file_id . '/subscribe', $this->auth_headers(), $query);
     }
 
@@ -57,8 +57,8 @@ class Files extends DriveKit {
      * @param string|null $callback     Callback function used in JSONP requests.
      * @return bool|stdClass The result of the API call.
      */
-    public function list(?string $query_param=null, ?string $order_by=null, int $page_size=100, ?string $cursor=null,
-                         ?string $containers=null, ?string $fields=null, ?string $form=null, ?string $pretty_print=null,
+    public function list(?string $fields=null, ?string $query_param=null, ?string $order_by=null, int $page_size=100, ?string $cursor=null,
+                         ?string $containers=null, ?string $form=null, ?string $pretty_print=null,
                          ?string $quota_id=null,?string $callback=null): stdClass|bool {
         $query = [];
         if ($query_param  != null) {$query['queryParam'] = $query_param;}
@@ -124,66 +124,56 @@ class Files extends DriveKit {
         ]);
     }
 
+    /** Recursion problem: the incoming value is the filename and not the resulting ID. */
+    public function create_folder_structure( array $structure, string $parent_id='root' ): array|bool {
+        $created_files = [];
+        foreach ($structure as $file_name => $value) {
+            $parent_id = $this->get_file_id( $file_name );
+            if ($parent_id != null) { // if filename does not exist.
+                if (is_array($value)) {
+                    foreach ($value as $file_name1 ) {
+                        if (is_array($file_name1)) {
+                            foreach ($file_name1 as $file_name2 ) {
+                                if (is_array($value)) {
+                                    // ...
+                                }
+                                else if (is_string($file_name2)) {
+                                    $created_files[] = $this->create_folder_if_not_exists( $file_name2, $parent_id );
+                                }
+                            }
+                        } else if (is_string($file_name1)) {
+                            $created_files[] = $this->create_folder_if_not_exists( $file_name1, $parent_id );
+                        }
+                    }
+                } elseif (is_string($value)) {
+                    $created_files[] = $this->create_folder_if_not_exists( $value, $parent_id );
+                }
+            } else {
+                /* create parent directory */
+                $created_files[] = $this->create_folder_if_not_exists( $file_name, 'root' );
+            }
+        }
+        return $created_files;
+    }
+
     private function get_file_id( string $file_name ):string|null {
-        $result = $this->list();
+        $result = $this->list('*');
         foreach ($result->files as $file) {
             if ($file->fileName == $file_name) {return $file->id;}
         }
         return null;
     }
 
-    /** Recursion problem: the incoming value is the filename and not the resulting ID. */
-    public function create_folder_structure( array $structure, string $parent_id='root' ): array|bool {
-        $created_files = [];
-        foreach ($structure as $file_name => $value) {
-            $parent_id = $this->get_file_id( $file_name );
-            if ($parent_id != null) {
-                if (is_array($value)) {
-                    foreach ($value as $file_name1 ) {
-                        if (is_array($file_name1)) {
-                            foreach ($file_name1 as $file_name2 ) {
-                                if (is_string($file_name2)) {
-                                    $file_id = $this->get_file_id($file_name2);
-                                    if ($file_id == null) {
-                                        $result = $this->request('POST', Constants::DRIVE_KIT_FILES_URL, $this->auth_headers(), [
-                                            'mimeType' => Constants::DRIVE_KIT_MIME_TYPE_FOLDER,
-                                            'parentFolder' => [ $parent_id ],
-                                            'fileName' => $file_name2
-                                        ]);
-                                        $created_files[] = $result;
-                                    }
-                                }
-                            }
-                        } else if (is_string($file_name1)) {
-                            $file_id = $this->get_file_id($file_name1);
-                            if ($file_id == null) {
-                                $result = $this->request('POST', Constants::DRIVE_KIT_FILES_URL, $this->auth_headers(), [
-                                    'mimeType' => Constants::DRIVE_KIT_MIME_TYPE_FOLDER,
-                                    'parentFolder' => [ $parent_id ],
-                                    'fileName' => $file_name1
-                                ]);
-                                $created_files[] = $result;
-                            }
-                        }
-                    }
-                } elseif (is_string($value)) {
-                    $result = $this->request('POST', Constants::DRIVE_KIT_FILES_URL, $this->auth_headers(), [
-                        'mimeType' => Constants::DRIVE_KIT_MIME_TYPE_FOLDER,
-                        'parentFolder' => [ $parent_id ],
-                        'fileName' => $file_name
-                    ]);
-                    $created_files[] = $result;
-                }
-            } else {
-                /* create parent directory */
-                $result = $this->request('POST', Constants::DRIVE_KIT_FILES_URL, $this->auth_headers(), [
-                    'mimeType' => Constants::DRIVE_KIT_MIME_TYPE_FOLDER,
-                    'fileName' => $file_name
-                ]);
-                $created_files[] = $result;
-            }
+    private function create_folder_if_not_exists( string $file_name, string $parent_id ): bool|stdClass {
+        $file_id = $this->get_file_id($file_name);
+        if ($file_id == null) { // if filename does not exist.
+            return $this->request('POST', Constants::DRIVE_KIT_FILES_URL, $this->auth_headers(), [
+                'mimeType' => Constants::DRIVE_KIT_MIME_TYPE_FOLDER,
+                'parentFolder' => [ $parent_id ],
+                'fileName' => $file_name
+            ]);
         }
-        return $created_files;
+        return false;
     }
 
     /**

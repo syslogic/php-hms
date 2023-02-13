@@ -6,6 +6,7 @@ use HMS\DriveKit\About\About;
 use HMS\DriveKit\Batch\BatchCallback;
 use HMS\DriveKit\Changes\Changes;
 use HMS\DriveKit\Channels\Channels;
+use HMS\DriveKit\Comments\Comments;
 use HMS\DriveKit\HistoryVersions\HistoryVersions;
 use HMS\DriveKit\Replies\Replies;
 use HMS\DriveKit\Files\Files;
@@ -62,8 +63,8 @@ class DriveKit extends Wrapper implements IDriveKit {
         return new Channels( $this->config() );
     }
 
-    public function getComments(): Replies {
-        return new Replies( $this->config() );
+    public function getComments(): Comments {
+        return new Comments( $this->config() );
     }
 
     public function getFiles(): Files {

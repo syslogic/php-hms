@@ -18,7 +18,7 @@ class Replies extends DriveKit {
      * @return bool|stdClass The result of the API call.
      */
     public function list( string $fileId, string $commentId, string $fields='' ): stdClass|bool {
-        $url = str_replace(['{$fileId}', '{commentId}'], [$fileId, $commentId], Constants::DRIVE_KIT_REPLIES_URL);
+        $url = str_replace(['{fileId}', '{commentId}'], [$fileId, $commentId], Constants::DRIVE_KIT_COMMENT_REPLIES_URL);
         return $this->request( 'GET', $url, $this->auth_headers(), [
             'fields' => $fields
         ]);

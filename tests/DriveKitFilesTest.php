@@ -5,7 +5,7 @@ use HMS\DriveKit\Constants;
 use HMS\DriveKit\DriveKit;
 
 /**
- * HMS DriveKit Test: Skipped.
+ * HMS DriveKit / Files Test
  *
  * @author Martin Zeitler
  */
@@ -26,7 +26,7 @@ class DriveKitFilesTest extends BaseTestCase {
 
     /** Test: Files:about */
     public function test_about() {
-        $result = self::$client ->getFiles()->getAbout()->get();
+        $result = self::$client->getFiles()->getAbout()->get();
         self::assertTrue( property_exists($result, 'category' ) && $result->category == 'drive#about' );
         self::assertTrue( property_exists($result, 'storageQuota' ) && is_object($result->storageQuota ) );
         self::assertTrue( property_exists($result, 'user' ) && is_object($result->user ));
@@ -35,7 +35,7 @@ class DriveKitFilesTest extends BaseTestCase {
 
     /** Test: Files:list */
     public function test_list() {
-        $result = self::$client ->getFiles()->list();
+        $result = self::$client->getFiles()->list();
         self::assertTrue( property_exists($result, 'category' ) && $result->category == 'drive#fileList' );
         self::assertTrue( property_exists($result, 'files' ) && is_array($result->files));
         if (sizeof($result->files) == 0) {self::markTestSkipped('empty directory listing');}
@@ -71,7 +71,7 @@ class DriveKitFilesTest extends BaseTestCase {
 
     /** Test: Files:create */
     public function test_create_folder() {
-        $result = self::$client ->getFiles()->create_folder( self::$test_folder_name );
+        $result = self::$client->getFiles()->create_folder( self::$test_folder_name );
         if (property_exists($result, 'code' ) && $result->code == 403) {
             self::markTestSkipped($result->message);
         }
@@ -83,7 +83,7 @@ class DriveKitFilesTest extends BaseTestCase {
     }
 
     public function test_create_folder_structure() {
-        $result = self::$client ->getFiles()->create_folder_structure( [
+        $result = self::$client->getFiles()->create_folder_structure( [
             self::$test_folder_name => [
                 'test1',
                 'test2',
@@ -106,7 +106,7 @@ class DriveKitFilesTest extends BaseTestCase {
 
     /** Test: Files:create.content */
     public function test_create_content() {
-        $result = self::$client ->getFiles()->create_content( self::$upload_file_name );
+        $result = self::$client->getFiles()->create_content( self::$upload_file_name );
         self::assertTrue( property_exists($result, 'category' ) && $result->category == 'drive#file' );
         self::assertTrue( property_exists($result, 'mimeType') && $result->mimeType == 'image/png' );
         self::assertTrue( property_exists($result, 'riskFile') && !$result->riskFile );
@@ -122,7 +122,7 @@ class DriveKitFilesTest extends BaseTestCase {
     public static function tearDownAfterClass(): void {
         parent::tearDownAfterClass();
         if (sizeof(self::$test_created_ids) > 0) {
-            self::$client ->getFiles()->delete( self::$test_created_ids );
+            self::$client->getFiles()->delete( self::$test_created_ids );
         }
     }
 }

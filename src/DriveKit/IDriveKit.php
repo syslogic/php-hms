@@ -6,6 +6,7 @@ use HMS\DriveKit\About\About;
 use HMS\DriveKit\Batch\BatchCallback;
 use HMS\DriveKit\Changes\Changes;
 use HMS\DriveKit\Channels\Channels;
+use HMS\DriveKit\Comments\Comments;
 use HMS\DriveKit\HistoryVersions\HistoryVersions;
 use HMS\DriveKit\Replies\Replies;
 use HMS\DriveKit\Files\Files;
@@ -21,7 +22,7 @@ interface IDriveKit {
     public function getBatchCallback(): BatchCallback;
     public function getChanges(): Changes;
     public function getChannels(): Channels;
-    public function getComments(): Replies;
+    public function getComments(): Comments;
     public function getFiles(): Files;
     public function getHistoryVersions(): HistoryVersions;
     public function getReplies(): Replies;
