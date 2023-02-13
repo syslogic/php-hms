@@ -22,7 +22,6 @@ class MapKitTest extends BaseTestCase {
     private static string $path_desc;
     private static string $marker_styles = 'size:tiny|color:blue|label:p';
     private static string $path_styles = 'weight:1|color:0x0000ff80|fillcolor:0x0000ff80';
-    private static string $build_path;
     private static int $map_width = 512;
     private static int $map_height = 256;
     private static int $map_zoom = 12;
@@ -36,10 +35,6 @@ class MapKitTest extends BaseTestCase {
         self::$client = new MapKit( self::get_config() );
         self::assertTrue( self::$client->is_ready(), self::CLIENT_NOT_READY );
 
-        self::$build_path = getcwd().DIRECTORY_SEPARATOR.'build'.DIRECTORY_SEPARATOR;
-        if (! is_dir( self::$build_path )) {mkdir( self::$build_path );}
-        self::assertTrue( is_dir( self::$build_path ) );
-
         self::$point_a = new Coordinate(['lat' => 48.142910, 'lng' => 11.579340]); // Munich @ Dianatempel
         self::$point_b = new Coordinate(['lat' => 48.152463, 'lng' => 11.593503]); // Munich @ Chinesischer Turm
         self::$point_c = new Coordinate(['lat' => 48.153022, 'lng' => 11.582501]); // Munich @ Leopoldstraße
@@ -52,13 +47,6 @@ class MapKitTest extends BaseTestCase {
 
         /* TODO: this would require better sample data; the coordinates must be at most 500m apart. */
         self::$coordinates_to_snap = [ new Coordinate(['lat' => 52.88005648589605, 'lng' => 9.056670927077944]) ];
-    }
-
-    private function saveFile(string $filename, string $raw_data) : void {
-        $result = file_put_contents($filename, $raw_data);
-        if (is_integer($result)) {
-            echo "Saved ".$filename.", ".$result." bytes\n";
-        }
     }
 
     /** Test: Directions API: Walking Directions */

@@ -262,7 +262,12 @@ abstract class Wrapper {
                     case 'application/json; charset=utf-8':
                         $this->result = json_decode( $this->response->getBody() );
                         break;
-                    case 'image/png':
+                    case 'application/octet-stream': // DriveKit download
+                        $binary = $this->response->getBody()->getContents();
+                        $this->result->base64 = base64_encode($binary);
+                        $this->result->raw = $binary;
+                        break;
+                    case 'image/png': // MapKit download
                         $binary = $this->response->getBody()->getContents();
                         $this->result->url = 'data:image/png;base64,'.base64_encode($binary);
                         $this->result->raw = $binary;

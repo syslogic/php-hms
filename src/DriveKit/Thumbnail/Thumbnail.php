@@ -15,10 +15,11 @@ use stdClass;
 class Thumbnail extends DriveKit {
 
     /**
+     * @param string $file_id The file ID.
      * @return bool|stdClass The result of the API call.
      */
-    public function get( string $fileId ): stdClass|bool {
-        $url = str_replace('{fileId}', $fileId, Constants::DRIVE_KIT_THUMBNAILS_URL);
-        return $this->request( 'GET', $url, $this->auth_headers(), []);
+    public function get( string $file_id ): stdClass|bool {
+        $url = str_replace('{fileId}', $file_id, Constants::DRIVE_KIT_THUMBNAILS_URL);
+        return $this->request( 'GET', $url, $this->auth_headers(), ['form' => 'content'] );
     }
 }

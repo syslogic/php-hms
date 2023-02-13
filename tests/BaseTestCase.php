@@ -16,6 +16,7 @@ abstract class BaseTestCase extends TestCase {
     protected static int $oauth2_client_id = 0;            // OAuth2 client.
     protected static ?string $oauth2_client_secret = null; // OAuth2 client.
     protected static ?string $oauth2_token_path = '../.credentials/huawei_token.json';
+    protected static string $build_path;
     protected static ?string $user_access_token = null;
     protected static int $agc_client_id = 0;               // AGConnect API.
     protected static ?string $agc_client_secret = null;    // AGConnect API.
@@ -58,6 +59,10 @@ abstract class BaseTestCase extends TestCase {
 
         self::$product_id = getenv('HUAWEI_CONNECT_PRODUCT_ID');
         self::assertTrue( is_int(self::$product_id) && self::$product_id > 0, self::ENV_VAR_CONNECT_PRODUCT_ID );
+
+        self::$build_path = getcwd().DIRECTORY_SEPARATOR.'build'.DIRECTORY_SEPARATOR;
+        if (! is_dir( self::$build_path )) {mkdir( self::$build_path );}
+        self::assertTrue( is_dir( self::$build_path ) );
     }
 
     /** It provides the configuration array. */
@@ -110,6 +115,13 @@ abstract class BaseTestCase extends TestCase {
             self::$user_access_token = $token_response->access_token;
         } else {
             self::markTestSkipped( "Cannot read cached token: " . self::$oauth2_token_path);
+        }
+    }
+
+    protected function saveFile(string $filename, string $raw_data) : void {
+        $result = file_put_contents($filename, $raw_data);
+        if (is_integer($result)) {
+            echo "Saved ".$filename.", ".$result." bytes\n";
         }
     }
 }
