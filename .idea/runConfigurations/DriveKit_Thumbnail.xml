@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="DriveKitThumbnailTest" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
+  <configuration default="false" name="DriveKit Thumbnail" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
     <TestRunner class="Tests\DriveKitThumbnailTest" configuration_file="$PROJECT_DIR$/phpunit.xml" file="$PROJECT_DIR$/tests/DriveKitThumbnailTest.php" scope="Class" />
     <method v="2" />
   </configuration>

@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="DriveKitCommentsTest" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
+  <configuration default="false" name="DriveKit Comments" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
     <TestRunner class="Tests\DriveKitCommentsTest" configuration_file="$PROJECT_DIR$/phpunit.xml" file="$PROJECT_DIR$/tests/DriveKitCommentsTest.php" scope="Class" />
     <method v="2" />
   </configuration>

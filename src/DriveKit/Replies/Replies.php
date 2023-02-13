@@ -17,8 +17,8 @@ class Replies extends DriveKit {
     /**
      * @return bool|stdClass The result of the API call.
      */
-    public function list( string $fileId, string $commentId, string $fields='' ): stdClass|bool {
-        $url = str_replace(['{fileId}', '{commentId}'], [$fileId, $commentId], Constants::DRIVE_KIT_COMMENT_REPLIES_URL);
+    public function list( string $file_id, string $comment_id, string $fields='*' ): stdClass|bool {
+        $url = str_replace(['{fileId}', '{commentId}'], [$file_id, $comment_id], Constants::DRIVE_KIT_COMMENT_REPLIES_URL . '?fields=' . $fields);
         return $this->request( 'GET', $url, $this->auth_headers(), [
             'fields' => $fields
         ]);
@@ -27,22 +27,40 @@ class Replies extends DriveKit {
     /**
      * @return bool|stdClass The result of the API call.
      */
-    public function get( string $fileId, string $commentId ): stdClass|bool {
-        return false;
+    public function create( string $file_id, string $comment_id, string $content, string $fields='*' ): stdClass|bool {
+        $url = str_replace(['{fileId}', '{commentId}'], [$file_id, $comment_id], Constants::DRIVE_KIT_COMMENT_REPLIES_URL . '?fields=' . $fields);
+        return $this->request( 'POST', $url, $this->auth_headers(), [
+            'description' => $content
+        ]);
+    }
+
+    /**
+     * @return bool|stdClass The result of the API call.
+     */
+    public function get( string $file_id, string $comment_id, string $reply_id, string $fields='*' ): stdClass|bool {
+        $url = str_replace(['{fileId}', '{commentId}', '{replyId}'], [$file_id, $comment_id, $reply_id], Constants::DRIVE_KIT_COMMENT_REPLY_URL);
+        return $this->request( 'GET', $url, $this->auth_headers(), [
+            'fields' => $fields
+        ]);
     }
 
     /**
      * HTTP PATCH
      * @return bool|stdClass The result of the API call.
      */
-    public function update( string $fileId, string $commentId ): stdClass|bool {
-        return false;
+    public function update( string $file_id, string $comment_id, string $reply_id, string $content, string $fields='*' ): stdClass|bool {
+        $url = str_replace(['{fileId}', '{commentId}', '{replyId}'], [$file_id, $comment_id, $reply_id], Constants::DRIVE_KIT_COMMENT_REPLY_URL . '?fields=' . $fields);
+        return $this->request( 'PATCH', $url, $this->auth_headers(), [
+            'description' => $content
+        ]);
     }
 
     /**
-     * @return bool|stdClass The result of the API call.
+     * @return bool The result of the API call.
      */
-    public function delete( string $fileId, string $commentId ): stdClass|bool {
-        return false;
+    public function delete( string $file_id, string $comment_id, string $reply_id ): bool {
+        $url = str_replace(['{fileId}', '{commentId}', '{replyId}'], [$file_id, $comment_id, $reply_id], Constants::DRIVE_KIT_COMMENT_REPLY_URL);
+        $result = $this->request( 'DELETE', $url, $this->auth_headers(), []);
+        return $result->code == 204;
     }
 }
