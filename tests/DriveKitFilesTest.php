@@ -1,6 +1,7 @@
 <?php /** @noinspection PhpPropertyOnlyWrittenInspection */
 namespace Tests;
 
+use HMS\DriveKit\Constants;
 use HMS\DriveKit\DriveKit;
 
 /**
@@ -12,10 +13,9 @@ class DriveKitFilesTest extends BaseTestCase {
 
     /** @var DriveKit|null $client */
     private static ?DriveKit $client;
-
-    protected static string $create_folder_name = 'phpunit_test';
-
     protected static string $upload_file_name = 'build/mapkit_01.png';
+    protected static string $test_folder_name = 'phpunit_test';
+    protected static array $test_created_ids = [];
 
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {
@@ -37,30 +37,70 @@ class DriveKitFilesTest extends BaseTestCase {
     public function test_list() {
         $result = self::$client ->getFiles()->list();
         self::assertTrue( property_exists($result, 'category' ) && $result->category == 'drive#fileList' );
-        self::assertTrue( property_exists($result, 'files' ));
-        self::assertTrue( is_array($result->files) );
+        self::assertTrue( property_exists($result, 'files' ) && is_array($result->files));
+        if (sizeof($result->files) == 0) {self::markTestSkipped('empty directory listing');}
         echo print_r($result, true);
+    }
+
+    /** Test: Files:delete */
+    public function test_delete_folders() {
+        $result = self::$client->getFiles()->list();
+        self::assertTrue( property_exists($result, 'category' ) && $result->category == 'drive#fileList' );
+        self::assertTrue( property_exists($result, 'files' ) && is_array($result->files) );
+        if (sizeof($result->files) == 0) {
+            self::markTestSkipped('Empty directory listing.');
+        } else {
+            $files = [];
+            foreach ($result->files as $file) {
+                if (
+                    $file->mimeType == Constants::DRIVE_KIT_MIME_TYPE_FOLDER &&
+                    str_starts_with($file->fileName, self::$test_folder_name)
+                ) {
+                    echo "Deleting $file->fileName -> $file->id.\n";
+                    $files[] = $file->id;
+                }
+            }
+            if (sizeof($files) == 0) {
+                self::markTestSkipped('No files with mime-type ' . Constants::DRIVE_KIT_MIME_TYPE_FOLDER . ' found.');
+            } else {
+                $result = self::$client->getFiles()->delete($files);
+                self::assertTrue($result);
+            }
+        }
     }
 
     /** Test: Files:create */
     public function test_create_folder() {
-        $result = self::$client ->getFiles()->create_folder( self::$create_folder_name );
+        $result = self::$client ->getFiles()->create_folder( self::$test_folder_name );
         if (property_exists($result, 'code' ) && $result->code == 403) {
             self::markTestSkipped($result->message);
         }
         self::assertTrue( property_exists($result, 'category' ) && $result->category == 'drive#file' );
         self::assertTrue( property_exists($result, 'mimeType' ));
         self::assertTrue( property_exists($result, 'id' ));
+        self::$test_created_ids[] = $result->id;
         echo print_r($result, true);
     }
 
     /** Test: Files:create.content */
     public function test_create_content() {
-        $result = self::$client ->getFiles()->create_content( self::$upload_file_name, 'image/png');
+        $result = self::$client ->getFiles()->create_content( self::$upload_file_name );
         self::assertTrue( property_exists($result, 'category' ) && $result->category == 'drive#file' );
         self::assertTrue( property_exists($result, 'mimeType') && $result->mimeType == 'image/png' );
         self::assertTrue( property_exists($result, 'riskFile') && !$result->riskFile );
         self::assertTrue( property_exists($result, 'id' ));
+        self::$test_created_ids[] = $result->id;
         echo print_r($result, true);
+    }
+
+    /**
+     * TearDown After Class: Deleting all the created IDs.
+     * @link self::$test_created_ids.
+     */
+    public static function tearDownAfterClass(): void {
+        parent::tearDownAfterClass();
+        if (sizeof(self::$test_created_ids) > 0) {
+            self::$client ->getFiles()->delete( self::$test_created_ids );
+        }
     }
 }
