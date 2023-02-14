@@ -11,6 +11,8 @@ This project aims to abstract Huawei REST API, according to the official API doc
 
 ### Project Status
 
+[![PHP Composer](https://github.com/syslogic/php-hms/actions/workflows/ci-php.yml/badge.svg)](https://github.com/syslogic/php-hms/actions/workflows/ci-php.yml)
+
 |                                                                                                Class | OAuth2 |     |  Status   |                                  Gradle                                  |
 |-----------------------------------------------------------------------------------------------------:|:------:|:---:|:---------:|:------------------------------------------------------------------------:|
 |                           [`Core\Wrapper`](https://github.com/syslogic/php-hms/blob/master/src/Core) |        |     |  working  |                                                                          |
@@ -27,9 +29,8 @@ This project aims to abstract Huawei REST API, according to the official API doc
 |                           [`CloudSms`](https://github.com/syslogic/php-hms/blob/master/src/CloudSms) |        |     | untested  |                                                                          |
 |                         [`WalletKit`](https://github.com/syslogic/php-hms/blob/master/src/WalletKit) |   *    |     | partially |                                                                          |
 
-The endpoints marked with an asterisk require interactive two-legged oAuth2 flow; see [`www`](https://github.com/syslogic/php-hms/blob/master/www).
-
-[![PHP Composer](https://github.com/syslogic/php-hms/actions/workflows/ci-php.yml/badge.svg)](https://github.com/syslogic/php-hms/actions/workflows/ci-php.yml)
+The endpoints marked with an asterisk require interactive two-legged oAuth2 flow; eg. see [`www`](https://github.com/syslogic/php-hms/blob/master/www)<br/>
+One can run these unit tests only with a previously cached user access token, obtained by login.
 
 ### Prerequisites
 
