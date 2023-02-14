@@ -192,7 +192,6 @@ class AnalyticsKit extends Wrapper {
             'data_type'        => 3,
             "protocol_version" => 1,
             "timestamp"        => time(),
-            // "requestid"        => "083e920d3f2b4f6aaa2ffba348e58d75",
             "appid"            => $this->oauth2_client_id,
             "productid"        => $this->product_id,
             'package_name'     => $this->package_name,
