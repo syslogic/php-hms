@@ -12,13 +12,11 @@ use HMS\AnalyticsKit\ResultCodes;
 class AnalyticsKitTest extends BaseTestCase {
 
     private static ?AnalyticsKit $client;
-    private static ?string $test_aaid = null;
+    private static ?string $test_aaid = 'test';
 
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {
-
         parent::setUpBeforeClass();
-
         self::$client = new AnalyticsKit( self::get_config() );
         self::assertTrue( self::$client->is_ready(), self::CLIENT_NOT_READY );
     }
@@ -63,27 +61,33 @@ class AnalyticsKitTest extends BaseTestCase {
     }
 
     /** TODO Test: Receiving the Execution Status of a Data Export Task; post-back. */
-    public function test_raw_data_export_status() {
-
-        self::assertTrue( true );
+    public function test_receive_raw_data_export_status() {
+        $result = self::$client->receive_raw_data_export_status();
+        self::assertTrue(property_exists($result, 'code'));
     }
 
     /** TODO Test: Importing Custom User Attributes. */
     public function test_data_collection_import_user() {
+        $result = self::$client->data_collection_import_user([
 
-        self::assertTrue( true );
+        ]);
+        self::assertTrue(property_exists($result, 'code'));
     }
 
     /** TODO Test: Importing Content. */
     public function test_data_collection_import_item() {
+        $result = self::$client->data_collection_import_item([
 
-        self::assertTrue( true );
+        ]);
+        self::assertTrue(property_exists($result, 'code'));
     }
 
     /** TODO Test: Reporting User Behavior. */
     public function test_data_collection_import_event() {
+        $result = self::$client->data_collection_import_event([
 
-        self::assertTrue( true );
+        ]);
+        self::assertTrue(property_exists($result, 'code'));
     }
 
     /** Test: Querying Open Metrics and Dimensions. */
@@ -96,13 +100,13 @@ class AnalyticsKitTest extends BaseTestCase {
 
     /** TODO Test: Querying Dimension Values. */
     public function test_query_dimensions() {
-
-        self::assertTrue( true );
+        $result = self::$client->query_dimensions("x", "y" );
+        self::assertTrue(property_exists($result, 'code'));
     }
 
     /** TODO Test: Querying Statistical Metrics. */
     public function test_query_metrics() {
-
-        self::assertTrue( true );
+        $result = self::$client->query_metrics("x", ["y"], null, null, null, null, 'en', 10);
+        self::assertTrue(property_exists($result, 'code'));
     }
 }

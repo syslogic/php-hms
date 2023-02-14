@@ -91,7 +91,7 @@ abstract class BaseTestCase extends TestCase {
     }
 
     /** It provides the user configuration array. */
-    #[ArrayShape(['access_token' => 'string', 'debug_mode' => 'bool'])]
+    #[ArrayShape(['oauth2_client_id' => 'int', 'product_id' => 'int','access_token' => 'string', 'debug_mode' => 'bool'])]
     protected static function get_user_config(): array {
         self::load_user_access_token();
         return [

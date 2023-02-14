@@ -56,10 +56,11 @@ class AccountKitTest extends BaseTestCase {
             $data = json_decode(file_get_contents(self::$user_access_token_path));
             self::$user_access_token = $data->access_token;
             $result = self::$client->get_user_info( self::$user_access_token );
-            self::assertTrue( property_exists($result, 'displayName') );
             self::assertTrue( property_exists($result, 'openID') );
-            self::assertTrue( property_exists($result, 'headPictureURL') );
+            self::assertTrue( property_exists($result, 'displayName') );
             self::assertTrue( property_exists($result, 'displayNameFlag') );
+            self::assertTrue( property_exists($result, 'headPictureURL') );
+            echo print_r($result, true);
         } else {
             $this->markTestSkipped('File not found: ' . self::$user_access_token_path);
         }
