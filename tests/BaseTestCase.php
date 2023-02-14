@@ -18,7 +18,7 @@ abstract class BaseTestCase extends TestCase {
     protected static ?string $oauth2_token_path = '../.credentials/huawei_token.json';
     protected static string $build_path;
 
-    protected static string $file_id = 'BvxJfT7Kem5FYvkii109M6LZgf2idmpqR';
+    protected static string $file_id = 'BhrdFPv6j8QzM60pdSadNXY_FZRnRp_AM';
 
     protected static ?string $user_access_token = null;
     protected static int $agc_client_id = 0;               // AGConnect API.
@@ -38,6 +38,7 @@ abstract class BaseTestCase extends TestCase {
     protected const ENV_VAR_CONNECT_API_CLIENT_ID     = 'Variable HUAWEI_CONNECT_API_CLIENT_ID is not set.';
     protected const ENV_VAR_CONNECT_API_CLIENT_SECRET = 'Variable HUAWEI_CONNECT_API_CLIENT_SECRET is not set.';
     protected const ENV_VAR_CONNECT_PRODUCT_ID        = 'Variable HUAWEI_CONNECT_PRODUCT_ID is not set.';
+    protected const ENV_VAR_CONNECT_PACKAGE_NAME      = 'Variable HUAWEI_CONNECT_PACKAGE_NAME is not set.';
     protected const ENV_VAR_MAPKIT_API_KEY            = 'Variable HUAWEI_MAPKIT_API_KEY is not set.';
     protected const ENV_VAR_HCM_TEST_DEVICE_TOKEN     = 'Variable PHPUNIT_HCM_TEST_DEVICE_TOKEN is not set.';
     protected const CLIENT_NOT_READY                  = 'The API client is not ready.';
@@ -63,6 +64,9 @@ abstract class BaseTestCase extends TestCase {
         self::$product_id = getenv('HUAWEI_CONNECT_PRODUCT_ID');
         self::assertTrue( is_int(self::$product_id) && self::$product_id > 0, self::ENV_VAR_CONNECT_PRODUCT_ID );
 
+        self::$package_name = getenv('HUAWEI_CONNECT_PACKAGE_NAME');
+        self::assertNotEmpty( self::$package_name, self::ENV_VAR_CONNECT_PACKAGE_NAME );
+
         self::$build_path = getcwd().DIRECTORY_SEPARATOR.'build'.DIRECTORY_SEPARATOR;
         if (! is_dir( self::$build_path )) {mkdir( self::$build_path );}
         self::assertTrue( is_dir( self::$build_path ) );
@@ -76,6 +80,7 @@ abstract class BaseTestCase extends TestCase {
         'agc_client_id'        => 'integer',
         'agc_client_secret'    => 'string',
         'product_id'           => 'integer',
+        'package_name'         => 'string',
         'debug_mode'           => 'bool'
     ])]
     protected static function get_config(): array {
@@ -86,12 +91,13 @@ abstract class BaseTestCase extends TestCase {
             'agc_client_id'        => self::$agc_client_id,
             'agc_client_secret'    => self::$agc_client_secret,
             'product_id'           => self::$product_id,
+            'package_name'         => self::$package_name,
             'debug_mode'           => self::$debug_mode
         ];
     }
 
     /** It provides the user configuration array. */
-    #[ArrayShape(['oauth2_client_id' => 'int', 'product_id' => 'int','access_token' => 'string', 'debug_mode' => 'bool'])]
+    #[ArrayShape(['access_token' => 'string', 'debug_mode' => 'bool'])]
     protected static function get_user_config(): array {
         self::load_user_access_token();
         return [
@@ -123,7 +129,7 @@ abstract class BaseTestCase extends TestCase {
     protected static function format_filesize(int $bytes, int $decimals=2): string {
         $size = array('B','kB','MB','GB','TB','PB','EB','ZB','YB');
         $factor = floor((strlen($bytes) - 1) / 3);
-        return sprintf("%.{$decimals}f", $bytes / pow(1024, $factor)) . @$size[$factor];
+        return sprintf("%.{$decimals}f", $bytes / pow(1024, $factor)) . ' ' . @$size[$factor];
     }
 
     protected function save_file(string $filename, string $raw_data) : void {

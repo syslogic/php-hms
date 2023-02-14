@@ -1,10 +1,8 @@
 <?php
-namespace HMS\AccountKit;
+namespace HMS\AccountKit\Model;
 
 use HMS\Core\Model;
 use InvalidArgumentException;
-use JetBrains\PhpStorm\ArrayShape;
-use JetBrains\PhpStorm\Pure;
 
 /**
  * Class HMS AccountKit TokenRequest

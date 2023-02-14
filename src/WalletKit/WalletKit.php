@@ -46,16 +46,6 @@ class WalletKit extends Wrapper {
         unset($this->api_key, $this->api_signature);
     }
 
-    public function withDebugEnabled(): WalletKit {
-        $this->debug_mode = true;
-        return $this;
-    }
-
-    public function withBaseUrl( string $base_url ): WalletKit {
-        $this->base_url = $base_url;
-        return $this;
-    }
-
     private function config(): array {
         return [
             'access_token' => $this->access_token,

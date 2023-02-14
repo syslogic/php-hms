@@ -70,7 +70,7 @@ class DriveKitCommentsTest extends BaseTestCase {
     public static function tearDownAfterClass(): void {
         parent::tearDownAfterClass();
         $result = self::$client->getComments()->list( self::$file_id );
-        if (sizeof($result->comments) > 0) {
+        if (property_exists($result, 'comments') && sizeof($result->comments) > 0) {
             foreach ($result->comments as $comment) {
                 self::$client->getComments()->delete( self::$file_id, $comment->id );
             }

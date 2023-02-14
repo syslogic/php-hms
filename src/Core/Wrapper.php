@@ -38,6 +38,7 @@ use stdClass;
  */
 abstract class Wrapper {
 
+    protected string $base_url;
     protected int $oauth2_client_id = 0;
     protected string|null $oauth2_client_secret = null;
 
@@ -132,6 +133,16 @@ abstract class Wrapper {
         return $this->access_token != null;
     }
 
+    public function withDebugEnabled(): Wrapper {
+        $this->debug_mode = true;
+        return $this;
+    }
+
+    public function withBaseUrl( string $base_url ): Wrapper {
+        $this->base_url = $base_url;
+        return $this;
+    }
+
     /** Try to initialize the client from array. */
     private function init_by_array( array $config ): void {
         if ( isset( $config['oauth2_client_id'] ) ) {
@@ -167,6 +178,9 @@ abstract class Wrapper {
         if ( isset($config['product_id']) && is_int($config['product_id'])) {
             $this->product_id = $config['product_id'];
         }
+        if ( isset($config['package_name']) && is_int($config['package_name'])) {
+            $this->package_name = $config['package_name'];
+        }
     }
 
     /** Try to initialize the client from environment. */
@@ -200,6 +214,9 @@ abstract class Wrapper {
         }
         if ( is_string( getenv('HUAWEI_CONNECT_PRODUCT_ID' ) ) ) {
             $this->product_id = (int) getenv( 'HUAWEI_CONNECT_PRODUCT_ID' );
+        }
+        if ( is_string( getenv('HUAWEI_CONNECT_PACKAGE_NAME' ) ) ) {
+            $this->package_name = (int) getenv( 'HUAWEI_CONNECT_PACKAGE_NAME' );
         }
     }
 

@@ -13,8 +13,8 @@ class DriveKitRepliesTest extends BaseTestCase {
     /** @var DriveKit|null $client */
     private static ?DriveKit $client;
     protected static string $file_id = 'BjDA_0bCctM1xH2A8-N5BcYVCH_afmLXN';
-    protected static string $comment_id;
-    protected static string $reply_id;
+    protected static string $comment_id = '';
+    protected static string $reply_id = '';
     protected static string $comment_text_original = 'Test comment.';
     protected static string $comment_text_updated = 'Updated test comment.';
 
@@ -33,6 +33,7 @@ class DriveKitRepliesTest extends BaseTestCase {
 
         // TODO: probably should just create a comment?
         $result = self::$client->getComments()->create( self::$file_id, self::$comment_text_original );
+        self::assertTrue( property_exists($result, 'id' ), 'File ID does not exist: ' . self::$file_id );
         self::$comment_id = $result->id;
 
         $result = self::$client->getReplies()->create( self::$file_id, self::$comment_id, self::$reply_text_original );
@@ -77,7 +78,7 @@ class DriveKitRepliesTest extends BaseTestCase {
     public static function tearDownAfterClass(): void {
         parent::tearDownAfterClass();
         $result = self::$client->getReplies()->list( self::$file_id, self::$comment_id );
-        if (sizeof($result->replies) > 0) {
+        if (property_exists($result, 'replies') && sizeof($result->replies) > 0) {
             foreach ($result->replies as $reply) {
                 self::$client->getReplies()->delete( self::$file_id, self::$comment_id, $reply->id );
             }

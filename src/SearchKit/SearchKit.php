@@ -23,8 +23,6 @@ class SearchKit extends Wrapper {
     /** @var string|null $request_id .Unique ID of a request. */
     private ?string $request_id = null;
 
-    private string $base_url;
-
     public function __construct( array|string $config ) {
 
         parent::__construct( $config );
@@ -42,11 +40,6 @@ class SearchKit extends Wrapper {
     /** Unset properties irrelevant to the child class. */
     protected function post_init(): void {
         unset($this->api_key, $this->api_signature);
-    }
-
-    public function withBaseUrl( string $base_url ): SearchKit {
-        $this->base_url = $base_url;
-        return $this;
     }
 
     /** Provide HTTP request headers as array. */

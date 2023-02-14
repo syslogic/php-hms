@@ -1,6 +1,9 @@
 <?php
 namespace HMS\AccountKit;
 
+use HMS\AccountKit\Model\IdTokenInfo;
+use HMS\AccountKit\Model\TokenInfo;
+use HMS\AccountKit\Model\UserInfo;
 use HMS\Core\Wrapper;
 use JetBrains\PhpStorm\ArrayShape;
 use stdClass;

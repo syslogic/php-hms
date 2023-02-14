@@ -1,5 +1,5 @@
 <?php
-namespace HMS\AccountKit;
+namespace HMS\AccountKit\Model;
 
 use HMS\Core\Model;
 use JetBrains\PhpStorm\ArrayShape;

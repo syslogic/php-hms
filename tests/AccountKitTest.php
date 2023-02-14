@@ -2,8 +2,10 @@
 namespace Tests;
 
 use HMS\AccountKit\AccountKit;
-use HMS\AccountKit\IdTokenInfo;
-use HMS\AccountKit\TokenInfo;
+use HMS\AccountKit\Model\IdTokenInfo;
+use HMS\AccountKit\Model\TokenInfo;
+use HMS\AccountKit\Model\TokenRequest;
+use HMS\AccountKit\Model\UserInfo;
 
 /**
  * HMS AccountKit Test
@@ -78,5 +80,29 @@ class AccountKitTest extends BaseTestCase {
         } else {
             $this->markTestSkipped('File not found: ' . self::$user_access_token_path);
         }
+    }
+
+    /** Test: Model IdTokenInfo. */
+    public function test_model_id_token_info() {
+        $item = new IdTokenInfo([ ]);
+        self::assertTrue( is_object( $item ) );
+    }
+
+    /** Test: Model TokenInfo. */
+    public function test_model_token_info() {
+        $item = new TokenInfo([ ]);
+        self::assertTrue( is_object( $item ) );
+    }
+
+    /** Test: Model TokenRequest. */
+    public function test_model_token_request() {
+        $item = new TokenRequest([ ]);
+        self::assertTrue( is_object( $item ) );
+    }
+
+    /** Test: Model UserInfo. */
+    public function test_model_user_info() {
+        $item = new UserInfo([ ]);
+        self::assertTrue( is_object( $item ) );
     }
 }

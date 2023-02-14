@@ -1,0 +1,6 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="SearchKit" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
+    <TestRunner class="Tests\SearchKitTest" configuration_file="$PROJECT_DIR$/phpunit.xml" file="$PROJECT_DIR$/tests/SearchKitTest.php" scope="Class" />
+    <method v="2" />
+  </configuration>
+</component>
