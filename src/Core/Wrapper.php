@@ -22,7 +22,6 @@ use stdClass;
  * @property string|null $access_token         OAuth2 (app) access token.
  * @property string|null $refresh_token        OAuth2 refresh token.
  * @property string|null $id_token             OAuth2 ID token.
- * @property string|null $token_scope          OAuth2 token API scope.
  * @property int $token_expiry                 OAuth2 access token expiry.
  * @property string|null $api_key              MapKit API key.
  * @property string|null $api_signature        MapKit Static API signature key.
@@ -47,13 +46,13 @@ abstract class Wrapper {
 
     /** client-side flow */
     protected string|null $oauth2_redirect_url = null;
+    protected int         $token_expiry = 0;
 
     protected string|null $api_key = null;
     protected string|null $api_signature = null;
     protected string|null $access_token = null;
     protected string|null $refresh_token = null;
     protected string|null $id_token = null;
-    protected int $token_expiry = 0;
 
     protected string|null $package_name = null;
     protected int $developer_id = 0;

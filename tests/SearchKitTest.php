@@ -21,28 +21,31 @@ class SearchKitTest extends BaseTestCase {
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {
         parent::setUpBeforeClass();
-        self::$client = new SearchKit( self::get_user_config() );
+        self::$client = new SearchKit( array_merge(self::get_user_config(), [
+            'oauth2_client_id' => self::$oauth2_client_id,
+            'debug_mode' => false
+        ] ));
         self::assertTrue( self::$client->is_ready(), self::CLIENT_NOT_READY );
     }
 
     /** Test: Web Search */
     public function test_web_search() {
         $result = self::$client->web_search( self::$web_search_term );
-        echo print_r($result, true);
+        self::assertTrue($result->code != 405, $result->message );
     }
 
     public function test_image_search() {
         $result = self::$client->image_search( self::$image_search_term );
-        echo print_r($result, true);
+        self::assertTrue($result->code != 405, $result->message );
     }
 
     public function test_video_search() {
         $result = self::$client->video_search( self::$video_search_term );
-        echo print_r($result, true);
+        self::assertTrue($result->code != 405, $result->message );
     }
 
     public function test_news_search() {
         $result = self::$client->news_search( self::$news_search_term );
-        echo print_r($result, true);
+        self::assertTrue($result->code != 405, $result->message );
     }
 }
