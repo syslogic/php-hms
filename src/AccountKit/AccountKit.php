@@ -140,7 +140,10 @@ class AccountKit extends Wrapper {
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/get-user-info-0000001060261938">Obtaining User Information</a>
      */
     public function get_user_info( string $user_access_token ): UserInfo|stdClass {
-        return $this->request( 'POST', Constants::URL_ACCOUNT_KIT_USER_INFO, $this->auth_headers(), [
+        return $this->request( 'POST', Constants::URL_ACCOUNT_KIT_USER_INFO, [
+            "Content-Type" => "application/x-www-form-urlencoded;charset=utf-8",
+            "Authorization" => "Bearer $user_access_token"
+        ], [
             'access_token' => $user_access_token
         ], true);
     }

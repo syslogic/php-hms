@@ -26,6 +26,7 @@ class AccountKitTest extends BaseTestCase {
 
         if (file_exists(self::$user_access_token_path)) {
             $data = json_decode(file_get_contents(self::$user_access_token_path));
+            self::assertNotNull( $data, 'Failed to parse JSON: ' . self::$user_access_token_path);
             self::$user_access_token = $data->access_token;
             self::assertNotNull( self::$user_access_token, self::CLIENT_NOT_READY );
         } else {
@@ -55,8 +56,10 @@ class AccountKitTest extends BaseTestCase {
             $data = json_decode(file_get_contents(self::$user_access_token_path));
             self::$user_access_token = $data->access_token;
             $result = self::$client->get_user_info( self::$user_access_token );
-            self::assertTrue( !property_exists($result, 'error'), $result->error );
-            self::assertTrue( property_exists($result, 'access_token') );
+            self::assertTrue( property_exists($result, 'displayName') );
+            self::assertTrue( property_exists($result, 'openID') );
+            self::assertTrue( property_exists($result, 'headPictureURL') );
+            self::assertTrue( property_exists($result, 'displayNameFlag') );
         } else {
             $this->markTestSkipped('File not found: ' . self::$user_access_token_path);
         }
