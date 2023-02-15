@@ -17,17 +17,14 @@ class AppGalleryConnectTest extends BaseTestCase {
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {
         parent::setUpBeforeClass();
-        self::load_user_access_token();
         self::$client = new AuthService( [
             'product_id'        => self::$product_id,
             'agc_client_id'     => self::$agc_client_id,
             'agc_client_secret' => self::$agc_client_secret,
             'debug_mode'        => true
         ] );
-    }
-
-    public function test_agconnect_login() {
         self::assertNotFalse( self::$client->is_ready() );
+        self::load_user_access_token();
     }
 
     /** Test: Importing Users. */
