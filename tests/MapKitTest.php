@@ -55,6 +55,7 @@ class MapKitTest extends BaseTestCase {
         $result = $endpoint->getWalkingDirections(self::$point_x, self::$point_y);
         self::assertTrue( property_exists($result, 'routes') && is_array($result->routes) );
         self::assertTrue( sizeof($result->routes) > 0 );
+        echo print_r($result->routes, true);
     }
 
     /** Test: Directions API: Cycling Directions */
@@ -63,6 +64,7 @@ class MapKitTest extends BaseTestCase {
         $result = $endpoint->getCyclingDirections(self::$point_x, self::$point_y);
         self::assertTrue( property_exists($result, 'routes') && is_array($result->routes) );
         self::assertTrue( sizeof($result->routes) > 0 );
+        echo print_r($result->routes, true);
     }
 
     /** Test: Directions API: Driving Directions */
@@ -71,6 +73,7 @@ class MapKitTest extends BaseTestCase {
         $result = $endpoint->getDrivingDirections(self::$point_x, self::$point_y);
         self::assertTrue( property_exists($result, 'routes') && is_array($result->routes) );
         self::assertTrue( sizeof($result->routes) > 0 );
+        echo print_r($result->routes, true);
     }
 
     /** Test: Distance Matrix API: Walking Distance Matrix */
@@ -79,6 +82,7 @@ class MapKitTest extends BaseTestCase {
         $result = $endpoint->getWalkingMatrix([self::$point_a, self::$point_b], [self::$point_c]);
         self::assertTrue( property_exists($result, 'rows') && is_array($result->rows) );
         self::assertTrue( sizeof($result->rows) > 0 );
+        echo print_r($result->rows, true);
     }
 
     /** Test: Distance Matrix API: Cycling Distance Matrix */
@@ -87,6 +91,7 @@ class MapKitTest extends BaseTestCase {
         $result = $endpoint->getCyclingMatrix([self::$point_a, self::$point_b], [self::$point_c]);
         self::assertTrue( property_exists($result, 'rows') && is_array($result->rows) );
         self::assertTrue( sizeof($result->rows) > 0 );
+        echo print_r($result->rows, true);
     }
 
     /** Test: Distance Matrix API: Driving Distance Matrix */
@@ -95,6 +100,7 @@ class MapKitTest extends BaseTestCase {
         $result = $endpoint->getDrivingMatrix([self::$point_a, self::$point_b], [self::$point_c]);
         self::assertTrue( property_exists($result, 'rows') && is_array($result->rows) );
         self::assertTrue( sizeof($result->rows) > 0 );
+        echo print_r($result->rows, true);
     }
 
     /** Test: Elevation API; works */
@@ -104,6 +110,8 @@ class MapKitTest extends BaseTestCase {
         self::assertTrue( property_exists($result, 'returnCode') && $result->returnCode == 0 );
         self::assertTrue( property_exists($result, 'results') && is_array($result->results) );
         self::assertTrue( sizeof($result->results) > 0 );
+        echo print_r($result->results, true);
+
         // testing if we're still 500 meters above sea level.
         foreach ($result->results as $item) {
             self::assertTrue( $item->elevation > 500 );
@@ -116,6 +124,7 @@ class MapKitTest extends BaseTestCase {
         $result = $endpoint->snapToRoad(self::$coordinates_to_snap);
         self::assertTrue( property_exists($result, 'returnCode') && $result->returnCode == 0 );
         self::assertTrue( property_exists($result, 'snappedPoints') && is_array($result->snappedPoints) );
+        echo print_r($result->snappedPoints, true);
     }
 
     /** Test: Static Map API; works */
@@ -128,16 +137,19 @@ class MapKitTest extends BaseTestCase {
         $result = $endpoint->getStaticMapByLocation(self::$point_a, self::$map_width, self::$map_height, self::$map_zoom, self::$map_scale);
         self::assertTrue( property_exists($result, 'raw') && is_string($result->raw) && !empty($result->raw));
         self::save_file(self::$build_path.'mapkit_01.png', $result->raw);
+        self::assertTrue( file_exists(self::$build_path.'mapkit_01.png') );
 
         /* By Marker description */
         $result = $endpoint->getStaticMapByMarkers(self::$marker_desc, self::$marker_styles, self::$map_width, self::$map_height, self::$map_zoom, self::$map_scale);
         self::assertTrue( property_exists($result, 'raw') && is_string($result->raw) && !empty($result->raw));
         self::save_file(self::$build_path.'mapkit_02.png', $result->raw);
+        self::assertTrue( file_exists(self::$build_path.'mapkit_02.png') );
 
         /* By Path description */
         $result = $endpoint->getStaticMapByPath(self::$path_desc, self::$path_styles, self::$map_width, self::$map_height, self::$map_zoom, self::$map_scale);
         self::assertTrue( property_exists($result, 'raw') && is_string($result->raw) && !empty($result->raw));
         self::save_file(self::$build_path.'mapkit_03.png', $result->raw);
+        self::assertTrue( file_exists(self::$build_path.'mapkit_03.png') );
     }
 
     /** Test: Map Tile API; works */
@@ -146,5 +158,6 @@ class MapKitTest extends BaseTestCase {
         $result = $endpoint->getMapTile(5, 1, 3, 'en', 2);
         self::assertTrue( property_exists($result, 'raw') && is_string($result->raw) && !empty($result->raw));
         self::save_file(self::$build_path.'mapkit_tile.png', $result->raw);
+        self::assertTrue( file_exists(self::$build_path.'mapkit_tile.png') );
     }
 }
