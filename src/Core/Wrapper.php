@@ -162,23 +162,20 @@ abstract class Wrapper {
         if ( isset( $config['agc_client_secret'] ) ) {
             $this->agc_client_secret = (string) $config['agc_client_secret'];
         }
+        if ( isset($config['developer_id']) && is_int($config['developer_id'])) {
+            $this->developer_id = $config['developer_id'];
+        }
+        if ( isset($config['product_id']) && is_int($config['product_id'])) { // project_id.
+            $this->product_id = $config['product_id'];
+        }
+        if ( isset($config['package_name']) && is_int($config['package_name'])) {
+            $this->package_name = $config['package_name'];
+        }
         if ( isset( $config['api_key'] ) ) {
             $this->api_key = (string) $config['api_key'];
         }
         if ( isset( $config['api_signature'] ) ) {
             $this->api_signature = (string) $config['api_signature'];
-        }
-        if ( isset($config['developer_id']) && is_int($config['developer_id'])) {
-            $this->developer_id = $config['developer_id'];
-        }
-        if ( isset($config['project_id']) && is_int($config['project_id'])) {
-            $this->project_id = $config['project_id'];
-        }
-        if ( isset($config['product_id']) && is_int($config['product_id'])) {
-            $this->product_id = $config['product_id'];
-        }
-        if ( isset($config['package_name']) && is_int($config['package_name'])) {
-            $this->package_name = $config['package_name'];
         }
     }
 
@@ -202,20 +199,20 @@ abstract class Wrapper {
         if ( is_string( getenv('HUAWEI_CONNECT_API_CLIENT_SECRET' ) ) ) {
             $this->agc_client_secret = (string) getenv( 'HUAWEI_CONNECT_API_CLIENT_SECRET' );
         }
-        if ( is_string( getenv('HUAWEI_MAPKIT_API_KEY' ) ) ) {
-            $this->api_key = (string) getenv( 'HUAWEI_MAPKIT_API_KEY' );
-        }
         if ( is_string( getenv('HUAWEI_CONNECT_DEVELOPER_ID' ) ) ) {
             $this->developer_id = (int) getenv( 'HUAWEI_CONNECT_DEVELOPER_ID' );
         }
-        if ( is_string( getenv('HUAWEI_CONNECT_PROJECT_ID' ) ) ) {
-            $this->project_id = (int) getenv( 'HUAWEI_CONNECT_PROJECT_ID' );
-        }
-        if ( is_string( getenv('HUAWEI_CONNECT_PRODUCT_ID' ) ) ) {
+        if ( is_string( getenv('HUAWEI_CONNECT_PRODUCT_ID' ) ) ) {  // project_id.
             $this->product_id = (int) getenv( 'HUAWEI_CONNECT_PRODUCT_ID' );
         }
         if ( is_string( getenv('HUAWEI_CONNECT_PACKAGE_NAME' ) ) ) {
             $this->package_name = (int) getenv( 'HUAWEI_CONNECT_PACKAGE_NAME' );
+        }
+        if ( is_string( getenv('HUAWEI_MAPKIT_API_KEY' ) ) ) {
+            $this->api_key = (string) getenv( 'HUAWEI_MAPKIT_API_KEY' );
+        }
+        if ( is_string( getenv('HUAWEI_MAPKIT_SIGNATURE_KEY' ) ) ) {
+            $this->api_signature = (string) getenv( 'HUAWEI_MAPKIT_SIGNATURE_KEY' );
         }
     }
 

@@ -4,7 +4,7 @@ namespace Tests;
 use HMS\SearchKit\SearchKit;
 
 /**
- * HMS SearchKit Test: Skipped.
+ * HMS SearchKit Test: OK.
  *
  * @author Martin Zeitler
  */

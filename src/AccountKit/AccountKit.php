@@ -49,7 +49,7 @@ class AccountKit extends Wrapper {
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/account-obtain-token_hms_reference-0000001050048618">Obtaining Access Token</a>
      */
     public function get_access_token(): ?string {
-        $result = $this->request( 'POST',Constants::URL_OAUTH2_TOKEN, $this->request_headers(), [
+        $result = $this->request( 'POST', Constants::URL_OAUTH2_TOKEN, $this->request_headers(), [
             'grant_type'    => 'client_credentials',
             'client_id'     => $this->oauth2_client_id,
             'client_secret' => $this->oauth2_client_secret

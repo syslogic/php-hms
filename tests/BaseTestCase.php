@@ -72,9 +72,9 @@ abstract class BaseTestCase extends TestCase {
     #[ArrayShape([
         'oauth2_client_id'     => 'integer',
         'oauth2_client_secret' => 'string',
-        'api_key'              => 'string',
         'agc_client_id'        => 'integer',
         'agc_client_secret'    => 'string',
+        'api_key'              => 'string',
         'product_id'           => 'integer',
         'package_name'         => 'string',
         'debug_mode'           => 'bool'
@@ -83,9 +83,9 @@ abstract class BaseTestCase extends TestCase {
         return [
             'oauth2_client_id'     => self::$oauth2_client_id,
             'oauth2_client_secret' => self::$oauth2_client_secret,
-            'api_key'              => self::$api_key,
             'agc_client_id'        => self::$agc_client_id,
             'agc_client_secret'    => self::$agc_client_secret,
+            'api_key'              => self::$api_key,
             'product_id'           => self::$product_id,
             'package_name'         => self::$package_name,
             'debug_mode'           => self::$debug_mode
