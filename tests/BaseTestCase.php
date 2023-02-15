@@ -35,6 +35,8 @@ abstract class BaseTestCase extends TestCase {
     protected static ?string $agc_gateway             = 'https://connect-drcn.dbankcloud.cn/';
     private const ENV_VAR_OAUTH2_CLIENT_ID            = 'Variable HUAWEI_OAUTH2_CLIENT_ID is not set.';
     private const ENV_VAR_OAUTH2_CLIENT_SECRET        = 'Variable HUAWEI_OAUTH2_CLIENT_SECRET is not set.';
+    private const ENV_VAR_APP_LEVEL_CLIENT_ID         = 'Variable HUAWEI_APP_LEVEL_CLIENT_ID is not set.'; // TODO
+    private const ENV_VAR_APP_LEVEL_CLIENT_SECRET     = 'Variable HUAWEI_APP_LEVEL_CLIENT_SECRET is not set.'; // TODO
     protected const ENV_VAR_CONNECT_API_CLIENT_ID     = 'Variable HUAWEI_CONNECT_API_CLIENT_ID is not set.';
     protected const ENV_VAR_CONNECT_API_CLIENT_SECRET = 'Variable HUAWEI_CONNECT_API_CLIENT_SECRET is not set.';
     protected const ENV_VAR_CONNECT_PRODUCT_ID        = 'Variable HUAWEI_CONNECT_PRODUCT_ID is not set.';
@@ -118,12 +120,12 @@ abstract class BaseTestCase extends TestCase {
                         file_put_contents(self::$oauth2_token_path, json_encode($token_response));
                     }
                     $remaining = $token_response->token_expiry - time();
-                    echo sprintf('The cached token expires in %02d:%02d:%02d.', ($remaining / 3600), ($remaining / 60 % 60), $remaining % 60);
+                    echo sprintf('The cached user access token expires in %02d:%02d:%02d.', ($remaining / 3600), ($remaining / 60 % 60), $remaining % 60);
                 }
             }
             self::$user_access_token = $token_response->access_token;
         } else {
-            self::markTestSkipped( "Cannot read cached token: " . self::$oauth2_token_path);
+            self::markTestSkipped( "Cannot read cached user access token: " . self::$oauth2_token_path);
         }
     }
     protected static function format_filesize(int $bytes, int $decimals=2): string {

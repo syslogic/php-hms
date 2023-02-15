@@ -1,6 +1,7 @@
 <?php
 namespace HMS\SearchKit;
 
+use HMS\AccountKit\AccountKit;
 use HMS\Core\Wrapper;
 use InvalidArgumentException;
 use stdClass;
@@ -8,8 +9,10 @@ use stdClass;
 /**
  * Class HMS SearchKit Wrapper
  *
+ * Note: This API requires an "App-level client ID" & "Enable app-level client API".
+ *
+ * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-Guides/app-gallery-connect-0000001057712438">Configuring App Information in AppGallery Connect</a>
  * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/overview-0000001057087079">SearchKit</a>
- * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-Guides/open-platform-oauth-0000001053629189#section1022911426469">Authorization Code</a>
  * @author Martin Zeitler
  */
 class SearchKit extends Wrapper {
@@ -47,11 +50,10 @@ class SearchKit extends Wrapper {
 
     public function __construct( array|string $config ) {
         parent::__construct( $config );
-        if (is_array($config) && isset($config['access_token'])) {
-            $this->access_token = $config['access_token'];
-        } else {
-            throw new InvalidArgumentException('SearchKit requires an user access token.');
-        }
+
+        /* Obtain an access-token. */
+        $account_kit = new AccountKit( $config );
+        $this->access_token = $account_kit->get_access_token();
 
         // $this->base_url = Constants::SEARCH_KIT_BASE_URL;
         $this->base_url = Constants::SEARCH_KIT_BASE_URL_EU;
@@ -65,7 +67,7 @@ class SearchKit extends Wrapper {
         if (! in_array($this->base_url, $urls)) {
             throw new InvalidArgumentException('SearchKit permits these base_url values: '. implode(', ', $urls));
         }
-        unset($this->oauth2_client_secret, $this->oauth2_api_scope, $this->oauth2_api_scope, $this->oauth2_redirect_url);
+        unset($this->oauth2_client_secret, $this->oauth2_api_scope, $this->oauth2_redirect_url);
         unset($this->token_expiry, $this->refresh_token, $this->id_token, $this->package_name, $this->product_id);
         unset($this->agc_client_id, $this->agc_client_secret);
         unset($this->developer_id, $this->project_id);
@@ -79,7 +81,7 @@ class SearchKit extends Wrapper {
             "Content-Type" => "application/json; charset=utf-8",
             "Authorization" => "Bearer $this->access_token",
             "X-Kit-AppID" => $this->oauth2_client_id,
-            // "X-Kit-ClientIP" => $this->client_ip,
+            "X-Kit-ClientIP" => $this->client_ip,
             "X-Kit-RequestID" => $this->request_id
         ];
     }
