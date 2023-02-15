@@ -27,7 +27,6 @@ use stdClass;
  * @property string|null $api_signature        MapKit Static API signature key.
  * @property string|null $package_name         AnalyticsKit related; for PushKit click_action?
  * @property int $product_id                   AnalyticsKit related.
- * @property int $project_id                   AnalyticsKit related.
  * @property int $agc_client_id                AGConnect API client ID.
  * @property string|null $agc_client_secret    AGConnect API client secret.
  * @property ResponseInterface $response       Default response.
@@ -57,7 +56,7 @@ abstract class Wrapper {
     protected string|null $package_name = null;
     protected int $developer_id = 0;
     protected int $product_id = 0;
-    protected int $project_id = 0;
+
     protected int $agc_client_id = 0;
     protected string|null $agc_client_secret = null;
 

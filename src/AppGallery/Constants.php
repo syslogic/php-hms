@@ -10,10 +10,13 @@ namespace HMS\AppGallery;
 class Constants {
 
     /** The Gateway URL may be overridden by the configuration in file `agconnect-services.json`. */
-    public const CONNECT_API_BASE_URL = "https://connect-api.cloud.huawei.com";
+    public const CONNECT_API_BASE_URL = "https://connect-api.cloud.huawei.com"; // China
+    public const CONNECT_API_BASE_URL_EU = "https://connect-api-dre.cloud.huawei.com"; // Germany
+    public const CONNECT_API_BASE_URL_AS = "https://connect-api-dra.cloud.huawei.com"; // Singapore
+    public const CONNECT_API_BASE_URL_RU = "https://connect-api-drru.cloud.huawei.com"; // Singapore
 
-    /** Connect API has its own oAuth2 token endpoint - which must match the domain of the base URL. */
-    public const CONNECT_API_OAUTH2_TOKEN_URL = self::CONNECT_API_BASE_URL . "/api/oauth2/v1/token";
+    /** Connect API has its own oAuth2 token endpoint. */
+    public const CONNECT_API_OAUTH2_TOKEN_URL = "/api/oauth2/v1/token";
 
     /**
      * POST: Importing Users.
@@ -37,7 +40,7 @@ class Constants {
     public const CONNECT_API_AUTH_SERVICE_VERIFY_TOKEN = "/api/oauth2/third/v1/verify-token?productId={productId}";
 
     /**
-     * POST
+     * POST Revoking a User's Access Token.
      */
     public const CONNECT_API_AUTH_SERVICE_REVOKE_TOKEN = "/api/oauth2/third/v1/revoke-token?productId={productId}";
 

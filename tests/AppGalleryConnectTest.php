@@ -3,6 +3,7 @@ namespace Tests;
 
 use HMS\AppGallery\Connect\AuthService;
 use HMS\AppGallery\Connect\ImportUser;
+use HMS\AppGallery\Constants;
 
 /**
  * HMS AppGallery AuthService Test
@@ -21,6 +22,7 @@ class AppGalleryConnectTest extends BaseTestCase {
             'product_id'        => self::$product_id,
             'agc_client_id'     => self::$agc_client_id,
             'agc_client_secret' => self::$agc_client_secret,
+            'base_url'          => Constants::CONNECT_API_BASE_URL,
             'debug_mode'        => true
         ] );
         self::assertNotFalse( self::$client->is_ready() );
@@ -31,13 +33,22 @@ class AppGalleryConnectTest extends BaseTestCase {
     public function test_import_users() {
         $data = [
             ImportUser::fromArray( [
-                'importUid' => 'W4Z34934F34dH93265R91'
+                'importUid' => uniqid('hms_'),
+                'createTime' => time() * 1000,
+                'providerUid'=> '1',
+                'providers' => [ Constants::AUTH_PROVIDER_ANONYMOUS ]
             ] )->asArray(),
             ImportUser::fromArray( [
-                'importUid' => 'W4Z34934F34dH93265R92'
+                'importUid' => uniqid('hms_'),
+                'createTime' => time() * 1000,
+                'providerUid'=> '2',
+                'providers' => [ Constants::AUTH_PROVIDER_ANONYMOUS ]
             ] )->asArray(),
             ImportUser::fromArray( [
-                'importUid' => 'W4Z34934F34dH93265R93'
+                'importUid' => uniqid('hms_'),
+                'createTime' => time() * 1000,
+                'providerUid'=> '3',
+                'providers' => [ Constants::AUTH_PROVIDER_ANONYMOUS ]
             ] )->asArray()
         ];
 

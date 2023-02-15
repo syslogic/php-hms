@@ -62,7 +62,7 @@ class ImportUser extends Model {
     private string|null $passwordSalt = null;
 
     /** @var array|null $providers Third-party authentication information. */
-    private array|null $providers = null;
+    private array|null $providers = [];
 
     public function __construct( array $data ) {
         $this->parse_array( $data );

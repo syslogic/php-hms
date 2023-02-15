@@ -3,8 +3,6 @@ namespace HMS\SearchKit;
 
 use HMS\AccountKit\AccountKit;
 use HMS\Core\Wrapper;
-use InvalidArgumentException;
-use stdClass;
 
 /**
  * Class HMS SearchKit Wrapper
@@ -57,7 +55,8 @@ class SearchKit extends Wrapper {
 
         // $this->base_url = Constants::SEARCH_KIT_BASE_URL;
         $this->base_url = Constants::SEARCH_KIT_BASE_URL_EU;
-        $this->request_id = uniqid('hms_', false);
+        if (isset($config['base_url'])) {$this->base_url = $config['base_url'];}
+        $this->request_id = uniqid('hms_');
         $this->post_init();
     }
 
@@ -71,7 +70,7 @@ class SearchKit extends Wrapper {
 
         $urls = [Constants::SEARCH_KIT_BASE_URL, Constants::SEARCH_KIT_BASE_URL_EU];
         if (! in_array($this->base_url, $urls)) {
-            throw new InvalidArgumentException('SearchKit permits these base_url values: '. implode(', ', $urls));
+            throw new \InvalidArgumentException('SearchKit permits these base_url values: '. implode(', ', $urls));
         }
     }
 
@@ -87,7 +86,7 @@ class SearchKit extends Wrapper {
         ];
     }
 
-    private function query( string $search_url, string $keyword, string $language='en', string $region='ww', int $page_number=1, int $results=10 ): bool|stdClass {
+    private function query( string $search_url, string $keyword, string $language='en', string $region='ww', int $page_number=1, int $results=10 ): bool|\stdClass {
         if (! in_array($language, $this->languages)) {
             throw new \InvalidArgumentException('Supported languages: '.implode(', ', $this->languages));
         }
@@ -107,7 +106,7 @@ class SearchKit extends Wrapper {
      * @param int $results Number of search results on a page. The value ranges from 1 to 100, and the default value is 10.
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/web-search-0000001056849539">Searching for a Web Page</a>
      */
-    public function web_search( string $keyword, string $language='en', string $region='ww', int $page_number=1, int $results=10 ): stdClass {
+    public function web_search( string $keyword, string $language='en', string $region='ww', int $page_number=1, int $results=10 ): \stdClass {
         return $this->query( Constants::SEARCH_KIT_WEB_SEARCH_URL, $keyword, $language, $region, $page_number, $results);
     }
 
@@ -120,7 +119,7 @@ class SearchKit extends Wrapper {
      * @param int $results Number of search results on a page. The value ranges from 1 to 100, and the default value is 10.
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/image-search-0000001057330814">Searching for an Image</a>
      */
-    public function image_search( string $keyword, string $language='en', string $region='ww', int $page_number=1, int $results=10 ): stdClass {
+    public function image_search( string $keyword, string $language='en', string $region='ww', int $page_number=1, int $results=10 ): \stdClass {
         return $this->query( Constants::SEARCH_KIT_IMAGE_SEARCH_URL, $keyword, $language, $region, $page_number, $results);
     }
 
@@ -133,7 +132,7 @@ class SearchKit extends Wrapper {
      * @param int $results Number of search results on a page. The value ranges from 1 to 100, and the default value is 10.
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/video-search-0000001057330836">Searching for a Video</a>
      */
-    public function video_search( string $keyword, string $language='en', string $region='ww', int $page_number=1, int $results=10 ): stdClass {
+    public function video_search( string $keyword, string $language='en', string $region='ww', int $page_number=1, int $results=10 ): \stdClass {
         return $this->query( Constants::SEARCH_KIT_VIDEO_SEARCH_URL, $keyword, $language, $region, $page_number, $results);
     }
 
@@ -146,7 +145,7 @@ class SearchKit extends Wrapper {
      * @param int $results Number of search results on a page. The value ranges from 1 to 100, and the default value is 10.
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/news-search-0000001055690931">Searching for News</a>
      */
-    public function news_search( string $keyword, string $language='en', string $region='ww', int $page_number=1, int $results=10 ): stdClass {
+    public function news_search( string $keyword, string $language='en', string $region='ww', int $page_number=1, int $results=10 ): \stdClass {
         return $this->query( Constants::SEARCH_KIT_NEWS_SEARCH_URL, $keyword, $language, $region, $page_number, $results);
     }
 }
