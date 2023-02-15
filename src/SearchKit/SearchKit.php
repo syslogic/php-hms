@@ -63,15 +63,16 @@ class SearchKit extends Wrapper {
 
     /** Unset properties irrelevant to the child class. */
     protected function post_init(): void {
-        $urls = [Constants::SEARCH_KIT_BASE_URL, Constants::SEARCH_KIT_BASE_URL_EU];
-        if (! in_array($this->base_url, $urls)) {
-            throw new InvalidArgumentException('SearchKit permits these base_url values: '. implode(', ', $urls));
-        }
         unset($this->oauth2_client_secret, $this->oauth2_api_scope, $this->oauth2_redirect_url);
         unset($this->token_expiry, $this->refresh_token, $this->id_token, $this->package_name, $this->product_id);
         unset($this->agc_client_id, $this->agc_client_secret);
         unset($this->developer_id, $this->project_id);
         unset($this->api_key, $this->api_signature);
+
+        $urls = [Constants::SEARCH_KIT_BASE_URL, Constants::SEARCH_KIT_BASE_URL_EU];
+        if (! in_array($this->base_url, $urls)) {
+            throw new InvalidArgumentException('SearchKit permits these base_url values: '. implode(', ', $urls));
+        }
     }
 
     /** Provide HTTP request headers as array. */
@@ -81,7 +82,7 @@ class SearchKit extends Wrapper {
             "Content-Type" => "application/json; charset=utf-8",
             "Authorization" => "Bearer $this->access_token",
             "X-Kit-AppID" => $this->oauth2_client_id,
-            "X-Kit-ClientIP" => $this->client_ip,
+            // "X-Kit-ClientIP" => $this->client_ip,
             "X-Kit-RequestID" => $this->request_id
         ];
     }

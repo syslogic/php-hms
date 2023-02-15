@@ -16,11 +16,11 @@ abstract class BaseTestCase extends TestCase {
     protected static int $oauth2_client_id = 0;            // OAuth2 client.
     protected static ?string $oauth2_client_secret = null; // OAuth2 client.
     protected static ?string $oauth2_token_path = '../.credentials/huawei_token.json';
+    protected static ?string $user_access_token = null;
     protected static string $build_path;
 
     protected static string $file_id = 'BhrdFPv6j8QzM60pdSadNXY_FZRnRp_AM';
 
-    protected static ?string $user_access_token = null;
     protected static int $agc_client_id = 0;               // AGConnect API.
     protected static ?string $agc_client_secret = null;    // AGConnect API.
 
@@ -29,10 +29,7 @@ abstract class BaseTestCase extends TestCase {
     protected static ?string $package_name = null;
     protected static int $project_id = 0;
     protected static int $product_id = 0;
-    protected static int $cp_id = 0;
 
-    /** AppGallery Connect Gateway URL */
-    protected static ?string $agc_gateway             = 'https://connect-drcn.dbankcloud.cn/';
     private const ENV_VAR_OAUTH2_CLIENT_ID            = 'Variable HUAWEI_OAUTH2_CLIENT_ID is not set.';
     private const ENV_VAR_OAUTH2_CLIENT_SECRET        = 'Variable HUAWEI_OAUTH2_CLIENT_SECRET is not set.';
     private const ENV_VAR_APP_LEVEL_CLIENT_ID         = 'Variable HUAWEI_APP_LEVEL_CLIENT_ID is not set.'; // TODO

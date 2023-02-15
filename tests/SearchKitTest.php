@@ -21,9 +21,13 @@ class SearchKitTest extends BaseTestCase {
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {
         parent::setUpBeforeClass();
-        self::$oauth2_client_id = getenv('HUAWEI_APP_LEVEL_CLIENT_ID');
-        self::$oauth2_client_secret = getenv('HUAWEI_APP_LEVEL_CLIENT_SECRET');
-        self::$client = new SearchKit( array_merge(self::get_user_config(), [
+        if ( is_string( getenv('HUAWEI_APP_LEVEL_CLIENT_ID' ) ) ) {
+            self::$oauth2_client_id = getenv('HUAWEI_APP_LEVEL_CLIENT_ID');
+        }
+        if ( is_string( getenv('HUAWEI_APP_LEVEL_CLIENT_SECRET' ) ) ) {
+            self::$oauth2_client_secret = getenv('HUAWEI_APP_LEVEL_CLIENT_SECRET');
+        }
+        self::$client = new SearchKit( array_merge( self::get_user_config(), [
             'oauth2_client_id' => self::$oauth2_client_id,
             'oauth2_client_secret' => self::$oauth2_client_secret,
             'debug_mode' => false

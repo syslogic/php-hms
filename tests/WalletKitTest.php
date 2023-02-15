@@ -1,8 +1,8 @@
 <?php /** @noinspection PhpPropertyOnlyWrittenInspection */
 namespace Tests;
 
-use HMS\WalletKit\WalletObject\WalletObject;
 use HMS\WalletKit\WalletKit;
+use HMS\WalletKit\WalletObject\WalletObject;
 
 /**
  * HMS WalletKit Test: Skipped.
