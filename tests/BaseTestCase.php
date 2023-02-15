@@ -11,14 +11,14 @@ use PHPUnit\Framework\TestCase;
  * @author Martin Zeitler
  */
 abstract class BaseTestCase extends TestCase {
+
+    protected static string $build_path;
     protected static bool $debug_mode = false;
 
-    protected static int $oauth2_client_id = 0;            // OAuth2 client.
-    protected static ?string $oauth2_client_secret = null; // OAuth2 client.
-    protected static ?string $oauth2_token_path = '../.credentials/huawei_token.json';
+    protected static int $oauth2_client_id = 0;            // OAuth2 client ID.
+    protected static ?string $oauth2_client_secret = null; // OAuth2 client Secret.
+    protected static string $user_access_token_path = '../.credentials/huawei_token.json';
     protected static ?string $user_access_token = null;
-    protected static string $build_path;
-
     protected static string $file_id = 'BhrdFPv6j8QzM60pdSadNXY_FZRnRp_AM';
 
     protected static int $agc_client_id = 0;               // AGConnect API.
@@ -30,41 +30,38 @@ abstract class BaseTestCase extends TestCase {
     protected static int $project_id = 0;
     protected static int $product_id = 0;
 
-    private const ENV_VAR_OAUTH2_CLIENT_ID            = 'Variable HUAWEI_OAUTH2_CLIENT_ID is not set.';
-    private const ENV_VAR_OAUTH2_CLIENT_SECRET        = 'Variable HUAWEI_OAUTH2_CLIENT_SECRET is not set.';
-    private const ENV_VAR_APP_LEVEL_CLIENT_ID         = 'Variable HUAWEI_APP_LEVEL_CLIENT_ID is not set.'; // TODO
-    private const ENV_VAR_APP_LEVEL_CLIENT_SECRET     = 'Variable HUAWEI_APP_LEVEL_CLIENT_SECRET is not set.'; // TODO
-    protected const ENV_VAR_CONNECT_API_CLIENT_ID     = 'Variable HUAWEI_CONNECT_API_CLIENT_ID is not set.';
-    protected const ENV_VAR_CONNECT_API_CLIENT_SECRET = 'Variable HUAWEI_CONNECT_API_CLIENT_SECRET is not set.';
-    protected const ENV_VAR_CONNECT_PRODUCT_ID        = 'Variable HUAWEI_CONNECT_PRODUCT_ID is not set.';
-    protected const ENV_VAR_CONNECT_PACKAGE_NAME      = 'Variable HUAWEI_CONNECT_PACKAGE_NAME is not set.';
-    protected const ENV_VAR_MAPKIT_API_KEY            = 'Variable HUAWEI_MAPKIT_API_KEY is not set.';
-    protected const ENV_VAR_HCM_TEST_DEVICE_TOKEN     = 'Variable PHPUNIT_HCM_TEST_DEVICE_TOKEN is not set.';
-    protected const CLIENT_NOT_READY                  = 'The API client is not ready.';
+    protected const CLIENT_NOT_READY = 'The API client is not ready.';
 
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {
 
         self::$oauth2_client_id = getenv('HUAWEI_OAUTH2_CLIENT_ID');
-        self::assertTrue( is_int(self::$oauth2_client_id) && self::$oauth2_client_id > 0, self::ENV_VAR_OAUTH2_CLIENT_ID );
+        $message = 'Variable HUAWEI_OAUTH2_CLIENT_ID is not set.';
+        self::assertTrue( is_int(self::$oauth2_client_id) && self::$oauth2_client_id > 0, $message );
 
         self::$oauth2_client_secret = getenv('HUAWEI_OAUTH2_CLIENT_SECRET');
-        self::assertNotEmpty( self::$oauth2_client_secret, self::ENV_VAR_OAUTH2_CLIENT_SECRET );
+        $message = 'Variable HUAWEI_OAUTH2_CLIENT_SECRET is not set.';
+        self::assertNotEmpty( self::$oauth2_client_secret, $message );
 
         self::$api_key = getenv('HUAWEI_MAPKIT_API_KEY');
-        self::assertNotEmpty( self::$api_key, self::ENV_VAR_MAPKIT_API_KEY );
+        $message = 'Variable HUAWEI_MAPKIT_API_KEY is not set.';
+        self::assertNotEmpty( self::$api_key, $message );
 
         self::$agc_client_id = (int) getenv('HUAWEI_CONNECT_API_CLIENT_ID');
-        self::assertTrue( is_int(self::$agc_client_id) && self::$agc_client_id > 0, self::ENV_VAR_CONNECT_API_CLIENT_ID );
+        $message = 'Variable HUAWEI_CONNECT_API_CLIENT_ID is not set.';
+        self::assertTrue( is_int(self::$agc_client_id) && self::$agc_client_id > 0, $message );
 
         self::$agc_client_secret = getenv('HUAWEI_CONNECT_API_CLIENT_SECRET');
-        self::assertNotEmpty( self::$agc_client_secret, self::ENV_VAR_CONNECT_API_CLIENT_SECRET );
+        $message = 'Variable HUAWEI_CONNECT_API_CLIENT_SECRET is not set.';
+        self::assertNotEmpty( self::$agc_client_secret, $message );
 
         self::$product_id = getenv('HUAWEI_CONNECT_PRODUCT_ID');
-        self::assertTrue( is_int(self::$product_id) && self::$product_id > 0, self::ENV_VAR_CONNECT_PRODUCT_ID );
+        $message = 'Variable HUAWEI_CONNECT_PRODUCT_ID is not set.';
+        self::assertTrue( is_int(self::$product_id) && self::$product_id > 0, $message );
 
         self::$package_name = getenv('HUAWEI_CONNECT_PACKAGE_NAME');
-        self::assertNotEmpty( self::$package_name, self::ENV_VAR_CONNECT_PACKAGE_NAME );
+        $message = 'Variable HUAWEI_CONNECT_PACKAGE_NAME is not set.';
+        self::assertNotEmpty( self::$package_name, $message );
 
         self::$build_path = getcwd().DIRECTORY_SEPARATOR.'build'.DIRECTORY_SEPARATOR;
         if (! is_dir( self::$build_path )) {mkdir( self::$build_path );}
@@ -107,24 +104,29 @@ abstract class BaseTestCase extends TestCase {
 
     /** Load previously authorized token from a file. */
     protected static function load_user_access_token() {
-        if (file_exists(self::$oauth2_token_path) && is_readable(self::$oauth2_token_path)) {
-            $token_response = (object) json_decode(file_get_contents(self::$oauth2_token_path), true);
+        if (file_exists(self::$user_access_token_path) && is_readable(self::$user_access_token_path)) {
+            $token_response = (object) json_decode(file_get_contents(self::$user_access_token_path), true);
             if (property_exists($token_response, 'token_expiry')) {
                 if (property_exists($token_response, 'refresh_token')) {
                     if ($token_response->token_expiry < time()) {
                         $api = new AccountKit( self::get_config() );
                         $token_response = $api->get_access_token_by_refresh_token( $token_response->refresh_token );
-                        file_put_contents(self::$oauth2_token_path, json_encode($token_response));
+                        file_put_contents(self::$user_access_token_path, json_encode($token_response));
                     }
                     $remaining = $token_response->token_expiry - time();
-                    echo sprintf('The cached user access token expires in %02d:%02d:%02d.', ($remaining / 3600), ($remaining / 60 % 60), $remaining % 60);
+                    echo sprintf('The cached access token expires in %02d:%02d:%02d.', ($remaining / 3600), ($remaining / 60 % 60), $remaining % 60);
                 }
             }
-            self::$user_access_token = $token_response->access_token;
+            if (property_exists($token_response, 'access_token')) {
+                self::$user_access_token = $token_response->access_token;
+            } else if (property_exists($token_response, 'message')) {
+                echo $token_response->message;
+            }
         } else {
-            self::markTestSkipped( "Cannot read cached user access token: " . self::$oauth2_token_path);
+            self::markTestSkipped( "Cannot read cached access token: " . self::$user_access_token_path);
         }
     }
+
     protected static function format_filesize(int $bytes, int $decimals=2): string {
         $size = array('B','kB','MB','GB','TB','PB','EB','ZB','YB');
         $factor = floor((strlen($bytes) - 1) / 3);

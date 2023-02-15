@@ -2,8 +2,8 @@
 namespace Tests;
 
 use HMS\AppGallery\Connect\Connect;
-use HMS\AppGallery\Publishing\AppInfo;
-use HMS\AppGallery\Publishing\AppLanguageInfo;
+use HMS\AppGallery\Model\AppInfo;
+use HMS\AppGallery\Model\AppLanguageInfo;
 use HMS\AppGallery\Publishing\Publishing;
 
 /**

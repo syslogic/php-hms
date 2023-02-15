@@ -44,29 +44,29 @@ class AppGalleryConnectTest extends BaseTestCase {
         ];
 
         $result = self::$client->import_users( $data );
-        self::assertFalse($result->code === ResultCodes::AUTHENTICATION_FAILED_CLIENT_TOKEN, $result->message );
+        self::assertTrue($result->code == 0, $result->message );
     }
 
     /** Test: Exporting Users. */
     public function test_export_users() {
         $result = self::$client->export_users();
-        self::assertTrue( $result->code != 401, $result->message );
+        self::assertTrue( $result->code == 0, $result->message );
     }
 
     /** Test: Authenticating a User's Access Token. */
     public function test_verify_access_token() {
         $result = self::$client->verify_access_token( self::$test_token );
-        self::assertTrue( $result->code == 404 );
+        self::assertTrue( $result->code == 0, $result->message );
     }
 
     /** Test: Revoking a User's Access Token. */
     public function test_revoke_access_token() {
         $result = self::$client->revoke_access_token( self::$test_token );
-        self::assertTrue( $result->code != 401, $result->message );
+        self::assertTrue( $result->code == 0, $result->message );
     }
 
     /** Test: Model ImportUser. */
-    public function test_import_user() {
+    public function test_model_import_user() {
         $item = new ImportUser( [
             'importUid' => 'W4Z34934F34dH93265R91'
         ] );

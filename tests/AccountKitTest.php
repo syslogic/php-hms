@@ -15,16 +15,14 @@ use HMS\AccountKit\Model\UserInfo;
 class AccountKitTest extends BaseTestCase {
 
     private static ?AccountKit $client;
-    private static ?string $app_access_token = null;
-    private static string $user_access_token_path = '../.credentials/huawei_token.json';
 
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {
 
         parent::setUpBeforeClass();
         self::$client = new AccountKit( self::get_config() );
-        self::$app_access_token = self::$client->get_access_token();
-        self::assertNotNull( self::$app_access_token, self::CLIENT_NOT_READY );
+        self::$user_access_token = self::$client->get_access_token();
+        self::assertNotNull( self::$user_access_token, self::CLIENT_NOT_READY );
 
         if (file_exists(self::$user_access_token_path)) {
             $data = json_decode(file_get_contents(self::$user_access_token_path));
@@ -38,13 +36,13 @@ class AccountKitTest extends BaseTestCase {
 
     /** Test: Obtaining Access Token. */
     public function test_get_access_token() {
-        self::$app_access_token = self::$client->get_access_token();
-        self::assertNotNull( self::$app_access_token, self::CLIENT_NOT_READY );
+        self::$user_access_token = self::$client->get_access_token();
+        self::assertNotNull( self::$user_access_token, self::CLIENT_NOT_READY );
     }
 
     /** Parse an Access Token. */
     public function test_parse_access_token() {
-        $result = self::$client->parse_access_token( self::$app_access_token );
+        $result = self::$client->parse_access_token( self::$user_access_token );
         self::assertTrue( property_exists($result, 'access_token') );
         echo print_r($result, true);
     }
