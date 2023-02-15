@@ -7,9 +7,9 @@ use HMS\DriveKit\Batch\BatchCallback;
 use HMS\DriveKit\Changes\Changes;
 use HMS\DriveKit\Channels\Channels;
 use HMS\DriveKit\Comments\Comments;
+use HMS\DriveKit\Files\Files;
 use HMS\DriveKit\HistoryVersions\HistoryVersions;
 use HMS\DriveKit\Replies\Replies;
-use HMS\DriveKit\Files\Files;
 use HMS\DriveKit\SmallThumbnail\SmallThumbnail;
 use HMS\DriveKit\Thumbnail\Thumbnail;
 

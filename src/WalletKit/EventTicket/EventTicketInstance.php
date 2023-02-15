@@ -2,8 +2,8 @@
 namespace HMS\WalletKit\EventTicket;
 
 use HMS\WalletKit\Constants;
-use HMS\WalletKit\WalletPass;
 use HMS\WalletKit\WalletKit;
+use HMS\WalletKit\WalletPass;
 
 /**
  * Class HMS Wallet API: Event Ticket Instance

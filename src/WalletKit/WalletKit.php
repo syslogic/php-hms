@@ -2,8 +2,8 @@
 namespace HMS\WalletKit;
 
 use HMS\Core\Wrapper;
-use HMS\WalletKit\BoardingPass\BoardingPassModel;
 use HMS\WalletKit\BoardingPass\BoardingPassInstance;
+use HMS\WalletKit\BoardingPass\BoardingPassModel;
 use HMS\WalletKit\EventTicket\EventTicketInstance;
 use HMS\WalletKit\EventTicket\EventTicketModel;
 use HMS\WalletKit\GiftCard\GiftCardInstance;

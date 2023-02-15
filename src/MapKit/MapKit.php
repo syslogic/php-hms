@@ -2,7 +2,6 @@
 namespace HMS\MapKit;
 
 use HMS\Core\Wrapper;
-
 use HMS\MapKit\Directions\Directions;
 use HMS\MapKit\Elevation\Elevation;
 use HMS\MapKit\Matrix\Matrix;

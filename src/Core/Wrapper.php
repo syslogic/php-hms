@@ -8,8 +8,8 @@ use GuzzleHttp\MessageFormatter;
 use GuzzleHttp\Middleware;
 use GuzzleHttp\RequestOptions;
 use JetBrains\PhpStorm\ArrayShape;
-use Psr\Http\Message\ResponseInterface;
 use Monolog\Logger;
+use Psr\Http\Message\ResponseInterface;
 use stdClass;
 
 /**

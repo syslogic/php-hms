@@ -1,9 +1,8 @@
 <?php /** @noinspection PhpUnused */
 namespace HMS\DriveKit\Channels;
 
-use HMS\DriveKit\DriveKit;
 use HMS\DriveKit\Constants;
-
+use HMS\DriveKit\DriveKit;
 use stdClass;
 
 /**
