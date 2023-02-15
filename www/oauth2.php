@@ -37,7 +37,9 @@ if (isset($_GET['code'])) {
     if (property_exists($token_response, 'expiry')) {
         if ($token_response->expiry >= time() && property_exists($token_response, 'refresh_token')) {
             $token_response = $api->get_access_token_by_refresh_token( $token_response->refresh_token );
-            file_put_contents($token_path, json_encode($token_response));
+            if (property_exists($token_response, 'access_token')) {
+                file_put_contents($token_path, json_encode($token_response));
+            }
         }
     }
 }

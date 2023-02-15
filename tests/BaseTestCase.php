@@ -111,7 +111,9 @@ abstract class BaseTestCase extends TestCase {
                     if ($token_response->token_expiry < time()) {
                         $api = new AccountKit( self::get_config() );
                         $token_response = $api->get_access_token_by_refresh_token( $token_response->refresh_token );
-                        file_put_contents(self::$user_access_token_path, json_encode($token_response));
+                        if (property_exists($token_response, 'access_token')) {
+                            file_put_contents(self::$user_access_token_path, json_encode($token_response));
+                        }
                     }
                     $remaining = $token_response->token_expiry - time();
                     echo sprintf('The cached access token expires in %02d:%02d:%02d.', ($remaining / 3600), ($remaining / 60 % 60), $remaining % 60);
