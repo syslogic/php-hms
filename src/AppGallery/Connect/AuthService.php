@@ -67,8 +67,8 @@ class AuthService extends Connect {
      */
     public function import_users( array $users ): bool|stdClass {
         $url = $this->base_url.Constants::CONNECT_API_AUTH_SERVICE_USER_IMPORT;
+        $headers = array_merge($this->auth_headers(), ['productId' => $this->project_id]);
         $payload = ['users' => $users];
-        $headers = array_merge($this->auth_headers(), ['productId' => $this->product_id]);
         return $this->request('POST', $url, $headers, $payload);
     }
 
@@ -80,8 +80,9 @@ class AuthService extends Connect {
      */
     public function export_users(): bool|stdClass {
         $url = $this->base_url.Constants::CONNECT_API_AUTH_SERVICE_USER_EXPORT;
-        $headers = array_merge($this->auth_headers(), ['productId' => $this->product_id]);
-        return $this->request('POST', $url, $headers);
+        $headers = array_merge($this->auth_headers(), ['productId' => $this->project_id]);
+        $payload = ['block' => 0];
+        return $this->request('POST', $url, $headers, $payload);
     }
 
     /**
@@ -92,7 +93,7 @@ class AuthService extends Connect {
      * @return bool|stdClass
      */
     public function verify_access_token( string $user_access_token ): bool|stdClass {
-        $url = str_replace('{productId}', $this->product_id, $this->base_url.Constants::CONNECT_API_AUTH_SERVICE_VERIFY_TOKEN);
+        $url = str_replace('{projectId}', $this->project_id, $this->base_url.Constants::CONNECT_API_AUTH_SERVICE_VERIFY_TOKEN);
         $headers = array_merge($this->auth_headers(), ['accessToken' => $user_access_token]);
         return $this->request('GET', $url, $headers);
     }
@@ -106,7 +107,7 @@ class AuthService extends Connect {
      * @return bool|stdClass
      */
     public function revoke_access_token( string $uid, string $user_access_token ): bool|stdClass {
-        $url = str_replace('{productId}', $this->product_id, $this->base_url.Constants::CONNECT_API_AUTH_SERVICE_REVOKE_TOKEN);
+        $url = str_replace('{projectId}', $this->project_id, $this->base_url.Constants::CONNECT_API_AUTH_SERVICE_REVOKE_TOKEN);
         $headers = array_merge($this->auth_headers(), ['uid' => $uid]);
         return $this->request('POST', $url, $headers);
     }

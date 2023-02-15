@@ -37,12 +37,12 @@ class Constants {
      *
      * @see <a href="https://developer.huawei.com/consumer/de/doc/development/AppGallery-connect-References/server-rest-verify-0000001182300271">Authenticating a User's Access Token</a>
      */
-    public const CONNECT_API_AUTH_SERVICE_VERIFY_TOKEN = "/api/oauth2/third/v1/verify-token?productId={productId}";
+    public const CONNECT_API_AUTH_SERVICE_VERIFY_TOKEN = "/api/oauth2/third/v1/verify-token?productId={projectId}";
 
     /**
      * POST Revoking a User's Access Token.
      */
-    public const CONNECT_API_AUTH_SERVICE_REVOKE_TOKEN = "/api/oauth2/third/v1/revoke-token?productId={productId}";
+    public const CONNECT_API_AUTH_SERVICE_REVOKE_TOKEN = "/api/oauth2/third/v1/revoke-token?productId={projectId}";
 
 
     public const AUTH_PROVIDER_ANONYMOUS          = 0;

@@ -55,7 +55,7 @@ abstract class Wrapper {
 
     protected string|null $package_name = null;
     protected int $developer_id = 0;
-    protected int $product_id = 0;
+    protected int $project_id = 0;
 
     protected int $agc_client_id = 0;
     protected string|null $agc_client_secret = null;
@@ -164,8 +164,8 @@ abstract class Wrapper {
         if ( isset($config['developer_id']) && is_int($config['developer_id'])) {
             $this->developer_id = $config['developer_id'];
         }
-        if ( isset($config['product_id']) && is_int($config['product_id'])) { // project_id.
-            $this->product_id = $config['product_id'];
+        if ( isset($config['project_id']) && is_int($config['project_id'])) { // product_id.
+            $this->project_id = $config['project_id'];
         }
         if ( isset($config['package_name']) && is_int($config['package_name'])) {
             $this->package_name = $config['package_name'];
@@ -192,17 +192,17 @@ abstract class Wrapper {
         if ( is_string( getenv('HUAWEI_OAUTH2_REDIRECT_URL' ) ) ) {
             $this->oauth2_redirect_url = (string) getenv( 'HUAWEI_OAUTH2_REDIRECT_URL' );
         }
-        if ( is_string( getenv('HUAWEI_CONNECT_API_CLIENT_ID' ) ) ) {
+        if ( is_string( getenv('HUAWEI_CONNECT_API_CLIENT_ID' ) ) ) { // project_client_id.
             $this->agc_client_id = (int) getenv( 'HUAWEI_CONNECT_API_CLIENT_ID' );
         }
-        if ( is_string( getenv('HUAWEI_CONNECT_API_CLIENT_SECRET' ) ) ) {
+        if ( is_string( getenv('HUAWEI_CONNECT_API_CLIENT_SECRET' ) ) ) { // project_client_id.
             $this->agc_client_secret = (string) getenv( 'HUAWEI_CONNECT_API_CLIENT_SECRET' );
         }
         if ( is_string( getenv('HUAWEI_CONNECT_DEVELOPER_ID' ) ) ) {
             $this->developer_id = (int) getenv( 'HUAWEI_CONNECT_DEVELOPER_ID' );
         }
-        if ( is_string( getenv('HUAWEI_CONNECT_PRODUCT_ID' ) ) ) {  // project_id.
-            $this->product_id = (int) getenv( 'HUAWEI_CONNECT_PRODUCT_ID' );
+        if ( is_string( getenv('HUAWEI_CONNECT_PROJECT_ID' ) ) ) {  // product_id.
+            $this->project_id = (int) getenv( 'HUAWEI_CONNECT_PROJECT_ID' );
         }
         if ( is_string( getenv('HUAWEI_CONNECT_PACKAGE_NAME' ) ) ) {
             $this->package_name = (int) getenv( 'HUAWEI_CONNECT_PACKAGE_NAME' );

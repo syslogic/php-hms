@@ -27,8 +27,9 @@ abstract class BaseTestCase extends TestCase {
     protected static ?string $api_key = null;              // MapKit in general.
     protected static ?string $signature_key = null;        // Maps Static API.
     protected static ?string $package_name = null;
+
     protected static int $project_id = 0;
-    protected static int $product_id = 0;
+    protected static int $developer_id = 0;
 
     protected const CLIENT_NOT_READY = 'The API client is not ready.';
 
@@ -47,21 +48,27 @@ abstract class BaseTestCase extends TestCase {
         $message = 'Variable HUAWEI_MAPKIT_API_KEY is not set.';
         self::assertNotEmpty( self::$api_key, $message );
 
+        // must be type of project_client_id (project level API client).
         self::$agc_client_id = (int) getenv('HUAWEI_CONNECT_API_CLIENT_ID');
         $message = 'Variable HUAWEI_CONNECT_API_CLIENT_ID is not set.';
         self::assertTrue( is_int(self::$agc_client_id) && self::$agc_client_id > 0, $message );
 
+        // must be type of project_client_id (project level API client).
         self::$agc_client_secret = getenv('HUAWEI_CONNECT_API_CLIENT_SECRET');
         $message = 'Variable HUAWEI_CONNECT_API_CLIENT_SECRET is not set.';
         self::assertNotEmpty( self::$agc_client_secret, $message );
 
-        self::$product_id = getenv('HUAWEI_CONNECT_PRODUCT_ID');
-        $message = 'Variable HUAWEI_CONNECT_PRODUCT_ID is not set.';
-        self::assertTrue( is_int(self::$product_id) && self::$product_id > 0, $message );
-
         self::$package_name = getenv('HUAWEI_CONNECT_PACKAGE_NAME');
         $message = 'Variable HUAWEI_CONNECT_PACKAGE_NAME is not set.';
         self::assertNotEmpty( self::$package_name, $message );
+
+        self::$project_id = getenv('HUAWEI_CONNECT_PROJECT_ID');
+        $message = 'Variable HUAWEI_CONNECT_PROJECT_ID is not set.';
+        self::assertTrue( is_int(self::$project_id) && self::$project_id > 0, $message );
+
+        self::$developer_id = getenv('HUAWEI_CONNECT_DEVELOPER_ID');
+        $message = 'Variable HUAWEI_CONNECT_DEVELOPER_ID is not set.';
+        self::assertTrue( is_int(self::$developer_id) && self::$developer_id > 0, $message );
 
         self::$build_path = getcwd().DIRECTORY_SEPARATOR.'build'.DIRECTORY_SEPARATOR;
         if (! is_dir( self::$build_path )) {mkdir( self::$build_path );}
@@ -74,9 +81,10 @@ abstract class BaseTestCase extends TestCase {
         'oauth2_client_secret' => 'string',
         'agc_client_id'        => 'integer',
         'agc_client_secret'    => 'string',
-        'api_key'              => 'string',
-        'product_id'           => 'integer',
         'package_name'         => 'string',
+        'project_id'           => 'integer',
+        'developer_id'         => 'integer',
+        'api_key'              => 'string',
         'debug_mode'           => 'bool'
     ])]
     protected static function get_config(): array {
@@ -85,9 +93,10 @@ abstract class BaseTestCase extends TestCase {
             'oauth2_client_secret' => self::$oauth2_client_secret,
             'agc_client_id'        => self::$agc_client_id,
             'agc_client_secret'    => self::$agc_client_secret,
-            'api_key'              => self::$api_key,
-            'product_id'           => self::$product_id,
             'package_name'         => self::$package_name,
+            'project_id'           => self::$project_id,
+            'developer_id'         => self::$developer_id,
+            'api_key'              => self::$api_key,
             'debug_mode'           => self::$debug_mode
         ];
     }
