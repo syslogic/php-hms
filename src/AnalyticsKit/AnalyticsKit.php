@@ -2,6 +2,7 @@
 namespace HMS\AnalyticsKit;
 
 use HMS\Core\Wrapper;
+use JetBrains\PhpStorm\ArrayShape;
 
 /**
  * Class HMS AnalyticsKit Wrapper
@@ -54,17 +55,18 @@ class AnalyticsKit extends Wrapper {
     protected function post_init(): void {
         unset($this->oauth2_client_secret, $this->oauth2_api_scope, $this->oauth2_api_scope, $this->oauth2_redirect_url);
         unset($this->agc_client_id, $this->agc_client_secret);
-        unset($this->developer_id, $this->project_id);
         unset($this->api_key, $this->api_signature);
+        unset($this->developer_id);
     }
 
     /** Provide HTTP request headers as array. */
+    #[ArrayShape(['Content-Type' => 'string', 'Authorization' => 'string', 'x-app-id' => 'int', 'x-product-id' => 'int'])]
     protected function auth_headers(): array {
         return [
             "Content-Type" => "application/json; charset=utf-8",
             "Authorization" => "Bearer $this->access_token",
             "x-app-id" => $this->oauth2_client_id,
-            "x-product-id" => $this->product_id
+            "x-product-id" => $this->project_id
         ];
     }
 

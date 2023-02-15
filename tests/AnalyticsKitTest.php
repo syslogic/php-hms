@@ -20,8 +20,8 @@ class AnalyticsKitTest extends BaseTestCase {
         self::$client = new AnalyticsKit( array_merge( self::get_user_config(), [
             'oauth2_client_id' => self::$oauth2_client_id,
             'package_name' => self::$package_name,
-            'product_id' => self::$product_id,
-            'debug_mode' => true
+            'project_id' => self::$project_id,
+            'debug_mode' => false
         ]) );
         self::assertTrue( self::$client->is_ready(), self::CLIENT_NOT_READY );
     }

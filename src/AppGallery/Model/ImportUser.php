@@ -1,5 +1,5 @@
 <?php
-namespace HMS\AppGallery\Connect;
+namespace HMS\AppGallery\Model;
 
 use HMS\Core\Model;
 

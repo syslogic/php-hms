@@ -1,7 +1,8 @@
 <?php
-namespace HMS\AppGallery\Connect;
+namespace HMS\AppGallery\AuthService;
 
 use HMS\AppGallery\Constants;
+use HMS\Core\Wrapper;
 use JetBrains\PhpStorm\ArrayShape;
 use stdClass;
 
@@ -12,7 +13,7 @@ use stdClass;
  *
  * @author Martin Zeitler
  */
-class AuthService extends Connect {
+class AuthService extends Wrapper {
 
     /** Constructor. */
     public function __construct( array|string $config ) {

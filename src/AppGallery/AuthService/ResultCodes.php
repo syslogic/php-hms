@@ -1,5 +1,5 @@
 <?php /** @noinspection PhpUnused */
-namespace HMS\AppGallery\Connect;
+namespace HMS\AppGallery\AuthService;
 
 /**
  * Class HMS AppGallery Connect AuthService Result Codes
