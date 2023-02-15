@@ -31,21 +31,21 @@ class SearchKitTest extends BaseTestCase {
     /** Test: Web Search */
     public function test_web_search() {
         $result = self::$client->web_search( self::$web_search_term );
-        self::assertTrue($result->code != 405, $result->message );
+        self::assertTrue($result->code == 200, $result->message );
     }
 
     public function test_image_search() {
         $result = self::$client->image_search( self::$image_search_term );
-        self::assertTrue($result->code != 405, $result->message );
+        self::assertTrue($result->code == 200, $result->message );
     }
 
     public function test_video_search() {
         $result = self::$client->video_search( self::$video_search_term );
-        self::assertTrue($result->code != 405, $result->message );
+        self::assertTrue($result->code == 200, $result->message );
     }
 
     public function test_news_search() {
         $result = self::$client->news_search( self::$news_search_term );
-        self::assertTrue($result->code != 405, $result->message );
+        self::assertTrue($result->code == 200, $result->message );
     }
 }
