@@ -13,8 +13,6 @@ use HMS\Core\Wrapper;
  */
 class Connect extends Wrapper {
 
-    private string $url_token;
-
     /** Constructor */
     public function __construct( array|string $config ) {
 

@@ -1,5 +1,5 @@
 <?php
-namespace HMS\AppGallery\Publishing;
+namespace HMS\AppGallery\Model;
 
 use HMS\Core\Model;
 use JetBrains\PhpStorm\ArrayShape;

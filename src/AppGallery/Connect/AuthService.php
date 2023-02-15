@@ -11,7 +11,6 @@ use stdClass;
 class AuthService extends Connect {
 
     private static Connect|null $connect;
-
     private string $url_user_import;
     private string $url_user_export;
     private string $url_token_verify;

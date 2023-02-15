@@ -1,5 +1,5 @@
 <?php /** @noinspection PhpUnused */
-namespace HMS\AppGallery\Publishing;
+namespace HMS\AppGallery;
 
 /**
  * Class HMS AppGallery Connect Constants
@@ -8,6 +8,11 @@ namespace HMS\AppGallery\Publishing;
  * @author Martin Zeitler
  */
 class Constants {
+
+    public const REPORT_API_BASE_URL = "https://www.huawei.com/auth/agc/report/read";
+    public const PROJECT_API_BASE_URL = "https://www.huawei.com/auth/agc/project";
+    public const PRODUCT_API_BASE_URL      = "https://www.huawei.com/auth/agc/product";
+    public const PRODUCT_API_BASE_URL_READ = "https://www.huawei.com/auth/agc/product/read";
 
     /**
      * @see https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-obtain_token-0000001158365043
@@ -104,4 +109,5 @@ class Constants {
      * @see https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-query-aabfile-0000001111685206
      */
     public const PUBLISH_API_QUERY_COMPILATION_STATUS = "aab/compile/status";
+
 }
