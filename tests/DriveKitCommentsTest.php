@@ -12,7 +12,6 @@ class DriveKitCommentsTest extends BaseTestCase {
 
     /** @var DriveKit|null $client */
     private static ?DriveKit $client;
-    protected static string $file_id = 'BjDA_0bCctM1xH2A8-N5BcYVCH_afmLXN';
     protected static ?string $comment_id;
     protected static string $comment_text_original = 'Test comment.';
     protected static string $comment_text_updated = 'Updated test comment.';
