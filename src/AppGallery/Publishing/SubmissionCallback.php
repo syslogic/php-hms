@@ -82,7 +82,7 @@ class SubmissionCallback {
      * Load an RSA Public Key from PEM key file.
      * @noinspection PhpSameParameterValueInspection
      */
-    private function load_rsa_public_key_file( string $path = '', string|false $password=false ) {
+    private function load_rsa_public_key_file( string $path = '', string|false $password=false ): void {
         if ($path == '') {$path = '/path/to/key.pem';}
         if ( file_exists( $path ) && is_readable( $path ) ) {
             $this->public_key = PublicKeyLoader::load( file_get_contents( $path ), $password );
@@ -93,7 +93,7 @@ class SubmissionCallback {
      * Load an RSA Public Key from string.
      * @noinspection PhpSameParameterValueInspection
      */
-    private function load_rsa_public_key( string $public_key = '', string|false $password=false ) {
+    private function load_rsa_public_key( string $public_key = '', string|false $password=false ): void {
         $this->public_key = PublicKeyLoader::load( $public_key, $password );
     }
 

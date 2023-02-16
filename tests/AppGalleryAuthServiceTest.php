@@ -2,7 +2,6 @@
 namespace Tests;
 
 use HMS\AppGallery\AuthService\AuthService;
-use HMS\AppGallery\Connect;
 use HMS\AppGallery\Constants;
 use HMS\AppGallery\Model\ImportUser;
 
