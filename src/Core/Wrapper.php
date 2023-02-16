@@ -184,6 +184,9 @@ abstract class Wrapper {
         if ( isset($config['project_id']) && is_int($config['project_id'])) { // product_id.
             $this->project_id = $config['project_id'];
         }
+        if ( isset($config['app_id']) && is_int($config['app_id'])) {
+            $this->app_id = $config['app_id'];
+        }
         if ( isset($config['package_name']) && is_int($config['package_name'])) {
             $this->package_name = $config['package_name'];
         }

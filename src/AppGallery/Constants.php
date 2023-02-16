@@ -60,7 +60,7 @@ class Constants {
      * @param string suffix File name extension, such as apk, rpk, pdf, jpg, jpeg, png, bmp, mp4, mov, and aab.
      * @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-upload-url-0000001158365047
      */
-    public const PUBLISH_API_FILE_UPLOAD_URL = "api/publish/v2/upload-url?appId={appId}&suffix={suffix}";
+    public const PUBLISH_API_FILE_UPLOAD_URL = "api/publish/v2/upload-url";
 
     /** @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-appid-list-0000001111845086 Querying the App ID Corresponding to an App Package Name */
     public const PUBLISH_API_APP_ID_LIST = "api/publish/v2/appid-list";

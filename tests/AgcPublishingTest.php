@@ -23,6 +23,7 @@ class AgcPublishingTest extends BaseTestCase {
             'agc_team_client_secret'    => self::$agc_team_client_secret,
             'agc_project_client_id'     => self::$agc_project_client_id,
             'agc_project_client_secret' => self::$agc_project_client_secret,
+            'oauth2_client_id'          => self::$oauth2_client_id,
             'debug_mode'                => self::$debug_mode
         ] );
     }
@@ -40,17 +41,21 @@ class AgcPublishingTest extends BaseTestCase {
     public function test_request_file_upload_url() {
         $result = self::$client->request_file_upload_url();
         echo print_r($result, true);
-        self::assertTrue($result->code == 0, $result->message );
+        self::assertTrue( property_exists($result, 'code' ) && $result->code == 0, $result->message );
+        self::assertTrue( property_exists($result, 'message' ) && $result->message == 'success' );
+        self::assertTrue( property_exists($result, 'uploadUrl' ) && is_string($result->uploadUrl) );
+        self::assertTrue( property_exists($result, 'authCode' ) && is_string($result->authCode) );
+        echo print_r($result, true);
     }
 
     /** Uploading a File */
     public function test_upload_file() {
-        self::assertTrue(true );
+        self::assertTrue(false, 'TODO: Uploading a File' );
     }
 
     /** Updating App File Information */
-    public function test_update_file_info( $file_url, $file_size ) {
-        self::assertTrue(true );
+    public function test_update_file_info() {
+        self::assertTrue(false, 'TODO: Updating App File Information' );
     }
 
     /** Test: Model AppInfo. */
@@ -58,8 +63,9 @@ class AgcPublishingTest extends BaseTestCase {
         $item = new AppInfo( [
 
         ] );
-        self::assertTrue( is_array( $item->asArray() ) );
         self::assertTrue( $item->validate() );
+        self::assertTrue( is_array( $item->asArray() ) );
+        echo print_r($item->asObject(), true);
     }
 
     /** Test: Model AppInfo. */
@@ -67,7 +73,8 @@ class AgcPublishingTest extends BaseTestCase {
         $item = new AppLanguageInfo( [
 
         ] );
-        self::assertTrue( is_array( $item->asArray() ) );
         self::assertTrue( $item->validate() );
+        self::assertTrue( is_array( $item->asArray() ) );
+        echo print_r($item->asObject(), true);
     }
 }

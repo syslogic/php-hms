@@ -59,13 +59,16 @@ abstract class Connect extends Wrapper {
         return null;
     }
 
-    /** Provide HTTP request headers as array. */
+    /**
+     * Provide HTTP request headers as array.
+     *@param bool $team_admin It determines which client_id to send.
+     */
     #[ArrayShape(['Content-Type' => 'string', 'Authorization' => 'string', 'client_id' => 'string'])]
-    protected function auth_headers(): array {
+    protected function auth_headers( bool $team_admin=false ): array {
         return [
             'Content-Type' => 'application/json;charset=utf-8',
             'Authorization' => "Bearer $this->access_token",
-            'client_id' => $this->agc_project_client_id
+            'client_id' => $team_admin ? $this->agc_team_client_id : $this->agc_project_client_id
         ];
     }
 
