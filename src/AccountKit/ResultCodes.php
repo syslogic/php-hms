@@ -7,7 +7,7 @@ namespace HMS\AccountKit;
  * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/server-error-codes-0000001062371380">Error Codes</a>
  * @author Martin Zeitler
  */
-class ErrorCodes {
+class ResultCodes {
 
     /** 1101 / 20002 - The value of `client_id` is in an incorrect format. */
     public const CLIENT_ID_HAS_INVALID_FORMAT     = 20002;

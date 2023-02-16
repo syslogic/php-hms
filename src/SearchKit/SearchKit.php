@@ -16,7 +16,7 @@ use HMS\Core\Wrapper;
 class SearchKit extends Wrapper {
 
     /**
-     * @@var array $languages Supported search languages.
+     * @var array $languages Supported search languages.
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/language-code-0000001057569148">Language Codes</a>
      */
     private array $languages = [
@@ -26,7 +26,7 @@ class SearchKit extends Wrapper {
     ];
 
     /**
-     * @@var array $regions Supported search regions.
+     * @var array $regions Supported search regions.
      * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/search-region-code-0000001057330966">Region Codes</a>
      */
     private array $regions = [

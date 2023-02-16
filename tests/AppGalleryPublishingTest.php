@@ -1,7 +1,6 @@
 <?php
 namespace Tests;
 
-use HMS\AppGallery\AuthService;
 use HMS\AppGallery\Model\AppInfo;
 use HMS\AppGallery\Model\AppLanguageInfo;
 use HMS\AppGallery\Publishing\Publishing;
@@ -13,17 +12,12 @@ use HMS\AppGallery\Publishing\Publishing;
  */
 class AppGalleryPublishingTest extends BaseTestCase {
 
-    private static ?Connect $connect;
     private static ?Publishing $client;
 
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {
         parent::setUpBeforeClass();
-
-        self::$connect = new Connect( self::get_config() );
-        if ( self::$connect->is_ready() ) {
-            self::$client = new Publishing( self::get_config() );
-        }
+        self::$client = new Publishing( self::get_config() );
     }
 
     /** Test: On Release Submission Callback. */

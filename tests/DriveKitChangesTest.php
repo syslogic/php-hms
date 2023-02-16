@@ -46,7 +46,7 @@ class DriveKitChangesTest extends BaseTestCase {
     public function test_subscribe() {
         self::assertTrue( is_string( self::$start_cursor ) );
         $notification_url = $_SERVER['HUAWEI_OAUTH2_REDIRECT_URL'].'notify_drivekit';
-        $result = self::$client->getChanges()->subscribe( self::$start_cursor, 'test', $notification_url, 'xyz' );
+        $result = self::$client->getChanges()->subscribe( self::$start_cursor, 'test', $notification_url, self::$user_access_token );
         self::assertTrue( !property_exists($result, 'code') && $result->code != 400, $result->message);
         self::assertTrue( property_exists($result, 'category' ) && $result->category == 'api#channel' );
         self::assertTrue( property_exists($result, 'resourceId' ) && is_string($result->resourceId) );
