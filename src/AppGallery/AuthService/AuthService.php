@@ -1,64 +1,22 @@
 <?php
 namespace HMS\AppGallery\AuthService;
 
+use HMS\AppGallery\Connect;
 use HMS\AppGallery\Constants;
-use HMS\Core\Wrapper;
-use JetBrains\PhpStorm\ArrayShape;
 use stdClass;
 
 /**
- * Class HMS AppGallery AuthService Wrapper
+ * Class HMS AppGallery Connect AuthService Wrapper
  *
  * Callers of this API include administrators, app administrators, and development and operations personnel.
  *
  * @author Martin Zeitler
  */
-class AuthService extends Wrapper {
+class AuthService extends Connect {
 
-    /** Constructor. */
+    /** Constructor */
     public function __construct( array|string $config ) {
-        $this->base_url = Constants::CONNECT_API_BASE_URL;
-        if (isset($config['base_url'])) {$this->base_url = $config['base_url'];}
         parent::__construct( $config );
-        $this->access_token = $this->get_access_token();
-        $this->post_init();
-    }
-
-    /** Unset properties irrelevant to the child class. */
-    protected function post_init(): void {
-        $urls = [Constants::CONNECT_API_BASE_URL, Constants::CONNECT_API_BASE_URL_EU, Constants::CONNECT_API_BASE_URL_AS, Constants::CONNECT_API_BASE_URL_RU];
-        if (! in_array($this->base_url, $urls)) {
-            throw new \InvalidArgumentException('AuthService permits these base_url values: '. implode(', ', $urls));
-        }
-    }
-
-    /**
-     * Obtaining a Token, the AgConnect Version.
-     *
-     * @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-obtain_token-0000001158365043 Obtaining a Token
-     * @return string|null the token string only.
-     */
-    private function get_access_token(): ?string {
-        $url = $this->base_url.Constants::CONNECT_API_OAUTH2_TOKEN_URL;
-        $result = $this->request( 'POST',$url, $this->request_headers(), [
-            'grant_type'    => 'client_credentials',
-            'client_id'     => $this->agc_client_id,
-            'client_secret' => $this->agc_client_secret
-        ] );
-        if (property_exists($result, 'access_token')) {
-            return $result->access_token;
-        }
-        return null;
-    }
-
-    /** Provide HTTP request headers as array. */
-    #[ArrayShape(['Content-Type' => 'string', 'Authorization' => 'string', 'client_id' => 'string'])]
-    protected function auth_headers(): array {
-        return [
-            'Content-Type' => 'application/json;charset=utf-8',
-            'Authorization' => "Bearer $this->access_token",
-            'client_id' => $this->agc_client_id
-        ];
     }
 
     /**

@@ -63,7 +63,7 @@ class SearchKit extends Wrapper {
     protected function post_init(): void {
         unset($this->oauth2_client_secret, $this->oauth2_api_scope, $this->oauth2_redirect_url);
         unset($this->token_expiry, $this->refresh_token, $this->id_token, $this->package_name, $this->product_id);
-        unset($this->agc_client_id, $this->agc_client_secret);
+        unset($this->agc_project_client_id, $this->agc_project_client_secret);
         unset($this->developer_id, $this->project_id);
         unset($this->api_key, $this->api_signature);
 

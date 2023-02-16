@@ -1,27 +1,17 @@
 <?php /** @noinspection PhpUnused */
 namespace HMS\AppGallery\Report;
 
-use HMS\AccountKit\AccountKit;
-use HMS\Core\Wrapper;
+use HMS\AppGallery\Connect;
 
 /**
- * Class HMS AppGallery Report Wrapper
+ * Class HMS AppGallery Connect Report Wrapper
  *
  * @author Martin Zeitler
  */
-class Report extends Wrapper {
+class Report extends Connect {
 
     public function __construct( array|string $config ) {
-
         parent::__construct( $config );
-        $this->post_init();
-
-        /* Obtain an access-token. */
-        $account_kit = new AccountKit( $config );
-        $this->access_token = $account_kit->get_access_token();
     }
 
-    protected function post_init(): void {
-
-    }
 }

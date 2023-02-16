@@ -1,24 +1,18 @@
 <?php
 namespace HMS\AppGallery\Publishing;
 
-use HMS\Core\Wrapper;
+use HMS\AppGallery\Connect;
 
 /**
- * Class HMS AppGallery Publishing Wrapper
+ * Class HMS AppGallery Connect Publishing Wrapper
  *
  * @author Martin Zeitler
  */
-class Publishing extends Wrapper {
+class Publishing extends Connect {
 
     /** Constructor */
     public function __construct( array|string $config ) {
         parent::__construct( $config );
-        $this->post_init();
-    }
-
-    /** Unset properties irrelevant to the child class. */
-    protected function post_init(): void {
-        unset($this->api_key, $this->api_signature);
     }
 
     /** @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-upload-url-0000001158365047 Obtaining the File Upload URL */

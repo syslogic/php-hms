@@ -21,8 +21,8 @@ abstract class BaseTestCase extends TestCase {
     protected static ?string $user_access_token = null;
     protected static string $file_id = 'BhrdFPv6j8QzM60pdSadNXY_FZRnRp_AM';
 
-    protected static int $agc_client_id = 0;               // AGConnect API.
-    protected static ?string $agc_client_secret = null;    // AGConnect API.
+    protected static int $agc_project_client_id = 0;               // AGConnect API.
+    protected static ?string $agc_project_client_secret = null;    // AGConnect API.
 
     protected static ?string $api_key = null;              // MapKit in general.
     protected static ?string $signature_key = null;        // Maps Static API.
@@ -49,14 +49,14 @@ abstract class BaseTestCase extends TestCase {
         self::assertNotEmpty( self::$api_key, $message );
 
         // must be type of project_client_id (project level API client).
-        self::$agc_client_id = (int) getenv('HUAWEI_CONNECT_API_CLIENT_ID');
-        $message = 'Variable HUAWEI_CONNECT_API_CLIENT_ID is not set.';
-        self::assertTrue( is_int(self::$agc_client_id) && self::$agc_client_id > 0, $message );
+        self::$agc_project_client_id = (int) getenv('HUAWEI_CONNECT_PROJECT_CLIENT_ID');
+        $message = 'Variable HUAWEI_CONNECT_PROJECT_CLIENT_ID is not set.';
+        self::assertTrue( is_int(self::$agc_project_client_id) && self::$agc_project_client_id > 0, $message );
 
         // must be type of project_client_id (project level API client).
-        self::$agc_client_secret = getenv('HUAWEI_CONNECT_API_CLIENT_SECRET');
-        $message = 'Variable HUAWEI_CONNECT_API_CLIENT_SECRET is not set.';
-        self::assertNotEmpty( self::$agc_client_secret, $message );
+        self::$agc_project_client_secret = getenv('HUAWEI_CONNECT_PROJECT_CLIENT_SECRET');
+        $message = 'Variable HUAWEI_CONNECT_PROJECT_CLIENT_SECRET is not set.';
+        self::assertNotEmpty( self::$agc_project_client_secret, $message );
 
         self::$package_name = getenv('HUAWEI_CONNECT_PACKAGE_NAME');
         $message = 'Variable HUAWEI_CONNECT_PACKAGE_NAME is not set.';
@@ -77,27 +77,27 @@ abstract class BaseTestCase extends TestCase {
 
     /** It provides the configuration array. */
     #[ArrayShape([
-        'oauth2_client_id'     => 'integer',
-        'oauth2_client_secret' => 'string',
-        'agc_client_id'        => 'integer',
-        'agc_client_secret'    => 'string',
-        'package_name'         => 'string',
-        'project_id'           => 'integer',
-        'developer_id'         => 'integer',
-        'api_key'              => 'string',
-        'debug_mode'           => 'bool'
+        'oauth2_client_id'          => 'integer',
+        'oauth2_client_secret'      => 'string',
+        'agc_project_client_id'     => 'integer',
+        'agc_project_client_secret' => 'string',
+        'package_name'              => 'string',
+        'project_id'                => 'integer',
+        'developer_id'              => 'integer',
+        'api_key'                   => 'string',
+        'debug_mode'                => 'bool'
     ])]
     protected static function get_config(): array {
         return [
-            'oauth2_client_id'     => self::$oauth2_client_id,
-            'oauth2_client_secret' => self::$oauth2_client_secret,
-            'agc_client_id'        => self::$agc_client_id,
-            'agc_client_secret'    => self::$agc_client_secret,
-            'package_name'         => self::$package_name,
-            'project_id'           => self::$project_id,
-            'developer_id'         => self::$developer_id,
-            'api_key'              => self::$api_key,
-            'debug_mode'           => self::$debug_mode
+            'oauth2_client_id'          => self::$oauth2_client_id,
+            'oauth2_client_secret'      => self::$oauth2_client_secret,
+            'agc_project_client_id'     => self::$agc_project_client_id,
+            'agc_project_client_secret' => self::$agc_project_client_secret,
+            'package_name'              => self::$package_name,
+            'project_id'                => self::$project_id,
+            'developer_id'              => self::$developer_id,
+            'api_key'                   => self::$api_key,
+            'debug_mode'                => self::$debug_mode
         ];
     }
 

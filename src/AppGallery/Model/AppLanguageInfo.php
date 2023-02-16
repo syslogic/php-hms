@@ -8,7 +8,7 @@ use JetBrains\PhpStorm\Pure;
 /**
  * Class HMS Connect AppLanguageInfo
  *
- * @see https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-language-info-update-0000001158245057#section13576204051611
+ * @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-language-info-update-0000001158245057#section13576204051611
  * @author Martin Zeitler
  */
 class AppLanguageInfo extends Model {

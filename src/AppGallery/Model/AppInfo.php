@@ -7,7 +7,7 @@ use JetBrains\PhpStorm\Pure;
 /**
  * Class HMS Connect AppInfo
  *
- * @see https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-app-info-update-0000001111685198
+ * @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-app-info-update-0000001111685198
  * @author Martin Zeitler
  */
 class AppInfo extends Model {
@@ -18,21 +18,21 @@ class AppInfo extends Model {
     /**
      * @var string $defaultLang (64) Default language of an app.
      * For details, please refer to Languages.
-     * @see https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-reference-langtype-0000001158245079
+     * @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-reference-langtype-0000001158245079
      */
     private string $defaultLang = "en-US";
 
     /**
      * @var int $childType (4) Level-2 category of an app.
      * The ID is fixed. For details, please refer to App/Game Categories.
-     * @see https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-reference-apptype-0000001158365069
+     * @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-reference-apptype-0000001158365069
      */
     private int $childType = 0;
 
     /**
      * @var int $grandChildType (4) Level-3 category of an app.
      * The ID is fixed. For details, please refer to App/Game Categories.
-     * @see https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-reference-apptype-0000001158365069
+     * @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-reference-apptype-0000001158365069
      */
     private int $grandChildType = 0;
 
@@ -95,7 +95,7 @@ class AppInfo extends Model {
      * @var string $contentRate (255) App rating, in JSON format.
      * Currently, only ratings specified by Huawei are supported, for example,
      * {"HW":"3+"}. For details about app ratings, please refer to App Ratings.
-     * @see https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-reference-applevel-0000001111685222
+     * @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-reference-applevel-0000001111685222
      */
     private string $contentRate = "{\"HW\":\"3+\"}";
 
@@ -165,7 +165,7 @@ class AppInfo extends Model {
 
     /**
      * @var array $deviceTypes Device type information.
-     * @see https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-app-info-update-0000001111685198#EN-US_TOPIC_0000001111685198__en-us_topic_0000001059070156_p17819165272318
+     * @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-app-info-update-0000001111685198#EN-US_TOPIC_0000001111685198__en-us_topic_0000001059070156_p17819165272318
      */
     private array $deviceTypes = [];
 

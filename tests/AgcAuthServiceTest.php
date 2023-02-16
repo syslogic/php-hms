@@ -6,11 +6,11 @@ use HMS\AppGallery\Constants;
 use HMS\AppGallery\Model\ImportUser;
 
 /**
- * HMS AppGallery AuthService Test
+ * HMS AppGallery Connect AuthService Test
  *
  * @author Martin Zeitler
  */
-class AppGalleryAuthServiceTest extends BaseTestCase {
+class AgcAuthServiceTest extends BaseTestCase {
 
     private static ?AuthService $client;
     private static string $user_uid = '980624363634103296';
@@ -24,11 +24,11 @@ class AppGalleryAuthServiceTest extends BaseTestCase {
     public static function setUpBeforeClass(): void {
         parent::setUpBeforeClass();
         self::$client = new AuthService( [
-            'project_id'        => self::$project_id,
-            'agc_client_id'     => self::$agc_client_id,
-            'agc_client_secret' => self::$agc_client_secret,
-            'base_url'          => Constants::CONNECT_API_BASE_URL_EU,
-            'debug_mode'        => self::$debug_mode
+            'project_id'                => self::$project_id,
+            'agc_project_client_id'     => self::$agc_project_client_id,
+            'agc_project_client_secret' => self::$agc_project_client_secret,
+            'base_url'                  => Constants::CONNECT_API_BASE_URL_EU,
+            'debug_mode'                => self::$debug_mode
         ] );
         self::assertNotFalse( self::$client->is_ready() );
         self::load_user_access_token();

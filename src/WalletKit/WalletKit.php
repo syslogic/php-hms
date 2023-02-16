@@ -42,7 +42,7 @@ class WalletKit extends Wrapper {
     /** Unset properties irrelevant to the child class. */
     protected function post_init(): void {
         unset($this->developer_id, $this->project_id, $this->product_id, $this->package_name);
-        unset($this->agc_client_id, $this->agc_client_secret);
+        unset($this->agc_project_client_id, $this->agcc_project_client_secret);
         unset($this->api_key, $this->api_signature);
     }
 

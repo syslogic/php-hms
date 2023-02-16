@@ -39,8 +39,8 @@ class MapKit extends Wrapper {
     protected function post_init(): void {
         unset($this->oauth2_client_id, $this->oauth2_client_secret, $this->client_id, $this->client_secret);
         unset($this->access_token, $this->refresh_token, $this->token_expiry);
+        unset($this->agc_project_client_id, $this->agc_project_client_secret);
         unset($this->package_name, $this->product_id, $this->project_id);
-        unset($this->agc_client_id, $this->agc_client_secret);
     }
 
     public function getDirections(): Directions {

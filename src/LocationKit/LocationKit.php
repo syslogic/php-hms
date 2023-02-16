@@ -27,8 +27,8 @@ class LocationKit extends Wrapper {
     /** Unset properties irrelevant to the child class. */
     protected function post_init(): void {
         unset($this->api_key, $this->api_signature, $this->client_id, $this->client_secret);
+        unset($this->agc_project_client_id, $this->agc_project_client_secret);
         unset($this->package_name, $this->product_id, $this->project_id);
-        unset($this->agc_client_id, $this->agc_client_secret);
     }
 
     public function getGeoLocation(string $geocode): GeoLocation {

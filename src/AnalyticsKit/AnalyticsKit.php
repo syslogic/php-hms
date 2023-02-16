@@ -54,7 +54,7 @@ class AnalyticsKit extends Wrapper {
     /** Unset properties irrelevant to the child class. */
     protected function post_init(): void {
         unset($this->oauth2_client_secret, $this->oauth2_api_scope, $this->oauth2_api_scope, $this->oauth2_redirect_url);
-        unset($this->agc_client_id, $this->agc_client_secret);
+        unset($this->agcc_project_client_id, $this->agcc_project_client_secret);
         unset($this->api_key, $this->api_signature);
         unset($this->developer_id);
     }

@@ -6,11 +6,11 @@ use HMS\AppGallery\Model\AppLanguageInfo;
 use HMS\AppGallery\Publishing\Publishing;
 
 /**
- * HMS AgConnect Publishing API Test
+ * HMS AppGallery Connect Publishing API Test
  *
  * @author Martin Zeitler
  */
-class AppGalleryPublishingTest extends BaseTestCase {
+class AgcPublishingTest extends BaseTestCase {
 
     private static ?Publishing $client;
 
@@ -29,8 +29,23 @@ class AppGalleryPublishingTest extends BaseTestCase {
         }
     }
 
+    /** Obtaining the File Upload URL */
+    public function test_request_file_upload_url() {
+
+    }
+
+    /** Uploading a File */
+    public function test_upload_file() {
+
+    }
+
+    /** Updating App File Information */
+    public function test_update_file_info( $file_url, $file_size ) {
+
+    }
+
     /** Test: Model AppInfo. */
-    public function test_app_info() {
+    public function test_model_app_info() {
         $item = new AppInfo( [
 
         ] );
@@ -39,7 +54,7 @@ class AppGalleryPublishingTest extends BaseTestCase {
     }
 
     /** Test: Model AppInfo. */
-    public function test_app_language_info() {
+    public function test_model_app_language_info() {
         $item = new AppLanguageInfo( [
 
         ] );
