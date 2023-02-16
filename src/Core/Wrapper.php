@@ -27,10 +27,10 @@ use stdClass;
  * @property string|null $api_signature             MapKit Static API signature key.
  * @property string|null $package_name              AnalyticsKit related; for PushKit click_action?
  * @property int $product_id                        AnalyticsKit related.
- *
+ * @property int $agc_team_client_id                AGConnect API client ID, admin level.
+ * @property string|null $agc_team_client_secret AGConnect API client secret, admin level.
  * @property int $agc_project_client_id             AGConnect API client ID, project level.
  * @property string|null $agc_project_client_secret AGConnect API client secret, project level.
- *
  * @property ResponseInterface $response            Default response.
  * @property stdClass $result                       Default API result.
  * @property array $headers                         Default request headers.
@@ -57,9 +57,13 @@ abstract class Wrapper {
 
     protected string|null $package_name = null;
     protected int $developer_id = 0;
-
-    /** AGC project level access credentials */
     protected int $project_id = 0;
+
+    /** AGC admin level access credentials */
+    protected int $agc_team_client_id = 0;
+
+    /** AGC admin level access credentials */
+    protected string|null $agc_team_client_secret = null;
 
     /** AGC project level access credentials */
     protected int $agc_project_client_id = 0;
@@ -162,6 +166,12 @@ abstract class Wrapper {
         if ( isset( $config['oauth2_redirect_url'] ) ) {
             $this->oauth2_redirect_url = (string) $config['oauth2_redirect_url'];
         }
+        if ( isset( $config['agc_team_client_id'] ) ) {
+            $this->agc_team_client_id = (int) $config['agc_team_client_id'];
+        }
+        if ( isset( $config['agc_team_client_secret'] ) ) {
+            $this->agc_team_client_secret = (string) $config['agc_team_client_secret'];
+        }
         if ( isset( $config['agc_project_client_id'] ) ) {
             $this->agc_project_client_id = (int) $config['agc_project_client_id'];
         }
@@ -198,6 +208,12 @@ abstract class Wrapper {
         }
         if ( is_string( getenv('HUAWEI_OAUTH2_REDIRECT_URL' ) ) ) {
             $this->oauth2_redirect_url = (string) getenv( 'HUAWEI_OAUTH2_REDIRECT_URL' );
+        }
+        if ( is_string( getenv('HUAWEI_CONNECT_TEAM_CLIENT_ID' ) ) ) { // team_client_id.
+            $this->agc_team_client_id = (int) getenv( 'HUAWEI_CONNECT_TEAM_CLIENT_ID' );
+        }
+        if ( is_string( getenv('HUAWEI_CONNECT_TEAM_CLIENT_SECRET' ) ) ) { // team_client_id.
+            $this->agc_team_client_secret = (string) getenv( 'HUAWEI_CONNECT_TEAM_CLIENT_SECRET' );
         }
         if ( is_string( getenv('HUAWEI_CONNECT_PROJECT_CLIENT_ID' ) ) ) { // project_client_id.
             $this->agc_project_client_id = (int) getenv( 'HUAWEI_CONNECT_PROJECT_CLIENT_ID' );
