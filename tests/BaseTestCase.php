@@ -24,15 +24,17 @@ abstract class BaseTestCase extends TestCase {
 
     protected static int $agc_team_client_id = 0;               // AGConnect API.
     protected static ?string $agc_team_client_secret = null;    // AGConnect API.
-    protected static int $agc_project_client_id = 0;               // AGConnect API.
-    protected static ?string $agc_project_client_secret = null;    // AGConnect API.
+    protected static int $agc_project_client_id = 0;            // AGConnect API.
+    protected static ?string $agc_project_client_secret = null; // AGConnect API.
+    protected static int $agc_app_client_id = 0;               // AGConnect API.
+    protected static ?string $agc_app_client_secret = null;    // AGConnect API.
 
-    protected static ?string $api_key = null;              // MapKit in general.
-    protected static ?string $signature_key = null;        // Maps Static API.
+    protected static ?string $signature_key = null;            // Map Kit.
+    protected static ?string $api_key = null;                  // Map Kit.
+
     protected static ?string $package_name = null;
-
-    protected static int $project_id = 0;
     protected static int $developer_id = 0;
+    protected static int $project_id = 0;
 
     protected const CLIENT_NOT_READY = 'The API client is not ready.';
 
@@ -40,51 +42,50 @@ abstract class BaseTestCase extends TestCase {
     public static function setUpBeforeClass(): void {
 
         self::$oauth2_client_id = getenv('HUAWEI_OAUTH2_CLIENT_ID');
-        $message = 'Variable HUAWEI_OAUTH2_CLIENT_ID is not set.';
-        self::assertTrue( is_int(self::$oauth2_client_id) && self::$oauth2_client_id > 0, $message );
+        self::assertTrue( self::$oauth2_client_id > 0, 'Variable HUAWEI_OAUTH2_CLIENT_ID is not set.' );
 
         self::$oauth2_client_secret = getenv('HUAWEI_OAUTH2_CLIENT_SECRET');
-        $message = 'Variable HUAWEI_OAUTH2_CLIENT_SECRET is not set.';
-        self::assertNotEmpty( self::$oauth2_client_secret, $message );
+        self::assertNotEmpty( self::$oauth2_client_secret, 'Variable HUAWEI_OAUTH2_CLIENT_SECRET is not set.' );
 
         self::$api_key = getenv('HUAWEI_MAPKIT_API_KEY');
-        $message = 'Variable HUAWEI_MAPKIT_API_KEY is not set.';
-        self::assertNotEmpty( self::$api_key, $message );
+        self::assertNotEmpty( self::$api_key, 'Variable HUAWEI_MAPKIT_API_KEY is not set.' );
 
         // Must be type of ** team_client_id ** (admin level API client).
         self::$agc_team_client_id = (int) getenv('HUAWEI_CONNECT_TEAM_CLIENT_ID');
-        $message = 'Variable HUAWEI_CONNECT_TEAM_CLIENT_ID is not set.';
-        self::assertTrue( is_int(self::$agc_team_client_id) && self::$agc_team_client_id > 0, $message );
+        self::assertTrue( self::$agc_team_client_id > 0, 'Variable HUAWEI_CONNECT_TEAM_CLIENT_ID is not set.' );
 
         // Must be type of ** team_client_id ** (admin level API client).
         self::$agc_team_client_secret = getenv('HUAWEI_CONNECT_TEAM_CLIENT_SECRET');
-        $message = 'Variable HUAWEI_CONNECT_TEAM_CLIENT_SECRET is not set.';
-        self::assertNotEmpty( self::$agc_team_client_secret, $message );
+        self::assertNotEmpty( self::$agc_team_client_secret, 'Variable HUAWEI_CONNECT_TEAM_CLIENT_SECRET is not set.' );
 
         // must be type of ** project_client_id ** (project level API client).
         self::$agc_project_client_id = (int) getenv('HUAWEI_CONNECT_PROJECT_CLIENT_ID');
-        $message = 'Variable HUAWEI_CONNECT_PROJECT_CLIENT_ID is not set.';
-        self::assertTrue( is_int(self::$agc_project_client_id) && self::$agc_project_client_id > 0, $message );
+        self::assertTrue( self::$agc_project_client_id > 0, 'Variable HUAWEI_CONNECT_PROJECT_CLIENT_ID is not set.' );
 
         // must be type of ** project_client_id ** (project level API client).
         self::$agc_project_client_secret = getenv('HUAWEI_CONNECT_PROJECT_CLIENT_SECRET');
-        $message = 'Variable HUAWEI_CONNECT_PROJECT_CLIENT_SECRET is not set.';
-        self::assertNotEmpty( self::$agc_project_client_secret, $message );
+        self::assertNotEmpty( self::$agc_project_client_secret, 'Variable HUAWEI_CONNECT_PROJECT_CLIENT_SECRET is not set.' );
+
+        // must be type of app level API client.
+        self::$agc_app_client_id = (int) getenv('HUAWEI_CONNECT_APP_CLIENT_ID');
+        self::assertTrue( self::$agc_app_client_id > 0, 'Variable HUAWEI_CONNECT_APP_CLIENT_ID is not set.' );
+
+        // must be type of app level API client.
+        self::$agc_app_client_secret = getenv('HUAWEI_CONNECT_APP_CLIENT_SECRET');
+        self::assertNotEmpty( self::$agc_app_client_secret, 'Variable HUAWEI_CONNECT_APP_CLIENT_SECRET is not set.' );
 
         self::$package_name = getenv('HUAWEI_CONNECT_PACKAGE_NAME');
-        $message = 'Variable HUAWEI_CONNECT_PACKAGE_NAME is not set.';
-        self::assertNotEmpty( self::$package_name, $message );
+        self::assertNotEmpty( self::$package_name, 'Variable HUAWEI_CONNECT_PACKAGE_NAME is not set.' );
 
         self::$project_id = getenv('HUAWEI_CONNECT_PROJECT_ID');
-        $message = 'Variable HUAWEI_CONNECT_PROJECT_ID is not set.';
-        self::assertTrue( is_int(self::$project_id) && self::$project_id > 0, $message );
+        self::assertTrue( self::$project_id > 0, 'Variable HUAWEI_CONNECT_PROJECT_ID is not set.' );
 
         self::$developer_id = getenv('HUAWEI_CONNECT_DEVELOPER_ID');
-        $message = 'Variable HUAWEI_CONNECT_DEVELOPER_ID is not set.';
-        self::assertTrue( is_int(self::$developer_id) && self::$developer_id > 0, $message );
+        self::assertTrue( self::$developer_id > 0, 'Variable HUAWEI_CONNECT_DEVELOPER_ID is not set.' );
 
         self::$build_path = getcwd().DIRECTORY_SEPARATOR.'build'.DIRECTORY_SEPARATOR;
         if (! is_dir( self::$build_path )) {mkdir( self::$build_path );}
+        self::assertTrue( is_dir( self::$resource_path ) );
         self::assertTrue( is_dir( self::$build_path ) );
     }
 
@@ -96,6 +97,8 @@ abstract class BaseTestCase extends TestCase {
         'agc_team_client_secret'    => 'string',
         'agc_project_client_id'     => 'integer',
         'agc_project_client_secret' => 'string',
+        'agc_app_client_id'         => 'integer',
+        'agc_app_client_secret'     => 'string',
         'package_name'              => 'string',
         'project_id'                => 'integer',
         'developer_id'              => 'integer',
@@ -110,6 +113,8 @@ abstract class BaseTestCase extends TestCase {
             'agc_team_client_secret'    => self::$agc_team_client_secret,
             'agc_project_client_id'     => self::$agc_project_client_id,
             'agc_project_client_secret' => self::$agc_project_client_secret,
+            'agc_app_client_id'         => self::$agc_app_client_id,
+            'agc_app_client_secret'     => self::$agc_app_client_secret,
             'package_name'              => self::$package_name,
             'project_id'                => self::$project_id,
             'developer_id'              => self::$developer_id,

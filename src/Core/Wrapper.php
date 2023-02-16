@@ -28,9 +28,11 @@ use stdClass;
  * @property string|null $package_name              AnalyticsKit related; for PushKit click_action?
  * @property int $product_id                        AnalyticsKit related.
  * @property int $agc_team_client_id                AGConnect API client ID, admin level.
- * @property string|null $agc_team_client_secret AGConnect API client secret, admin level.
+ * @property string|null $agc_team_client_secret    AGConnect API client secret, admin level.
  * @property int $agc_project_client_id             AGConnect API client ID, project level.
  * @property string|null $agc_project_client_secret AGConnect API client secret, project level.
+ * @property int $agc_app_client_id                 AGConnect API client ID, app level.
+ * @property string|null $agc_app_client_secret     AGConnect API client secret, app level.
  * @property ResponseInterface $response            Default response.
  * @property stdClass $result                       Default API result.
  * @property array $headers                         Default request headers.
@@ -70,6 +72,12 @@ abstract class Wrapper {
 
     /** AGC project level access credentials */
     protected string|null $agc_project_client_secret = null;
+
+    /** AGC app level access credentials */
+    protected int $agc_app_client_id = 0;
+
+    /** AGC app level access credentials */
+    protected string|null $agc_app_client_secret = null;
 
     protected Client $client;
     protected ResponseInterface $response;
@@ -178,14 +186,17 @@ abstract class Wrapper {
         if ( isset( $config['agc_project_client_secret'] ) ) {
             $this->agc_project_client_secret = (string) $config['agc_project_client_secret'];
         }
+        if ( isset( $config['agc_app_client_id'] ) ) {
+            $this->agc_app_client_id = (int) $config['agc_project_client_id'];
+        }
+        if ( isset( $config['agc_app_client_secret'] ) ) {
+            $this->agc_app_client_secret = (string) $config['agc_app_client_secret'];
+        }
         if ( isset($config['developer_id']) && is_int($config['developer_id'])) {
             $this->developer_id = $config['developer_id'];
         }
         if ( isset($config['project_id']) && is_int($config['project_id'])) { // product_id.
             $this->project_id = $config['project_id'];
-        }
-        if ( isset($config['app_id']) && is_int($config['app_id'])) {
-            $this->app_id = $config['app_id'];
         }
         if ( isset($config['package_name']) && is_int($config['package_name'])) {
             $this->package_name = $config['package_name'];
@@ -223,6 +234,12 @@ abstract class Wrapper {
         }
         if ( is_string( getenv('HUAWEI_CONNECT_PROJECT_CLIENT_SECRET' ) ) ) { // project_client_id.
             $this->agc_project_client_secret = (string) getenv( 'HUAWEI_CONNECT_PROJECT_CLIENT_SECRET' );
+        }
+        if ( is_string( getenv('HUAWEI_CONNECT_APP_CLIENT_ID' ) ) ) {
+            $this->agc_app_client_id = (int) getenv( 'HUAWEI_CONNECT_APP_CLIENT_ID' );
+        }
+        if ( is_string( getenv('HUAWEI_CONNECT_APP_CLIENT_SECRET' ) ) ) {
+            $this->agc_app_client_secret = (string) getenv( 'HUAWEI_CONNECT_APP_CLIENT_SECRET' );
         }
         if ( is_string( getenv('HUAWEI_CONNECT_DEVELOPER_ID' ) ) ) {
             $this->developer_id = (int) getenv( 'HUAWEI_CONNECT_DEVELOPER_ID' );

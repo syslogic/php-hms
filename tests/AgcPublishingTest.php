@@ -14,10 +14,8 @@ use HMS\AppGallery\Publishing\Publishing;
 class AgcPublishingTest extends BaseTestCase {
 
     private static ?Publishing $client;
-
     private static ?string $auth_code = null;
     private static ?string $upload_url = null;
-
     private static ?string $package_dest_url = null;
     private static ?string $package_file_name = null;
     private static int $package_file_size = 0;

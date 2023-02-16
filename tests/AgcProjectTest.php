@@ -22,12 +22,15 @@ class AgcProjectTest extends BaseTestCase {
             'agc_team_client_secret'    => self::$agc_team_client_secret,
             'agc_project_client_id'     => self::$agc_project_client_id,
             'agc_project_client_secret' => self::$agc_project_client_secret,
+            'agc_app_client_id'         => self::$agc_app_client_id,
+            'agc_app_client_secret'     => self::$agc_app_client_secret,
             'debug_mode'                => self::$debug_mode
         ] );
     }
 
-    /** Test: Dummy. */
-    public function test_dummy() {
-        self::assertTrue( true );
+    /** Test: Team Account List. */
+    public function test_team_list() {
+        $result = self::$client->team_list();
+        self::assertTrue( property_exists( $result, 'code' ) && $result->code == 0, $result->message );
     }
 }

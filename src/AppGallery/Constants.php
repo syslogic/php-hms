@@ -26,11 +26,8 @@ class Constants {
     /** @link https://developer.huawei.com/consumer/de/doc/development/AppGallery-connect-References/server-rest-verify-0000001182300271 Authenticating a User's Access Token */
     public const CONNECT_API_AUTH_SERVICE_VERIFY_TOKEN = "/api/oauth2/third/v1/verify-token?productId={projectId}";
 
-    /**
-     * POST Revoking a User's Access Token.
-     */
+    /** @link https://developer.huawei.com/consumer/de/doc/development/AppGallery-connect-References/server-rest-revoke-0000001182420193 Revoking a User's Access Token. */
     public const CONNECT_API_AUTH_SERVICE_REVOKE_TOKEN = "/api/oauth2/third/v1/revoke-token?productId={projectId}";
-
 
     public const AUTH_PROVIDER_ANONYMOUS          = 0;
     public const AUTH_PROVIDER_HUAWEI_ID          = 1;
@@ -52,66 +49,71 @@ class Constants {
     public const REPORT_API_PAID_APPS_GET_URL = "/api/report/distribution-operation-quality/v1/orderAnalysisExport/";
     public const REPORT_API_PAID_APP_DETAILS_GET_URL = "/api/report/distribution-operation-quality/v1/orderDetailExport/";
     public const REPORT_API_INSTALLATION_FAILURE_GET_URL = "/api/report/distribution-operation-quality/v1/appDownloadFailExport/";
-    public const PROJECT_API_BASE_URL = "https://www.huawei.com/auth/agc/project";
-    public const PRODUCT_API_BASE_URL      = "https://www.huawei.com/auth/agc/product";
-    public const PRODUCT_API_BASE_URL_READ = "https://www.huawei.com/auth/agc/product/read";
 
-    /** @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-obtain_token-0000001158365043  */
-    public const PUBLISH_API_BASE_URL = "https://connect-api.cloud.huawei.com/";
+    public const PROJECT_API_TEAM_LIST_URL = "/api/ups/user-permission-service/v1/user-team-list";
+    public const PROJECT_API_APP_BRIEF_INFO_URL = "/api/cds/app-distirbution/v1/all/app-brief-info/list";
+    public const PROJECT_API_CONFIG_FILE_URL = "/api/cpms/project-management-service/v1/config-file";
+    public const PROJECT_API_FINGERPRINT_URL = "/api/cds/app-distirbution/v1/all/app-extra-info/";
+    public const PROJECT_API_SERVICE_STATUS_URL = "/api/cpms/project-service/v1/services/order-api";
+    public const PROJECT_API_PROJECTS_URL = "/api/project-service/v1/projects";
+    public const PROJECT_API_PROJECT_URL = "/api/project-service/v1/projects/";
+
+    public const PMS_API_PRODUCT_MANAGE_URL = "/api/pms/product-price-service/v1/manage/product";
+    public const PMS_API_PRODUCTS_BATCH_IMPORT_URL = "/api/pms/product-price-service/v1/manage/product/batchImportProducts";
+
+    // TODO
+    /** @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-addproductgroup-0000001116028254 Creating a Product Subscription Group */
+
 
     /**
      * @param int appId App ID.
      * @param string suffix File name extension, such as apk, rpk, pdf, jpg, jpeg, png, bmp, mp4, mov, and aab.
      * @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-upload-url-0000001158365047
      */
-    public const PUBLISH_API_FILE_UPLOAD_URL = "api/publish/v2/upload-url";
+    public const PUBLISH_API_FILE_UPLOAD_URL = "/api/publish/v2/upload-url";
 
     /** @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-appid-list-0000001111845086 Querying the App ID Corresponding to an App Package Name */
-    public const PUBLISH_API_APP_ID_LIST = "api/publish/v2/appid-list";
+    public const PUBLISH_API_APP_ID_LIST = "/api/publish/v2/appid-list";
 
     /**
      * @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-app-info-query-0000001158365045 Querying App Information
      * @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-app-info-update-0000001111685198 Updating App Basic Information
      */
-    public const PUBLISH_API_APP_INFO = "api/publish/v2/app-info";
+    public const PUBLISH_API_APP_INFO = "/api/publish/v2/app-info";
 
     /**
      * @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-language-info-update-0000001158245057 Updating App Localization Information
      * @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-language-info-delete-0000001111845088 Deleting App Localization Information
      */
-    public const PUBLISH_API_APP_LANGUAGE_INFO = "api/publish/v2/app-language-info";
+    public const PUBLISH_API_APP_LANGUAGE_INFO = "/api/publish/v2/app-language-info";
 
-    /**
-     * Request: Content-Type: multipart/form-data
-     * Response: Content-Type: application/json
-     * @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-upload-file-0000001158245059 Uploading a File
-     */
+    /** @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-upload-file-0000001158245059 Uploading a File */
 
     /** @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-upload-fragment-file-0000001158365049 Uploading Files by Chunk */
 
     /** @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-app-file-info-0000001111685202 Updating App File Information */
-    public const PUBLISH_API_APP_FILE_INFO = "api/publish/v2/app-file-info";
+    public const PUBLISH_API_APP_FILE_INFO = "/api/publish/v2/app-file-info";
 
     /** @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-app-submit-0000001158245061 Submitting an App for Release */
-    public const PUBLISH_API_APP_SUBMIT = "api/publish/v2/app-submit";
+    public const PUBLISH_API_APP_SUBMIT = "/api/publish/v2/app-submit";
 
     /** @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-app-submit-with-file-0000001111845092 Submitting an App for Release in Download Mode */
-    public const PUBLISH_API_APP_SUBMIT_WITH_FILE = "api/publish/v2/app-submit-with-file";
+    public const PUBLISH_API_APP_SUBMIT_WITH_FILE = "/api/publish/v2/app-submit-with-file";
 
     /** @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-phased-release-state-0000001158365051 Changing Phased Release Status */
-    public const PUBLISH_API_PHASED_RELEASE_STATE = "api/publish/v2/phased-release/state";
+    public const PUBLISH_API_PHASED_RELEASE_STATE = "/api/publish/v2/phased-release/state";
 
     /** @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-phased-release-0000001111685204 Updating Phased Release */
-    public const PUBLISH_API_PHASED_RELEASE = "api/publish/v2/phased-release";
+    public const PUBLISH_API_PHASED_RELEASE = "/api/publish/v2/phased-release";
 
     /** @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-gms-0000001111845094 Setting the GMS Dependency Flag for an App */
-    public const PUBLISH_API_GMS_DEPENDENCY_FLAG = "api/publish/v2/properties/gms";
+    public const PUBLISH_API_GMS_DEPENDENCY_FLAG = "/api/publish/v2/properties/gms";
 
     /** @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-update-releasetime-0000001158365053 Updating the Release Time of a Version */
-    public const PUBLISH_API_UPDATE_RELEASE_TIME = "api/publish/v2/on-shelf-time";
+    public const PUBLISH_API_UPDATE_RELEASE_TIME = "/api/publish/v2/on-shelf-time";
 
     /** @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-query-aabfile-0000001111685206 Querying the Compilation Status of an App Package */
-    public const PUBLISH_API_QUERY_COMPILATION_STATUS = "api/publish/v2/aab/compile/status";
+    public const PUBLISH_API_QUERY_COMPILATION_STATUS = "/api/publish/v2/aab/compile/status";
 
     public const PUBLISH_API_CERTIFICATES = "https://developer.huawei.com/consumer/en/service/josp/agc/index.html#/myApp/{appId}/9249519184596012000";
 }

@@ -17,12 +17,14 @@ class AgcProductTest extends BaseTestCase {
         parent::setUpBeforeClass();
         self::$debug_mode = true;
         self::$client = new Product([
-            'project_id' => self::$project_id,
-            'agc_team_client_id' => self::$agc_team_client_id,
-            'agc_team_client_secret' => self::$agc_team_client_secret,
-            'agc_project_client_id' => self::$agc_project_client_id,
+            'project_id'                => self::$project_id,
+            'agc_team_client_id'        => self::$agc_team_client_id,
+            'agc_team_client_secret'    => self::$agc_team_client_secret,
+            'agc_project_client_id'     => self::$agc_project_client_id,
             'agc_project_client_secret' => self::$agc_project_client_secret,
-            'debug_mode' => self::$debug_mode
+            'agc_app_client_id'         => self::$agc_app_client_id,
+            'agc_app_client_secret'     => self::$agc_app_client_secret,
+            'debug_mode'                => self::$debug_mode
         ]);
         self::assertNotFalse(self::$client->is_ready());
     }
