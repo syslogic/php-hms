@@ -298,7 +298,7 @@ abstract class Wrapper {
                     case 'application/json':
                     case 'application/json;charset=utf-8':
                     case 'application/json; charset=utf-8':
-                        $this->result = json_decode( $this->response->getBody() );
+                        $this->result = json_decode( $this->response->getBody()->getContents() );
                         break;
                     case 'application/octet-stream': // DriveKit download
                         $binary = $this->response->getBody()->getContents();
