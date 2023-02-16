@@ -109,4 +109,5 @@ class Constants {
     /** @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-query-aabfile-0000001111685206 Querying the Compilation Status of an App Package */
     public const PUBLISH_API_QUERY_COMPILATION_STATUS = "api/publish/v2/aab/compile/status";
 
+    public const PUBLISH_API_CERTIFICATES = "https://developer.huawei.com/consumer/en/service/josp/agc/index.html#/myApp/{appId}/9249519184596012000";
 }
