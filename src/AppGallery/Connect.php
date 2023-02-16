@@ -2,10 +2,6 @@
 
 namespace HMS\AppGallery;
 
-use HMS\AppGallery\AuthService\AuthService;
-use HMS\AppGallery\Product\Product;
-use HMS\AppGallery\Project\Project;
-use HMS\AppGallery\Publishing\Publishing;
 use HMS\Core\Wrapper;
 use JetBrains\PhpStorm\ArrayShape;
 

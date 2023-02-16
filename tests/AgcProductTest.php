@@ -1,7 +1,6 @@
 <?php
 namespace Tests;
 
-use HMS\AppGallery\Constants;
 use HMS\AppGallery\Product\Product;
 
 /**
