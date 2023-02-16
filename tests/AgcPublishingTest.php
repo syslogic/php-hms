@@ -14,7 +14,7 @@ use HMS\AppGallery\Publishing\Publishing;
 class AgcPublishingTest extends BaseTestCase {
 
     private static ?Publishing $client;
-    private static ?string $package_path = 'resources/';
+
     private static ?string $auth_code = null;
     private static ?string $upload_url = null;
 
@@ -26,16 +26,16 @@ class AgcPublishingTest extends BaseTestCase {
     public static function setUpBeforeClass(): void {
         parent::setUpBeforeClass();
 
-        self::$package_file_name = preg_grep('~\.(apk|aab)$~', scandir(self::$package_path))[3];
-        self::$package_path .= self::$package_file_name;
+        self::$package_file_name = preg_grep('~\.(apk|aab)$~', scandir(self::$resource_path))[3];
+        self::$resource_path .= self::$package_file_name;
 
         self::$client = new Publishing( [
             'project_id'                => self::$project_id,
+            'oauth2_client_id'          => self::$oauth2_client_id,
             'agc_team_client_id'        => self::$agc_team_client_id,
             'agc_team_client_secret'    => self::$agc_team_client_secret,
             'agc_project_client_id'     => self::$agc_project_client_id,
             'agc_project_client_secret' => self::$agc_project_client_secret,
-            'oauth2_client_id'          => self::$oauth2_client_id,
             'debug_mode'                => self::$debug_mode
         ] );
     }
@@ -64,7 +64,7 @@ class AgcPublishingTest extends BaseTestCase {
     /** Uploading a File */
     public function test_upload_file() {
         self::assertTrue(self::$upload_url != null || self::$auth_code != null );
-        $result = self::$client->upload_file( self::$upload_url, self::$auth_code, self::$package_path );
+        $result = self::$client->upload_file( self::$upload_url, self::$auth_code, self::$resource_path );
         self::assertTrue( property_exists( $result, 'resultCode' ) &&  $result->resultCode == 0 );
         self::assertTrue( property_exists( $result, 'UploadFileRsp' ) &&  is_object($result->UploadFileRsp) );
         self::assertTrue( property_exists( $result->UploadFileRsp, 'ifSuccess' ) &&  $result->UploadFileRsp->ifSuccess == 1 );
@@ -77,9 +77,9 @@ class AgcPublishingTest extends BaseTestCase {
     /** Updating App File Information */
     public function test_update_file_info() {
         self::assertTrue(self::$package_dest_url != null );
-        $result = self::$client->update_file_info( self::$package_path, self::$package_dest_url, self::$package_file_size );
+        $result = self::$client->update_file_info( self::$resource_path, self::$package_dest_url, self::$package_file_size );
         if ($result->code == 204144662) {
-            $cause = "Please enable App Signing in order to publish App Bundle format (" . self::$package_path . ").\n";
+            $cause = "Please enable App Signing in order to publish App Bundle format (" . self::$resource_path . ").\n";
             $cause .= "In case the following URL does not lead to the expected package, validate the configuration.\n";
             $cause .= str_replace("{appId}", self::$oauth2_client_id, Constants::PUBLISH_API_CERTIFICATES."\n");
             self::markTestIncomplete( $cause );

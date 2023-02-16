@@ -15,6 +15,7 @@ class AgcProductTest extends BaseTestCase {
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {
         parent::setUpBeforeClass();
+        self::$debug_mode = true;
         self::$client = new Product([
             'project_id' => self::$project_id,
             'agc_team_client_id' => self::$agc_team_client_id,

@@ -47,7 +47,11 @@ class Constants {
     public const AUTH_PROVIDER_EMAIL_ADDRESS      = 12;
     public const AUTH_PROVIDER_APPLE_ID           = 13;
 
-    public const REPORT_API_BASE_URL = "https://www.huawei.com/auth/agc/report/read";
+    public const REPORT_API_DOWNLOAD_AND_INSTALLATION_GET_URL = "/api/report/distribution-operation-quality/v1/appDownloadExport/";
+    public const REPORT_API_IN_APP_PURCHASES_GET_URL = "/api/report/distribution-operation-quality/v1/IAPExport/";
+    public const REPORT_API_PAID_APPS_GET_URL = "/api/report/distribution-operation-quality/v1/orderAnalysisExport/";
+    public const REPORT_API_PAID_APP_DETAILS_GET_URL = "/api/report/distribution-operation-quality/v1/orderDetailExport/";
+    public const REPORT_API_INSTALLATION_FAILURE_GET_URL = "/api/report/distribution-operation-quality/v1/appDownloadFailExport/";
     public const PROJECT_API_BASE_URL = "https://www.huawei.com/auth/agc/project";
     public const PRODUCT_API_BASE_URL      = "https://www.huawei.com/auth/agc/product";
     public const PRODUCT_API_BASE_URL_READ = "https://www.huawei.com/auth/agc/product/read";
