@@ -25,6 +25,8 @@ class AgcAuthServiceTest extends BaseTestCase {
         parent::setUpBeforeClass();
         self::$client = new AuthService( [
             'project_id'                => self::$project_id,
+            'agc_team_client_id'        => self::$agc_team_client_id,
+            'agc_team_client_secret'    => self::$agc_team_client_secret,
             'agc_project_client_id'     => self::$agc_project_client_id,
             'agc_project_client_secret' => self::$agc_project_client_secret,
             'base_url'                  => Constants::CONNECT_API_BASE_URL_EU,
@@ -100,7 +102,9 @@ class AgcAuthServiceTest extends BaseTestCase {
                 "providerUid" => 9903824860586577776
             ]]
         ] );
-        self::assertTrue( is_array( $item->asArray() ) );
         self::assertTrue( $item->validate() );
+        self::assertTrue( is_array( $item->asArray() ) );
+        echo print_r($item->asObject(), true);
+
     }
 }

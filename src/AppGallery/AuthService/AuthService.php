@@ -17,6 +17,9 @@ class AuthService extends Connect {
     /** Constructor */
     public function __construct( array|string $config ) {
         parent::__construct( $config );
+        $this->base_url = Constants::CONNECT_API_BASE_URL;
+        if (isset($config['base_url'])) {$this->base_url = $config['base_url'];}
+        $this->access_token = $this->get_access_token();
     }
 
     /**

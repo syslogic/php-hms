@@ -17,12 +17,11 @@ use JetBrains\PhpStorm\ArrayShape;
  */
 abstract class Connect extends Wrapper {
 
+    protected string $base_url = Constants::CONNECT_API_BASE_URL;
+
     /** Constructor */
     public function __construct( array|string $config ) {
-        $this->base_url = Constants::CONNECT_API_BASE_URL;
-        if (isset($config['base_url'])) {$this->base_url = $config['base_url'];}
         parent::__construct( $config );
-        $this->access_token = $this->get_access_token();
         $this->post_init();
     }
 
@@ -33,7 +32,7 @@ abstract class Connect extends Wrapper {
         unset($this->api_key, $this->api_signature);
         $urls = [Constants::CONNECT_API_BASE_URL, Constants::CONNECT_API_BASE_URL_EU, Constants::CONNECT_API_BASE_URL_AS, Constants::CONNECT_API_BASE_URL_RU];
         if (! in_array($this->base_url, $urls)) {
-            throw new \InvalidArgumentException('Connect API permits these base_url values: '. implode(', ', $urls));
+            throw new \InvalidArgumentException('AppGallery Connect API permits these base_url values: '. implode(', ', $urls));
         }
     }
 
@@ -41,17 +40,21 @@ abstract class Connect extends Wrapper {
      * Obtaining a Token, the AgConnect Version.
      *
      * @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-obtain_token-0000001158365043 Obtaining a Token
+     * @param bool $team_admin It determines which access level to obtain.
      * @return string|null the token string only.
      */
-    protected function get_access_token(): ?string {
+    protected function get_access_token( bool $team_admin=false ): ?string {
         $url = $this->base_url.Constants::CONNECT_API_OAUTH2_TOKEN_URL;
         $result = $this->request( 'POST',$url, $this->request_headers(), [
             'grant_type'    => 'client_credentials',
-            'client_id'     => $this->agc_project_client_id,
-            'client_secret' => $this->agc_project_client_secret
+            'client_id'     => $team_admin ? $this->agc_team_client_id : $this->agc_project_client_id,
+            'client_secret' => $team_admin ? $this->agc_team_client_secret : $this->agc_project_client_secret
         ] );
         if (property_exists($result, 'access_token')) {
             return $result->access_token;
+        }
+        if (property_exists($result, 'message')) {
+            echo $result->message;
         }
         return null;
     }

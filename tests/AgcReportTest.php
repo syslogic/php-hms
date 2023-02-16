@@ -15,7 +15,14 @@ class AgcReportTest extends BaseTestCase {
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {
         parent::setUpBeforeClass();
-        self::$client = new Report( self::get_config() );
+        self::$client = new Report( [
+            'project_id'                => self::$project_id,
+            'agc_team_client_id'        => self::$agc_team_client_id,
+            'agc_team_client_secret'    => self::$agc_team_client_secret,
+            'agc_project_client_id'     => self::$agc_project_client_id,
+            'agc_project_client_secret' => self::$agc_project_client_secret,
+            'debug_mode'                => self::$debug_mode
+        ] );
     }
 
     /** Test: Dummy. */
