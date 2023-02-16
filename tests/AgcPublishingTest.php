@@ -94,6 +94,16 @@ class AgcPublishingTest extends BaseTestCase {
         self::markTestSkipped( $cause );
     }
 
+    public function test_update_phased_release() {
+        $cause = 'Update Phased Release Test being skipped for now.';
+        self::markTestSkipped( $cause );
+    }
+
+    public function test_update_phased_release_state() {
+        $cause = 'Update Phased Release State Test being skipped for now.';
+        self::markTestSkipped( $cause );
+    }
+
     /** Test: Model AppInfo. */
     public function test_model_app_info() {
         $item = new AppInfo( [

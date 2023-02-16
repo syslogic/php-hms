@@ -62,10 +62,39 @@ class Publishing extends Connect {
         return $this->request('PUT', $url, $headers, $payload);
     }
 
-    public function submit_release( string $file_path, string $file_dest_url, int $file_size ): bool|\stdClass {
+    public function submit_release(): bool|\stdClass {
         $url = $this->base_url.Constants::PUBLISH_API_APP_SUBMIT.'?releaseType=1&appId=' . $this->oauth2_client_id;
         $headers = $this->auth_headers(true);
         return $this->request('PUT', $url, $headers);
+    }
+
+    public function update_phased_release( string $state='RELEASE', int $release_type=1): bool|\stdClass {
+        $release_types = [1, 3];
+        if (! in_array($release_type, $release_types)) {
+            $message = 'Invalid release type: ' .$release_type . ', permitted: '. implode(', ', $release_types);
+            throw new \InvalidArgumentException($message);
+        }
+        $states = ['SUSPEND', 'RELEASE'];
+        if (! in_array($state, $states)) {
+            $message = 'Invalid state: ' .$state . ', permitted: '. implode(', ', $states);
+            throw new \InvalidArgumentException($message);
+        }
+        $url = $this->base_url.Constants::PUBLISH_API_PHASED_RELEASE.'??releaseType=' . $release_type . '&appId=' . $this->oauth2_client_id;
+        $headers = $this->auth_headers(true);
+        $payload = ['state' => $state];
+        return $this->request('PUT', $url, $headers, $payload );
+    }
+
+    public function update_phased_release_state( string $state='RELEASE' ): bool|\stdClass {
+        $url = $this->base_url.Constants::PUBLISH_API_PHASED_RELEASE_STATE.'?&appId=' . $this->oauth2_client_id;
+        $headers = $this->auth_headers(true);
+        $states = ['SUSPEND', 'RELEASE'];
+        if (! in_array($state, $states)) {
+            $message = 'Invalid state: ' .$state . ', permitted: '. implode(', ', $states);
+            throw new \InvalidArgumentException($message);
+        }
+        $payload = ['state' => $state];
+        return $this->request('PUT', $url, $headers, $payload );
     }
 
     private function get_file_info( string $file_path, string $file_dest_url, int $file_size ): \stdClass {
