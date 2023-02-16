@@ -80,13 +80,18 @@ class AgcPublishingTest extends BaseTestCase {
         $result = self::$client->update_file_info( self::$package_path, self::$package_dest_url, self::$package_file_size );
         if ($result->code == 204144662) {
             $cause = "Please enable App Signing in order to publish App Bundle format (" . self::$package_path . ").\n";
-            $cause .= "In case the following URL does not lead to the expected package, validate the configutation.\n";
+            $cause .= "In case the following URL does not lead to the expected package, validate the configuration.\n";
             $cause .= str_replace("{appId}", self::$oauth2_client_id, Constants::PUBLISH_API_CERTIFICATES."\n");
             self::markTestIncomplete( $cause );
         } else {
             self::assertTrue( property_exists( $result, 'pkgVersion' ) &&  is_array($result->pkgVersion) );
             echo print_r($result->pkgVersion, true);
         }
+    }
+
+    public function test_submit_release() {
+        $cause = 'Release Submission Test being skipped for now.';
+        self::markTestSkipped( $cause );
     }
 
     /** Test: Model AppInfo. */

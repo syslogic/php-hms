@@ -49,21 +49,31 @@ class Publishing extends Connect {
     }
 
     /** @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-app-file-info-0000001111685202 Updating App File Information */
-    public function update_file_info( $file_path, $file_dest_url, $file_size ): bool|\stdClass {
+    public function update_file_info( string $file_path, string $file_dest_url, int $file_size ): bool|\stdClass {
         $url = $this->base_url.Constants::PUBLISH_API_APP_FILE_INFO.'?releaseType=1&appId=' . $this->oauth2_client_id;
         $headers = $this->auth_headers(true);
+        $payload = [
+            'fileType' => 5,
+            'deviceType' => 4,
+            'files' => [
+                $this->get_file_info( $file_path, $file_dest_url, $file_size )
+            ]
+        ];
+        return $this->request('PUT', $url, $headers, $payload);
+    }
 
+    public function submit_release( string $file_path, string $file_dest_url, int $file_size ): bool|\stdClass {
+        $url = $this->base_url.Constants::PUBLISH_API_APP_SUBMIT.'?releaseType=1&appId=' . $this->oauth2_client_id;
+        $headers = $this->auth_headers(true);
+        return $this->request('PUT', $url, $headers);
+    }
+
+    private function get_file_info( string $file_path, string $file_dest_url, int $file_size ): \stdClass {
         $file_info = new \stdClass();
         $file_info->fileName = basename($file_path);
         $file_info->fileDestUrl = $file_dest_url;
         $file_info->size = $file_size;
-
-        $payload = [
-            'fileType' => 5,
-            'deviceType' => 4,
-            'files' => [ $file_info ]
-        ];
-        return $this->request('PUT', $url, $headers, $payload);
+        return $file_info;
     }
 
     /**
