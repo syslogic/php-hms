@@ -9,7 +9,7 @@ use stdClass;
 /**
  * Class HMS MapKit Elevation API
  *
- * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/elevation-api-0000001158669981">Elevation API</a>
+ * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/elevation-api-0000001158669981 Elevation API
  * @author Martin Zeitler
  */
 class Elevation extends MapKit {

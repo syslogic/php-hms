@@ -10,7 +10,7 @@ use phpseclib3\Exception\NoKeyLoadedException;
 /**
  * Class HMS AppGallery Connect Submission Callback
  *
- * @see https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-notify-release-0000001158245063
+ * @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-notify-release-0000001158245063
  * @author Martin Zeitler
  */
 class SubmissionCallback {
@@ -18,8 +18,8 @@ class SubmissionCallback {
     /**
      * @var AsymmetricKey|null $public_key
      * You need to use the public key obtained in "Obtaining the Public Key for Signature Verification" to verify the signature.
-     * @see https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-gettestkey-0000001158245081
-     * @see https://phpseclib.com/docs/rsa#creating--verifying-signatures
+     * @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-gettestkey-0000001158245081
+     * @link https://phpseclib.com/docs/rsa#creating--verifying-signatures
      */
     private AsymmetricKey|null $public_key;
 

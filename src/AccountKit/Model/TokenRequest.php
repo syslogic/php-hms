@@ -7,7 +7,6 @@ use InvalidArgumentException;
 /**
  * Class HMS AccountKit TokenRequest
  *
- * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/server-error-codes-0000001062371380">Error Codes</a>
  * @author Martin Zeitler
  */
 class TokenRequest extends Model {
@@ -39,9 +38,9 @@ class TokenRequest extends Model {
     /**
      * OAuth 2.0 client ID (mandatory field).
      *
-     * An unique identifier allocated by the HUAWEI Developers website to an app after it is created.
+     * A unique identifier allocated by the HUAWEI Developers website to an app after it is created.
      *
-     * @see <a href="https://developer.huawei.com/consumer/en/doc/distribution/app/agc-help-appinfo-0000001100014694">Viewing App Basic Information</a>
+     * @link https://developer.huawei.com/consumer/en/doc/distribution/app/agc-help-appinfo-0000001100014694 Viewing App Basic Information
      * @var int|null $client_id
      */
     private int|null $client_id = null;
@@ -51,7 +50,7 @@ class TokenRequest extends Model {
      *
      * A public key allocated by the HUAWEI Developers website to an app after it is created.
      *
-     * @see <a href="https://developer.huawei.com/consumer/en/doc/distribution/app/agc-help-appinfo-0000001100014694">Viewing App Basic Information</a>
+     * @link https://developer.huawei.com/consumer/en/doc/distribution/app/agc-help-appinfo-0000001100014694 Viewing App Basic Information
      * @var string|null $client_secret
      */
     private string|null $client_secret = null;

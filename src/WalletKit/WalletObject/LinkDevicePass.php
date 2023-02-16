@@ -7,7 +7,7 @@ use HMS\Core\Model;
 /**
  * Class HMS WalletKit Link Device Pass
  *
- * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/linkdevicepass-0000001050160329">LinkDevicePass</a>
+ * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/linkdevicepass-0000001050160329LinkDevicePass
  * @author Martin Zeitler
  */
 class LinkDevicePass extends Model {

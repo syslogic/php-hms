@@ -8,7 +8,7 @@ use stdClass;
 /**
  * Class HMS DriveKit API: Files
  *
- * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/server-api-filesgetmetadata-0000001050153645">Files</a>
+ * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/server-api-filesgetmetadata-0000001050153645 Files
  * @author Martin Zeitler
  */
 class Files extends DriveKit {
@@ -185,7 +185,7 @@ class Files extends DriveKit {
      * @param string|null $quota_id User identifier, which can contain a maximum of 40 characters.
      *                              This parameter is used to restrict the maximum number of API calls for a single user.
      * @return bool|stdClass The result of the API call.
-     * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/server-api-filesgetcontent-0000001050153651">Files:get.content</a>
+     * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/server-api-filesgetcontent-0000001050153651 Files:get.content
      */
     public function get_content( string $file_id, ?string $quota_id=null ): stdClass|bool {
         $url = Constants::DRIVE_KIT_FILES_URL . '/' . $file_id . '?form=content';
@@ -199,7 +199,7 @@ class Files extends DriveKit {
      * @param string|null $quota_id  User identifier, which can contain a maximum of 40 characters.
      *                              This parameter is used to restrict the maximum number of API calls for a single user.
      * @return bool|stdClass The result of the API call.
-     * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/server-api-filescreatecontent-0000001050151688">Files:create.content</a>
+     * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/server-api-filescreatecontent-0000001050151688 Files:create.content
      */
     public function create_content( string $file_path, ?string $mime_type=null, ?string $quota_id=null ): stdClass|bool {
         $url = Constants::DRIVE_KIT_FILES_UPLOAD_URL . '?uploadType=content&fields=*'; // content or multipart.
@@ -226,7 +226,7 @@ class Files extends DriveKit {
      * @param bool $autoRename      Indicates whether to automatically rename the file. If this parameter is set to true of left empty, the file will be automatically renamed. If this parameter is set to false, the file will not be automatically renamed.
      *
      * @return bool
-     * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/server-api-filescopy-0000001050151696">Files:copy</a>
+     * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/server-api-filescopy-0000001050151696 Files:copy
      */
     public function copy( string $file_id, string $fields='*', ?string $form=null, bool $prettyPrint=false, ?string $quotaId=null, ?string $callback=null, bool $autoRename=false ): bool {
         $query = [];
@@ -237,7 +237,7 @@ class Files extends DriveKit {
     /**
      * @param string|array $file_id
      * @return bool
-     * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/server-api-filesdelete-0000001050153647">Files:delete</a>
+     * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/server-api-filesdelete-0000001050153647 Files:delete
      */
     public function delete( string|array $file_id  ): bool {
         if (is_string($file_id)) {
@@ -259,7 +259,7 @@ class Files extends DriveKit {
      * The value can be drive, applicationData, or a combination of the two (separated by a comma).
      * The default value is drive.
      * @return bool
-     * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/server-api-filesemptyrecycle-0000001050151698">Files:emptyRecycle</a>
+     * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/server-api-filesemptyrecycle-0000001050151698 Files:emptyRecycle
      */
     public function emptyRecycle( string $containers='drive'): bool {
         $result = $this->request( 'DELETE', Constants::DRIVE_KIT_FILES_URL . '/recycle', $this->auth_headers(), [

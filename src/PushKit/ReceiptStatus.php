@@ -3,7 +3,7 @@ namespace HMS\PushKit;
 
 /**
  * Huawei Message Receipt Status Codes
- * @see https://developer.huawei.com/consumer/en/doc/development/HMSCore-Guides/msg-receipt-guide-0000001050040176
+ * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-Guides/msg-receipt-guide-0000001050040176
  *
  * There's even more default error codes:
  * https://developer.huawei.com/consumer/en/doc/development/HMSCore-Guides/commonerror-0000001059816656

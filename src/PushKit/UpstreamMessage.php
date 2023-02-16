@@ -7,7 +7,7 @@ use stdClass;
 /**
  * Class HMS PushKit Upstream Message
  *
- * @see https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/https-uplink-api-0000001050170915
+ * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/https-uplink-api-0000001050170915
  * @author Martin Zeitler
  */
 class UpstreamMessage {

@@ -48,7 +48,7 @@ class PushKit extends Wrapper {
     /**
      * Querying the Topic Subscription List.
      *
-     * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/topic-list-api-0000001050706152">Querying the Topic Subscription List</a>
+     * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/topic-list-api-0000001050706152 Querying the Topic Subscription List
      * @param string $token
      * @return stdClass
      */
@@ -60,7 +60,7 @@ class PushKit extends Wrapper {
     /**
      * Subscribing to a Topic.
      *
-     * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/topic-sub-api-0000001051066122">Subscribing to a Topic</a>
+     * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/topic-sub-api-0000001051066122 Subscribing to a Topic
      * @param string $topic_name
      * @param string|array $tokens
      * @return stdClass
@@ -74,7 +74,7 @@ class PushKit extends Wrapper {
     /**
      * Unsubscribing from a Topic.
      *
-     * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/topic-unsub-api-0000001050746185">Unsubscribing from a Topic</a>
+     * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/topic-unsub-api-0000001050746185 Unsubscribing from a Topic
      * @param string $topic_name
      * @param string|array $tokens
      * @return stdClass
@@ -88,7 +88,7 @@ class PushKit extends Wrapper {
     /**
      * Sending Downstream Messages to Token.
      *
-     * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/https-send-api-0000001050986197">Sending Downstream Messages</a>
+     * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/https-send-api-0000001050986197 Sending Downstream Messages
      * @param string|array $token
      * @param string       $title
      * @param string       $body
@@ -104,7 +104,7 @@ class PushKit extends Wrapper {
     /**
      * Sending Downstream Messages to Topic.
      *
-     * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/https-send-api-0000001050986197">Sending Downstream Messages</a>
+     * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/https-send-api-0000001050986197 Sending Downstream Messages
      * @param string       $topic
      * @param string       $title
      * @param string       $body
@@ -119,7 +119,7 @@ class PushKit extends Wrapper {
     /**
      * Sending Downstream Messages to Condition.
      *
-     * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/https-send-api-0000001050986197">Sending Downstream Messages</a>
+     * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/https-send-api-0000001050986197 Sending Downstream Messages
      * @param string       $condition
      * @param string       $title
      * @param string       $body
@@ -161,7 +161,7 @@ class PushKit extends Wrapper {
     /**
      * Querying Data as a Data Controller.
      *
-     * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/query-data-api-0000001051066126">Querying Data as a Data Controller</a>
+     * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/query-data-api-0000001051066126 Querying Data as a Data Controller
      * @param string $token
      * @return stdClass
      */
@@ -173,7 +173,7 @@ class PushKit extends Wrapper {
     /**
      * Deleting Data as a Data Controller.
      *
-     * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/del-data-api-0000001050746189">Deleting Data as a Data Controller</a>
+     * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/del-data-api-0000001050746189 Deleting Data as a Data Controller
      * @param string $token
      * @return stdClass
      */

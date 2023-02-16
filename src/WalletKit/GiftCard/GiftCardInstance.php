@@ -8,7 +8,7 @@ use HMS\WalletKit\WalletPass;
 /**
  * Class HMS Wallet API: Gift Card Instance
  *
- * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/create-model-0000001050158424">Creating a Gift Card Model</a>
+ * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/create-model-0000001050158424 Creating a Gift Card Model
  * @author Martin Zeitler
  */
 class GiftCardInstance extends WalletKit implements WalletPass {

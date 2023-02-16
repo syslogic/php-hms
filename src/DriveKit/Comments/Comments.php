@@ -8,15 +8,15 @@ use stdClass;
 /**
  * Class HMS DriveKit API: Comments
  *
- * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/server-api-commentslist-0000001050151714">Comments</a>
+ * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/server-api-commentslist-0000001050151714 Comments
  * @author Martin Zeitler
  */
 class Comments extends DriveKit {
 
     /**
+     * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/server-api-commentslist-0000001050151714 Comments:list
      * @param string $file_id The file ID.
      * @param string $fields     Fields in the request, which are in the partial response format.
-     * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/server-api-commentslist-0000001050151714">Comments:list</a>
      * @return bool|stdClass The result of the API call.
      */
     public function list( string $file_id, string $fields='*' ): stdClass|bool {
@@ -27,10 +27,10 @@ class Comments extends DriveKit {
     }
 
     /**
+     * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/server-api-commentsget-0000001050153665 Comments:get
      * @param string $file_id    The file ID.
      * @param string $comment_id The comment ID.
      * @param string $fields     Fields in the request, which are in the partial response format.
-     * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/server-api-commentsget-0000001050153665">Comments:get</a>
      * @return bool|stdClass The result of the API call.
      */
     public function get( string $file_id, string $comment_id, string $fields='*' ): stdClass|bool {
@@ -42,9 +42,9 @@ class Comments extends DriveKit {
     }
 
     /**
+     * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/server-api-commentscreate-0000001050151716 Comments:create
      * @param string $file_id The file ID.
      * @param string $content Comment content.
-     * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/server-api-commentscreate-0000001050151716">Comments:create</a>
      * @return bool|stdClass The result of the API call.
      */
     public function create( string $file_id, string $content ): stdClass|bool {
@@ -55,10 +55,10 @@ class Comments extends DriveKit {
     }
 
     /**
+     * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/server-api-commentsupdate-0000001050153667 Comments:update
      * @param string $file_id The file ID.
      * @param string $comment_id The comment ID.
      * @param string $content Comment content.
-     * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/server-api-commentsupdate-0000001050153667">Comments:update</a>
      * @return bool|stdClass The result of the API call.
      */
     public function update( string $file_id, string $comment_id, string $content ): stdClass|bool {
@@ -69,7 +69,9 @@ class Comments extends DriveKit {
     }
 
     /**
-     * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/server-api-commentsdelete-0000001050151718">Comments:delete</a>
+     * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/server-api-commentsdelete-0000001050151718 Comments:delete
+     * @param string $file_id The file ID.
+     * @param string $comment_id The comment ID.
      * @return bool The result of the API call.
      */
     public function delete( string $file_id, string $comment_id ): bool {

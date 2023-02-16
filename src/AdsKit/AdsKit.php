@@ -9,9 +9,8 @@ use stdClass;
 /**
  * Class HMS AdsKit Wrapper
  *
- * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/query-publisher-service-reports-0000001050933546">Publisher Service Reporting API</a>
- * @see <a href="https://developer.huawei.com/consumer/en/service/ads/publisher/html/#/mainContent/reportData">Petal Publisher Center</a>
- *
+ * @link https://developer.huawei.com/consumer/en/service/ads/publisher/html/#/mainContent/reportData Petal Publisher Center
+ * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/query-publisher-service-reports-0000001050933546 Publisher Service Reporting API
  * @author Martin Zeitler
  */
 class AdsKit extends Wrapper {

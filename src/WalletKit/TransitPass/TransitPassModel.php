@@ -8,7 +8,7 @@ use HMS\WalletKit\WalletPass;
 /**
  * Class HMS Wallet API: Transit Pass Model
  *
- * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/create-model-0000001050158448">Creating a Transit Pass Model</a>
+ * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/create-model-0000001050158448 Creating a Transit Pass Model
  * @author Martin Zeitler
  */
 class TransitPassModel extends WalletKit implements WalletPass {

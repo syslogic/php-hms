@@ -12,14 +12,14 @@ use HMS\MapKit\Tile\Tile;
 /**
  * Class HMS MapKit Wrapper
  *
- * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/api-summary-desc-0000001073697904">MapKit</a>
- * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/error-code-0000001050161430">Error codes</a>
+ * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/api-summary-desc-0000001073697904 MapKit
+ * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/error-code-0000001050161430 Error codes
  *
  * HTTP 403 / 010027, OVER_QUERY_LIMIT:
- * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-Guides/about-charging-0000001051637068#section7921102111484">Subscribing to a Pay-As-You-Go Plan</a>
+ * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-Guides/about-charging-0000001051637068#section7921102111484 Subscribing to a Pay-As-You-Go Plan
  *
  * HTTP 405 / 403, REQUEST_DENIED:
- * @see <a href="https://stackoverflow.com/questions/75114598/huawei-map-kit-api-the-app-id-does-not-have-the-service-call-permission">Cause Unknown</a>
+ * @link https://stackoverflow.com/questions/75114598/huawei-map-kit-api-the-app-id-does-not-have-the-service-call-permission Cause Unknown
  *
  * @author Martin Zeitler
  */

@@ -4,7 +4,7 @@ namespace HMS\AppGallery\AuthService;
 /**
  * Class HMS AppGallery Connect AuthService Result Codes
  *
- * @see <a href="https://developer.huawei.com/consumer/de/doc/development/AppGallery-connect-References/server-rest-errorcode-0000001142701050">Result Codes</a>
+ * @link https://developer.huawei.com/consumer/de/doc/development/AppGallery-connect-References/server-rest-errorcode-0000001142701050 Result Codes
  * @author Martin Zeitler
  */
 class ResultCodes {

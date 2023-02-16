@@ -7,7 +7,7 @@ use InvalidArgumentException;
 /**
  * Class HMS PushKit CloudMessage
  *
- * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-Guides/rest-sample-code-0000001050040242">Sample Code for Sending Downlink Messages Through HTTPS</a>
+ * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-Guides/rest-sample-code-0000001050040242 Sample Code for Sending Downlink Messages Through HTTPS
  * @author Martin Zeitler
  */
 class CloudMessage extends Model {

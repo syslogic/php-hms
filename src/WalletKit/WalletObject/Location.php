@@ -6,7 +6,7 @@ use HMS\Core\Model;
 /**
  * Class HMS WalletKit Location
  *
- * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/locationlist-0000001050160325">LocationList</a>
+ * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/locationlist-0000001050160325 LocationList
  * @author Martin Zeitler
  */
 class Location extends Model {

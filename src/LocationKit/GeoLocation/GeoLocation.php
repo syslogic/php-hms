@@ -9,7 +9,7 @@ use stdClass;
  * Class HMS LocationKit GeoLocation API
  * Note: Not being implemented.
  *
- * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/web-network-location-0000001051602603">GeoLocation (API)</a>
+ * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/web-network-location-0000001051602603 GeoLocation (API)
  * @author Martin Zeitler
  */
 class GeoLocation extends LocationKit {

@@ -11,7 +11,7 @@ use HMS\Core\Wrapper;
 /**
  * Class HMS AppGallery Connect Wrapper
  *
- * @see <a href="https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-Guides/agcapi-getstarted-0000001111845114">Getting Started</a>
+ * @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-Guides/agcapi-getstarted-0000001111845114 Getting Started
  * @author Martin Zeitler
  */
 class Connect extends Wrapper {
@@ -33,50 +33,28 @@ class Connect extends Wrapper {
      * The base URL must match the default data storage location.
      * This endpoint requires project-level access credentials.
      */
-    public function getAuthService( array|string $config ): AuthService {
-        $base_url = isset($config['base_url']) ? $config['base_url'] : Constants::CONNECT_API_BASE_URL_EU;
-        $debug_mode = $config['debug_mode'] ?? false;
-        return new AuthService( [
-            'project_id'        => $this->project_id,
-            'agc_client_id'     => $this->agc_client_id,
-            'agc_client_secret' => $this->agc_client_secret,
-            'base_url'          => $base_url,
-            'debug_mode'        => $debug_mode
-        ] );
+    public function getAuthService(): AuthService {
+        return new AuthService( $this->config() );
     }
 
-    public function getProduct( array|string $config ): Product {
-        $base_url = isset($config['base_url'])? $config['base_url'] : Constants::PRODUCT_API_BASE_URL;
-        $debug_mode = $config['debug_mode'] ?? false;
-        return new Product( [
-            'project_id'        => $this->project_id,
-            'agc_client_id'     => $this->agc_client_id,
-            'agc_client_secret' => $this->agc_client_secret,
-            'base_url'          => $base_url,
-            'debug_mode'        => $debug_mode
-        ] );
+    public function getProduct(): Product {
+        return new Product( $this->config() );
     }
 
-    public function getProject( array|string $config ): Project {
-        $base_url = isset($config['base_url'])? $config['base_url'] : Constants::PROJECT_API_BASE_URL;
-        $debug_mode = $config['debug_mode'] ?? false;
-        return new Project( [
-            'project_id'        => $this->project_id,
-            'agc_client_id'     => $this->agc_client_id,
-            'agc_client_secret' => $this->agc_client_secret,
-            'base_url'          => $base_url,
-            'debug_mode'        => $debug_mode
-        ] );
+    public function getProject(): Project {
+        return new Project( $this->config() );
     }
 
-    public function getPublishing( array|string $config ): Publishing {
-        $base_url = isset($config['base_url'])? $config['base_url'] : Constants::PUBLISH_API_BASE_URL;
-        return new Publishing( [
+    public function getPublishing(): Publishing {
+        return new Publishing( $this->config() );
+    }
+
+    private function config(): array {
+        return [
             'project_id'        => $this->project_id,
             'agc_client_id'     => $this->agc_client_id,
             'agc_client_secret' => $this->agc_client_secret,
-            'base_url'          => $base_url,
-            'debug_mode'        => true
-        ] );
+            'debug_mode'        => $this->debug_mode
+        ];
     }
 }

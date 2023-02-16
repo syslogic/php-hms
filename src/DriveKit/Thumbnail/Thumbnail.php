@@ -8,7 +8,7 @@ use stdClass;
 /**
  * Class HMS DriveKit API: Thumbnail
  *
- * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/server-api-thumbnailget-0000001050151706">Thumbnail</a>
+ * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/server-api-thumbnailget-0000001050151706 Thumbnail
  * @author Martin Zeitler
  */
 class Thumbnail extends DriveKit {

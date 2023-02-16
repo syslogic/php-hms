@@ -8,7 +8,7 @@ use stdClass;
 /**
  * Class HMS DriveKit API: About
  *
- * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/server-api-aboutget-0000001050151684">About</a>
+ * @link <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/server-api-aboutget-0000001050151684 About
  * @author Martin Zeitler
  */
 class About extends DriveKit {

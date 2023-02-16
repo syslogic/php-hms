@@ -8,7 +8,7 @@ use HMS\WalletKit\WalletPass;
 /**
  * Class HMS Wallet API: Loyalty Card Model
  *
- * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/create-model-0000001050158390">Creating a Loyalty Card Model</a>
+ * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/create-model-0000001050158390 Creating a Loyalty Card Model
  * @author Martin Zeitler
  */
 class LoyaltyCardModel extends WalletKit implements WalletPass {

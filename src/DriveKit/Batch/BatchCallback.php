@@ -8,8 +8,8 @@ use stdClass;
 /**
  * Class HMS DriveKit API: Batch Callback
  *
- * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/server-api-batchcallback-0000001050727110">BatchCallback</a>
- * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/server-api-batchcallback-0000001050727110#section1543214154012">Call Example</a>
+ * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/server-api-batchcallback-0000001050727110 BatchCallback
+ * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/server-api-batchcallback-0000001050727110#section1543214154012 Call Example
  * @author Martin Zeitler
  */
 class BatchCallback extends DriveKit {

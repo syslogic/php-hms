@@ -8,7 +8,7 @@ use stdClass;
 /**
  * Class HMS MapKit Tile API
  *
- * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/tile-api-0000001059859346">Tile API</a>
+ * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/tile-api-0000001059859346 Tile API
  * @author Martin Zeitler
  */
 class Tile extends MapKit {

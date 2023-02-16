@@ -64,11 +64,7 @@ class Matrix extends MapKit {
         ];
     }
 
-    /**
-     * Batch Route Planning: Walking
-     *
-     * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/matrix-walking-0000001050161506">Batch Route Planning: Walking</a>
-     */
+    /** @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/matrix-walking-0000001050161506 Batch Route Planning: Walking */
     public function getWalkingMatrix( array $origins, array $destinations, string $language='en' ): bool|stdClass {
         return $this->request('POST', $this->getWalkingUrl(),
             $this->request_headers(),
@@ -76,11 +72,7 @@ class Matrix extends MapKit {
         );
     }
 
-    /**
-     * Batch Route Planning: Cycling
-     *
-     * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/matrix-bicycling-0000001050163459">Batch Route Planning: Cycling</a>
-     */
+    /** @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/matrix-bicycling-0000001050163459 Batch Route Planning: Cycling */
     public function getCyclingMatrix( array $origins, array $destinations, string $language='en' ): bool|stdClass {
         return $this->request('POST', $this->getCyclingUrl(),
             $this->request_headers(),
@@ -89,11 +81,8 @@ class Matrix extends MapKit {
     }
 
     /**
-     * Batch Route Planning: Driving
-     *
+     * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/matrix-driving-0000001050161508 Batch Route Planning: Driving
      * TODO: the driving endpoint has more options than the others.
-     *
-     * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/matrix-driving-0000001050161508">Batch Route Planning: Driving</a>
      */
     public function getDrivingMatrix( array $origins, array $destinations, string $language='en' ): bool|stdClass {
         return $this->request('POST', $this->getDrivingUrl(),

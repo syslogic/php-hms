@@ -48,7 +48,7 @@ class Button extends Model {
     /**
      * When action_type is set to 1:
      * Then set this parameter to an action or the URI of the app page to be opened based on the value of intent_type.
-     * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-Guides/andorid-basic-clickaction-0000001087554076#section20203190121410">Opening a Specified Page of an App</a>
+     * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-Guides/andorid-basic-clickaction-0000001087554076#section20203190121410 Opening a Specified Page of an App
      *
      * When action_type is set to 2:
      * Then set this parameter to the URL of the web page to be opened.

@@ -15,7 +15,7 @@ class Constants {
      * - Go to HUAWEI Analytics > Management > Analysis settings > API management.
      * - You can then obtain <rootUrl> of the related APIs from API access address.
      *
-     * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/android-api-common-interface-description-0000001050707180#section777183816123">API Access Address</a>
+     * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/android-api-common-interface-description-0000001050707180#section777183816123 API Access Address
      */
     public const ANALYTICS_KIT_BASE_URL                       = "https://datacollector-dre.dt.hicloud.com/";
 

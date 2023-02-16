@@ -6,7 +6,7 @@ use HMS\Core\Model;
 /**
  * Class HMS WalletKit Localized
  *
- * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/localized-0000001050158374">Localized</a>
+ * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/localized-0000001050158374 Localized
  * @author Martin Zeitler
  */
 class Localized extends Model {

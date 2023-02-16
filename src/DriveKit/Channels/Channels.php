@@ -8,7 +8,7 @@ use stdClass;
 /**
  * Class HMS DriveKit API: Channels
  *
- * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/server-api-thumbnailget-0000001050151706">Channels</a>
+ * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/server-api-thumbnailget-0000001050151706 Channels
  * @author Martin Zeitler
  */
 class Channels extends DriveKit {

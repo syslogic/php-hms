@@ -7,7 +7,7 @@ use JetBrains\PhpStorm\ArrayShape;
 /**
  * Class HMS AnalyticsKit Wrapper
  *
- * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/android-api-common-interface-description-0000001050707180">AnalyticsKit</a>
+ * @@link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/android-api-common-interface-description-0000001050707180 AnalyticsKit
  * @author Martin Zeitler
  */
 class AnalyticsKit extends Wrapper {
@@ -73,7 +73,7 @@ class AnalyticsKit extends Wrapper {
     /**
      * Exporting Personal Data.
      *
-     * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/android-api-export-personal-data-0000001050987229">Exporting Personal Data</a>
+     * @@link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/android-api-export-personal-data-0000001050987229 Exporting Personal Data
      * @param string|null $aaid Anonymous user ID, which can be obtained using the API on the device side.
      * @return \stdClass
      */
@@ -86,7 +86,7 @@ class AnalyticsKit extends Wrapper {
     /**
      * Querying the Export Task Status.
      *
-     * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/android-api-query-export-task-status-new-0000001135560119">Querying the Export Task Status</a>
+     * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/android-api-query-export-task-status-new-0000001135560119 Querying the Export Task Status
      * @param string|null $aaid Anonymous user ID, which can be obtained using the API on the device side.
      * @return \stdClass
      */
@@ -99,7 +99,7 @@ class AnalyticsKit extends Wrapper {
     /**
      * Deleting Personal Data.
      *
-     * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/android-api-delete-personal-data-0000001050747213">Deleting Personal Data</a>
+     * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/android-api-delete-personal-data-0000001050747213 Deleting Personal Data
      * @param string|null $aaid Anonymous user ID, which can be obtained using the API on the device side.
      * @return \stdClass
      */
@@ -112,7 +112,7 @@ class AnalyticsKit extends Wrapper {
     /**
      * Querying the Deletion Task Status.
      *
-     * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/android-api-query-deletion-task-status-new-0000001088418298">Querying the Deletion Task Status</a>
+     * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/android-api-query-deletion-task-status-new-0000001088418298 Querying the Deletion Task Status
      * @param string|null $aaid Anonymous user ID, which can be obtained using the API on the device side.
      * @return \stdClass
      */
@@ -125,7 +125,7 @@ class AnalyticsKit extends Wrapper {
     /**
      * Creating a Data Export Task.
      *
-     * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/android-api-create-data-export-task-0000001050987231#section195846692412">Creating a Data Export Task</a>
+     * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/android-api-create-data-export-task-0000001050987231#section195846692412 Creating a Data Export Task
      * @param string|null $aaid Anonymous user ID, which can be obtained using the API on the device side.
      * @return \stdClass
      */
@@ -138,7 +138,7 @@ class AnalyticsKit extends Wrapper {
     /**
      * Receiving the Execution Status of a Data Export Task ??
      *
-     * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/android-api-create-data-export-task-0000001050987231#section195846692412">Receiving the Execution Status of a Data Export Task</a>
+     * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/android-api-create-data-export-task-0000001050987231#section195846692412 Receiving the Execution Status of a Data Export Task
      * @return \stdClass
      */
     public function receive_raw_data_export_status( ): \stdClass {
@@ -148,7 +148,7 @@ class AnalyticsKit extends Wrapper {
     /**
      * Importing Custom User Attributes.
      *
-     * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/android-api-import-customized-user-attributes-0000001050747215">Importing Custom User Attributes</a>
+     * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/android-api-import-customized-user-attributes-0000001050747215 Importing Custom User Attributes
      * @param array $data
      * @return \stdClass|false
      */
@@ -165,7 +165,7 @@ class AnalyticsKit extends Wrapper {
     /**
      * Importing Content.
      *
-     * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/android-api-import-content-0000001205881011">Importing Content</a>
+     * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/android-api-import-content-0000001205881011 Importing Content
      * @param array $data
      * @return \stdClass
      */
@@ -182,7 +182,7 @@ class AnalyticsKit extends Wrapper {
     /**
      * Reporting User Behavior.
      *
-     * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/android-api-report-user-behavior-0000001205631635">Reporting User Behavior</a>
+     * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/android-api-report-user-behavior-0000001205631635 Reporting User Behavior
      * @param array $data
      * @return \stdClass
      */
@@ -203,11 +203,12 @@ class AnalyticsKit extends Wrapper {
 
     /**
      * Querying Open Metrics and Dimensions.
+     *
+     * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/querying-open-indicators-and-dimensions-0000001152958663 Querying Open Metrics and Dimensions
      * @param string $lang
      * @param int $size
      * @param int $curr_page
      * @return \stdClass
-     * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/querying-open-indicators-and-dimensions-0000001152958663">Querying Open Metrics and Dimensions</a>
      */
     public function query_metrics_and_dimensions( string $lang='en', int $size=10, int $curr_page=1 ): \stdClass {
         if (! in_array($lang, ['en', 'cn', 'ru'])) {
@@ -222,13 +223,14 @@ class AnalyticsKit extends Wrapper {
 
     /**
      * Querying Dimension Values.
+     *
+     * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/querying-dimension-values-0000001106240464 Querying Dimension Values
      * @param string $metric
      * @param string $dimension
      * @param string $lang
      * @param int $size
      * @param int $from
      * @return \stdClass
-     * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/querying-dimension-values-0000001106240464">Querying Dimension Values</a>
      */
     public function query_dimensions( string $metric, string $dimension, string $lang='en', int $size=10, int $from=0 ): \stdClass {
         if (! in_array($lang, ['en', 'cn', 'ru'])) {
@@ -245,6 +247,8 @@ class AnalyticsKit extends Wrapper {
 
     /**
      * Querying Statistical Metrics.
+     *
+     * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/querying-tatistical-indicators-0000001152959491 Querying Statistical Metrics
      * @param string $metric
      * @param array $dimensions
      * @param string|null $start_date
@@ -255,7 +259,6 @@ class AnalyticsKit extends Wrapper {
      * @param int $size
      * @param int $curr_page
      * @return \stdClass
-     * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/querying-tatistical-indicators-0000001152959491">Querying Statistical Metrics</a>
      */
     public function query_metrics( string $metric, array $dimensions, string|null $start_date, string|null $end_date,
                                    string|null $filters, string|null $order_by, string $lang='en', int $size=10,

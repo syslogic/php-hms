@@ -23,6 +23,7 @@ class AuthService extends Wrapper {
         $this->access_token = $this->get_access_token();
         $this->post_init();
     }
+
     /** Unset properties irrelevant to the child class. */
     protected function post_init(): void {
         $urls = [Constants::CONNECT_API_BASE_URL, Constants::CONNECT_API_BASE_URL_EU, Constants::CONNECT_API_BASE_URL_AS, Constants::CONNECT_API_BASE_URL_RU];
@@ -33,8 +34,9 @@ class AuthService extends Wrapper {
 
     /**
      * Obtaining a Token, the AgConnect Version.
+     *
+     * @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-obtain_token-0000001158365043 Obtaining a Token
      * @return string|null the token string only.
-     * @see <a href="https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-obtain_token-0000001158365043">Obtaining a Token</a>
      */
     private function get_access_token(): ?string {
         $url = $this->base_url.Constants::CONNECT_API_OAUTH2_TOKEN_URL;
@@ -62,9 +64,9 @@ class AuthService extends Wrapper {
     /**
      * Importing Users.
      *
+     * @link https://developer.huawei.com/consumer/de/doc/development/AppGallery-connect-References/server-rest-import-0000001136020892 Importing Users
      * @param array $users
      * @return bool|stdClass
-     * @see <a href="https://developer.huawei.com/consumer/de/doc/development/AppGallery-connect-References/server-rest-import-0000001136020892">Importing Users</a>
      */
     public function import_users( array $users ): bool|stdClass {
         $url = $this->base_url.Constants::CONNECT_API_AUTH_SERVICE_USER_IMPORT;
@@ -76,7 +78,7 @@ class AuthService extends Wrapper {
     /**
      * Exporting Users.
      *
-     * @see <a href="https://developer.huawei.com/consumer/de/doc/development/AppGallery-connect-References/server-rest-import-0000001136020892">Exporting Users</a>
+     * @link https://developer.huawei.com/consumer/de/doc/development/AppGallery-connect-References/server-rest-import-0000001136020892 Exporting Users
      * @return bool|stdClass
      */
     public function export_users(): bool|stdClass {
@@ -89,7 +91,7 @@ class AuthService extends Wrapper {
     /**
      * Authenticating a User's Access Token.
      *
-     * @see <a href="https://developer.huawei.com/consumer/de/doc/development/AppGallery-connect-References/server-rest-verify-0000001182300271">Authenticating a User's Access Token</a>
+     * @link https://developer.huawei.com/consumer/de/doc/development/AppGallery-connect-References/server-rest-verify-0000001182300271 Authenticating a User's Access Token
      * @param string $user_access_token
      * @return bool|stdClass
      */
@@ -102,7 +104,7 @@ class AuthService extends Wrapper {
     /**
      * Revoking a User's Access Token.
      *
-     * @see <a href="https://developer.huawei.com/consumer/de/doc/development/AppGallery-connect-References/server-rest-revoke-0000001182420193">Authenticating a User's Access Token</a>
+     * @link https://developer.huawei.com/consumer/de/doc/development/AppGallery-connect-References/server-rest-revoke-0000001182420193 Authenticating a User's Access Token
      * @param string $uid
      * @param string $user_access_token
      * @return bool|stdClass

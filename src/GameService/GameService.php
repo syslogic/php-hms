@@ -8,7 +8,7 @@ use JetBrains\PhpStorm\ArrayShape;
 /**
  * Class HMS GameService Wrapper
  *
- * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/verify-login-signature-0000001050123503">GameService</a>
+ * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/verify-login-signature-0000001050123503 GameService
  * @author Martin Zeitler
  */
 class GameService extends Wrapper {

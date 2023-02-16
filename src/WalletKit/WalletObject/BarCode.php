@@ -6,7 +6,7 @@ use HMS\Core\Model;
 /**
  * Class HMS WalletKit Barcode
  *
- * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/barcode-0000001050158372">BarCode</a>
+ * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/barcode-0000001050158372 BarCode
  * @author Martin Zeitler
  */
 class BarCode extends Model {

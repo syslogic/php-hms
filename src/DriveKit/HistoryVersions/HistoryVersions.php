@@ -8,7 +8,7 @@ use stdClass;
 /**
  * Class HMS DriveKit API: HistoryVersions
  *
- * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/server-api-commentslist-0000001050188698">HistoryVersions</a>
+ * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/server-api-commentslist-0000001050188698 HistoryVersions
  * @author Martin Zeitler
  */
 class HistoryVersions extends DriveKit {

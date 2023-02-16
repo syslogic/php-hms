@@ -11,7 +11,7 @@ use stdClass;
 /**
  * Class HMS AccountKit Wrapper
  *
- * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/account-obtain-token_hms_reference-0000001050048618">AccountKit</a>
+ * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/account-obtain-token_hms_reference-0000001050048618 AccountKit
  * @author Martin Zeitler
  */
 class AccountKit extends Wrapper {
@@ -45,8 +45,9 @@ class AccountKit extends Wrapper {
 
     /**
      * Obtaining an Access Token.
+     *
+     * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/account-obtain-token_hms_reference-0000001050048618 Obtaining Access Token
      * @return string|null the token string only.
-     * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/account-obtain-token_hms_reference-0000001050048618">Obtaining Access Token</a>
      */
     public function get_access_token(): ?string {
         $result = $this->request( 'POST', Constants::URL_OAUTH2_TOKEN, $this->request_headers(), [
@@ -106,6 +107,7 @@ class AccountKit extends Wrapper {
 
     /**
      * Revoke an access or refresh token.
+     *
      * @param string $access_or_refresh_token
      * @return stdClass|bool an empty response.
      */
@@ -117,9 +119,10 @@ class AccountKit extends Wrapper {
 
     /**
      * Parse an Access Token.
+     *
+     * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/account-gettokeninfo-0000001050050585 Parsing an Access Token
      * @param string $access_token
      * @return TokenInfo|null
-     * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/account-gettokeninfo-0000001050050585">Parsing an Access Token</a>
      */
     public function parse_access_token( string $access_token ): stdClass|null {
         $result = $this->request( 'POST', Constants::URL_ACCOUNT_KIT_TOKEN_INFO, $this->auth_headers(), [
@@ -138,9 +141,10 @@ class AccountKit extends Wrapper {
 
     /**
      * Obtain User Information.
+     *
+     * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/get-user-info-0000001060261938 Obtaining User Information
      * @param string $user_access_token
      * @return UserInfo|null
-     * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/get-user-info-0000001060261938">Obtaining User Information</a>
      */
     public function get_user_info( string $user_access_token ): UserInfo|stdClass {
         return $this->request( 'POST', Constants::URL_ACCOUNT_KIT_USER_INFO, [
@@ -153,9 +157,10 @@ class AccountKit extends Wrapper {
 
     /**
      * Verify an ID Token.
+     *
+     * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/account-verify-id-token_hms_reference-0000001050050577 Verifying an ID Token
      * @param string $id_token
      * @return IdTokenInfo|null
-     * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/account-verify-id-token_hms_reference-0000001050050577">Verifying an ID Token</a>
      */
     public function verify_id_token( string $id_token ): stdClass|IdTokenInfo {
         $result = $this->request( 'POST', Constants::URL_OAUTH2_TOKEN_INFO, $this->auth_headers(), [

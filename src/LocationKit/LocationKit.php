@@ -8,8 +8,8 @@ use HMS\LocationKit\IPLocation\IPLocation;
 /**
  * Class HMS LocationKit Wrapper
  *
- * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/web-overview-0000001052619173">LocationKit</a>
- * @see <a href="https://developer.huawei.com/consumer/en/console#/myApi/">HMS API</a>
+ * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/web-overview-0000001052619173 LocationKit
+ * @link https://developer.huawei.com/consumer/en/console#/myApi/ HMS API
  * @author Martin Zeitler
  */
 class LocationKit extends Wrapper {

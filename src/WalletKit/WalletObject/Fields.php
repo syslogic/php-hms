@@ -7,7 +7,7 @@ use HMS\Core\Model;
 /**
  * Class HMS WalletKit Fields
  *
- * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/fields-0000001050158368">Fields</a>
+ * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/fields-0000001050158368 Fields
  * @author Martin Zeitler
  */
 class Fields extends Model {
@@ -54,7 +54,7 @@ class Fields extends Model {
      * @var array<ValueObject> $commonFields
      * List of common displayable fields, namely, common attributes of a type of pass.
      * For details about the fields used by each type of pass, please refer to:
-     * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-Guides/access_membership-0000001050044329#section1811873155314">UI Design</a>
+     * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-Guides/access_membership-0000001050044329#section1811873155314 UI Design
      */
     private array $commonFields = [];
 
@@ -62,7 +62,7 @@ class Fields extends Model {
      * @var array<ValueObject> $appendFields
      * List of additional displayable fields, which are defined by the issuer to distinguish the same type of passes in different scenarios.
      * For details about the fields used by each type of pass, please refer to:
-     * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-Guides/access_membership-0000001050044329#section1811873155314">UI Design</a>
+     * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-Guides/access_membership-0000001050044329#section1811873155314 UI Design
      */
     private array $appendFields = [];
 

@@ -8,7 +8,7 @@ use HMS\WalletKit\WalletPass;
 /**
  * Class HMS Wallet API: Event Ticket Model
  *
- * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/create-model-0000001050158460">Creating an Event Ticket Model</a>
+ * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/create-model-0000001050158460 Creating an Event Ticket Model
  * @author Martin Zeitler
  */
 class EventTicketModel extends WalletKit implements WalletPass {

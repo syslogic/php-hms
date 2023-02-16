@@ -62,7 +62,7 @@ class Directions extends MapKit {
      *                            8: Avoid ferry.
      * @return bool|stdClass      The result of the API call.
      *
-     * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/directions-walking-0000001050161494">Route Planning: Walking</a>
+     * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/directions-walking-0000001050161494 Route Planning: Walking
      */
     public function getWalkingDirections(Coordinate $point_a, Coordinate $point_b, string $language='en', array $policies=[0]): bool|stdClass {
         return $this->request('POST', $this->getWalkingUrl(), $this->request_headers(), [
@@ -86,7 +86,7 @@ class Directions extends MapKit {
      *                            8: Avoid ferry.
      * @return bool|stdClass      The result of the API call.
      *
-     * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/directions-bicycling-0000001050163449">Route Planning: Cycling</a>
+     * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/directions-bicycling-0000001050163449 Route Planning: Cycling
      */
     public function getCyclingDirections(Coordinate $point_a, Coordinate $point_b, string $language='en', array $policies=[0]): bool|stdClass {
         return $this->request('POST', $this->getCyclingUrl(), $this->request_headers(), [
@@ -112,7 +112,7 @@ class Directions extends MapKit {
      *                            8: Avoid ferry.
      * @return bool|stdClass      The result of the API call.
      *
-     * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/directions-driving-0000001050161496">Route Planning: Driving</a>
+     * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/directions-driving-0000001050161496 Route Planning: Driving
      */
     public function getDrivingDirections(Coordinate $point_a, Coordinate $point_b, string $language='en', array $policies=[0]): bool|stdClass {
         return $this->request('POST', $this->getDrivingUrl(), $this->request_headers(), [

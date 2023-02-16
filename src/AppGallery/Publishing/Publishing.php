@@ -24,7 +24,7 @@ class Publishing extends Wrapper {
     /**
      * GET: Obtaining the File Upload URL.
      *
-     * @see <a href="https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-upload-url-0000001158365047">Obtaining the File Upload URL</a>
+     * @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-upload-url-0000001158365047 Obtaining the File Upload URL
      */
     public function request_file_upload_url( string $upload_url, string $auth_code, string $file_path ) {
 
@@ -33,7 +33,7 @@ class Publishing extends Wrapper {
     /**
      * Uploading a File.
      *
-     * @see <a href="https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-upload-file-0000001158245059">Uploading a File</a>
+     * @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-upload-file-0000001158245059 Uploading a File
      */
     public function upload_file( string $upload_url, string $auth_code, string $file_path ) {
 
@@ -42,7 +42,7 @@ class Publishing extends Wrapper {
     /**
      * Updating App File Information.
      *
-     * @see <a href="https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-app-file-info-0000001111685202">Updating App File Information</a>
+     * @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-app-file-info-0000001111685202 Updating App File Information
      */
     public function update_file_info( $file_url, $file_size ) {
 
@@ -51,7 +51,7 @@ class Publishing extends Wrapper {
     /**
      * On Submission Callback
      * TODO: emulate & process post-back.
-     * @see <a href="https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-notify-release-0000001158245063">Submission Callback</a>
+     * @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-notify-release-0000001158245063 Submission Callback
      */
     public function on_submission_callback(): bool {
         $key_file = '/var/www/.credentials/agconnect.pem';

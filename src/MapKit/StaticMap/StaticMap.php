@@ -10,7 +10,7 @@ use stdClass;
  * Class HMS MapKit Static API
  * Note: You must set at least one of the following groups of parameters: markers/path and location/zoom.
  *       If both groups are set, the location/zoom group takes precedence.
- * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/maps-static-api-0000001059461203">Maps Static API</a>
+ * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/maps-static-api-0000001059461203 Maps Static API
  * @author Martin Zeitler
  */
 class StaticMap extends MapKit {
@@ -47,7 +47,7 @@ class StaticMap extends MapKit {
      * @param int $scale           Map scale. The options are 1 and 2. The default value is 1.
      *
      *
-     * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-Guides/supported-language-0000001050162899">Supported Languages</a>
+     * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-Guides/supported-language-0000001050162899 Supported Languages
      * @return bool|stdClass The result of the API call.
      */
     public function getStaticMapByLocation( Coordinate $location, int $width=256, int $height=256, int $zoom=10, int $scale=1,
@@ -86,7 +86,7 @@ class StaticMap extends MapKit {
      * @param int $scale                Map scale. The options are 1 and 2. The default value is 1.
      *
      *
-     * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-Guides/supported-language-0000001050162899">Supported Languages</a>
+     * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-Guides/supported-language-0000001050162899 Supported Languages
      * @return bool|stdClass The result of the API call.
      */
     public function getStaticMapByMarkers( string $markers, string|null $markerStyles=null, int $width=256, int $height=256,
@@ -127,7 +127,7 @@ class StaticMap extends MapKit {
      * @param int $scale              Map scale. The options are 1 and 2. The default value is 1.
      *
      *
-     * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-Guides/supported-language-0000001050162899">Supported Languages</a>
+     * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-Guides/supported-language-0000001050162899 Supported Languages
      * @return bool|stdClass The result of the API call.
      */
     public function getStaticMapByPath( string $path, string|null $pathStyles=null, int $width=256, int $height=256,

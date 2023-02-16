@@ -4,7 +4,7 @@ namespace HMS\WalletKit\WalletObject;
 /**
  * Class HMS WalletKit Status
  *
- * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/status-0000001050160323">Status</a>
+ * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/status-0000001050160323 Status
  * @author Martin Zeitler
  */
 class Status {

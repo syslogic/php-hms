@@ -7,7 +7,7 @@ use HMS\Core\Model;
 /**
  * Class HMS Wallet Object
  *
- * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/def-0000001050160319">HwWalletObject</a>
+ * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/def-0000001050160319 HwWalletObject
  * @author Martin Zeitler
  */
 class WalletObject extends Model {

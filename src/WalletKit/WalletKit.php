@@ -18,7 +18,7 @@ use HMS\WalletKit\TransitPass\TransitPassModel;
 /**
  * Class HMS WalletKit Wrapper
  *
- * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/create-model-0000001050158460">WalletKit</a>
+ * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/create-model-0000001050158460 WalletKit
  * @author Martin Zeitler
  */
 class WalletKit extends Wrapper {
@@ -56,62 +56,62 @@ class WalletKit extends Wrapper {
         ];
     }
 
-    /** @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/create-model-0000001050158436">Creating a Boarding Pass Model</a> */
+    /** @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/create-model-0000001050158436 Creating a Boarding Pass Model */
     public function boardingPassModel(): BoardingPassModel {
         return new BoardingPassModel( $this->config() );
     }
 
-    /** @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/add-instance-0000001050158442">Adding a Boarding Pass Instance</a> */
+    /** @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/add-instance-0000001050158442 Adding a Boarding Pass Instance */
     public function boardingPassInstance(): BoardingPassInstance {
         return new BoardingPassInstance( $this->config() );
     }
 
-    /** @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/create-model-0000001050158460">Creating an Event Ticket Model</a> */
+    /** @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/create-model-0000001050158460 Creating an Event Ticket Model */
     public function eventTicketModel(): EventTicketModel {
         return new EventTicketModel( $this->config() );
     }
 
-    /** @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/add-instance-0000001050158466">Adding an Event Ticket Instance</a> */
+    /** @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/add-instance-0000001050158466 Adding an Event Ticket Instance */
     public function eventTicketInstance(): EventTicketInstance {
         return new EventTicketInstance( $this->config() );
     }
 
-    /** @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/create-model-0000001050158424">Creating a Gift Card Model</a> */
+    /** @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/create-model-0000001050158424 Creating a Gift Card Model */
     public function giftCardModel(): GiftCardModel {
         return new GiftCardModel( $this->config() );
     }
 
-    /** @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/add-instance-0000001050158430">Adding a Gift Card Instance</a> */
+    /** @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/add-instance-0000001050158430 Adding a Gift Card Instance */
     public function giftCardInstance(): GiftCardInstance {
         return new GiftCardInstance( $this->config() );
     }
 
-    /** @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/create-model-0000001050158390">Creating a Loyalty Card Model</a> */
+    /** @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/create-model-0000001050158390 Creating a Loyalty Card Model */
     public function loyaltyCardModel(): LoyaltyCardModel {
         return new LoyaltyCardModel( $this->config() );
     }
 
-    /** @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/add-instance-0000001050158396">Adding a Loyalty Card Instance</a> */
+    /** @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/add-instance-0000001050158396 Adding a Loyalty Card Instance */
     public function loyaltyCardInstance(): LoyaltyCardInstance {
         return new LoyaltyCardInstance( $this->config() );
     }
 
-    /** @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/create-model-0000001050160357">Creating an Offer Model</a> */
+    /** @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/create-model-0000001050160357 Creating an Offer Model */
     public function offerModel(): OfferModel {
         return new OfferModel( $this->config() );
     }
 
-    /** @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/add-instance-0000001050160363">Adding an Offer Instance</a> */
+    /** @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/add-instance-0000001050160363 Adding an Offer Instance */
     public function offerInstance(): OfferInstance {
         return new OfferInstance( $this->config() );
     }
 
-    /** @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/create-model-0000001050158448">Creating a Transit Pass Model</a> */
+    /** @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/create-model-0000001050158448 Creating a Transit Pass Model */
     public function transitPassModel(): TransitPassModel {
         return new TransitPassModel( $this->config() );
     }
 
-    /** @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/add-instance-0000001050158454">Adding a Transit Pass Instance</a> */
+    /** @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/add-instance-0000001050158454 Adding a Transit Pass Instance */
     public function transitPassInstance(): TransitPassInstance {
         return new TransitPassInstance( $this->config() );
     }

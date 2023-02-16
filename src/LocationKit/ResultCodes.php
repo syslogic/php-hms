@@ -4,7 +4,7 @@ namespace HMS\LocationKit;
 /**
  * Class HMS LocationKit Result Codes
  *
- * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/web-error-code-0000001052202593">Result Codes</a>
+ * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/web-error-code-0000001052202593 Result Codes
  * @author Martin Zeitler
  */
 class ResultCodes {

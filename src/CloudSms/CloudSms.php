@@ -11,8 +11,8 @@ use HMS\Core\Wrapper;
  * HUAWEI CLOUD does not support accounts in the above regions for the time being.
  * Please log in with accounts in other regions.
  *
- * @see <a href="https://console-intl.huaweicloud.com/msgsms/">Message & SMS console</a>
- * @see <a href="https://support.huaweicloud.com/intl/en-us/usermanual-msgsms/sms_03_0001.html">Creating an SMS Application</a>
+ * @link https://console-intl.huaweicloud.com/msgsms/ Message & SMS console
+ * @link https://support.huaweicloud.com/intl/en-us/usermanual-msgsms/sms_03_0001.html Creating an SMS Application
  * @author Martin Zeitler
  */
 class CloudSms extends Wrapper {
@@ -30,7 +30,7 @@ class CloudSms extends Wrapper {
     /**
      * Sending SMS
      *
-     * @see <a href="https://support.huaweicloud.com/intl/en-us/api-msgsms/sms_05_0001.html">SMS Sending API</a>
+     * @link https://support.huaweicloud.com/intl/en-us/api-msgsms/sms_05_0001.html SMS Sending API
      */
     public function send_sms(string $channel_id, string $receivers, string $template_id, array $template_params, string $status_callback_url='', string $signature=''): bool|\stdClass
     {
@@ -50,7 +50,7 @@ class CloudSms extends Wrapper {
     /**
      * Sending SMS in Batches
      *
-     * @see <a href="https://support.huaweicloud.com/intl/en-us/api-msgsms/sms_05_0002.html">Batch SMS Sending API</a>
+     * @link https://support.huaweicloud.com/intl/en-us/api-msgsms/sms_05_0002.html Batch SMS Sending API
      */
     public function send_batch_sms(string $channel_id, array $sms_content, string $status_callback_url='', string $signature=''): bool|\stdClass
     {
@@ -67,6 +67,7 @@ class CloudSms extends Wrapper {
 
     /**
      * Parse the status report data.
+     *
      * 'smsMsgId': Unique ID of an SMS
      * 'total': Number of SMS segments
      * 'sequence': Sequence number of an SMS after splitting
@@ -74,7 +75,7 @@ class CloudSms extends Wrapper {
      * 'updateTime': Resource update time
      * 'status': Enumeration values of the status report
      * 'orgCode': Status code
-     * @see <a href="https://support.huaweicloud.com/intl/en-us/api-msgsms/sms_05_0003.html">Status Report Receiving API/a>
+     * @link https://support.huaweicloud.com/intl/en-us/api-msgsms/sms_05_0003.html Status Report Receiving API
      * @param string $data Status report data pushed by the SMS platform.
      */
     public function parse_status_report(string $data): array {
@@ -93,7 +94,7 @@ class CloudSms extends Wrapper {
      * 'from': Number used to send an uplink SMS message
      * 'to': Number used to receive an uplink SMS message
      * 'body': Contents in an uplink SMS message
-     * @see <a href="https://support.huaweicloud.com/intl/en-us/api-msgsms/sms_05_0004.html">Uplink SMS Receiving API/a>
+     * @link https://support.huaweicloud.com/intl/en-us/api-msgsms/sms_05_0004.html Uplink SMS Receiving API
      * @param string $data Notification data in the uplink SMS message pushed by the SMS platform.
      */
     function parse_uplink_message(string $data): array {
@@ -104,6 +105,7 @@ class CloudSms extends Wrapper {
 
     /**
      * Construct the value of smsContent.
+     *
      * @param array $receiver
      * @param string $template_id
      * @param array $template_params
@@ -119,6 +121,7 @@ class CloudSms extends Wrapper {
 
     /**
      * Construct the value of X-WSSE header.
+     *
      * @return string
      */
     function buildWsseHeader(): string {

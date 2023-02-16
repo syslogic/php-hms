@@ -8,7 +8,7 @@ use HMS\WalletKit\WalletPass;
 /**
  * Class HMS Wallet API: Boarding Pass Model
  *
- * @see <a href="https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/create-model-0000001050158436">Creating a Boarding Pass Model</a>
+ * @link https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/create-model-0000001050158436 Creating a Boarding Pass Model
  * @author Martin Zeitler
  */
 class BoardingPassModel extends WalletKit implements WalletPass {
