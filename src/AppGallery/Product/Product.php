@@ -67,6 +67,15 @@ class Product extends Connect {
         return $this->request('POST', $url, $headers, $payload);
     }
 
+    /** @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-updateproductgroup-0000001162548123 Updating a Product Subscription Group */
+    public function update_product_subscription_group( string $group_id, string $group_name, bool $status=true): \stdClass {
+        $url = $this->base_url.Constants::PMS_API_PRODUCT_URL;
+        $headers = $this->auth_headers(true);
+        $data = ['$groupId' => $group_id, 'groupName' => $group_name, 'status' => $status ? 'active' : 'delete'];
+        $payload = ['requestId' => uniqid('hms_'), 'resource' => $data];
+        return $this->request('PUT', $url, $headers, $payload);
+    }
+
     /**
      * @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-getproductgroup-0000001115868348 Querying Product Subscription Groups
      * @param int $page_num   Query start page number. The default value is 1.
@@ -95,4 +104,6 @@ class Product extends Connect {
         ];
         return $this->request('POST', $url, $headers, $payload );
     }
+
+
 }
