@@ -8,27 +8,6 @@ namespace HMS\AppGallery;
  */
 class Constants {
 
-    /** The Gateway URL may be overridden by the configuration in file `agconnect-services.json`. */
-    public const CONNECT_API_BASE_URL = "https://connect-api.cloud.huawei.com"; // China
-    public const CONNECT_API_BASE_URL_EU = "https://connect-api-dre.cloud.huawei.com"; // Germany
-    public const CONNECT_API_BASE_URL_AS = "https://connect-api-dra.cloud.huawei.com"; // Singapore
-    public const CONNECT_API_BASE_URL_RU = "https://connect-api-drru.cloud.huawei.com"; // Singapore
-
-    /** Connect API has its own oAuth2 token endpoint. */
-    public const CONNECT_API_OAUTH2_TOKEN_URL = "/api/oauth2/v1/token";
-
-    /** @link https://developer.huawei.com/consumer/de/doc/development/AppGallery-connect-References/server-rest-import-0000001136020892 Importing Users */
-    public const CONNECT_API_AUTH_SERVICE_USER_IMPORT = "/api/auth-service/v1/server/user:import";
-
-    /** @link https://developer.huawei.com/consumer/de/doc/development/AppGallery-connect-References/server-rest-import-0000001136020892 Exporting Users */
-    public const CONNECT_API_AUTH_SERVICE_USER_EXPORT = "/api/auth-service/v1/server/user:export";
-
-    /** @link https://developer.huawei.com/consumer/de/doc/development/AppGallery-connect-References/server-rest-verify-0000001182300271 Authenticating a User's Access Token */
-    public const CONNECT_API_AUTH_SERVICE_VERIFY_TOKEN = "/api/oauth2/third/v1/verify-token?productId={projectId}";
-
-    /** @link https://developer.huawei.com/consumer/de/doc/development/AppGallery-connect-References/server-rest-revoke-0000001182420193 Revoking a User's Access Token. */
-    public const CONNECT_API_AUTH_SERVICE_REVOKE_TOKEN = "/api/oauth2/third/v1/revoke-token?productId={projectId}";
-
     public const AUTH_PROVIDER_ANONYMOUS          = 0;
     public const AUTH_PROVIDER_HUAWEI_ID          = 1;
     public const AUTH_PROVIDER_FACEBOOK           = 2; // * not available in China.
@@ -44,6 +23,27 @@ class Constants {
     public const AUTH_PROVIDER_EMAIL_ADDRESS      = 12;
     public const AUTH_PROVIDER_APPLE_ID           = 13;
 
+    /** The Gateway URL may be overridden by the configuration in file `agconnect-services.json`. */
+    public const CONNECT_API_BASE_URL = "https://connect-api.cloud.huawei.com"; // China
+    public const CONNECT_API_BASE_URL_EU = "https://connect-api-dre.cloud.huawei.com"; // Germany
+    public const CONNECT_API_BASE_URL_AS = "https://connect-api-dra.cloud.huawei.com"; // Singapore
+    public const CONNECT_API_BASE_URL_RU = "https://connect-api-drru.cloud.huawei.com"; // Singapore
+
+    /** Connect API has its own oAuth2 token endpoint. */
+    public const AUTH_SERVICE_OAUTH2_TOKEN_URL = "/api/oauth2/v1/token";
+
+    /** @link https://developer.huawei.com/consumer/de/doc/development/AppGallery-connect-References/server-rest-import-0000001136020892 Importing Users */
+    public const AUTH_SERVICE_USER_IMPORT_URL = "/api/auth-service/v1/server/user:import";
+
+    /** @link https://developer.huawei.com/consumer/de/doc/development/AppGallery-connect-References/server-rest-import-0000001136020892 Exporting Users */
+    public const AUTH_SERVICE_USER_EXPORT_URL = "/api/auth-service/v1/server/user:export";
+
+    /** @link https://developer.huawei.com/consumer/de/doc/development/AppGallery-connect-References/server-rest-verify-0000001182300271 Authenticating a User's Access Token */
+    public const AUTH_SERVICE_VERIFY_TOKEN_URL = "/api/oauth2/third/v1/verify-token?productId={projectId}";
+
+    /** @link https://developer.huawei.com/consumer/de/doc/development/AppGallery-connect-References/server-rest-revoke-0000001182420193 Revoking a User's Access Token. */
+    public const AUTH_SERVICE_REVOKE_TOKEN_URL = "/api/oauth2/third/v1/revoke-token?productId={projectId}";
+
     public const REPORT_API_DOWNLOAD_AND_INSTALLATION_GET_URL = "/api/report/distribution-operation-quality/v1/appDownloadExport/";
     public const REPORT_API_IN_APP_PURCHASES_GET_URL = "/api/report/distribution-operation-quality/v1/IAPExport/";
     public const REPORT_API_PAID_APPS_GET_URL = "/api/report/distribution-operation-quality/v1/orderAnalysisExport/";
@@ -58,12 +58,41 @@ class Constants {
     public const PROJECT_API_PROJECTS_URL = "/api/project-service/v1/projects";
     public const PROJECT_API_PROJECT_URL = "/api/project-service/v1/projects/";
 
+    /** @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-addproduct-0000001115868346 Creating a Product */
     public const PMS_API_PRODUCT_URL = "/api/pms/product-price-service/v1/manage/product";
+
+    /** @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-batchaddproduct-0000001162468145 Creating Products in Batches */
     public const PMS_API_PRODUCTS_BATCH_IMPORT_URL = "/api/pms/product-price-service/v1/manage/product/batchImportProducts";
 
-    // TODO
     /** @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-addproductgroup-0000001116028254 Creating a Product Subscription Group */
+    public const PMS_API_PRODUCT_SUBSCRIPTION_GROUP_URL = "/api/pms/product-price-service/v1/manage/product/group";
 
+    /** @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-getproductgroup-0000001115868348 Querying a Product Subscription Group */
+    public const PMS_API_PRODUCT_SUBSCRIPTION_GROUP_QUERY_URL = "/api/pms/product-price-service/v1/manage/product/group/list";
+
+    /** @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-bygetproductinfo-0000001116028256 Searching Products by Criteria */
+    public const PMS_API_PRODUCTS_QUERY_URL = "/api/pms/product-price-service/v1/manage/product/list";
+
+    /** @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-batchactproduct-0000001162468149 Activating Products in Batches */
+    public const PMS_API_PRODUCTS_BATCH_ACTIVATE_URL = "/api/pms/product-price-service/v1/manage/product/batchActive";
+
+    /** @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-batchdeactproduct-0000001116028258 Deactivating Products in Batches */
+    public const PMS_API_PRODUCTS_BATCH_DEACTIVATE_URL = "/api/pms/product-price-service/v1/manage/product/batchDeactive";
+
+    /** @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-isproductactive-0000001162548127 Checking for Released Products */
+    public const PMS_API_PRODUCT_ACTIVE_CHECK_URL = "/api/pms/product-price-service/v1/manage/product/check";
+
+    /** @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-addpromotion-0000001115868352 Creating a Product Promotion */
+    public const PMS_API_PROMOTION_URL = "/api/pms/product-price-service/v1/manage/product/promotion";
+
+    /** @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-bygetpromotioninfo-0000001162548129 Searching Product Promotions by Criteria */
+    public const PMS_API_PROMOTIONS_QUERY_URL = "/api/pms/product-price-service/v1/manage/product/promotion/list";
+
+    /** @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-batchactpromotion-0000001115868354 Releasing Product Promotions in Batches */
+    public const PMS_API_PROMOTIONS_BATCH_ACTIVATE_URL = "/api/pms/product-price-service/v1/manage/product/promotion/batchActive";
+
+    /** @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-batchdeactpromotion-0000001162468153 Removing Product Promotions in Batches */
+    public const PMS_API_PROMOTIONS_BATCH_DEACTIVATE_URL = "/api/pms/product-price-service/v1/manage/product/promotion/batchDeactive";
 
     /**
      * @param int appId App ID.

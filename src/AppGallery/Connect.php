@@ -40,7 +40,7 @@ abstract class Connect extends Wrapper {
      * @return string|null the token string only.
      */
     protected function get_access_token( bool $team_admin=false ): ?string {
-        $url = $this->base_url.Constants::CONNECT_API_OAUTH2_TOKEN_URL;
+        $url = $this->base_url.Constants::AUTH_SERVICE_OAUTH2_TOKEN_URL;
         $result = $this->request( 'POST',$url, $this->request_headers(), [
             'grant_type'    => 'client_credentials',
             'client_id'     => $team_admin ? $this->agc_team_client_id : $this->agc_project_client_id,

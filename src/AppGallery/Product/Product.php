@@ -38,9 +38,7 @@ class Product extends Connect {
     public function add_product( array $item=[] ): \stdClass {
         $url = $this->base_url.Constants::PMS_API_PRODUCT_URL;
         $headers = $this->auth_headers(true);
-        return $this->request('POST', $url, $headers, [
-            'requestId' => uniqid('hms_'),
-            'product' => $item
-        ]);
+        $payload = ['requestId' => uniqid('hms_'), 'product' => $item];
+        return $this->request('POST', $url, $headers, $payload);
     }
 }

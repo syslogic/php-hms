@@ -13,6 +13,8 @@ class AgcProductTest extends BaseTestCase {
 
     private static ?Product $client;
 
+    private static string $product_id;
+
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {
         parent::setUpBeforeClass();
@@ -29,6 +31,7 @@ class AgcProductTest extends BaseTestCase {
             'debug_mode'                => self::$debug_mode
         ]);
         self::assertNotFalse(self::$client->is_ready());
+        self::$product_id = uniqid('product_');
     }
 
     private function get_language(): \stdClass {
@@ -43,11 +46,11 @@ class AgcProductTest extends BaseTestCase {
     public function test_add_product() {
         $result = self::$client->add_product( [
             "appId" => self::$oauth2_client_id,
-            "productNo" => uniqid('product_'),
+            "productNo" => self::$product_id,
+            "status"=> "inactive",
+            "purchaseType" => "consumable",
             "productName" => "Create product information",
             "productDesc"=> "Test product description",
-            "purchaseType" => "consumable",
-            "status"=> "inactive",
             "currency"=> "CNY",
             "country"=> "CN",
             "defaultLocale"=> "zh-CN",
