@@ -83,16 +83,16 @@ class Constants {
     public const PMS_API_PRODUCT_ACTIVE_CHECK_URL = "/api/pms/product-price-service/v1/manage/product/check";
 
     /** @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-addpromotion-0000001115868352 Creating a Product Promotion */
-    public const PMS_API_PROMOTION_URL = "/api/pms/product-price-service/v1/manage/product/promotion";
+    public const PMS_API_PRODUCT_PROMOTION_URL = "/api/pms/product-price-service/v1/manage/product/promotion";
 
     /** @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-bygetpromotioninfo-0000001162548129 Searching Product Promotions by Criteria */
-    public const PMS_API_PROMOTIONS_QUERY_URL = "/api/pms/product-price-service/v1/manage/product/promotion/list";
+    public const PMS_API_PRODUCT_PROMOTIONS_QUERY_URL = "/api/pms/product-price-service/v1/manage/product/promotion/list";
 
     /** @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-batchactpromotion-0000001115868354 Releasing Product Promotions in Batches */
-    public const PMS_API_PROMOTIONS_BATCH_ACTIVATE_URL = "/api/pms/product-price-service/v1/manage/product/promotion/batchActive";
+    public const PMS_API_PRODUCT_PROMOTIONS_BATCH_ACTIVATE_URL = "/api/pms/product-price-service/v1/manage/product/promotion/batchActive";
 
     /** @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-batchdeactpromotion-0000001162468153 Removing Product Promotions in Batches */
-    public const PMS_API_PROMOTIONS_BATCH_DEACTIVATE_URL = "/api/pms/product-price-service/v1/manage/product/promotion/batchDeactive";
+    public const PMS_API_PRODUCT_PROMOTIONS_BATCH_DEACTIVATE_URL = "/api/pms/product-price-service/v1/manage/product/promotion/batchDeactive";
 
     /**
      * @param int appId App ID.
