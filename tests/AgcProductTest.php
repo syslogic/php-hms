@@ -14,6 +14,7 @@ class AgcProductTest extends BaseTestCase {
     private static ?Product $client;
 
     private static string $product_id;
+    private static string $subscription_group_name = 'PHPUnit Group';
 
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {
@@ -87,6 +88,14 @@ class AgcProductTest extends BaseTestCase {
         self::assertTrue( property_exists( $result, 'error' ) && $result->error->errorCode == 0 );
         self::assertTrue( property_exists($result, 'product' ) && is_object($result->product) );
         echo print_r($result->product, true);
+    }
+
+    /** Test: Creating a Product Subscription Group. */
+    public function test_create_product_subscription_group() {
+        $result = self::$client->create_product_subscription_group( self::$subscription_group_name );
+        self::assertTrue( property_exists( $result, 'error' ) && $result->error->errorCode == 0 );
+        self::assertTrue( property_exists( $result, 'result' ) && is_string($result->result) );
+        echo 'Group "'. self::$subscription_group_name .'" ID: ' . $result->result . '.';
     }
 
     /** Test: Querying Product Subscription Groups. */

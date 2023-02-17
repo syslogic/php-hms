@@ -57,11 +57,16 @@ class Product extends Connect {
         $payload = ['productNo' => $product_code];
         return $this->request('GET', $url, $headers, $payload );
     }
-    private function order_by( string $name, string $direction='asc' ): \stdClass {
-        $order_by = new \stdClass();
-        $order_by->$name = $direction;
-        return $order_by;
+
+    /** @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-addproductgroup-0000001116028254 Creating a Product Subscription Group */
+    public function create_product_subscription_group( string $group_name ): \stdClass {
+        $url = $this->base_url.Constants::PMS_API_PRODUCT_SUBSCRIPTION_GROUP_URL;
+        $headers = $this->auth_headers(true);
+        $data = ['groupName' => $group_name, 'status' => 'active'];
+        $payload = ['requestId' => uniqid('hms_'), 'resource' => $data];
+        return $this->request('POST', $url, $headers, $payload);
     }
+
     /**
      * @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-getproductgroup-0000001115868348 Querying Product Subscription Groups
      * @param int $page_num   Query start page number. The default value is 1.
