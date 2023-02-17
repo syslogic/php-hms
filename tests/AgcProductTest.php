@@ -31,30 +31,30 @@ class AgcProductTest extends BaseTestCase {
         self::assertNotFalse(self::$client->is_ready());
     }
 
-    /** Test: Creating a Product. */
-    public function test_add_product() {
-        $result = self::$client->add_product( [
-            "productNo" => uniqid('product_'),
-            "appId" => self::$oauth2_client_id,
-            "productName" => "Create product information",
-            "purchaseType" => "consumable",
-            "status"=> "inactive",
-            "currency"=> "CNY",
-            "country"=> "CN",
-            "defaultLocale"=> "zh-CN",
-            "defaultPrice"=> "4000",
-            "productDesc"=> "Test product description",
-            "languages"=> [ $this->get_language() ]
-        ]);
-        echo str_replace("{appId}", self::$oauth2_client_id, Constants::PMS_API_PRODUCT_MANAGEMENT."\n");
-        self::assertTrue( property_exists( $result, 'error' ) && $result->error->errorCode == 0 );
-    }
-
     private function get_language(): \stdClass {
         $locale = new \stdClass();
         $locale->locale = "en_US";
         $locale->productName = "Create product information";
         $locale->productDesc = "Test product description";
         return $locale;
+    }
+
+    /** Test: Creating a Product. */
+    public function test_add_product() {
+        $result = self::$client->add_product( [
+            "appId" => self::$oauth2_client_id,
+            "productNo" => uniqid('product_'),
+            "productName" => "Create product information",
+            "productDesc"=> "Test product description",
+            "purchaseType" => "consumable",
+            "status"=> "inactive",
+            "currency"=> "CNY",
+            "country"=> "CN",
+            "defaultLocale"=> "zh-CN",
+            "defaultPrice"=> "4000",
+            "languages"=> [ $this->get_language() ]
+        ]);
+        echo str_replace("{appId}", self::$oauth2_client_id, Constants::PMS_API_PRODUCT_MANAGEMENT."\n");
+        self::assertTrue( property_exists( $result, 'error' ) && $result->error->errorCode == 0 );
     }
 }
