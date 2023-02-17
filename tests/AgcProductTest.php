@@ -1,6 +1,7 @@
 <?php
 namespace Tests;
 
+use HMS\AppGallery\Constants;
 use HMS\AppGallery\Product\Product;
 
 /**
@@ -18,6 +19,7 @@ class AgcProductTest extends BaseTestCase {
         self::$debug_mode = true;
         self::$client = new Product([
             'project_id'                => self::$project_id,
+            'oauth2_client_id'          => self::$oauth2_client_id,
             'agc_team_client_id'        => self::$agc_team_client_id,
             'agc_team_client_secret'    => self::$agc_team_client_secret,
             'agc_project_client_id'     => self::$agc_project_client_id,
@@ -28,8 +30,31 @@ class AgcProductTest extends BaseTestCase {
         ]);
         self::assertNotFalse(self::$client->is_ready());
     }
-    /** Test: Dummy. */
-    public function test_dummy() {
-        self::assertTrue( true );
+
+    /** Test: Creating a Product. */
+    public function test_add_product() {
+        $result = self::$client->add_product( [
+            "productNo" => uniqid('product_'),
+            "appId" => self::$oauth2_client_id,
+            "productName" => "Create product information",
+            "purchaseType" => "consumable",
+            "status"=> "inactive",
+            "currency"=> "CNY",
+            "country"=> "CN",
+            "defaultLocale"=> "zh-CN",
+            "defaultPrice"=> "4000",
+            "productDesc"=> "Test product description",
+            "languages"=> [ $this->get_language() ]
+        ]);
+        echo str_replace("{appId}", self::$oauth2_client_id, Constants::PMS_API_PRODUCT_MANAGEMENT."\n");
+        self::assertTrue( property_exists( $result, 'error' ) && $result->error->errorCode == 0 );
+    }
+
+    private function get_language(): \stdClass {
+        $locale = new \stdClass();
+        $locale->locale = "en_US";
+        $locale->productName = "Create product information";
+        $locale->productDesc = "Test product description";
+        return $locale;
     }
 }

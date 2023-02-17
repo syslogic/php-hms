@@ -18,6 +18,7 @@ class AgcProjectTest extends BaseTestCase {
         self::$debug_mode = true;
         self::$client = new Project( [
             'project_id'                => self::$project_id,
+            'oauth2_client_id'          => self::$oauth2_client_id,
             'agc_team_client_id'        => self::$agc_team_client_id,
             'agc_team_client_secret'    => self::$agc_team_client_secret,
             'agc_project_client_id'     => self::$agc_project_client_id,

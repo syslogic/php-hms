@@ -58,7 +58,7 @@ class Constants {
     public const PROJECT_API_PROJECTS_URL = "/api/project-service/v1/projects";
     public const PROJECT_API_PROJECT_URL = "/api/project-service/v1/projects/";
 
-    public const PMS_API_PRODUCT_MANAGE_URL = "/api/pms/product-price-service/v1/manage/product";
+    public const PMS_API_PRODUCT_URL = "/api/pms/product-price-service/v1/manage/product";
     public const PMS_API_PRODUCTS_BATCH_IMPORT_URL = "/api/pms/product-price-service/v1/manage/product/batchImportProducts";
 
     // TODO
@@ -116,4 +116,5 @@ class Constants {
     public const PUBLISH_API_QUERY_COMPILATION_STATUS = "/api/publish/v2/aab/compile/status";
 
     public const PUBLISH_API_CERTIFICATES = "https://developer.huawei.com/consumer/en/service/josp/agc/index.html#/myApp/{appId}/9249519184596012000";
+    public const PMS_API_PRODUCT_MANAGEMENT = "https://developer.huawei.com/consumer/en/service/josp/agc/index.html#/myApp/{appId}/97458334310914209";
 }
