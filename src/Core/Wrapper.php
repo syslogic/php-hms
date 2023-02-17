@@ -40,7 +40,6 @@ use stdClass;
  */
 abstract class Wrapper {
 
-    protected string $base_url;
     protected int $oauth2_client_id = 0;
     protected string|null $oauth2_client_secret = null;
 
@@ -79,10 +78,12 @@ abstract class Wrapper {
     /** AGC app level access credentials */
     protected string|null $agc_app_client_secret = null;
 
+    protected bool $debug_mode = false;
+    protected string $base_url;
+
     protected Client $client;
     protected ResponseInterface $response;
     protected stdClass $result;
-    protected bool $debug_mode = false;
 
     /** Constructor. */
     public function __construct( array|null $config = null ) {
