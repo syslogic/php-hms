@@ -22,7 +22,7 @@ class Product extends Connect {
 
     /**
      * Provide HTTP request headers as array.
-     *@param bool $team_admin It determines which client_id to send.
+     * @param bool $team_admin It determines which client_id to send.
      */
     #[ArrayShape(['Content-Type' => 'string', 'Authorization' => 'string', 'client_id' => 'string', 'appId' => 'string'])]
     protected function auth_headers( bool $team_admin=false ): array {
