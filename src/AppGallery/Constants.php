@@ -68,7 +68,7 @@ class Constants {
     public const PMS_API_PRODUCT_SUBSCRIPTION_GROUP_URL = "/api/pms/product-price-service/v1/manage/product/group";
 
     /** @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-getproductgroup-0000001115868348 Querying a Product Subscription Group */
-    public const PMS_API_PRODUCT_SUBSCRIPTION_GROUP_QUERY_URL = "/api/pms/product-price-service/v1/manage/product/group/list";
+    public const PMS_API_PRODUCT_SUBSCRIPTION_GROUPS_URL = "/api/pms/product-price-service/v1/manage/product/group/list";
 
     /** @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-bygetproductinfo-0000001116028256 Searching Products by Criteria */
     public const PMS_API_PRODUCTS_QUERY_URL = "/api/pms/product-price-service/v1/manage/product/list";

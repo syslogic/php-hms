@@ -17,8 +17,8 @@ class AgcProductTest extends BaseTestCase {
 
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {
-        parent::setUpBeforeClass();
 
+        parent::setUpBeforeClass();
         echo str_replace("{appId}", self::$oauth2_client_id, Constants::PMS_API_PRODUCT_MANAGEMENT."\n");
         self::$product_id = uniqid('product_');
         self::$debug_mode = true;
@@ -82,10 +82,18 @@ class AgcProductTest extends BaseTestCase {
     }
 
     /** Test: Querying Details of a Product. */
-    public function test_get_product_details() {
-        $result = self::$client->get_product_details( self::$product_id );
+    public function test_product_info() {
+        $result = self::$client->product_info( self::$product_id );
         self::assertTrue( property_exists( $result, 'error' ) && $result->error->errorCode == 0 );
         self::assertTrue( property_exists($result, 'product' ) && is_object($result->product) );
         echo print_r($result->product, true);
+    }
+
+    /** Test: Querying Product Subscription Groups. */
+    public function test_product_subscription_groups() {
+        $result = self::$client->product_subscription_groups();
+        self::assertTrue( property_exists( $result, 'error' ) && $result->error->errorCode == 0 );
+        self::assertTrue( property_exists($result, 'simpleGroups' ) && is_array($result->simpleGroups) );
+        echo print_r($result->simpleGroups, true);
     }
 }

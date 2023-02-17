@@ -51,10 +51,43 @@ class Product extends Connect {
     }
 
     /** @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-getproductinfo-0000001162468147 Querying Details of a Product */
-    public function get_product_details( string $product_code ): \stdClass {
+    public function product_info( string $product_code ): \stdClass {
         $url = $this->base_url.Constants::PMS_API_PRODUCT_URL;
         $headers = $this->auth_headers(true);
         $payload = ['productNo' => $product_code];
         return $this->request('GET', $url, $headers, $payload );
+    }
+    private function order_by( string $name, string $direction='asc' ): \stdClass {
+        $order_by = new \stdClass();
+        $order_by->$name = $direction;
+        return $order_by;
+    }
+    /**
+     * @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-getproductgroup-0000001115868348 Querying Product Subscription Groups
+     * @param int $page_num   Query start page number. The default value is 1.
+     * @param int $page_size  Number of records on each page. The default value is 20.
+     *                        Value range: 1-300
+     * @param string|null $order_by Indicates whether the query results are sorted in ascending or descending order.
+     * A JSON object needs to be passed, in which key indicates the attribute name and value specifies the ordering mode.
+     * If this parameter is not passed, the query results are sorted by creation time in the database in descending order by default.
+     * The options of key are as follows:
+     * - name: subscription group name.
+     * - createTime: creation time.
+     * - updateTime: update time.
+     * The options of value are desc (descending order) and asc (ascending order).
+     * For example, to sort records by name in descending order and createTime in ascending order,
+     * use the configuration {"name": "desc","createTime": "asc"}.
+     * @param string|null $request_id Request sequence number, which is a unique identifier defined by you.
+     */
+    public function product_subscription_groups( int $page_num=1, int $page_size=20, ?string $order_by=null, ?string $request_id=null ): \stdClass {
+        $url = $this->base_url.Constants::PMS_API_PRODUCT_SUBSCRIPTION_GROUPS_URL;
+        $headers = $this->auth_headers(true);
+        $payload = [
+            'requestId' => $request_id ?? uniqid('hms_'),
+            // 'orderBy' => (object) ['name' => 'asc'],
+            'pageSize' => $page_size,
+            'pageNum' => $page_num
+        ];
+        return $this->request('POST', $url, $headers, $payload );
     }
 }

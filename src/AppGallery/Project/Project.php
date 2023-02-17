@@ -29,9 +29,9 @@ class Project extends Connect {
 
     /**
      * Provide HTTP request headers as array.
-     * @param bool $team_admin It determines which client_id to send.
+     * @param bool $team_admin does nothing.
      */
-    #[ArrayShape(['Content-Type' => 'string', 'Authorization' => 'string', 'client_id' => 'string'])]
+    #[ArrayShape(['Content-Type' => 'string', 'oauth2Token' => 'string'])]
     protected function auth_headers( bool $team_admin=true ): array {
         return [
             'Content-Type' => 'application/json;charset=utf-8',
