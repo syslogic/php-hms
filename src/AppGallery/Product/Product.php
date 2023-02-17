@@ -35,10 +35,26 @@ class Product extends Connect {
     }
 
     /** @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-addproduct-0000001115868346 Creating a Product */
-    public function add_product( array $item=[] ): \stdClass {
+    public function create_product( array $item=[] ): \stdClass {
         $url = $this->base_url.Constants::PMS_API_PRODUCT_URL;
         $headers = $this->auth_headers(true);
         $payload = ['requestId' => uniqid('hms_'), 'product' => $item];
         return $this->request('POST', $url, $headers, $payload);
+    }
+
+    /** @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-updateproduct-0000001162548125 Updating a Product */
+    public function update_product( array $item=[] ): \stdClass {
+        $url = $this->base_url.Constants::PMS_API_PRODUCT_URL;
+        $headers = $this->auth_headers(true);
+        $payload = ['requestId' => uniqid('hms_'), 'resource' => $item];
+        return $this->request('PUT', $url, $headers, $payload);
+    }
+
+    /** @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-getproductinfo-0000001162468147 Querying Details of a Product */
+    public function get_product_details( string $product_code ): \stdClass {
+        $url = $this->base_url.Constants::PMS_API_PRODUCT_URL;
+        $headers = $this->auth_headers(true);
+        $payload = ['productNo' => $product_code];
+        return $this->request('GET', $url, $headers, $payload );
     }
 }

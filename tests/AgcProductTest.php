@@ -18,7 +18,11 @@ class AgcProductTest extends BaseTestCase {
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {
         parent::setUpBeforeClass();
+
+        echo str_replace("{appId}", self::$oauth2_client_id, Constants::PMS_API_PRODUCT_MANAGEMENT."\n");
+        self::$product_id = uniqid('product_');
         self::$debug_mode = true;
+
         self::$client = new Product([
             'project_id'                => self::$project_id,
             'oauth2_client_id'          => self::$oauth2_client_id,
@@ -31,33 +35,57 @@ class AgcProductTest extends BaseTestCase {
             'debug_mode'                => self::$debug_mode
         ]);
         self::assertNotFalse(self::$client->is_ready());
-        self::$product_id = uniqid('product_');
     }
 
     private function get_language(): \stdClass {
         $locale = new \stdClass();
-        $locale->locale = "en_US";
+        $locale->locale = "en-US";
         $locale->productName = "Create product information";
         $locale->productDesc = "Test product description";
         return $locale;
     }
 
     /** Test: Creating a Product. */
-    public function test_add_product() {
-        $result = self::$client->add_product( [
+    public function test_create_product() {
+        $result = self::$client->create_product( [
             "appId" => self::$oauth2_client_id,
             "productNo" => self::$product_id,
-            "status"=> "inactive",
             "purchaseType" => "consumable",
+            "status"=> "inactive",
             "productName" => "Create product information",
             "productDesc"=> "Test product description",
-            "currency"=> "CNY",
-            "country"=> "CN",
-            "defaultLocale"=> "zh-CN",
-            "defaultPrice"=> "4000",
+            "currency"=> "EUR",
+            "country"=> "DE",
+            "defaultLocale"=> "de_DE",
+            "defaultPrice"=> "2",
             "languages"=> [ $this->get_language() ]
         ]);
-        echo str_replace("{appId}", self::$oauth2_client_id, Constants::PMS_API_PRODUCT_MANAGEMENT."\n");
         self::assertTrue( property_exists( $result, 'error' ) && $result->error->errorCode == 0 );
+    }
+
+    /** Test: Creating a Product. */
+    public function test_update_product() {
+        $result = self::$client->update_product( [
+            "appId" => self::$oauth2_client_id,
+            "productNo" => self::$product_id,
+            "purchaseType" => "consumable",
+            "status"=> "inactive",
+            "productName" => "Update product information",
+            "productDesc"=> "Updated product description",
+            "currency"=> "EUR",
+            "country"=> "DE",
+            "defaultLocale"=> "de_DE",
+            "defaultPrice"=> "20",
+            "languages"=> [ $this->get_language() ]
+        ]);
+        self::assertTrue( property_exists( $result, 'error' ) && $result->error->errorCode == 0 );
+    }
+
+    /** Test: Querying Details of a Product. */
+    public function test_get_product_details() {
+        $result = self::$client->get_product_details( self::$product_id );
+        self::assertTrue( property_exists( $result, 'error' ) && $result->error->errorCode == 0 );
+        self::assertTrue( property_exists($result, 'product' ) && is_object($result->product) );
+        echo print_r($result->product, true);
     }
 }
