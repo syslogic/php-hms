@@ -178,7 +178,7 @@ composer run-script docs
 ### Known Issues
  - When receiving an `Error 10021: Invalid clientId` this may suggest,<br/>that the API which one tries to access is not enabled for the project.<br/>
 Enabling the desired API on the [AppGallery Connect](https://developer.huawei.com/consumer/en/service/josp/agc/index.html) console should help.
- - `MapKit` endpoint `routeService` is not Map Kit API, but [Navi Kit API](https://developer.huawei.com/consumer/en/hms/huawei-navikit/).
+ - `MapKit` endpoint `routeService` is not the Map Kit API, but [Navi Kit API](https://developer.huawei.com/consumer/en/hms/huawei-navikit/).
  - Huawei Cloud SMS doesn't seem to be available in Europe and Russia.
 
 ### License
