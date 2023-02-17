@@ -21,11 +21,11 @@ This project aims to abstract Huawei REST API, according to the official API doc
 |                                 [`MapKit`](https://github.com/syslogic/php-hms/blob/master/src/MapKit) |        |     |  working  |                                                                                 |
 |                                 [`AdsKit`](https://github.com/syslogic/php-hms/blob/master/src/AdsKit) |        |     |  working  |                                                                                 |
 |                     [`AnalyticsKit`](https://github.com/syslogic/php-hms/blob/master/src/AnalyticsKit) |   *    |     |  working  |                                                                                 |
-| [`AppGallery\AuthService`](https://github.com/syslogic/php-hms/tree/master/src/AppGallery/AuthService) |  AGC   |     | partially |                                                                             |
+| [`AppGallery\AuthService`](https://github.com/syslogic/php-hms/tree/master/src/AppGallery/AuthService) |  AGC   |     | partially |                                                                                 |
 |   [`AppGallery\Publishing`](https://github.com/syslogic/php-hms/tree/master/src/AppGallery/Publishing) |  AGC   |     | partially | [Gradle Plugin](https://github.com/syslogic/agconnect-publishing-gradle-plugin) |
 |                             [`DriveKit`](https://github.com/syslogic/php-hms/tree/master/src/DriveKit) |   *    |     | partially |                                                                                 |
 |                       [`GameService`](https://github.com/syslogic/php-hms/tree/master/src/GameService) |        |     | untested  |                                                                                 |
-|                           [`SearchKit`](https://github.com/syslogic/php-hms/blob/master/src/SearchKit) |   *    |     | partially |                                                                                 |
+|                           [`SearchKit`](https://github.com/syslogic/php-hms/blob/master/src/SearchKit) |   *    |     | working   |                                                                                 |
 |                             [`CloudSms`](https://github.com/syslogic/php-hms/blob/master/src/CloudSms) |        |     | untested  |                                                                                 |
 |                           [`WalletKit`](https://github.com/syslogic/php-hms/blob/master/src/WalletKit) |   *    |     | partially |                                                                                 |
 
