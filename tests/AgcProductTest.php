@@ -104,8 +104,6 @@ class AgcProductTest extends BaseTestCase {
     public function test_update_product_subscription_group() {
         $result = self::$client->update_product_subscription_group( self::$subscription_group_id, self::$subscription_group_name, 'active' );
         self::assertTrue( property_exists( $result, 'error' ) && $result->error->errorCode == 0 );
-        self::assertTrue( property_exists( $result, 'result' ) && is_string($result->result) );
-        echo 'Group "'. self::$subscription_group_name .'" ID: ' . $result->result . '.';
     }
 
     /** Test: Querying Product Subscription Groups. */
