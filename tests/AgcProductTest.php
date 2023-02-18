@@ -15,7 +15,7 @@ class AgcProductTest extends BaseTestCase {
 
     private static string $product_id;
     private static ?string $subscription_group_id;
-    private static string $subscription_group_name = 'PHPUnit Group';
+    private static string $subscription_group_name = 'Test Subscription Group';
 
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {
