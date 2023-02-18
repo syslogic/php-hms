@@ -21,7 +21,8 @@ class AgcProductTest extends BaseTestCase {
     public static function setUpBeforeClass(): void {
 
         parent::setUpBeforeClass();
-        echo str_replace("{appId}", self::$oauth2_client_id, Constants::PMS_API_PRODUCT_MANAGEMENT."\n");
+        echo 'AppGallery: ';
+        echo str_replace("{appId}", self::$oauth2_client_id, Constants::PMS_API_PRODUCT_MANAGEMENT."\n\n");
         self::$product_id = uniqid('product_');
         self::$debug_mode = true;
 
@@ -102,7 +103,7 @@ class AgcProductTest extends BaseTestCase {
 
     /** Test: Updating a Product Subscription Group. */
     public function test_update_product_subscription_group() {
-        $result = self::$client->update_product_subscription_group( self::$subscription_group_id, self::$subscription_group_name, 'active' );
+        $result = self::$client->update_product_subscription_group( self::$subscription_group_id, self::$subscription_group_name );
         self::assertTrue( property_exists( $result, 'error' ) && $result->error->errorCode == 0 );
     }
 

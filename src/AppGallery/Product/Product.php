@@ -68,7 +68,7 @@ class Product extends Connect {
     }
 
     /** @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-updateproductgroup-0000001162548123 Updating a Product Subscription Group */
-    public function update_product_subscription_group( string $group_id, string $group_name, bool $status=true): \stdClass {
+    public function update_product_subscription_group( string $group_id, string $group_name, bool $status=true ): \stdClass {
         $url = $this->base_url.Constants::PMS_API_PRODUCT_URL;
         $headers = $this->auth_headers(true);
         $data = ['$groupId' => $group_id, 'groupName' => $group_name, 'status' => $status ? 'active' : 'delete'];
