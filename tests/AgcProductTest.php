@@ -19,8 +19,8 @@ class AgcProductTest extends BaseTestCase {
     private static string $subscription_group_name = 'Test Subscription Group';
     private static ?string $product_promotion_id;
     private static ?string $product_promotion_title = 'Test Product Promotion';
-    private static int $one_week =  7 * 86400;
-    private static int $two_weeks = 14 * 86400;
+    private static int $plus_one_week;
+    private static int $plus_two_weeks;
 
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {
@@ -28,6 +28,8 @@ class AgcProductTest extends BaseTestCase {
         echo 'AppGallery: ';
         echo str_replace("{appId}", self::$oauth2_client_id, Constants::PMS_API_PRODUCT_MANAGEMENT."\n\n");
         self::$product_id = uniqid('product_');
+        self::$plus_one_week  = (time() +  7 * 86400) * 1000;
+        self::$plus_two_weeks = (time() + 14 * 86400) * 1000;
         self::$debug_mode = true;
 
         self::$client = new Product( [
@@ -67,7 +69,7 @@ class AgcProductTest extends BaseTestCase {
             "currency"=> "EUR",
             "country"=> "DE",
             "defaultLocale"=> "de_DE",
-            "defaultPrice"=> "2",
+            "defaultPrice"=> "999",
             "languages"=> [ $this->get_language() ]
         ]);
         self::assertTrue( property_exists( $result, 'error' ) && $result->error->errorCode == 0 );
@@ -88,7 +90,7 @@ class AgcProductTest extends BaseTestCase {
             "currency"=> "EUR",
             "country"=> "DE",
             "defaultLocale"=> "de_DE",
-            "defaultPrice"=> "20",
+            "defaultPrice"=> "1999",
             "languages"=> [ $this->get_language() ]
         ]);
         self::assertTrue( property_exists( $result, 'error' ) && $result->error->errorCode == 0 );
@@ -135,32 +137,38 @@ class AgcProductTest extends BaseTestCase {
      */
     public function test_create_product_promotion() {
         $result = self::$client->create_product_promotion( [
-            'defaultLocale' => self::$locale,
             'productNo' => self::$product_id,
             'promotionTitle' => self::$product_promotion_title,
-            'startDate' => time() + self::$one_week,
-            'endDate' => time() + self::$two_weeks,
-            'strategy' => 'trial', // trial or introductory.
+            'startDate' => self::$plus_one_week,
+            'endDate' => self::$plus_two_weeks,
+            'strategy' => 'introductory', // trial or introductory.
+            "currency"=> "EUR",           // required for: introductory.
+            "country"=> "DE",             // required for: introductory.
+            "defaultLocale"=> "de_DE",    // required for: introductory.
+            "defaultPrice"=> "499",       // required for: introductory.
             'status' => 'active'
         ] );
 
         self::assertTrue( property_exists( $result, 'error' ) && $result->error->errorCode == 0 );
-        self::assertTrue( property_exists( $result, 'result' ) && is_string($result->result) );
-        self::$product_promotion_id = $result->result;
-        echo print_r($result, true);
+        self::assertTrue( property_exists( $result, 'promotionId' ) && is_string($result->promotionId) );
+        self::$product_promotion_id = $result->promotionId;
+        echo 'Product "'. self::$product_id .'" Promotion ID: ' . self::$product_promotion_id . '.';
     }
 
     /** Test: Updating a Product Promotion. */
     public function test_update_product_promotion() {
         $result = self::$client->update_product_promotion([
             'promotionId' => self::$product_promotion_id,
-            'defaultLocale' => self::$locale,
             'productNo' => self::$product_id,
             'promotionTitle' => self::$product_promotion_title,
-            'startDate' => time() + self::$one_week,
-            'endDate' => time() + self::$two_weeks,
-            'strategy' => 'trial', // trial or introductory.
-            'status' => 'inactive'
+            'startDate' => self::$plus_one_week,
+            'endDate' => self::$plus_two_weeks,
+            'strategy' => 'introductory', // trial or introductory.
+            "currency"=> "EUR",           // required for: introductory.
+            "country"=> "DE",             // required for: introductory.
+            "defaultLocale"=> "de_DE",    // required for: introductory.
+            "defaultPrice"=> "899",       // required for: introductory.
+            'status' => 'active'
         ] );
         self::assertTrue( property_exists( $result, 'error' ) && $result->error->errorCode == 0 );
         echo print_r($result, true);
@@ -168,7 +176,8 @@ class AgcProductTest extends BaseTestCase {
 
     /** Test: Querying Promotion Details of a Product. */
     public function test_product_promotion_info() {
-        $result = self::$client->product_promotion_info(self::$product_promotion_id);
+        self::assertTrue( isset(self::$product_promotion_id) );
+        $result = self::$client->product_promotion_info( self::$product_promotion_id );
         self::assertTrue( property_exists( $result, 'error' ) && $result->error->errorCode == 0 );
         echo print_r($result, true);
     }
