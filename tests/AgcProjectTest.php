@@ -18,7 +18,15 @@ class AgcProjectTest extends BaseTestCase {
         parent::setUpBeforeClass();
         self::load_user_access_token();
         self::$debug_mode = true;
-        self::$client = new Project( self::get_user_config() );
+
+        self::$client = new Project( [
+            'project_id'             => self::$project_id,
+            'oauth2_client_id'       => self::$oauth2_client_id,
+            'agc_team_client_id'     => self::$agc_team_client_id,
+            'agc_team_client_secret' => self::$agc_team_client_secret,
+            'access_token'           => self::$user_access_token,
+            'debug_mode'             => self::$debug_mode
+        ] );
     }
 
     /** Test: Team Account List. */
