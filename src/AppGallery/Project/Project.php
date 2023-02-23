@@ -47,11 +47,62 @@ class Project extends Connect {
     }
 
     /** @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-appbriefinfo-0000001111845106 Obtaining App Brief Information */
-    public function app_brief_info( int $team_id ): \stdClass {
+    public function app_brief_info( int $developer_id, string $package_names ): \stdClass {
         $url = $this->base_url.Constants::PROJECT_API_APP_BRIEF_INFO_URL;
         $headers = $this->auth_headers(true);
-        $headers['userID'] = $team_id;
-        $payload = ['appId' => $this->oauth2_client_id];
+        $headers['userID'] = $developer_id;
+        $payload = ['packageNames' => $package_names];
+        return $this->request('GET', $url, $headers, $payload );
+    }
+
+    /** @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-getconfigfile-0000001158365065 Obtaining the Configuration File */
+    public function app_config_file( int $team_id, int $app_id ): \stdClass {
+        $url = $this->base_url.Constants::PROJECT_API_CONFIG_FILE_URL;
+        $headers = $this->auth_headers(true);
+        $payload = ['appId' => $app_id];
+        return $this->request('GET', $url, $headers, $payload );
+    }
+
+    /** @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-addappfingerprint-0000001111685218 Adding a Certificate Fingerprint */
+    public function add_certificate_fingerprint( int $team_id, int $developer_id, int $app_id ): \stdClass {
+        $url = $this->base_url.Constants::PROJECT_API_FINGERPRINT_URL . $app_id;
+        $headers = $this->auth_headers(true);
+        $headers['teamId'] = $team_id;
+        $headers['uid'] = $developer_id;
+        $payload = ['appId' => $app_id];
+        return $this->request('PUT', $url, $headers, $payload );
+    }
+
+    /** @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-queryappfingerprint-0000001158245077 Querying the Certificate Fingerprint and App Secret */
+    public function get_certificate_fingerprint( int $team_id, int $developer_id, int $app_id ): \stdClass {
+        $url = $this->base_url.Constants::PROJECT_API_FINGERPRINT_URL . $app_id;
+        $headers = $this->auth_headers(true);
+        $headers['teamId'] = $team_id;
+        $headers['uid'] = $developer_id;
+        return $this->request('GET', $url, $headers );
+    }
+
+    /** @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-queryservice-0000001111845108 Querying Service Enabling Status */
+    public function service_status(  int $project_id, int $app_id ): \stdClass {
+        $url = $this->base_url.Constants::PROJECT_API_SERVICE_STATUS_URL;
+        $headers = $this->auth_headers(true);
+        $payload = ['projectId' => $project_id, 'appId' => $app_id];
+        return $this->request('GET', $url, $headers, $payload );
+    }
+
+    /** @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-queryprojectdetail-0000001158365067 Querying Project Details and Apps Under the Project */
+    public function project_details( int $project_id ): \stdClass {
+        $url = $this->base_url.Constants::PROJECT_API_PROJECT_URL . $project_id;
+        $headers = $this->auth_headers(true);
+        return $this->request('GET', $url, $headers );
+    }
+
+    /** @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-queryprojectlist-0000001111685220 Querying the Project List */
+    public function project_list( int $team_id, int $from_page=1, int $page_size=100 ): \stdClass {
+        $url = $this->base_url.Constants::PROJECT_API_PROJECTS_URL;
+        $headers = $this->auth_headers(true);
+        $headers['teamId'] = $team_id;
+        $payload = ['fromPage' => $from_page, 'pageSize' => $page_size];
         return $this->request('GET', $url, $headers, $payload );
     }
 }

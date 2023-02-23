@@ -51,8 +51,8 @@ class Constants {
     public const REPORT_API_INSTALLATION_FAILURE_GET_URL = "/api/report/distribution-operation-quality/v1/appDownloadFailExport/";
 
     public const PROJECT_API_TEAM_LIST_URL = "/api/ups/user-permission-service/v1/user-team-list";
-    public const PROJECT_API_APP_BRIEF_INFO_URL = "/api/cds/app-distirbution/v1/all/app-brief-info/list";
     public const PROJECT_API_CONFIG_FILE_URL = "/api/cpms/project-management-service/v1/config-file";
+    public const PROJECT_API_APP_BRIEF_INFO_URL = "/api/cds/app-distirbution/v1/all/app-brief-info/list";
     public const PROJECT_API_FINGERPRINT_URL = "/api/cds/app-distirbution/v1/all/app-extra-info/";
     public const PROJECT_API_SERVICE_STATUS_URL = "/api/cpms/project-service/v1/services/order-api";
     public const PROJECT_API_PROJECTS_URL = "/api/project-service/v1/projects";
