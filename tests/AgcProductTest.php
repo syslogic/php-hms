@@ -14,10 +14,13 @@ class AgcProductTest extends BaseTestCase {
     private static ?Product $client;
 
     private static string $product_id;
+    private static string $locale = 'en_US';
     private static ?string $subscription_group_id;
     private static string $subscription_group_name = 'Test Subscription Group';
     private static ?string $product_promotion_id;
     private static ?string $product_promotion_title = 'Test Product Promotion';
+    private static int $one_week =  7 * 86400;
+    private static int $two_weeks = 14 * 86400;
 
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {
@@ -59,7 +62,7 @@ class AgcProductTest extends BaseTestCase {
             "productNo" => self::$product_id,
             "purchaseType" => "consumable",
             "status"=> "inactive",
-            "productName" => "Create product information",
+            "productName" => "Test consumable",
             "productDesc"=> "Test product description",
             "currency"=> "EUR",
             "country"=> "DE",
@@ -80,7 +83,7 @@ class AgcProductTest extends BaseTestCase {
             "productNo" => self::$product_id,
             "purchaseType" => "consumable",
             "status"=> "inactive",
-            "productName" => "Update product information",
+            "productName" => "Test consumable (updated)",
             "productDesc"=> "Updated product description",
             "currency"=> "EUR",
             "country"=> "DE",
@@ -113,6 +116,7 @@ class AgcProductTest extends BaseTestCase {
 
     /** Test: Updating a Product Subscription Group. */
     public function test_update_product_subscription_group() {
+        self::assertTrue( isset(self::$subscription_group_id) );
         $result = self::$client->update_product_subscription_group( self::$subscription_group_id, self::$subscription_group_name );
         self::assertTrue( property_exists( $result, 'error' ) && $result->error->errorCode == 0 );
     }
@@ -130,14 +134,12 @@ class AgcProductTest extends BaseTestCase {
      * @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-pms-ppromotioninfo-0000001116028268 ProductPromotionInfo
      */
     public function test_create_product_promotion() {
-        $one_week =  7 * 86400;
-        $two_weeks = 14 * 86400;
         $result = self::$client->create_product_promotion( [
-            'defaultLocale' => 'en_US',
+            'defaultLocale' => self::$locale,
             'productNo' => self::$product_id,
             'promotionTitle' => self::$product_promotion_title,
-            'startDate' => time() + $one_week,
-            'endDate' => time() + $two_weeks,
+            'startDate' => time() + self::$one_week,
+            'endDate' => time() + self::$two_weeks,
             'strategy' => 'trial', // trial or introductory.
             'status' => 'active'
         ] );
@@ -150,14 +152,23 @@ class AgcProductTest extends BaseTestCase {
 
     /** Test: Updating a Product Promotion. */
     public function test_update_product_promotion() {
-        $result = self::$client->update_product_promotion();
+        $result = self::$client->update_product_promotion([
+            'promotionId' => self::$product_promotion_id,
+            'defaultLocale' => self::$locale,
+            'productNo' => self::$product_id,
+            'promotionTitle' => self::$product_promotion_title,
+            'startDate' => time() + self::$one_week,
+            'endDate' => time() + self::$two_weeks,
+            'strategy' => 'trial', // trial or introductory.
+            'status' => 'inactive'
+        ] );
         self::assertTrue( property_exists( $result, 'error' ) && $result->error->errorCode == 0 );
         echo print_r($result, true);
     }
 
     /** Test: Querying Promotion Details of a Product. */
     public function test_product_promotion_info() {
-        $result = self::$client->product_promotion_info();
+        $result = self::$client->product_promotion_info(self::$product_promotion_id);
         self::assertTrue( property_exists( $result, 'error' ) && $result->error->errorCode == 0 );
         echo print_r($result, true);
     }
@@ -166,6 +177,8 @@ class AgcProductTest extends BaseTestCase {
     public function test_product_promotions() {
         $result = self::$client->product_promotions( [] );
         self::assertTrue( property_exists( $result, 'error' ) && $result->error->errorCode == 0 );
-        echo print_r($result, true);
+        self::assertTrue( property_exists($result, 'productPromotions' ) && is_array($result->productPromotions) );
+        self::assertTrue( property_exists($result, 'totalNumber' ) && is_int($result->totalNumber) );
+        echo print_r($result->productPromotions, true);
     }
 }
