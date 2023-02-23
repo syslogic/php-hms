@@ -17,6 +17,7 @@ class AgcProductTest extends BaseTestCase {
     private static ?string $subscription_group_id;
     private static string $subscription_group_name = 'Test Subscription Group';
     private static ?string $product_promotion_id;
+    private static ?string $product_promotion_title = 'Test Product Promotion';
 
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {
@@ -26,7 +27,7 @@ class AgcProductTest extends BaseTestCase {
         self::$product_id = uniqid('product_');
         self::$debug_mode = true;
 
-        self::$client = new Product([
+        self::$client = new Product( [
             'project_id'                => self::$project_id,
             'oauth2_client_id'          => self::$oauth2_client_id,
             'agc_team_client_id'        => self::$agc_team_client_id,
@@ -36,7 +37,7 @@ class AgcProductTest extends BaseTestCase {
             'agc_app_client_id'         => self::$agc_app_client_id,
             'agc_app_client_secret'     => self::$agc_app_client_secret,
             'debug_mode'                => self::$debug_mode
-        ]);
+        ] );
         self::assertNotFalse(self::$client->is_ready());
     }
 
@@ -117,7 +118,7 @@ class AgcProductTest extends BaseTestCase {
 
     /** Test: Creating a Product Promotion. */
     public function test_create_product_promotion() {
-        $result = self::$client->create_product_promotion( self::$subscription_group_name );
+        $result = self::$client->create_product_promotion( self::$product_id, self::$product_promotion_title, '2023-03-01', '2023-03-02' );
         self::assertTrue( property_exists( $result, 'error' ) && $result->error->errorCode == 0 );
         self::assertTrue( property_exists( $result, 'result' ) && is_string($result->result) );
         self::$product_promotion_id = $result->result;
