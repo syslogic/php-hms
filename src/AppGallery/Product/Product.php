@@ -105,20 +105,10 @@ class Product extends Connect {
     }
 
     /** @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-addpromotion-0000001115868352 Creating a Product Promotion */
-    public function create_product_promotion( string $product_id, string $promotion_title, string $start_date, string $end_date ): \stdClass {
+    public function create_product_promotion( array $item=[] ): \stdClass {
         $url = $this->base_url.Constants::PMS_API_PRODUCT_PROMOTION_URL;
         $headers = $this->auth_headers(true);
-        $payload = [
-            'requestId' => uniqid('hms_'),
-            'resource' => [
-                'defaultLocale' => 'en-US',
-                'productNo' => $product_id,
-                'promotionTitle' => $promotion_title,
-                'startDate' => $start_date,
-                'endDate' => $end_date,
-                'status' => 'active'
-            ]
-        ];
+        $payload = ['requestId' => uniqid('hms_'), 'resource' => $item];
         return $this->request('POST', $url, $headers, $payload );
     }
 

@@ -118,7 +118,15 @@ class AgcProductTest extends BaseTestCase {
 
     /** Test: Creating a Product Promotion. */
     public function test_create_product_promotion() {
-        $result = self::$client->create_product_promotion( self::$product_id, self::$product_promotion_title, '2023-03-01', '2023-03-02' );
+        $result = self::$client->create_product_promotion( [
+            'defaultLocale' => 'en-US',
+            'productNo' => self::$product_id,
+            'promotionTitle' => self::$product_promotion_title,
+            'startDate' => '2023-03-01',
+            'endDate' => '2023-03-02',
+            'status' => 'active'
+        ] );
+
         self::assertTrue( property_exists( $result, 'error' ) && $result->error->errorCode == 0 );
         self::assertTrue( property_exists( $result, 'result' ) && is_string($result->result) );
         self::$product_promotion_id = $result->result;
