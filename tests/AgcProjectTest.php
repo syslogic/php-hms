@@ -1,6 +1,7 @@
 <?php
 namespace Tests;
 
+use HMS\AppGallery\Constants;
 use HMS\AppGallery\Project\Project;
 
 /**
@@ -20,9 +21,10 @@ class AgcProjectTest extends BaseTestCase {
         self::$debug_mode = true;
 
         self::$client = new Project( [
-            'package_name'     => self::$package_name,
-            'access_token'     => self::$user_access_token,
-            'debug_mode'       => self::$debug_mode
+            'package_name' => self::$package_name,
+            'access_token' => self::$user_access_token,
+            'base_url'     => Constants::CONNECT_API_BASE_URL_EU,
+            'debug_mode'   => self::$debug_mode
         ] );
     }
 

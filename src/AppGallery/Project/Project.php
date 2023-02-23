@@ -41,7 +41,7 @@ class Project extends Connect {
 
     /** @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-getteamlist-0000001158245075 Obtaining the Team List */
     public function team_list(): \stdClass {
-        $url = $this->base_url.Constants::PROJECT_API_TEAM_LIST_URL;
+        $url = Constants::CONNECT_API_BASE_URL.Constants::PROJECT_API_TEAM_LIST_URL;
         $headers = $this->auth_headers(true);
         return $this->request('GET', $url, $headers );
     }
