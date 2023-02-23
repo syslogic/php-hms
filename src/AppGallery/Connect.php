@@ -8,6 +8,7 @@ use JetBrains\PhpStorm\ArrayShape;
 /**
  * Class HMS AppGallery Connect Wrapper
  *
+ * @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-Guides/agcapi-getstarted-0000001111845114#section172443596398 Applying for the API scope
  * @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-Guides/agcapi-getstarted-0000001111845114 Getting Started
  * @author Martin Zeitler
  */
