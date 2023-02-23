@@ -16,10 +16,10 @@ class AgcProductTest extends BaseTestCase {
     private static string $product_id;
     private static ?string $subscription_group_id;
     private static string $subscription_group_name = 'Test Subscription Group';
+    private static ?string $product_promotion_id;
 
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {
-
         parent::setUpBeforeClass();
         echo 'AppGallery: ';
         echo str_replace("{appId}", self::$oauth2_client_id, Constants::PMS_API_PRODUCT_MANAGEMENT."\n\n");
@@ -113,5 +113,35 @@ class AgcProductTest extends BaseTestCase {
         self::assertTrue( property_exists( $result, 'error' ) && $result->error->errorCode == 0 );
         self::assertTrue( property_exists($result, 'simpleGroups' ) && is_array($result->simpleGroups) );
         echo print_r($result->simpleGroups, true);
+    }
+
+    /** Test: Creating a Product Promotion. */
+    public function test_create_product_promotion() {
+        $result = self::$client->create_product_promotion( self::$subscription_group_name );
+        self::assertTrue( property_exists( $result, 'error' ) && $result->error->errorCode == 0 );
+        self::assertTrue( property_exists( $result, 'result' ) && is_string($result->result) );
+        self::$product_promotion_id = $result->result;
+        echo print_r($result, true);
+    }
+
+    /** Test: Updating a Product Promotion. */
+    public function test_update_product_promotions() {
+        $result = self::$client->update_product_promotions();
+        self::assertTrue( property_exists( $result, 'error' ) && $result->error->errorCode == 0 );
+        echo print_r($result, true);
+    }
+
+    /** Test: Querying Promotion Details of a Product. */
+    public function test_product_promotion_info() {
+        $result = self::$client->product_promotion_info();
+        self::assertTrue( property_exists( $result, 'error' ) && $result->error->errorCode == 0 );
+        echo print_r($result, true);
+    }
+
+    /** Test: Searching Product Promotions by Criteria. */
+    public function test_product_promotions() {
+        $result = self::$client->product_promotions( [] );
+        self::assertTrue( property_exists( $result, 'error' ) && $result->error->errorCode == 0 );
+        echo print_r($result, true);
     }
 }
