@@ -47,10 +47,10 @@ class Project extends Connect {
     }
 
     /** @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-appbriefinfo-0000001111845106 Obtaining App Brief Information */
-    public function app_brief_info( int $developer_id, string $package_names ): \stdClass {
+    public function app_brief_info( int $team_id, string $package_names ): \stdClass {
         $url = $this->base_url.Constants::PROJECT_API_APP_BRIEF_INFO_URL;
         $headers = $this->auth_headers(true);
-        $headers['userID'] = $developer_id;
+        $headers['userID'] = $team_id;
         $payload = ['packageNames' => $package_names];
         return $this->request('GET', $url, $headers, $payload );
     }
@@ -91,10 +91,11 @@ class Project extends Connect {
     }
 
     /** @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-queryprojectdetail-0000001158365067 Querying Project Details and Apps Under the Project */
-    public function project_details( int $project_id ): \stdClass {
+    public function project_details( int $project_id,  bool $query_apps=false ): \stdClass {
         $url = $this->base_url.Constants::PROJECT_API_PROJECT_URL . $project_id;
         $headers = $this->auth_headers(true);
-        return $this->request('GET', $url, $headers );
+        $payload = ['queryFlag' => $query_apps ? 1 : 0];
+        return $this->request('GET', $url, $headers, $payload );
     }
 
     /** @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-queryprojectlist-0000001111685220 Querying the Project List */

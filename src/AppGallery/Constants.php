@@ -27,7 +27,7 @@ class Constants {
     public const CONNECT_API_BASE_URL = "https://connect-api.cloud.huawei.com"; // China
     public const CONNECT_API_BASE_URL_EU = "https://connect-api-dre.cloud.huawei.com"; // Germany
     public const CONNECT_API_BASE_URL_AS = "https://connect-api-dra.cloud.huawei.com"; // Singapore
-    public const CONNECT_API_BASE_URL_RU = "https://connect-api-drru.cloud.huawei.com"; // Singapore
+    public const CONNECT_API_BASE_URL_RU = "https://connect-api-drru.cloud.huawei.com"; // Russia
 
     /** Connect API has its own oAuth2 token endpoint. */
     public const AUTH_SERVICE_OAUTH2_TOKEN_URL = "/api/oauth2/v1/token";
