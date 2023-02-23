@@ -23,6 +23,15 @@ class Constants {
     public const AUTH_PROVIDER_EMAIL_ADDRESS      = 12;
     public const AUTH_PROVIDER_APPLE_ID           = 13;
 
+    /** @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-Guides/agcapi-getstarted-0000001111845114#section172443596398 Applying for the API scope */
+    public const CONNECT_API_SCOPES = [
+        "https://www.huawei.com/auth/agc/project",      // Project Management API
+        "https://www.huawei.com/auth/agc/publish",      // Publishing API
+        "https://www.huawei.com/auth/agc/report/read",  // Reports API read.only
+        "https://www.huawei.com/auth/agc/product/read", // PMS API read.only
+        "https://www.huawei.com/auth/agc/product"       // PMS API
+    ];
+
     /** The Gateway URL may be overridden by the configuration in file `agconnect-services.json`. */
     public const CONNECT_API_BASE_URL = "https://connect-api.cloud.huawei.com"; // China
     public const CONNECT_API_BASE_URL_EU = "https://connect-api-dre.cloud.huawei.com"; // Germany
