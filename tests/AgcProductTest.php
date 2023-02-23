@@ -49,7 +49,10 @@ class AgcProductTest extends BaseTestCase {
         return $locale;
     }
 
-    /** Test: Creating a Product. */
+    /**
+     * Test: Creating a Product.
+     * @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-pms-productinfo-0000001162468157 ProductInfo
+     */
     public function test_create_product() {
         $result = self::$client->create_product( [
             "appId" => self::$oauth2_client_id,
@@ -67,7 +70,10 @@ class AgcProductTest extends BaseTestCase {
         self::assertTrue( property_exists( $result, 'error' ) && $result->error->errorCode == 0 );
     }
 
-    /** Test: Creating a Product. */
+    /**
+     * Test: Updating a Product.
+     * @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-pms-productinfo-0000001162468157 ProductInfo
+     */
     public function test_update_product() {
         $result = self::$client->update_product( [
             "appId" => self::$oauth2_client_id,
@@ -93,7 +99,10 @@ class AgcProductTest extends BaseTestCase {
         echo print_r($result->product, true);
     }
 
-    /** Test: Creating a Product Subscription Group. */
+    /**
+     * Test: Creating a Product Subscription Group.
+     * @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-pms-pgroupinfo-0000001115868358 ProductGroupInfo
+     */
     public function test_create_product_subscription_group() {
         $result = self::$client->create_product_subscription_group( self::$subscription_group_name );
         self::assertTrue( property_exists( $result, 'error' ) && $result->error->errorCode == 0 );
@@ -116,14 +125,20 @@ class AgcProductTest extends BaseTestCase {
         echo print_r($result->simpleGroups, true);
     }
 
-    /** Test: Creating a Product Promotion. */
+    /**
+     * Test: Creating a Product Promotion.
+     * @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-pms-ppromotioninfo-0000001116028268 ProductPromotionInfo
+     */
     public function test_create_product_promotion() {
+        $one_week =  7 * 86400;
+        $two_weeks = 14 * 86400;
         $result = self::$client->create_product_promotion( [
-            'defaultLocale' => 'en-US',
+            'defaultLocale' => 'en_US',
             'productNo' => self::$product_id,
             'promotionTitle' => self::$product_promotion_title,
-            'startDate' => '2023-03-01',
-            'endDate' => '2023-03-02',
+            'startDate' => time() + $one_week,
+            'endDate' => time() + $two_weeks,
+            'strategy' => 'trial', // trial or introductory.
             'status' => 'active'
         ] );
 
