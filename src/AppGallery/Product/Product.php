@@ -113,7 +113,7 @@ class Product extends Connect {
     }
 
     /** @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-updatepromotion-0000001162468151 Updating a Product Promotion */
-    public function update_product_promotions( array $item=[] ): \stdClass {
+    public function update_product_promotion( array $item=[] ): \stdClass {
         $url = $this->base_url.Constants::PMS_API_PRODUCT_PROMOTION_URL;
         $headers = $this->auth_headers(true);
         $payload = ['requestId' => uniqid('hms_'), 'resource' => $item];

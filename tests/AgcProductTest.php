@@ -134,8 +134,8 @@ class AgcProductTest extends BaseTestCase {
     }
 
     /** Test: Updating a Product Promotion. */
-    public function test_update_product_promotions() {
-        $result = self::$client->update_product_promotions();
+    public function test_update_product_promotion() {
+        $result = self::$client->update_product_promotion();
         self::assertTrue( property_exists( $result, 'error' ) && $result->error->errorCode == 0 );
         echo print_r($result, true);
     }
