@@ -34,7 +34,7 @@ This project aims to abstract Huawei REST API, according to the official API doc
 
 The endpoints marked with an asterisk require interactive two-legged oAuth2 flow; eg. see [`www`](https://github.com/syslogic/php-hms/blob/master/www)<br/>
 One can run these unit tests only with a previously cached user access token, obtained by login.<br/>
-The AppGallery Connect endpoints (marked with `AGC`) do require team admin API client credentials.
+The `AGC` AppGallery Connect endpoints do require "team admin" API client credentials.
 
 ### Prerequisites
 
