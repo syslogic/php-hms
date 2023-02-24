@@ -47,8 +47,8 @@ class AgcProductTest extends BaseTestCase {
 
     private function get_language(): \stdClass {
         $locale = new \stdClass();
-        $locale->locale = "en-US";
-        $locale->productName = "Create product information";
+        $locale->locale = "en_US";
+        $locale->productName = "Test consumable";
         $locale->productDesc = "Test product description";
         return $locale;
     }
