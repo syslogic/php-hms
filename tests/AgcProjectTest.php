@@ -13,6 +13,9 @@ class AgcProjectTest extends BaseTestCase {
 
     private static ?Project $client;
 
+    /** Android debug keystore SHA-265 fingerprint */
+    private static string $key_fingerprint = '09:3F:65:B3:A8:FB:8E:B3:6D:90:E9:A8:CA:AC:29:72:AF:70:4F:47:1E:CE:5A:3A:9F:EF:F6:8E:EC:20:16:D3';
+
     /** This method is called before the first test of this test class is run. */
     public static function setUpBeforeClass(): void {
         parent::setUpBeforeClass();
@@ -49,7 +52,7 @@ class AgcProjectTest extends BaseTestCase {
 
     /** Test: Adding a Certificate Fingerprint. */
     public function test_add_certificate_fingerprint() {
-        $result = self::$client->add_certificate_fingerprint( self::$developer_id, self::$developer_id, self::$agc_app_client_id );
+        $result = self::$client->add_certificate_fingerprint( self::$developer_id, self::$developer_id, self::$agc_app_client_id, self::$key_fingerprint );
         self::assertTrue( property_exists( $result, 'code' ) && $result->code == 0, $result->message );
     }
 

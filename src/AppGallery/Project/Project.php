@@ -33,7 +33,16 @@ class Project extends Connect {
      */
     #[ArrayShape(['Content-Type' => 'string', 'oauth2Token' => 'string'])]
     protected function auth_headers( bool $team_admin=true ): array {
-        return ['Content-Type' => 'application/json;charset=utf-8', 'oauth2Token' => $this->access_token];
+        return [
+            'Content-Type' => 'application/json;charset=utf-8',
+            'oauth2Token' => $this->access_token
+        ];
+    }
+
+    /** The certificate fingerprint cannot contain colons (:). */
+    private function strip_colons( string $fingerprint ): string {
+        if (! str_contains($fingerprint, ':')) {return $fingerprint;}
+        else {return str_replace(':', '', $fingerprint);}
     }
 
     /** @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-getteamlist-0000001158245075 Obtaining the Team List */
@@ -60,12 +69,12 @@ class Project extends Connect {
     }
 
     /** @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-addappfingerprint-0000001111685218 Adding a Certificate Fingerprint */
-    public function add_certificate_fingerprint( int $team_id, int $developer_id, int $app_id ): \stdClass {
+    public function add_certificate_fingerprint( int $team_id, int $developer_id, int $app_id, string $key_fingerprint ): \stdClass {
         $url = $this->base_url.Constants::PROJECT_API_FINGERPRINT_URL . $app_id;
         $headers = $this->auth_headers();
-        $headers['teamId'] = $team_id;
-        $headers['uid'] = $developer_id;
-        $payload = ['appId' => $app_id];
+        $headers['teamId'] = $team_id; // ID of the team account to which an app belongs?
+        $headers['uid'] = $developer_id; // Developer account ID
+        $payload = ['addCertFingerprints' => $this->strip_colons($key_fingerprint)];
         return $this->request('PUT', $url, $headers, $payload );
     }
 
