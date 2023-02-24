@@ -45,7 +45,11 @@ class Project extends Connect {
         else {return str_replace(':', '', $fingerprint);}
     }
 
-    /** @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-getteamlist-0000001158245075 Obtaining the Team List */
+    /**
+     * This is the only one endpoint which works without requesting any additional API scopes;
+     * others won't function despite having requested: https://www.huawei.com/auth/agc/project.
+     * @link https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/agcapi-getteamlist-0000001158245075 Obtaining the Team List
+     */
     public function team_list(): \stdClass {
         $url = Constants::CONNECT_API_BASE_URL.Constants::PROJECT_API_TEAM_LIST_URL;
         return $this->request('GET', $url, $this->auth_headers() );
