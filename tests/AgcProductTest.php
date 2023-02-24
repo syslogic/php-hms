@@ -14,7 +14,6 @@ class AgcProductTest extends BaseTestCase {
     private static ?Product $client;
 
     private static string $product_id;
-    private static string $locale = 'en_US';
     private static ?string $subscription_group_id;
     private static string $subscription_group_name = 'Test Subscription Group';
     private static ?string $product_promotion_id;
