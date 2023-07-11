@@ -21,16 +21,14 @@
     "url": "https://www.paypal.me/syslogic"
   }],
   "scripts": {
-    "docs": "phpDocumentor.phar",
     "coverage_linux": "export XDEBUG_MODE=coverage && vendor/bin/phpunit --bootstrap vendor/autoload.php --configuration phpunit.xml --testsuite main",
     "coverage_windows": "setlocal xdebug.mode=coverage && %cd%/vendor/bin/phpunit --bootstrap vendor/autoload.php --configuration phpunit.xml --testsuite main",
-    "test": "vendor/bin/phpunit --bootstrap vendor/autoload.php --configuration phpunit.xml --testsuite main"
+    "docs": "phpDocumentor.phar"
   },
   "scripts-descriptions": {
-    "docs": "Generate code documentation with phpDocumentor",
     "coverage_linux": "Run PHPUnit tests with code coverage on Linux",
     "coverage_windows": "Run PHPUnit tests with code coverage on Windows",
-    "test": "Run PHPUnit tests"
+    "docs": "Generate code documentation with phpDocumentor"
   },
   "require": {
     "php": ">=8.0",

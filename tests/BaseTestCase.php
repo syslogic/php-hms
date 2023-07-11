@@ -15,8 +15,8 @@ abstract class BaseTestCase extends TestCase {
     protected static string $build_path;
     protected static bool $debug_mode = false;
 
-    protected static int $oauth2_client_id = 0;            // OAuth2 client ID.
-    protected static ?string $oauth2_client_secret = null; // OAuth2 client Secret.
+    protected static int $oauth2_client_id = 0;                 // OAuth2 client ID.
+    protected static ?string $oauth2_client_secret = null;      // OAuth2 client Secret.
     protected static string $user_access_token_path = '../.credentials/huawei_token.json';
     protected static ?string $user_access_token = null;
     protected static string $resource_path = 'resources/';
@@ -26,11 +26,11 @@ abstract class BaseTestCase extends TestCase {
     protected static ?string $agc_team_client_secret = null;    // AGConnect API.
     protected static int $agc_project_client_id = 0;            // AGConnect API.
     protected static ?string $agc_project_client_secret = null; // AGConnect API.
-    protected static int $agc_app_client_id = 0;               // AGConnect API.
-    protected static ?string $agc_app_client_secret = null;    // AGConnect API.
+    protected static int $agc_app_client_id = 0;                // AGConnect API.
+    protected static ?string $agc_app_client_secret = null;     // AGConnect API.
 
-    protected static ?string $signature_key = null;            // Map Kit.
-    protected static ?string $api_key = null;                  // Map Kit.
+    protected static ?string $signature_key = null;             // Map Kit.
+    protected static ?string $api_key = null;                   // Map Kit.
 
     protected static ?string $package_name = null;
     protected static int $developer_id = 0;
