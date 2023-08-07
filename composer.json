@@ -36,7 +36,7 @@
     "ext-curl": "*",
     "phpseclib/phpseclib": "^3.0.21",
     "guzzlehttp/guzzle": "^7.7.0",
-    "guzzlehttp/psr7": "^2.5.0",
+    "guzzlehttp/psr7": "^2.6.0",
     "psr/http-message": "^2.0"
   },
   "require-dev": {
