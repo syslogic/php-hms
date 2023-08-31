@@ -27,12 +27,11 @@ jobs:
       uses: actions/cache@v3
       with:
         path: vendor
-        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.json') }}
-        restore-keys: |
-          ${{ runner.os }}-php-
+        key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
 
     - name: 🔢 Install dependencies
       id: composer-dependencies
+      if: steps.composer-cache.outputs.cache-hit != 'true'
       run: composer install --prefer-dist --no-progress
 
 #    GitHub Actions are pretty useless, while the `client_secret` is being stripped out.
