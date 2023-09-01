@@ -2,6 +2,7 @@ __*/
 .phpunit.result.cache
 agconnect-services.json
 composer.lock
-/.settings/
-/vendor/
-/docs/
+/.settings
+/build
+/docs
+/vendor
