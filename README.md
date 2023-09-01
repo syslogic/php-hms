@@ -38,7 +38,7 @@ The `AGC` AppGallery Connect endpoints do require "team admin" API client creden
 
 ### Prerequisites
 
-This library depends on the following environmental variables:
+This client can be configured with either an array, or with environmental variables.
 
 #### AppGallery Connect API:
 
