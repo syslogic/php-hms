@@ -32,7 +32,7 @@ This project aims to abstract Huawei REST API, according to the official API doc
 |                             [`CloudSms`](https://github.com/syslogic/php-hms/blob/master/src/CloudSms) |        | untested  |                                                                                 |
 |                           [`WalletKit`](https://github.com/syslogic/php-hms/blob/master/src/WalletKit) |   *    | partially |                                                                                 |
 
-The endpoints marked with an asterisk require interactive two-legged oAuth2 flow; eg. see [`www`](https://github.com/syslogic/php-hms/blob/master/www)<br/>
+The endpoints marked with an asterisk require interactive two-legged [oAuth2 flow](https://iamblockc.medium.com/oauth-2-0-concepts-oauth-flows-8debed7a9abc); eg. see [`www`](https://github.com/syslogic/php-hms/blob/master/www)<br/>
 One can run these unit tests only with a previously cached user access token, obtained by login.<br/>
 The `AGC` AppGallery Connect endpoints do require "team admin" API client credentials.
 
