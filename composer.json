@@ -34,7 +34,7 @@
     "php": ">=8.0",
     "ext-json": "*",
     "ext-curl": "*",
-    "phpseclib/phpseclib": "^3.0.37",
+    "phpseclib/phpseclib": "^3.0.39",
     "guzzlehttp/guzzle": "^7.8.1",
     "guzzlehttp/psr7": "^2.6.2",
     "psr/http-message": "^1.1"
