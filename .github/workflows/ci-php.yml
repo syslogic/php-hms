@@ -12,7 +12,7 @@ jobs:
     environment:
       name: CI
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v5
 
     - name: 🗄️ Provide agconnect-services.json
       id: agconnect-services
